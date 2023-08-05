@@ -1,0 +1,35 @@
+div .body{
+    display: flex;
+    
+}
+
+div .categorias form select{
+    color: rgb(203, 202, 202);
+    width: 90%;
+    background-color: rgb(95, 95, 95);
+    margin-left: 50px;
+    margin-top: 10px;
+    padding: 2px;
+}
+
+
+div .buscador{
+    color: rgb(203, 202, 202);
+    width: 25%;
+    height: 5%;
+    background-color: rgb(95, 95, 95);
+    margin-left: 750px;
+    margin-top: 10px;
+    border-radius: 0.8rem;
+    
+}
+
+div .buscador p{
+    margin: 0;
+    padding-left: 10px;
+}
+
+div .imagenCategoria{
+    background-color: rgb(103, 103, 103);
+    height: 70%;
+}

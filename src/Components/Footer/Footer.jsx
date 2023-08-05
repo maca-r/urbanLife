@@ -1,0 +1,15 @@
+import React from 'react'
+import styles from "./Footer.module.css"
+const Footer = () => {
+    return (
+        <div className={styles.footer}>
+
+            <img src="./images/logo.png" alt="logo Urban Life"/>
+            <h5>2023 - </h5>
+            <h6>Copyright</h6>
+            
+        </div>
+    )
+}
+
+export default Footer
