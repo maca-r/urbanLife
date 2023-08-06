@@ -1,5 +1,5 @@
 export const routes = {
     home: "/",
-    dentist: "product/:id",
+    detail: "product/:id",
     notFound: "*",
 }

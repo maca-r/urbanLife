@@ -8,7 +8,7 @@ const Navbar = () => {
         <nav>
         
             <Link to={routes.home} className={styles.logo}>
-                <img src="./images/logo.png" alt="logo Urban Life"/>
+                <img src="/images/logo.png" alt="logo Urban Life"/>
                 <h6>lema</h6>
             </Link>
             

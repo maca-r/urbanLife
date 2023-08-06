@@ -4,9 +4,10 @@ const Footer = () => {
     return (
         <div className={styles.footer}>
 
-            <img src="./images/logo.png" alt="logo Urban Life"/>
-            <h5>2023 - </h5>
-            <h6>Copyright</h6>
+            <img src="/images/logo.png" alt="logo Urban Life"/>
+            <h6>Copyright - 2023</h6>
+            
+            
             
         </div>
     )

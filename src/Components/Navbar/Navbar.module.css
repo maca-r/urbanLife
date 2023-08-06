@@ -3,15 +3,17 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 100vw;
-    padding: 0.5rem;
+    padding: 2% 5%;
+    
     margin: 0;
-    background-color: #2b2b28;
+    background-color: #7f7f7f;
     /*e3b04b
     F1D6AB*/
     color: #3c3c3c;
     position: sticky;
     top:0;
 }
+
 
 nav a{
     color: #2b2b28;
@@ -24,39 +26,42 @@ nav .logo{
 }
 
 nav .logo img {
-    border-radius: 10vh;
+    border-radius: 50%;
     width: 20%;
-    margin-left: 5%;
+    
 }
 
 nav .logo h6{
     padding-left: 5%;
 }
 
+
 nav .rutas a{
     font-size: 0.78rem;
     padding: 0.2rem;
-    border-right: 0.1rem solid #e3b04b;
-    background-color: #f1d6ab;
+    border-right: 0.1rem solid b4b4b4;
+    background-color: #b4b4b4;
     
-    
+}
+
+nav .rutas a:hover{
+    color: #3f3f3f;
 }
 
 .crearCuenta{
     border-top-left-radius: 0.45rem;
     border-bottom-left-radius: 0.45rem;
-    border-top: 0.1rem solid #e3b04b;
-    border-left: 0.1rem solid #e3b04b;
-    border-bottom: 0.1rem solid #e3b04b;
-    
+    border-top: 0.1rem solid #3c3c3c;
+    border-left: 0.1rem solid #3c3c3c;
+    border-bottom: 0.1rem solid #3c3c3c;
     
 }
 
 .iniciarSesion{
     border-top-right-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
-    border-top: 0.1rem solid #e3b04b;
-    border-bottom: 0.1rem solid #e3b04b;
+    border-top: 0.1rem solid #3c3c3c;
+    border-bottom: 0.1rem solid #3c3c3c;
     
 }
 
