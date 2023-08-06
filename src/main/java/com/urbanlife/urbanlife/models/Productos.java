@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Table
@@ -19,11 +19,13 @@ public class Productos {
     @SequenceGenerator(name="productos_sequence", sequenceName = "productos_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productos_sequence")
 
-    private int idProducto;
+    private Integer idProducto;
     private String nombre;
     private double precio;
     private String detalle;
     private String color;
+    private LocalDateTime fechaActual;
+    private Boolean eliminarProducto;
 
     @OneToMany(mappedBy = "productos", fetch = FetchType.LAZY)
     @JsonIgnore
