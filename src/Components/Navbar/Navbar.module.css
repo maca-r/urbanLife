@@ -39,7 +39,7 @@ nav .logo h6{
 nav .rutas a{
     font-size: 0.78rem;
     padding: 0.2rem;
-    border-right: 0.1rem solid b4b4b4;
+    border-right: 0.1rem solid #1f1f1f;
     background-color: #b4b4b4;
     
 }
@@ -51,17 +51,17 @@ nav .rutas a:hover{
 .crearCuenta{
     border-top-left-radius: 0.45rem;
     border-bottom-left-radius: 0.45rem;
-    border-top: 0.1rem solid #3c3c3c;
-    border-left: 0.1rem solid #3c3c3c;
-    border-bottom: 0.1rem solid #3c3c3c;
+    border-top: 0.1rem solid #1f1f1f;
+    border-left: 0.1rem solid #1f1f1f;
+    border-bottom: 0.1rem solid #1f1f1f;
     
 }
 
 .iniciarSesion{
     border-top-right-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
-    border-top: 0.1rem solid #3c3c3c;
-    border-bottom: 0.1rem solid #3c3c3c;
+    border-top: 0.1rem solid #1f1f1f;
+    border-bottom: 0.1rem solid #1f1f1f;
     
 }
 

@@ -4,7 +4,9 @@
     align-items: center;
     justify-content: center;
     
+    
 }
+
 
 .detalleProducto h2{
     font-size: 1.5rem;
@@ -62,3 +64,7 @@
 
 
 
+@media (min-width: 480px){
+
+    
+}
