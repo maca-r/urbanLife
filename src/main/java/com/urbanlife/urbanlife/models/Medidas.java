@@ -14,7 +14,7 @@ public class Medidas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idMedida;
+    private Integer idMedida;
     private String talle;
 
 }
