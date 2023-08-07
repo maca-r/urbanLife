@@ -1,35 +1,42 @@
 div .body{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     
 }
 
-div .categorias form select{
-    color: rgb(203, 202, 202);
-    width: 90%;
-    background-color: rgb(95, 95, 95);
-    margin-left: 50px;
-    margin-top: 10px;
-    padding: 2px;
+form input{
+    width: 40vw;
+    border-radius: 5px;
+    height: 20px
 }
 
-
-div .buscador{
-    color: rgb(203, 202, 202);
-    width: 25%;
-    height: 5%;
-    background-color: rgb(95, 95, 95);
-    margin-left: 750px;
-    margin-top: 10px;
-    border-radius: 0.8rem;
-    
+.categoria{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90vw;
 }
 
-div .buscador p{
-    margin: 0;
-    padding-left: 10px;
+.categoria div img{
+    height: 300px;
 }
 
-div .imagenCategoria{
-    background-color: rgb(103, 103, 103);
-    height: 70%;
+.producAleatorio{
+    display: flex;
+}
+
+.producAleatorio div div{
+    display: flex;
+    gap: 10px;
+}
+
+.producAleatorio div div div {
+    display: flex;
+    flex-direction: column;
+}
+
+.producAleatorio div div img{
+    height: 100px;
 }
