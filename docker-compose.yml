@@ -21,7 +21,7 @@ services:
       context: .
 
     ports:
-      - 80:80
+      - 81:81
 
     environment:
       MYSQL_DATASOURCE_URL: jdbc:mysql://db:3306/urbanlife
