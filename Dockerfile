@@ -10,7 +10,7 @@ RUN mvn package -DskipTests
 # Crea una nueva imagen con la aplicación compilada
 FROM openjdk:17
 WORKDIR /app
-COPY --from=build /app/target/antonativa-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=build /app/target/urbanlife-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Expone el puerto en el que tu aplicación escucha
 EXPOSE 8080
