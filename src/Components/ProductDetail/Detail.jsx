@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { DatePicker } from '@mui/x-date-pickers'
 import styles from './Detail.module.css'
-
 import Carousel from 'react-bootstrap/Carousel';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
+
 
 
 
@@ -38,16 +34,17 @@ const Detail = () => {
   
 
   const images = [
-    'https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+    
     'https://images.unsplash.com/photo-1603252109612-24fa03d145c8?ixlib=rb-4.0.3&  ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
     'https://images.unsplash.com/photo-1603251578711-3290ca1a0187?ixlib=rb-4.0.3&  ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
     'https://images.unsplash.com/photo-1602810319428-019690571b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+    "https://images.unsplash.com/photo-1602810316693-3667c854239a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
   ];
 
-  const [selectedImage, setSelectedImage] = useState(images[0]);
-  const handleImageClick = (index) => {
-    setSelectedImage(images[index]);
-  };
+  // const [selectedImage, setSelectedImage] = useState(images[0]);
+  // const handleImageClick = (index) => {
+  //   setSelectedImage(images[index]);
+  // };
 
 
   return (
@@ -73,19 +70,27 @@ const Detail = () => {
         </Carousel.Item>
       </Carousel>
       
-      <div className={styles.containerImg}>
+      <div className={styles.container}>
         
+
+        {/* código para una img grande donde se vea la que se selecciona desde las img más chicas */}
+          {/* <div className={styles.largeImg}>
+            <img src={selectedImage} />
+          </div> */}
+
           <div className={styles.largeImg}>
-            <Image src={selectedImage} fluid/>
+            <img src='https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=725&q=80' alt="" />
           </div>
+
+
           <div className={styles.smallImg}>
             {images.map((image, index) => (
-              <Image
+              <img
                 key={index}
                 src={image}
-                className={`${selectedImage === image ? 'selected' : ''}`}
-                onClick={() => handleImageClick(index)}
-                thumbnail
+                // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
+                // onClick={() => handleImageClick(index)}
+                
                 style={{maxWidth: "auto",
                   height: "auto",
                   cursor: "pointer",
@@ -99,16 +104,21 @@ const Detail = () => {
     <button></button>
       
 
-    <div className={styles.tallesReserva}>
-        <button>TALLE S</button>
-        <button>TALLE M</button>
-        {/* <DatePicker className={styles.datePicker} /> */}
-    </div>
 
-    <div className={styles.precioReserva} >
-        <h5>PRECIO: $100</h5>
-        <button>RESERVAR</button>
+    <div className={styles.gridTallesPrecio}>
+      
+      <div className={styles.tallesReserva}>
+          <button>TALLE S</button>
+          <button>TALLE M</button>
+          {/* <DatePicker className={styles.datePicker} /> */}
+      </div>
+
+      <div className={styles.precioReserva} >
+          <h5>PRECIO: $100</h5>
+          <button>RESERVAR</button>
+      </div>
     </div>
+    
         
       
 

@@ -6,17 +6,17 @@ nav {
     padding: 2% 5%;
     
     margin: 0;
-    background-color: #7f7f7f;
+    background-color: #F1D6AB;
     /*e3b04b
     F1D6AB*/
-    color: #3c3c3c;
+    color: #2B2B28;
     position: sticky;
     top:0;
 }
 
 
 nav a{
-    color: #2b2b28;
+    color:  #2B2B28;
     width: 55%;
 }
 
@@ -39,29 +39,29 @@ nav .logo h6{
 nav .rutas a{
     font-size: 0.78rem;
     padding: 0.2rem;
-    border-right: 0.1rem solid #1f1f1f;
-    background-color: #b4b4b4;
+    border-right: 0.1rem solid #2B2B28;
+    background-color: #E3B04B;
     
 }
 
 nav .rutas a:hover{
-    color: #3f3f3f;
+    color: #F1D6AB;
 }
 
 .crearCuenta{
     border-top-left-radius: 0.45rem;
     border-bottom-left-radius: 0.45rem;
-    border-top: 0.1rem solid #1f1f1f;
-    border-left: 0.1rem solid #1f1f1f;
-    border-bottom: 0.1rem solid #1f1f1f;
+    border-top: 0.1rem solid #2B2B28;
+    border-left: 0.1rem solid #2B2B28;
+    border-bottom: 0.1rem solid #2B2B28;
     
 }
 
 .iniciarSesion{
     border-top-right-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
-    border-top: 0.1rem solid #1f1f1f;
-    border-bottom: 0.1rem solid #1f1f1f;
+    border-top: 0.1rem solid #2B2B28;
+    border-bottom: 0.1rem solid #2B2B28;
     
 }
 

@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     
-    
 }
 
 
@@ -13,42 +12,15 @@
     margin-top: 5%;
 }
 
-
-.precioReserva{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 3%;
-    width: 70%;
-
-    
-    
+.gridTallesPrecio{
+    width: 100%;
 }
 
-.precioReserva h5{
-    
-    text-align: center;
-    padding: 4.5%;
-    font-size: 0.8rem;
-    width: 47%;
-    height: 45px;
-    border: 2px dashed black;
-    margin: 0;
-}
-
-.precioReserva button{
-    text-align: center;
-    font-size: 0.8rem;
-    padding: 4.5%;
-    height: 45px;
-    border-radius: 0;
-    width: 47%;
-}
 
 .tallesReserva{
     margin-left: 10%;
     margin-top: 3%;
-    width: 90%;
+    width: 70%;
     display: flex;
     
 }
@@ -60,37 +32,104 @@
     padding: 2% 5%;
     border-radius: 0;
     margin-bottom: 5%;
+    background-color: #F8F8F8;
+    border: 2px solid #2B2B28;
+    color: #2B2B28;
 }
 
-.containerImg{
+.precioReserva{
+    display: flex;
+    width: 30%;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-left: 10%;
+    width: 100%;
+
+}
+
+.precioReserva h5{
+    
+    text-align: center;
+    padding: 3%;
+    font-size: 0.8rem;
+    width: 30%;
+    height: 45px;
+    border: 2px dashed #E3B04B;
+    margin: 0;
+    margin-right: 2%;
+    border-radius: 7px;
+}
+
+.precioReserva button{
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 3%;
+    height: 45px;
+    border-radius: 7px;
+    width: 50%;
+    background-color: #E3B04B;
+    
+}
+
+
+
+.container{
     display: none
 }
 
 
 @media (min-width: 480px){
-    .containerImg{
-        display:grid;
-        
-        grid-template-columns: 2fr 1fr;
-        gap: 20px;   
+    .detalleProducto{
+        width: 100%;
+    }
+
+    .detalleProducto h2{
+        font-size: 3rem;
+        margin-right: 70%;
+    }
+
+    .container{
+        display: flex;
+        width: ;
+
+    }
+
+    .largeImg{
+        margin-right: 15%;
+        width: max-content;
     }
     
-    .largeImg{
+    .largeImg img{
         width: ;
-        grid-column: 1 / span 1
+        height: max-content;
+        
+        
+        
     }
 
     .smallImg{
-        width: 150%;
         display: grid;
-        grid-template-columns: repeat(2,1fr); /* Cuatro columnas iguales */
-        gap: 10px;
         
+        grid-template-columns: repeat(2, 0.7fr);
+        grid-template-rows: repeat(2, 0.7fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
     }
 
-    .small-img {
-        max-width: auto;
-        height: auto;
-        cursor: pointer;
+    .smallImg img {
+        width: 50%
+        ;
     }
+
+    .tallesReserva{
+        width: 50%;
+        justify-content: flex-end;
+        margin: 0;
+    }
+
+    .precioReserva{
+        width: 50%;
+        justify-content: flex-end;
+    }
+
 }
