@@ -4,11 +4,8 @@ nav {
     align-items: center;
     width: 100vw;
     padding: 2% 5%;
-    
     margin: 0;
     background-color: #F1D6AB;
-    /*e3b04b
-    F1D6AB*/
     color: #2B2B28;
     position: sticky;
     top:0;
@@ -17,7 +14,13 @@ nav {
 
 nav a{
     color:  #2B2B28;
-    width: 55%;
+    width: 45%;
+}
+
+nav a:active{
+    background-color: #F1D6AB;
+    color: #2B2B28;
+    border: 2px solid #E3B04B
 }
 
 nav .logo{
@@ -49,6 +52,7 @@ nav .rutas a:hover{
 }
 
 .crearCuenta{
+    text-transform:uppercase;
     border-top-left-radius: 0.45rem;
     border-bottom-left-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28;
@@ -58,6 +62,7 @@ nav .rutas a:hover{
 }
 
 .iniciarSesion{
+    text-transform: uppercase;
     border-top-right-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28;

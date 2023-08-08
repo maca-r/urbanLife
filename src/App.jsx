@@ -7,18 +7,15 @@ import Layout from "./Components/Layout"
 import Home from './Components/Home/Home'
 import Detail from './Components/ProductDetail/Detail'
 import NotFound from "./Routes/NotFound"
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
 
-function App({children}) {
+function App() {
   
 
   return (
     <>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {children}
+
           <Routes>
             <Route path='/' element={<Layout/>}>
               <Route path={routes.home} element={<Home/>}/>
@@ -26,7 +23,6 @@ function App({children}) {
               <Route path={routes.notFound} element={<NotFound/>}/>
             </Route>
           </Routes>
-        </LocalizationProvider>
     </>
 
   )
