@@ -13,6 +13,29 @@ const Home = () => {
         // realizariamos las solicitudes a la API.
         console.log('Texto de búsqueda:', searchText);
     };  
+
+
+//     const [carouselVisible, setCarouselVisible] = useState("block")
+//     const [dimensions, setDimensions] = useState(window.innerWidth)
+
+//     useEffect(() => {
+//     function handleResize() {
+//         if(dimensions >= 480) {
+//             setCarouselVisible("none")
+//             setDimensions(window.innerWidth)
+//     } else{
+
+//         setCarouselVisible("block")
+//     }
+
+//     }
+//     window.addEventListener("load",handleResize)
+//     window.addEventListener("resize", handleResize)
+
+//   },[dimensions])
+
+
+
     return (
         <div className={styles.body}>
 
@@ -28,87 +51,116 @@ const Home = () => {
             {/* <button type="submit">Buscar</button> */}
         </form>
 
-        {/* CATEGORIA */}
-
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
             <div>
                 <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <h4>Categoria 1</h4>
-                <p>$$$$</p>
+                <div>
+                    <h4>Categoria 1</h4>
+                </div>
             </div>
             <div>
                 <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <h4>Categoria 2</h4>
-                <p>$$$$</p>
+                <div>
+                    <h4>Categoria 2</h4>
+                </div>
             </div>
             <div>
                 <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <h4>Categoria 3</h4>
-                <p>$$$$</p>
+                <div>
+                    <h4>Categoria 3</h4>
+                </div>
             </div>
             <div>
                 <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <h4>Categoria 4</h4>
-                <p>$$$$</p>
+                <div>
+                    <h4>Categoria 4</h4>
+                </div>
             </div>
         </div>
 
-        {/* PRODUCTOS ALEATORIOS */}
-        <h2>PRODUCTOS ALEATORIOS</h2>
-        <div  className={styles.producAleatorio}>
-            <div>
-                <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                    <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
-                    </div>
-                </div>
-                <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                    <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
-                    </div>
-                </div>
-                <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                    <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
-                    </div>
-                </div>
-            </div>
 
-            <div>
+        <div className={styles.producAleatorioBox}>
+            <h2>PRODUCTOS ALEATORIOS</h2>
+            <div  className={styles.producAleatorio}>
                 <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
                     <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div  className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div  className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
                     </div>
                 </div>
+
                 <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
                     <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div  className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
                     <div>
-                        <p>Product Name</p>
-                        <p>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</p>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div  className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                        </div>
+                        <div  className={styles.textoProduct}>
+                            <h5>Product Name</h5>
+                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-    
-    </div>
+
+        {/* <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
+            {images.map((image, index) => (
+                <Carousel.Item key={index}>
+                <img 
+                    src={image}
+                    style={{width: "100%",
+                    height: "auto",
+                    cursor: "pointer",
+                }}
+                />
+                </Carousel.Item>
+                
+            ))}
+        </Carousel> */}
         
+    </div>
     )
 }
 
