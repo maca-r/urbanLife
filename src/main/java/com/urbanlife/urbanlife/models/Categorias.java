@@ -3,6 +3,7 @@ package com.urbanlife.urbanlife.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Table
@@ -10,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Categorias {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

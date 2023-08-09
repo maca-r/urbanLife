@@ -31,7 +31,7 @@ public class MedidaService implements IMedidaService {
     }
 
     @Override
-    public Collection<Medidas> getAllMedidas() {
-        return (List<Medidas>) medidaRepository.findAll();
+    public List<Medidas> getAllMedidas() {
+        return medidaRepository.findAll();
     }
 }
