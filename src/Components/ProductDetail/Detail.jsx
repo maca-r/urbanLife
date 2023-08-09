@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
+import { useNavigate} from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const Detail = () => {
 
@@ -41,6 +44,8 @@ const Detail = () => {
     "TALLE S", "TALLE M", "TALLE L"
   ]
 
+
+  const navigate = useNavigate()
   // const [selectedImage, setSelectedImage] = useState(images[0]);
   // const handleImageClick = (index) => {
   //   setSelectedImage(images[index]);
@@ -48,9 +53,18 @@ const Detail = () => {
 
 
   return (
+    
     <div className={styles.detalleProducto}>
+
+      <div className={styles.tituloBackButton}>
+        <h2>Titulo Producto</h2>
+
+        <button className={styles.backButton} onClick={() => navigate(-1)}>
+          <ArrowBackIcon/>
+        </button>
+      </div>
             
-      <h2>Titulo Producto</h2>
+      
 
       <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
       {images.map((image, index) => (
@@ -75,12 +89,14 @@ const Detail = () => {
             <img src={selectedImage} />
           </div> */}
 
-          <div className={styles.largeImg}>
-            <img src='https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80' alt="" />
+          <div className={styles.leftContainer}>
+            <img src='https://images.unsplash.com/photo-1603252109303-2751441dd157?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt="" />
           </div>
 
 
-          <div className={styles.smallImg}>
+          <div className={styles.rightContainer}>
+            
+            <div className={styles.smallImages}>
             {images.map((image, index) => (
               <img
                 key={index}
@@ -94,19 +110,44 @@ const Detail = () => {
                   }}
               />
             ))}
-          </div>
+            </div>
+
+            <button className={styles.verMas}>
+              Ver más
+            </button>
+
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem consequatur tempore eligendi officia earum autem a dolorum repellendus ipsam explicabo? </p>
+          
+            <div className={styles.tallesCalendario}>
+
+                <div className={styles.talles}>
+                  {talles.map((talle, index) => (
+                    <button key={index}>
+                      {talle}
+                    </button>
+                  ))}
+                </div>
+                  
+                <form className={styles.calendar} action="">
+                  <input type="date"/>
+                </form>
+              </div>
+
+              <div className={styles.precioReserva} >
+                  <h5>PRECIO: $100</h5>
+                  <button>RESERVAR</button>
+              </div>
+            </div>
+
+            
       
-    </div>
+      </div>
 
-    <button className={styles.verMas}>
-      Ver más
-    </button>
+      
       
 
 
-    <div className={styles.tallesPrecio}>
-      
-
+    <div className={styles.tallesPrecioM}>
 
       <div className={styles.tallesCalendario}>
 

@@ -13,7 +13,7 @@
     margin-top: 5%;
 }
 
-.tallesPrecio{
+.tallesPrecioM{
     width: 100%;
 }
 
@@ -110,9 +110,12 @@ form .calendar{
     border: 2px solid #E3B04B
 }
 
-.container, .verMas{
+.container, .verMas, .backButton{
     display: none
 }
+
+
+
 
 
 @media (min-width: 480px){
@@ -120,25 +123,54 @@ form .calendar{
         width: 100%;
     }
 
+    .tituloBackButton{
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin: 3%;
+        background-color: #F1D6AB;
+        padding: 2%;
+        
+        
+    }
+
+    .tituloBackButton h2{
+        margin: 0;
+        width: 80%;
+        text-transform: uppercase;
+
+    }
+
+    .backButton{
+        display: block;
+        height: auto;
+        border-radius: 50%;
+
+    }
+
     .detalleProducto h2{
-        font-size: 3rem;
-        margin-right: 70%;
+        font-size: 2rem;
+        
+
     }
 
     .container{
         display: flex;
+        justify-content: space-between;
+        
         width: 90%;
 
     }
 
-    .largeImg{
+    .leftContainer{
         width: 50%;
-        height: ;
+        margin-right: 3%;
+        
     }
     
-    .largeImg img{
+    .leftContainer img{
         width: 100%;
-        height: fit-content;        
+        height: 90%;        
         
         
     }
@@ -152,31 +184,80 @@ form .calendar{
         grid-row-gap: 20px;
     } */
 
-    .smallImg{
+    .rightContainer{
         width: 50%;
+        display: flex;
+        flex-direction: column;
+        
+
+        
     }
 
-    .smallImg img {
-        width: 50%
-        ;
+    .rightContainer .smallImages{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        margin-bottom: 7%;
     }
 
-    .tallesPrecio{
-        width: 50%;
+    .rightContainer img {
+        
+        width: 100%;
+    }
+
+    .verMas{
+        display: block;
+        position: relative;
+        bottom: 9%;
+        left: 85%;
+        width: fit-content;
+        
+    }
+
+    .rightContainer p{
         margin: 0;
-        margin-left: ;
+        margin-bottom: 7%;
+    }
+
+    .tallesPrecioM{
+        display: none;
     }
 
     .tallesCalendario{
         margin: 0;
+        width: 100%;
+        margin-bottom: 7%;
     }
 
+    .talles{
+        width: 60%;
+        height: 43px;
+    }
+
+    .calendar{
+        width: 40%;
+    }
+
+    .calendar input{
+        height: 43px;
+    }
+    
     .precioReserva{
-        
+        width: 100%;
         margin: 0;
     }
 
-
+    .precioReserva h5{
+        width: 40%;
+        padding: 2%;
+    }
     
+    .precioReserva button{
+        width: 60%;
+        padding: 2%;
+    }
+
 
 }
