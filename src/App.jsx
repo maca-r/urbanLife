@@ -6,7 +6,7 @@ import Layout from "./Components/Layout";
 import Home from "./Components/Home/Home";
 import Detail from "./Components/ProductDetail/Detail";
 import NotFound from "./Routes/NotFound";
-import Admin from "./Components/Admin/Admin";
+import { Admin } from "./Components/Admin/Admin";
 
 function App() {
   return (
