@@ -4,6 +4,8 @@ import Carousel from "react-bootstrap/Carousel";
 import { useNavigate} from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import Modal from 'react-bootstrap/Modal';
+
 
 const Detail = () => {
 
@@ -24,8 +26,9 @@ const Detail = () => {
       }
 
     }
-    window.addEventListener("load",handleResize)
     window.addEventListener("resize", handleResize)
+    window.addEventListener("load",handleResize)
+    
 
   },[dimensions])
 
@@ -40,6 +43,13 @@ const Detail = () => {
     
   ];
 
+  const imagesGallery = [
+    "https://images.unsplash.com/photo-1602810316693-3667c854239a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1602810319250-a663f0af2f75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+    "https://images.unsplash.com/flagged/photo-1564468781192-f023d514222d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80"
+  ]
+
   const talles = [
     "TALLE S", "TALLE M", "TALLE L"
   ]
@@ -51,6 +61,7 @@ const Detail = () => {
   //   setSelectedImage(images[index]);
   // };
 
+  const [show, setShow] = useState(false);
 
   return (
     
@@ -112,9 +123,44 @@ const Detail = () => {
             ))}
             </div>
 
-            <button className={styles.verMas}>
+            <button className={styles.verMas}
+            onClick={() => setShow(true)}>
               Ver más
             </button>
+
+            <Modal
+              show={show}
+              onHide={() => setShow(false)}
+              dialogClassName="modal-90w"
+              fullscreen={true}
+            >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-custom-modal-styling-title">
+                Galería
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{display: "grid",
+    gridTemplateColumns: "30% 40%",
+    gridTemplateRows: "30% 40%",
+    gridColumnGap: "10px",
+    gridRowGap: "10px",
+    justifyItems: "center",
+    alignItems: "stretch",
+    justifyContent: "center"}}>
+            {imagesGallery.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+
+                style={{
+                  width: "",
+                  margin: "3%"
+                  
+                  }}
+              />
+            ))}
+            </Modal.Body>
+            </Modal>
 
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem consequatur tempore eligendi officia earum autem a dolorum repellendus ipsam explicabo? </p>
           

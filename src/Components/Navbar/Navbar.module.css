@@ -3,7 +3,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 2% 5%;
+    padding: 2% 4%;
     margin: 0;
     background-color: #F1D6AB;
     color: #2B2B28;
@@ -44,6 +44,7 @@ nav .rutas a{
     padding: 0.2rem;
     border-right: 0.1rem solid #2B2B28;
     background-color: #E3B04B;
+    text-decoration: none;
     
 }
 
