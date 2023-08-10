@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Productos {
     @Id
     @SequenceGenerator(name="productos_sequence", sequenceName = "productos_sequence", allocationSize = 1)
@@ -36,4 +35,8 @@ public class Productos {
     @OneToMany(mappedBy = "productos", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Imagenes> Imagenes;
+    public Productos() {
+        fechaActual = LocalDateTime.now();
+        eliminarProducto = false;
+    }
 }

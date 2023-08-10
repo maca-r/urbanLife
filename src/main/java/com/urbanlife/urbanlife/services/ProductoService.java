@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -42,6 +42,18 @@ public class ProductoService implements IProductoService {
         logger.info("Proceso Finalizado con Exito!");
         return listarProductoDto;
     }
+    @Override
+    public Collection<Productos> productosAletorios() {
+        return productoRepository.listProductosAletorios();
+    }
+    @Override
+    public ProductosDto obtenerProducto(Integer id) {
+        Optional<Productos> producto = productoRepository.findById(id);
+        return objectMapper.convertValue(producto, ProductosDto.class);
+    }
 
-
+    @Override
+    public void modificarEstadoDelete(Integer id) {
+        productoRepository.setEstadoEliminar(id, true);
+    }
 }

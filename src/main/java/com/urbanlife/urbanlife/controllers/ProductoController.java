@@ -1,8 +1,7 @@
 package com.urbanlife.urbanlife.controllers;
 
+import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
-import com.urbanlife.urbanlife.repository.CategoriaRepository;
-import com.urbanlife.urbanlife.services.ICategoriaService;
 import com.urbanlife.urbanlife.services.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +16,6 @@ import java.util.Collection;
 public class ProductoController {
     @Autowired
     IProductoService productoService;
-    @Autowired
-    ICategoriaService categoriaService;
-    @Autowired
-    CategoriaRepository categoriaRepository;
     @PostMapping("/registrar")
     public ResponseEntity<?> RegistrarTalle(@RequestBody ProductosDto productosDto){
         Collection<ProductosDto> listaProductos = productoService.obtenerListaProductos();
@@ -36,4 +31,20 @@ public class ProductoController {
     public ResponseEntity<Collection<ProductosDto>> listarProductos() {
         return ResponseEntity.ok(productoService.obtenerListaProductos());
     }
+    @GetMapping("/listaAleatoria")
+    public ResponseEntity<Collection<Productos>> listaAletoria(){
+        return ResponseEntity.ok(productoService.productosAletorios());
+    }
+    @GetMapping("/{id}")
+    public ProductosDto obtenerProducto(@PathVariable Integer id) {
+        return productoService.obtenerProducto(id);
+    }
+    @GetMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminarProducto (@PathVariable Integer id) {
+        ResponseEntity<String> response = null;
+        productoService.modificarEstadoDelete(id);
+        response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
+        return response;
+    }
+
 }
