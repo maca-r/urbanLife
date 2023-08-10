@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Home.module.css'
+import Carousel from "react-bootstrap/Carousel";
 
 const Home = () => {
     const [searchText, setSearchText] = useState('');
@@ -16,27 +17,27 @@ const Home = () => {
 
     
 
-//     const [carouselVisible, setCarouselVisible] = useState("block")
-//     const [dimensions, setDimensions] = useState(window.innerWidth)
+    const [carouselVisible, setCarouselVisible] = useState("block")
+    const [dimensions, setDimensions] = useState(window.innerWidth)
 
-//     useEffect(() => {
-//     function handleResize() {
-//         if(dimensions >= 480) {
-//             setCarouselVisible("none")
-//             setDimensions(window.innerWidth)
-//     } else{
+    useEffect(() => {
+    function handleResize() {
+        if(dimensions >= 780) {
+            setCarouselVisible("none")
+            setDimensions(window.innerWidth)
+    } else{
 
-//         setCarouselVisible("block")
-//     }
+    setCarouselVisible("block")
+        }
 
-//     }
-//     window.addEventListener("load",handleResize)
-//     window.addEventListener("resize", handleResize)
+        }
+        window.addEventListener("load",handleResize)
+        window.addEventListener("resize", handleResize)
 
-//  },[dimensions])
+    },[dimensions])
 
-    const categoriaCards = [{
-        imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    const categoriaCards = [
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
         categoria: "categoria 1"},
         { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
         categoria: "categoria 2"},
@@ -72,6 +73,8 @@ const Home = () => {
         },
     ]
 
+    
+
     return (
     <div className={styles.body}>
 
@@ -97,6 +100,21 @@ const Home = () => {
             </div>
             ))}
         </div>
+
+        <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
+            {categoriaCards.map((categoriaCards, index) => (
+                <Carousel.Item key={index}>
+                <img 
+                    src={categoriaCards.imagen}
+                    style={{width: "100%",
+                    height: "50%",
+                    cursor: "pointer",
+                }}
+                />
+                </Carousel.Item>
+                
+            ))}
+        </Carousel>
         
         <div className={styles.producAleatorioBox}>
             <h2>PRODUCTOS ALEATORIOS</h2>
@@ -114,20 +132,7 @@ const Home = () => {
                 ))}
             </div>
         </div>
-        {/* <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
-            {images.map((image, index) => (
-                <Carousel.Item key={index}>
-                <img 
-                    src={image}
-                    style={{width: "100%",
-                    height: "auto",
-                    cursor: "pointer",
-                }}
-                />
-                </Carousel.Item>
-                
-            ))}
-          </Carousel> */}
+        
         
     </div>
     )

@@ -95,6 +95,10 @@ h2{
 }
 
 @media (max-width: 780px) {
+
+    .categoria{
+        display: none;
+    }
     .producAleatorioBox {
         margin: 20px auto; 
     }
