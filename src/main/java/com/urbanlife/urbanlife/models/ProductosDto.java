@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.models;
 
+import jakarta.persistence.JoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,6 @@ public class ProductosDto {
     private double precio;
     private String detalle;
     private String color;
+    @JoinColumn(name = "idCategoria")
+    private Categorias categorias;
 }

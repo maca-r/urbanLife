@@ -29,6 +29,10 @@ public class Productos {
     private LocalDateTime fechaActual;
     private Boolean eliminarProducto;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "idCategoria")
+    private Categorias categorias;
+
     @OneToMany(mappedBy = "productos", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Imagenes> Imagenes;

@@ -1,6 +1,8 @@
 package com.urbanlife.urbanlife.controllers;
 
 import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.repository.CategoriaRepository;
+import com.urbanlife.urbanlife.services.ICategoriaService;
 import com.urbanlife.urbanlife.services.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +17,22 @@ import java.util.Collection;
 public class ProductoController {
     @Autowired
     IProductoService productoService;
+    @Autowired
+    ICategoriaService categoriaService;
+    @Autowired
+    CategoriaRepository categoriaRepository;
     @PostMapping("/registrar")
     public ResponseEntity<?> RegistrarTalle(@RequestBody ProductosDto productosDto){
+        Collection<ProductosDto> listaProductos = productoService.obtenerListaProductos();
+        for (ProductosDto producto : listaProductos) {
+            if (productosDto.getNombre().equals(producto.getNombre())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Este Producto ya existe!");
+            }
+        }
         productoService.crearProducto(productosDto);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Producto Creado");
     }
-    @GetMapping("listarProductos")
+    @GetMapping()
     public ResponseEntity<Collection<ProductosDto>> listarProductos() {
         return ResponseEntity.ok(productoService.obtenerListaProductos());
     }
