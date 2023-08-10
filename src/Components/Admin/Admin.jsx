@@ -16,7 +16,7 @@ export function Admin() {
       const response = await axios.get("URL_DE_TU_API/producto");
       setProducto(response.data);
     } catch (error) {
-      console.error("Error fetching producto:", error);
+      console.error("Error al obtener el producto:", error);
     }
   }
 
