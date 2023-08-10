@@ -9,6 +9,7 @@ nav {
     color: #2B2B28;
     position: sticky;
     top:0;
+    z-index: 1;
 }
 
 
@@ -36,6 +37,11 @@ nav .logo img {
 
 nav .logo h6{
     padding-left: 5%;
+    
+}
+
+nav a{
+    text-decoration: none;
 }
 
 

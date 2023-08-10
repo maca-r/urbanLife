@@ -77,6 +77,8 @@ h2{
     gap: 10px;
     align-items: flex-start;
     text-align: left;
+    text-decoration: none;
+    color: #2B2B28;
 }
 
 .productoTitulo{
@@ -106,5 +108,8 @@ h2{
     .productoItem {
         width: 100%;
         max-width: 100%;
+        
     }
+
+    
 }

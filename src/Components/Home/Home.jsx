@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Carousel from "react-bootstrap/Carousel";
+import { Link } from "react-router-dom";
+import { routes } from "../../Routes/routes";
 
 const Home = () => {
     const [searchText, setSearchText] = useState('');
@@ -101,7 +103,9 @@ const Home = () => {
             ))}
         </div>
 
-        <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
+        <Carousel className={"d-" + carouselVisible} 
+        data-bs-theme="dark"
+        style={{width:"80%"}}>
             {categoriaCards.map((categoriaCards, index) => (
                 <Carousel.Item key={index}>
                 <img 
@@ -111,6 +115,16 @@ const Home = () => {
                     cursor: "pointer",
                 }}
                 />
+                
+                <Carousel.Caption>
+                    <h4 style={{color:"#2B2B28", 
+                    textAlign:"center",
+                    textTransform: "uppercase",
+                    fontSize: "1rem"}}>
+                    {categoriaCards.categoria}</h4>
+                </Carousel.Caption>
+                
+                
                 </Carousel.Item>
                 
             ))}
@@ -120,7 +134,7 @@ const Home = () => {
             <h2>PRODUCTOS ALEATORIOS</h2>
             <div className={styles.producAleatorio}>
                 {productoAleatorio.map((producto, index) => (
-                    <div key={index} className={styles.productoItem}>
+                    <Link to={routes.detail} key={index} className={styles.productoItem}>
                         <div>
                             <img src={producto.imagen} alt={`Product ${index}`} />
                         </div>
@@ -128,7 +142,7 @@ const Home = () => {
                             <h5 className={styles.productoTitulo}>{producto.titulo}</h5>
                             <h5>{producto.desc}</h5>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
