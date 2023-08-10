@@ -50,12 +50,12 @@ h2{
 }
 
 .producAleatorioBox {
-    background: rgb(118, 118, 118); 
+    background-color: #f1d6abd8;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: solid 1px;
+    border: solid 1px #F1D6AB;
     width: 65%; 
     margin: 25px auto;
     padding: 25px;
@@ -81,8 +81,14 @@ h2{
     color: #2B2B28;
 }
 
+
+
 .productoTitulo{
-    color: #e3b04b;
+    color: #2B2B28;
+}
+
+.productoTitulo{
+    color:#E3B04B
 }
 
 .productoItem img {
