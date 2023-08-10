@@ -39,7 +39,7 @@ public class ProductoController {
     public ProductosDto obtenerProducto(@PathVariable Integer id) {
         return productoService.obtenerProducto(id);
     }
-    @GetMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarProducto (@PathVariable Integer id) {
         ResponseEntity<String> response = null;
         productoService.modificarEstadoDelete(id);
