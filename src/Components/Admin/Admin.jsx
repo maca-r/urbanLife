@@ -4,19 +4,28 @@ import axios from "axios";
 export function Admin() {
   const [producto, setProducto] = useState([]);
   const [nombreProducto, setNombreProducto] = useState("");
+  const [productoId, setProductoId] = useState(null);
 
   useEffect(() => {
     fetchProductos();
   }, []);
 
   // Buscar o traer el o los productos
-
   async function fetchProductos() {
     try {
-      const response = await axios.get("URL_DE_TU_API/producto");
+      const response = await axios.get("http://localhost/productos");
       setProducto(response.data);
     } catch (error) {
       console.error("Error al obtener el producto:", error);
+    }
+  }
+
+  async function fetchProductoPorId(id) {
+    try {
+      const response = await axios.get(`http://localhost/productos/${id}`);
+      setProductoId(response.data);
+    } catch (error) {
+      console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
   }
 
@@ -25,9 +34,12 @@ export function Admin() {
   async function añadirProducto() {
     try {
       if (nombreProducto.trim() !== "") {
-        const response = await axios.post("URL_DE_TU_API/producto", {
-          nombre: nombreProducto,
-        });
+        const response = await axios.post(
+          "http://localhost/productos/registrar",
+          {
+            nombre: nombreProducto,
+          }
+        );
         setProducto([...producto, response.data]);
         setNombreProducto("");
       }
@@ -40,7 +52,7 @@ export function Admin() {
 
   async function eliminarProducto(productoId) {
     try {
-      await axios.delete(`URL_DE_TU_API/producto/${productoId}`);
+      await axios.delete(`http://localhost/productos/eliminar/${productoId}`);
       const actProducto = producto.filter(
         (producto) => producto.id !== productoId
       );
@@ -68,6 +80,9 @@ export function Admin() {
           {producto.map((producto) => (
             <li key={producto.id}>
               {producto.nombre}
+              <button onClick={() => fetchProductoPorId(producto.id)}>
+                Ver Detalles
+              </button>
               <button onClick={() => eliminarProducto(producto.id)}>
                 Eliminar
               </button>
@@ -75,6 +90,12 @@ export function Admin() {
           ))}
         </ul>
       </div>
+      {productoId && (
+        <div>
+          <h3>Detalles del Producto</h3>
+          <p>Nombre: {productoId.nombre}</p>
+        </div>
+      )}
     </section>
   );
 }
