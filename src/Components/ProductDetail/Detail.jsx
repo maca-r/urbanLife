@@ -142,13 +142,13 @@ const Detail = () => {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body style={{display: "grid",
-    gridTemplateColumns: "30% 40%",
-    gridTemplateRows: "30% 40%",
-    gridColumnGap: "10px",
-    gridRowGap: "10px",
-    justifyItems: "center",
-    alignItems: "stretch",
-    justifyContent: "center"}}>
+                gridTemplateColumns: "30% 40%",
+                gridTemplateRows: "30% 40%",
+                gridColumnGap: "10px",
+                gridRowGap: "10px",
+                justifyItems: "center",
+                alignItems: "stretch",
+                justifyContent: "center"}}>
             {imagesGallery.map((image, index) => (
               <img
                 key={index}
@@ -195,7 +195,7 @@ const Detail = () => {
       
 
 
-    <div className={styles.tallesPrecioM}>
+    <span className={styles.tallesPrecioM}>
 
       <div className={styles.tallesCalendario}>
 
@@ -218,7 +218,7 @@ const Detail = () => {
           <h5>PRECIO: $100</h5>
           <button>RESERVAR</button>
       </div>
-    </div>
+    </span>
     
         
       

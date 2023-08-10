@@ -72,7 +72,8 @@ export function Admin() {
   return (
     <>
     <h2>Panel de Administración</h2>
-    {alertaResponsive && <h3>El panel de administrador sólo está disponible para versión desktop</h3>}
+
+    {alertaResponsive && <h3 className={styles.mensaje}> El panel de administrador sólo está disponible para versión desktop</h3>}
     
     <section className={styles.sectionDesktop}>
       
