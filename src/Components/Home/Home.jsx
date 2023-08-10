@@ -14,6 +14,7 @@ const Home = () => {
         console.log('Texto de búsqueda:', searchText);
     };  
 
+    
 
 //     const [carouselVisible, setCarouselVisible] = useState("block")
 //     const [dimensions, setDimensions] = useState(window.innerWidth)
@@ -32,12 +33,47 @@ const Home = () => {
 //     window.addEventListener("load",handleResize)
 //     window.addEventListener("resize", handleResize)
 
-//   },[dimensions])
+//  },[dimensions])
 
-
+    const categoriaCards = [{
+        imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        categoria: "categoria 1"},
+        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        categoria: "categoria 2"},
+        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        categoria: "categoria 3"},
+        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        categoria: "categoria 4"}
+    ]
+    const productoAleatorio = [
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+        titulo: "Product Name",
+        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+        },
+    ]
 
     return (
-        <div className={styles.body}>
+    <div className={styles.body}>
 
         {/* BUSCADOR */}
 
@@ -48,103 +84,36 @@ const Home = () => {
                 value={searchText}
                 onChange={handleChange}
             />
-            {/* <button type="submit">Buscar</button> */}
         </form>
 
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
-            <div>
-                <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+            {categoriaCards.map((i, index) => (
+                <div key={index}>
+                    <img src={i.imagen} alt={`Imagen ${index}`}/>
                 <div>
-                    <h4>Categoria 1</h4>
+                    <h4>{i.categoria}</h4>
                 </div>
             </div>
-            <div>
-                <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <div>
-                    <h4>Categoria 2</h4>
-                </div>
-            </div>
-            <div>
-                <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <div>
-                    <h4>Categoria 3</h4>
-                </div>
-            </div>
-            <div>
-                <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                <div>
-                    <h4>Categoria 4</h4>
-                </div>
-            </div>
+            ))}
         </div>
-
-
+        
         <div className={styles.producAleatorioBox}>
             <h2>PRODUCTOS ALEATORIOS</h2>
-            <div  className={styles.producAleatorio}>
-                <div>
-                    <div>
+            <div className={styles.producAleatorio}>
+                {productoAleatorio.map((producto, index) => (
+                    <div key={index} className={styles.productoItem}>
                         <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
+                            <img src={producto.imagen} alt={`Product ${index}`} />
                         </div>
                         <div className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
+                            <h5 className={styles.productoTitulo}>{producto.titulo}</h5>
+                            <h5>{producto.desc}</h5>
                         </div>
                     </div>
-                    <div>
-                        <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                        </div>
-                        <div  className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                        </div>
-                        <div  className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                        </div>
-                        <div  className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                        </div>
-                        <div  className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt="" />
-                        </div>
-                        <div  className={styles.textoProduct}>
-                            <h5>Product Name</h5>
-                            <h5>Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae</h5>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
-
         {/* <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
             {images.map((image, index) => (
                 <Carousel.Item key={index}>
@@ -158,7 +127,7 @@ const Home = () => {
                 </Carousel.Item>
                 
             ))}
-        </Carousel> */}
+          </Carousel> */}
         
     </div>
     )
