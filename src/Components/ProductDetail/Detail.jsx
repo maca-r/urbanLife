@@ -24,7 +24,6 @@ const Detail = () => {
 
         setCarouselVisible("block")
       }
-
     }
     window.addEventListener("resize", handleResize)
     window.addEventListener("load",handleResize)
