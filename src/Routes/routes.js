@@ -3,4 +3,6 @@ export const routes = {
   detail: "product/:id",
   notFound: "*",
   admin: "admin",
+  listaProductos: "listaproductos",
+  añadirProducto: "añadirproducto",
 };

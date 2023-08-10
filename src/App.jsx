@@ -7,6 +7,8 @@ import Home from "./Components/Home/Home";
 import Detail from "./Components/ProductDetail/Detail";
 import NotFound from "./Routes/NotFound";
 import { Admin } from "./Components/Admin/Admin";
+import { ListaPropductos } from "./Components/Admin/ListaProductos";
+import { AñadirProducto } from "./Components/Admin/AñadirProducto";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path={routes.detail} element={<Detail />} />
           <Route path={routes.notFound} element={<NotFound />} />
           <Route path={routes.admin} element={<Admin />} />
+          <Route path={routes.listaProductos} element={<ListaPropductos />} />
+          <Route path={routes.añadirProducto} element={<AñadirProducto />} />
         </Route>
       </Routes>
     </>
