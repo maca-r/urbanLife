@@ -21,12 +21,13 @@ const Detail = () => {
         setCarouselVisible("none")
         setDimensions(window.innerWidth)
       } else{
-
         setCarouselVisible("block")
+        setDimensions(window.innerWidth)
       }
     }
     window.addEventListener("resize", handleResize)
     window.addEventListener("load",handleResize)
+    
     
 
   },[dimensions])
@@ -67,7 +68,7 @@ const Detail = () => {
     <div className={styles.detalleProducto}>
 
       <div className={styles.tituloBackButton}>
-        <h2>Titulo Producto</h2>
+        <h3>Titulo Producto</h3>
 
         <button className={styles.backButton} onClick={() => navigate(-1)}>
           <ArrowBackIcon/>
@@ -76,7 +77,9 @@ const Detail = () => {
             
       
 
-      <Carousel className={"d-" + carouselVisible} style={{width:"80%"}}>
+      <Carousel className={"d-" + carouselVisible} 
+      style={{width:"80%"}}
+      data-bs-theme="dark">
       {images.map((image, index) => (
               <Carousel.Item key={index}>
                 <img 
