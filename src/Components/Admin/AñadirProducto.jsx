@@ -3,7 +3,9 @@ import { useState } from "react";
 
 export function AñadirProducto() {
   const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [precio, setPrecio] = useState("");
+  const [detalle, setDetalle] = useState("");
+  const [color, setColor] = useState("");
   const [imagen, setImagen] = useState("");
 
   const handleSubmit = async (event) => {
@@ -11,7 +13,8 @@ export function AñadirProducto() {
 
     const formData = new FormData();
     formData.append("nombre", nombre);
-    formData.append("descripcion", descripcion);
+    formData.append("precio", precio);
+    formData.append("detalle", detalle);
     formData.append("imagen", imagen);
 
     try {
@@ -49,10 +52,28 @@ export function AñadirProducto() {
         </label>
         <br />
         <label>
-          Descripción:
+          Precio:
+          <input
+            type="number"
+            value={precio}
+            onChange={(e) => setPrecio(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Detalle:
           <textarea
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
+            value={detalle}
+            onChange={(e) => setDetalle(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Color:
+          <input
+            type="text"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
           />
         </label>
         <br />
