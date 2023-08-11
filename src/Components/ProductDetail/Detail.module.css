@@ -118,7 +118,7 @@ form .calendar{
 
 
 
-@media (min-width: 480px){
+@media (min-width: 780px){
     .detalleProducto{
         width: 100%;
     }

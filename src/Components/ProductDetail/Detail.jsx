@@ -13,24 +13,24 @@ const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
   const [carouselVisible, setCarouselVisible] = useState("block")
-  const [dimensions, setDimensions] = useState(window.innerWidth)
+    const [dimensions, setDimensions] = useState(window.innerWidth)
 
-  useEffect(() => {
+    useEffect(() => {
     function handleResize() {
-      if(dimensions >= 480) {
-        setCarouselVisible("none")
-        setDimensions(window.innerWidth)
-      } else{
-        setCarouselVisible("block")
-        setDimensions(window.innerWidth)
-      }
-    }
-    window.addEventListener("resize", handleResize)
-    window.addEventListener("load",handleResize)
-    
-    
+        if(dimensions >= 780) {
+            setCarouselVisible("none")
+            setDimensions(window.innerWidth)
+    } else{
 
-  },[dimensions])
+    setCarouselVisible("block")
+        }
+
+        }
+        window.addEventListener("resize", handleResize)
+        window.addEventListener("load",handleResize)
+        
+
+    },[dimensions])
 
   
 
@@ -86,7 +86,7 @@ const Detail = () => {
                 src={image}
                 style={{width: "100%",
                   height: "auto",
-                  cursor: "pointer",
+                  
                 }}
                 />
                 </Carousel.Item>
