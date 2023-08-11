@@ -15,6 +15,7 @@ export function AñadirProducto() {
     formData.append("nombre", nombre);
     formData.append("precio", precio);
     formData.append("detalle", detalle);
+    formData.append("color", color);
     formData.append("imagen", imagen);
 
     try {
