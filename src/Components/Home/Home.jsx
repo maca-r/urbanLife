@@ -33,8 +33,9 @@ const Home = () => {
         }
 
         }
-        window.addEventListener("load",handleResize)
         window.addEventListener("resize", handleResize)
+        window.addEventListener("load",handleResize)
+        
 
     },[dimensions])
 
