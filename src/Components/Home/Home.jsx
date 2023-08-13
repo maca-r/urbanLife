@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import { routes } from "../../Routes/routes";
+
+import { Search } from '../Icon';
 
 const Home = () => {
     const [searchText, setSearchText] = useState('');
@@ -84,12 +86,16 @@ const Home = () => {
         {/* BUSCADOR */}
 
         <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Buscar..."
-                value={searchText}
-                onChange={handleChange}
-            />
+            <div className={styles.Search}>
+                <figure><Search /></figure>
+                <input
+                    type="text"
+                    placeholder="Buscar"
+                    value={searchText}
+                    onChange={handleChange} 
+                >
+                </input>
+            </div>
         </form>
 
         <h2>CATEGORIAS</h2>

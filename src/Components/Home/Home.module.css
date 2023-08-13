@@ -5,13 +5,28 @@ div .body{
     align-items: center;
 }
 
-form input{
-    width: 65vw;
-    border-radius: 5px;
-    height: 20px;
-    margin:25px;
-    background-color: #e3b04b;
+.Search {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding-left: 12px;
+    border-radius: 30px;
 }
+figure {
+    width: 15px;
+    margin: auto;
+    margin-right: 12px;
+}
+
+form input{
+    width: 82vw;
+    height: 37px;
+    background-color: #f4f4f4;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+}
+
 
 h2{
     margin: 25px;

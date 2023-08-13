@@ -6,7 +6,9 @@ const Navbar = () => {
   return (
     <nav>
       <Link to={routes.home} className={styles.logo}>
-        <img src="/images/logo.png" alt="logo Urban Life" />
+        <div className={styles.logo}>
+          <img className={styles.logoImage} src="/images/logo.png" alt="logo Urban Life" />
+        </div>
         <h6>Donde el diseño encuentra a todos</h6>
       </Link>
 
