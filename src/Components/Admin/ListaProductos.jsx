@@ -14,7 +14,6 @@ export function ListaProductos() {
     try {
       const response = await axios.get("http://localhost:80/productos");
       setProducto(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error al obtener el producto:", error);
     }
@@ -34,6 +33,7 @@ export function ListaProductos() {
     try {
       const response = await axios.get(`http://localhost:80/categorias/listar`);
       setCategoriaId(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(
         `Error al obtener la categoría con ID ${categoriaId}:`,
@@ -102,7 +102,7 @@ export function ListaProductos() {
 
           <h3>Detalles de la Categoría</h3>
           <p>ID Cat: {categoriaId.idCategoria}</p>
-          <p>Nombre Cat: {categoriaId.nombre}</p>
+          <p>Nombre Cat: {categoriaId.nombreCategoria}</p>
         </div>
       )}
     </section>

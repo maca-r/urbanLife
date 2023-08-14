@@ -56,11 +56,11 @@ export function AñadirProducto() {
 
       if (response.status === 200) {
         console.log("Categoría agregada exitosamente");
-        fetchCategories(); // Actualiza la lista de categorías
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
+    window.location.reload();
   };
 
   const handleAgregarTalle = async () => {
@@ -81,11 +81,11 @@ export function AñadirProducto() {
 
       if (response.status === 200) {
         console.log("Talle agregado exitosamente");
-        fetchTalles(); // Actualiza la lista de talles
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
+    window.location.reload();
   };
 
   const handleSubmit = async (event) => {
@@ -118,6 +118,7 @@ export function AñadirProducto() {
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
+    window.location.reload();
   };
 
   return (
