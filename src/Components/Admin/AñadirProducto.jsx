@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import styles from "./AñadirProducto.module.css";
 
 export function AñadirProducto() {
@@ -127,110 +126,86 @@ export function AñadirProducto() {
 
   return (
     <div className={styles.formContainer}>
-      
-      <Form style={{marginBottom:"2%"}}>
+      <Form style={{ marginBottom: "2%" }}>
         <h3>Categoria</h3>
         <Form.Group>
-          <Form.Label>
-            Categoria nueva
-          </Form.Label>
+          <Form.Label>Categoria nueva</Form.Label>
           <Form.Control
-          style={{width:"30%"}}
-          type="text"
-          value={nombreCategoria}
-          onChange={(e) => setNombreCategoria(e.target.value)}
+            style={{ width: "30%" }}
+            type="text"
+            value={nombreCategoria}
+            onChange={(e) => setNombreCategoria(e.target.value)}
           />
         </Form.Group>
-        
+
         <Button onClick={handleAgregarCategoria}>Agregar Categoría</Button>
       </Form>
 
-
       <h3>Talles</h3>
       <Form>
-        
         <Form.Group>
-          <Form.Label>
-            Talle nuevo
-          </Form.Label>
-        
-        <Form.Control
-          style={{width:"30%"}}
-          type="text"
-          value={talle}
-          onChange={(e) => setTalle(e.target.value)}
-          
-        />
+          <Form.Label>Talle nuevo</Form.Label>
+
+          <Form.Control
+            style={{ width: "30%" }}
+            type="text"
+            value={talle}
+            onChange={(e) => setTalle(e.target.value)}
+          />
         </Form.Group>
         <Button onClick={handleAgregarTalle}>Agregar Talle</Button>
       </Form>
 
-      
-
-      <Form >
       <h3>Agregar Producto</h3>
       <Form onSubmit={handleSubmit}>
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Nombre
-          </Form.Label>
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Nombre</Form.Label>
           <Form.Control
-              style={{width:"50%"}}
-              type="text"
-              value={nombre}
-              placeholder="Ingresar nombre del producto"
-              onChange={(e) => setNombre(e.target.value)}/>
-          
+            style={{ width: "50%" }}
+            type="text"
+            value={nombre}
+            placeholder="Ingresar nombre del producto"
+            onChange={(e) => setNombre(e.target.value)}
+          />
         </Form.Group>
-        
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Precio
-          </Form.Label>
-          <Form.Control type="number"
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Precio</Form.Label>
+          <Form.Control
+            type="number"
             value={precio}
             placeholder="Ingrese el precio del producto"
-            onChange={(e) => setPrecio(e.target.value)}/>
-          
+            onChange={(e) => setPrecio(e.target.value)}
+          />
         </Form.Group>
-        
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Detalle
-          </Form.Label>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Detalle</Form.Label>
           <Form.Control
             as="textarea"
             value={detalle}
             placeholder="Ingrese el detalle del producto"
-            onChange={(e) => setDetalle(e.target.value)}/>
-          
+            onChange={(e) => setDetalle(e.target.value)}
+          />
         </Form.Group>
 
-
-
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Color
-          </Form.Label>
-          <Form.Control 
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Color</Form.Label>
+          <Form.Control
             type="text"
             value={color}
             placeholder="Ingrese el color del producto"
-            onChange={(e) => setColor(e.target.value)}/>
-
+            onChange={(e) => setColor(e.target.value)}
+          />
         </Form.Group>
-        
-        
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Categoría
-          </Form.Label>
-          
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Categoría</Form.Label>
+
           <Form.Select
             value={nombreCategoria}
             onChange={(e) => setNombreCategoria(e.target.value)}
           >
-            
             {categorias.map((categoria) => (
               <option key={categoria.id} value={categoria.nombreCategoria}>
                 {categoria.nombreCategoria}
@@ -238,14 +213,11 @@ export function AñadirProducto() {
             ))}
           </Form.Select>
         </Form.Group>
-        
-        <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Talle
-          </Form.Label>
-          
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Talle</Form.Label>
+
           <Form.Select value={talle} onChange={(e) => setTalle(e.target.value)}>
-            
             {talles.map((talle) => (
               <option key={talle.idMedida} value={talle.talle}>
                 {talle.talle}
@@ -253,7 +225,6 @@ export function AñadirProducto() {
             ))}
           </Form.Select>
         </Form.Group>
-        
 
         {/* <label>
           Imagen:
@@ -264,7 +235,6 @@ export function AñadirProducto() {
           />
           
         </label> */}
-        
 
         {/* <Form.Group style={{marginBottom:"2%"}}>
           <Form.Label>
@@ -279,8 +249,6 @@ export function AñadirProducto() {
         </Form.Group> */}
         <Button type="submit">Agregar Producto</Button>
       </Form>
-      </Form>
-      
     </div>
   );
 }
