@@ -1,38 +1,119 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function AñadirProducto() {
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [detalle, setDetalle] = useState("");
   const [color, setColor] = useState("");
-  const [imagen, setImagen] = useState("");
+  const [nombreCategoria, setNombreCategoria] = useState("");
+  const [categorias, setCategorias] = useState([]);
+  const [talles, setTalles] = useState([]);
+  const [talle, setTalle] = useState("");
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get("http://localhost:80/categorias/listar");
+      setCategorias(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  const fetchTalles = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:80/talles/listartalles"
+      );
+      setTalles(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching talles:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    fetchTalles();
+  }, []);
+
+  const handleAgregarCategoria = async () => {
+    try {
+      if (nombreCategoria === null || nombreCategoria === "") {
+        console.log("El valor de la categoria no es válido");
+        return;
+      }
+
+      const categoriaData = {
+        nombreCategoria: nombreCategoria,
+      };
+
+      const response = await axios.post(
+        "http://localhost:80/categorias/registrar",
+        categoriaData
+      );
+
+      if (response.status === 200) {
+        console.log("Categoría agregada exitosamente");
+        fetchCategories(); // Actualiza la lista de categorías
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
+
+  const handleAgregarTalle = async () => {
+    try {
+      if (talle === null || talle === "") {
+        console.log("El valor del talle no es válido");
+        return;
+      }
+
+      const talleData = {
+        talle: talle,
+      };
+
+      const response = await axios.post(
+        "http://localhost:80/talles/registrarTalle",
+        talleData
+      );
+
+      if (response.status === 200) {
+        console.log("Talle agregado exitosamente");
+        fetchTalles(); // Actualiza la lista de talles
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("nombre", nombre);
-    formData.append("precio", precio);
-    formData.append("detalle", detalle);
-    formData.append("color", color);
-    formData.append("imagen", imagen);
-
     try {
+      const productoData = {
+        nombre: nombre,
+        precio: precio,
+        detalle: detalle,
+        color: color,
+        categorias: {
+          nombreCategoria: nombreCategoria,
+        },
+      };
+
       const response = await axios.post(
-        "http://localhost/productos/registrar",
-        formData,
+        "http://localhost:80/productos/registrar",
+        productoData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("Producto agregado exitosamente");
-      } else {
-        console.error("Error al agregar el producto");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -41,7 +122,28 @@ export function AñadirProducto() {
 
   return (
     <div>
+      <section>
+        <h2>Categoria</h2>
+        <input
+          type="text"
+          value={nombreCategoria}
+          onChange={(e) => setNombreCategoria(e.target.value)}
+        />
+        <button onClick={handleAgregarCategoria}>Agregar Categoría</button>
+      </section>
+
+      <section>
+        <h2>Talles</h2>
+        <input
+          type="text"
+          value={talle}
+          onChange={(e) => setTalle(e.target.value)}
+        />
+        <button onClick={handleAgregarTalle}>Agregar Talle</button>
+      </section>
+
       <h2>Agregar Producto</h2>
+
       <form onSubmit={handleSubmit}>
         <label>
           Nombre:
@@ -79,13 +181,42 @@ export function AñadirProducto() {
         </label>
         <br />
         <label>
+          Categoría:
+          <select
+            value={nombreCategoria}
+            onChange={(e) => setNombreCategoria(e.target.value)}
+          >
+            <option value="">categoría</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.id} value={categoria.nombreCategoria}>
+                {categoria.nombreCategoria}
+              </option>
+            ))}
+          </select>
+        </label>
+        <br />
+        <br />
+        <label>
+          Talle:
+          <select value={talle} onChange={(e) => setTalle(e.target.value)}>
+            <option value="">talle</option>
+            {talles.map((talle) => (
+              <option key={talle.idMedida} value={talle.talle}>
+                {talle.talle}
+              </option>
+            ))}
+          </select>
+        </label>
+        <br />
+
+        {/* <label>
           Imagen:
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setImagen(e.target.files[0])}
           />
-        </label>
+        </label> */}
         <br />
         <button type="submit">Agregar Producto</button>
       </form>
