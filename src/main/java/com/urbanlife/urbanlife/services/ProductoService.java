@@ -35,9 +35,12 @@ public class ProductoService implements IProductoService {
     @Override
     public Collection<ProductosDto> obtenerListaProductos() {
         Iterable<Productos> listarProductos = productoRepository.findAll();
+
         Set<ProductosDto> listarProductoDto = new HashSet<ProductosDto>();
         for (Productos producto : listarProductos) {
-            listarProductoDto.add(objectMapper.convertValue(producto, ProductosDto.class));
+            if (!producto.getEliminarProducto()) {
+                listarProductoDto.add(objectMapper.convertValue(producto, ProductosDto.class));
+            }
         }
         logger.info("Proceso Finalizado con Exito!");
         return listarProductoDto;
