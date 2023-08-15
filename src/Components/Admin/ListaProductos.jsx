@@ -98,6 +98,7 @@ export function ListaProductos() {
           <p>Color: {productoId.color}</p>
           <p>Detalle: {productoId.detalle}</p>
           <p>Precio: ${productoId.precio}</p>
+          <p>Caracteristica: {productoId.caracteristica}</p>
           <p>ID Cat: {productoId.idCategoria}</p>
 
           <h3>Detalles de la Categoría</h3>

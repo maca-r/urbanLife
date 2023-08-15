@@ -13,6 +13,9 @@ export function AñadirProducto() {
   const [categorias, setCategorias] = useState([]);
   const [talles, setTalles] = useState([]);
   const [talle, setTalle] = useState("");
+  const [opciones, setOpciones] = useState("");
+
+  const check = ["TELA", "FINA", "TEXTURA", "GRUESA"];
 
   const fetchCategories = async () => {
     try {
@@ -197,6 +200,20 @@ export function AñadirProducto() {
             placeholder="Ingrese el color del producto"
             onChange={(e) => setColor(e.target.value)}
           />
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Checklist</Form.Label>
+          {check.map((option, index) => (
+            <Form.Check
+              key={index}
+              type="checkbox"
+              label={option}
+              value={option}
+              checked={opciones === option}
+              onChange={() => setOpciones(option)}
+            />
+          ))}
         </Form.Group>
 
         <Form.Group style={{ marginBottom: "2%" }}>
