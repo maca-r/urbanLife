@@ -3,8 +3,8 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 77px;
-    padding: 2% 4%;
+    height: auto;
+    padding: 2%;
     margin: 0;
     background-color: #fff3df;
     color: #2B2B28;
@@ -27,20 +27,25 @@ nav a:active{
 
 nav .logo{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    height: 60px;
+    
+    
 }
-.logo {
-    border: 1px solid red;
-}
+
+
 
 nav .logo img {
     border-radius: 50%;
-    height: 100%;
+    height: 70px;
+    
+    
 }
 
 nav .logo h6{
-    margin-left: 5%;
+    margin-left: 3%;
+    
+    
 }
 
 nav a{
@@ -74,11 +79,14 @@ nav .rutas a{
 }
 */
 .crearCuenta, .iniciarSesion{
+    border-left: 0.1rem solid #2B2B28;
+    
     text-transform: uppercase;
     border-bottom: 0.1rem solid #2B2B28; 
     transition: all .3s;
 }
 .iniciarSesion {
+    border-right: 0.1rem solid #2B2B28;
     border-top-right-radius: 0.45rem;
     border-bottom-right-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28;
@@ -94,8 +102,13 @@ nav .rutas a{
     border-bottom-left-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28; 
 }
-@media (min-width: 480px){
-    
+@media (min-width: 780px){
+    nav .logo{
+        display: flex;
+        flex-direction: row;
+        
+        
+    }
 
     
 }
