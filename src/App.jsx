@@ -9,6 +9,7 @@ import NotFound from "./Routes/NotFound";
 import { Admin } from "./Components/Admin/Admin";
 import { ListaProductos } from "./Components/Admin/ListaProductos";
 import { AñadirProducto } from "./Components/Admin/AñadirProducto";
+import Login from "./Components/Login/Login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path={routes.admin} element={<Admin />} />
           <Route path={routes.listaProductos} element={<ListaProductos />} />
           <Route path={routes.añadirProducto} element={<AñadirProducto />} />
+          <Route path={routes.login} element={<Login />} />
         </Route>
       </Routes>
     </>

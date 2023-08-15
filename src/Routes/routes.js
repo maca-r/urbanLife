@@ -5,4 +5,5 @@ export const routes = {
   admin: "admin",
   listaProductos: "listaproductos",
   añadirProducto: "añadirproducto",
+  login: "login",
 };

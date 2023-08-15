@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link to={routes.signUp} className={styles.crearCuenta}>
           Crear cuenta
         </Link>
-        <Link to={routes.logIn} className={styles.iniciarSesion}>
+        <Link to={routes.login} className={styles.iniciarSesion}>
           Iniciar sesión
         </Link>
       </div>
