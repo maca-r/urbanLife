@@ -19,6 +19,23 @@ const Home = () => {
         console.log('Texto de búsqueda:', searchText);
     };  
 
+
+    
+    // const urlProductos = `http://localhost:80/productos`
+    
+
+    // useEffect(() => {
+    //   try{
+    //     axios.get(urlProductos)
+    //     .then(response => {
+    //       console.log(response.data)
+    //       setDetalle(response.data)
+    //     })
+    //   } catch (error) {
+    //     console.error("error al obtener productos")
+    //   }
+    // },[urlProductos])
+
     
 
     const [carouselVisible, setCarouselVisible] = useState("block")

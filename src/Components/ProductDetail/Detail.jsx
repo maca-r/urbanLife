@@ -48,8 +48,9 @@ const Detail = () => {
           setDetalle(response.data)
         })
       } catch (error) {
-        console.error("error al obtener producto con id" + `${params.id}`)
+        console.error("error al obtener producto con id ")
       }
+      
     },[urlDetalleProducto])
   
 
