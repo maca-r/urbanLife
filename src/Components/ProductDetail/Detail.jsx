@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Modal from 'react-bootstrap/Modal';
+import axios from "axios";
 
 
 const Detail = () => {
@@ -13,7 +14,9 @@ const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
   const [carouselVisible, setCarouselVisible] = useState("block")
-    const [dimensions, setDimensions] = useState(window.innerWidth)
+  const [dimensions, setDimensions] = useState(window.innerWidth)
+  const [detalle, setDetalle] = useState({})
+
 
     useEffect(() => {
     function handleResize() {
@@ -32,6 +35,22 @@ const Detail = () => {
 
     },[dimensions])
 
+
+    const params = useParams()
+    const urlDetalleProducto = `http://localhost:80/productos/${params.id}`
+    
+
+    useEffect(() => {
+      try{
+        axios.get(urlDetalleProducto)
+        .then(response => {
+          console.log(response.data)
+          setDetalle(response.data)
+        })
+      } catch (error) {
+        console.error("error al obtener producto con id" + `${params.id}`)
+      }
+    },[urlDetalleProducto])
   
 
   const images = [
@@ -63,12 +82,14 @@ const Detail = () => {
 
   const [show, setShow] = useState(false);
 
+
+
   return (
     
     <div className={styles.detalleProducto}>
 
       <div className={styles.tituloBackButton}>
-        <h3>Titulo Producto</h3>
+        <h3>{detalle.nombre}</h3>
 
         <button className={styles.backButton} onClick={() => navigate(-1)}>
           <ArrowBackIcon/>
@@ -164,7 +185,7 @@ const Detail = () => {
             </Modal.Body>
             </Modal>
 
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem consequatur tempore eligendi officia earum autem a dolorum repellendus ipsam explicabo? </p>
+            <p>{detalle.detalle} </p>
           
             <div className={styles.tallesCalendario}>
 
@@ -182,7 +203,7 @@ const Detail = () => {
               </div>
 
               <div className={styles.precioReserva} >
-                  <h5>PRECIO: $100</h5>
+                  <h5>PRECIO: ${detalle.precio}</h5>
                   <button>RESERVAR</button>
               </div>
             </div>
