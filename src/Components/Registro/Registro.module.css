@@ -24,3 +24,7 @@ div > input {
     background-color:  #F1D6AB;
     padding: 5px;
 }
+
+.errorMessage{
+    color:red;
+}
