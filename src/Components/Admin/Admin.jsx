@@ -37,6 +37,9 @@ export function Admin() {
         <Link to="/añadirproducto">
           <button>Agregar Producto</button>
         </Link>
+        <Link to="/añadircategorias">
+          <button>Agregar Categoria</button>
+        </Link>
       </section>
     </>
   );

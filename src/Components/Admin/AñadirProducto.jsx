@@ -129,10 +129,9 @@ export function AñadirProducto() {
 
   return (
     <div className={styles.formContainer}>
-
       <Form style={{ marginBottom: "2%" }}>
         <h3>Categoria</h3>
-        <Form.Group className="mb-3">
+        <Form.Group>
           <Form.Label>Categoria nueva</Form.Label>
           <Form.Control
             style={{ width: "30%" }}
@@ -147,7 +146,7 @@ export function AñadirProducto() {
 
       <h3>Talles</h3>
       <Form>
-        <Form.Group className="mb-3">
+        <Form.Group>
           <Form.Label>Talle nuevo</Form.Label>
 
           <Form.Control
@@ -161,9 +160,8 @@ export function AñadirProducto() {
       </Form>
 
       <h3>Agregar Producto</h3>
-
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             style={{ width: "50%" }}
@@ -174,7 +172,7 @@ export function AñadirProducto() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Precio</Form.Label>
           <Form.Control
             type="number"
@@ -184,7 +182,7 @@ export function AñadirProducto() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3 ">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Detalle</Form.Label>
           <Form.Control
             as="textarea"
@@ -194,7 +192,7 @@ export function AñadirProducto() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Color</Form.Label>
           <Form.Control
             type="text"
@@ -204,7 +202,7 @@ export function AñadirProducto() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Checklist</Form.Label>
           {check.map((option, index) => (
             <Form.Check
@@ -218,7 +216,7 @@ export function AñadirProducto() {
           ))}
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Categoría</Form.Label>
 
           <Form.Select
@@ -233,7 +231,7 @@ export function AñadirProducto() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle</Form.Label>
 
           <Form.Select value={talle} onChange={(e) => setTalle(e.target.value)}>

@@ -5,6 +5,7 @@ export const routes = {
   admin: "admin",
   listaProductos: "listaproductos",
   añadirProducto: "añadirproducto",
+  // addCategorias: "añadircategorias",
   login: "login",
-  registro:"registro",
+  registro: "registro",
 };
