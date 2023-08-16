@@ -89,16 +89,11 @@ const Home = () => {
     //     categoria: "categoria 4"}
     // ]
 
-        // const categoriaCards = [
-    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-    //     categoria: "categoria 1"},
-    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-    //     categoria: "categoria 2"},
-    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-    //     categoria: "categoria 3"},
-    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-    //     categoria: "categoria 4"}
-    // ]
+        const categoriasImagenes = [
+            "https://images.pexels.com/photos/3838501/pexels-photo-3838501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://images.pexels.com/photos/4737509/pexels-photo-4737509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://images.pexels.com/photos/5273686/pexels-photo-5273686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    ]
 
     
     // const productoAleatorio = [
@@ -167,7 +162,8 @@ const Home = () => {
         <div className={styles.categoria}>
             {categorias.map((categoria, index) => (
                 <div key={index}>
-                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt={`Imagen ${index}`}/>
+                    <img src={categoriasImagenes[index]} alt={`Imagen ${index}`}/>
+                    
                 <div>
                     <h4>{categoria.nombreCategoria}</h4>
                 </div>
@@ -182,7 +178,7 @@ const Home = () => {
             {categorias.map((categoria, index) => (
                 <Carousel.Item key={index}>
                 <img 
-                    src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906"
+                    src={categoriasImagenes[index]}
                     style={{width: "100%",
                     height: "50%",
                     cursor: "pointer",
