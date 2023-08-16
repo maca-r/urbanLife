@@ -26,7 +26,7 @@ public class MedidaService implements IMedidaService {
             logger.info("Se registro exitosamente el talle");
         }else {logger.error("Surgio un problema, no se registro el talle");}
     }
-    private void saveMedida(Medidas medida) {
+    public void saveMedida(Medidas medida) {
         medidaRepository.save(medida);
     }
 
