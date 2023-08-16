@@ -13,10 +13,12 @@ div .body{
     border-radius: 30px;
     margin-top: 3%;
 }
+
 figure {
     width: 15px;
     margin: auto;
     margin-right: 12px;
+    background-color: #f4f4f4;
 }
 
 form input{
@@ -53,12 +55,20 @@ h2{
     background: linear-gradient(0deg, rgba(227,176,75,1) 0%, rgba(255,255,255,0) 100%);
 } */
 
-.categoria div div{
+/* .categoria div div{
     border: solid 2px;
     width: fit-content;
     padding: 0px 3px 0px 3px ;
     background: rgb(227,176,75);
     background: linear-gradient(180deg, rgba(227,176,75,1) 0%, rgba(255,255,255,0) 100%);
+} */
+
+.categoria div div{
+    text-transform: uppercase;
+    width: fit-content;
+    padding: 0px 3px 0px 3px ;
+    
+    
 }
 
 .categoria div img{

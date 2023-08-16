@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { routes } from "../../Routes/routes";
 
 import { Search } from '../Icon';
+import axios from 'axios';
 
 const Home = () => {
     const [searchText, setSearchText] = useState('');
@@ -46,9 +47,9 @@ const Home = () => {
         if(dimensions >= 780) {
             setCarouselVisible("none")
             setDimensions(window.innerWidth)
-    } else{
-
-    setCarouselVisible("block")
+        } else{
+        
+            setCarouselVisible("block")
         }
 
         }
@@ -58,44 +59,91 @@ const Home = () => {
 
     },[dimensions])
 
-    const categoriaCards = [
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        categoria: "categoria 1"},
-        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        categoria: "categoria 2"},
-        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        categoria: "categoria 3"},
-        { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        categoria: "categoria 4"}
-    ]
-    const productoAleatorio = [
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-        {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-        titulo: "Product Name",
-        desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-        },
-    ]
+
+    const [categorias, setCategorias] = useState([{}])
+    const urlCategorias = 'http://localhost:80/categorias/listar'
+    
+
+    useEffect(() => {
+        try{
+            axios.get(urlCategorias)
+            .then(response => {
+                console.log(response.data)
+                setCategorias(response.data)
+            })
+        }   catch (error) {
+            console.error("error al obtener categorias")
+        }
+
+    },[urlCategorias])
+
+
+    // const categoriaCards = [
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 1"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 2"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 3"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 4"}
+    // ]
+
+        // const categoriaCards = [
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 1"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 2"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 3"},
+    //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     categoria: "categoria 4"}
+    // ]
 
     
+    // const productoAleatorio = [
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
+    //     titulo: "Product Name",
+    //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
+    //     },
+    // ]
+
+    const [productosAleatorios, setProductosAleatorios] = useState([{}])
+    const urlProductosAleatorios = 'http://localhost:80/productos/listaAleatoria'
+    
+
+    useEffect(() => {
+        try{
+            axios.get(urlProductosAleatorios)
+            .then(response => {
+                console.log(response.data)
+                setProductosAleatorios(response.data)
+            })
+        }   catch (error) {
+            console.error("error al obtener productos aleatorios")
+        }
+
+    },[urlProductosAleatorios])
 
     return (
     <div className={styles.body}>
@@ -117,23 +165,24 @@ const Home = () => {
 
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
-            {categoriaCards.map((i, index) => (
+            {categorias.map((categoria, index) => (
                 <div key={index}>
-                    <img src={i.imagen} alt={`Imagen ${index}`}/>
+                    <img src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906" alt={`Imagen ${index}`}/>
                 <div>
-                    <h4>{i.categoria}</h4>
+                    <h4>{categoria.nombreCategoria}</h4>
                 </div>
             </div>
             ))}
         </div>
 
+        
         <Carousel className={"d-" + carouselVisible} 
         data-bs-theme="dark"
         style={{width:"80%"}}>
-            {categoriaCards.map((categoriaCards, index) => (
+            {categorias.map((categoria, index) => (
                 <Carousel.Item key={index}>
                 <img 
-                    src={categoriaCards.imagen}
+                    src="https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906"
                     style={{width: "100%",
                     height: "50%",
                     cursor: "pointer",
@@ -145,7 +194,7 @@ const Home = () => {
                     textAlign:"center",
                     textTransform: "uppercase",
                     fontSize: "1rem"}}>
-                    {categoriaCards.categoria}</h4>
+                    {categoria.nombreCategoria}</h4>
                 </Carousel.Caption>
                 
                 
@@ -157,14 +206,14 @@ const Home = () => {
         <div className={styles.producAleatorioBox}>
             <h2>PRODUCTOS ALEATORIOS</h2>
             <div className={styles.producAleatorio}>
-                {productoAleatorio.map((producto, index) => (
+                {productosAleatorios.map((producto, index) => (
                     <Link to={routes.detail} key={index} className={styles.productoItem}>
                         <div>
                             <img src={producto.imagen} alt={`Product ${index}`} />
                         </div>
                         <div className={styles.textoProduct}>
-                            <h5 className={styles.productoTitulo}>{producto.titulo}</h5>
-                            <h5>{producto.desc}</h5>
+                            <h5 className={styles.productoTitulo}>{producto.nombre}</h5>
+                            <h5>{producto.detalle}</h5>
                         </div>
                     </Link>
                 ))}
