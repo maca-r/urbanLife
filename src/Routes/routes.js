@@ -6,4 +6,5 @@ export const routes = {
   listaProductos: "listaproductos",
   añadirProducto: "añadirproducto",
   login: "login",
+  registro:"registro",
 };

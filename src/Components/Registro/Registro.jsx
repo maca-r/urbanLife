@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from "./Login.module.css";
+import styles from "./Registro.module.css";
 
-const Login = () => {
+const Registro = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [gmail, setGmail] = useState('');
@@ -34,6 +34,11 @@ const Login = () => {
       setApellido('');
       setApellidoError('El apellido debe contener solo letras y la primera letra en mayúscula.');
     }
+    // if (apellido.length < 2){
+    //   setApellidoError('El apellido debe tener por lo menos 3 letras')
+    // }else{
+    //   setApellidoError('')
+    // }
   };
 
   const handleGmailChange = (event) => {
@@ -88,9 +93,9 @@ const Login = () => {
         <input type="password" value={password} onChange={handlePasswordChange} required/>
         {passwordError && <p className="error-message">{passwordError}</p>}
       </div>
-      <button className={styles.boton} type="submit">Iniciar sesión</button>
+      <button className={styles.boton} type="submit">Registrarse</button>
     </form>
   );
 };
 
-export default Login;
+export default Registro;
