@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Form, Alert } from "react-bootstrap";
 import styles from "./AñadirProducto.module.css";
-import { Alert } from "bootstrap";
 
 export function AñadirProducto() {
   const [nombre, setNombre] = useState("");
@@ -23,7 +21,7 @@ export function AñadirProducto() {
     try {
       const response = await axios.get("http://localhost:80/categorias/listar");
       setCategorias(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -35,7 +33,6 @@ export function AñadirProducto() {
         "http://localhost:80/talles/listartalles"
       );
       setTalles(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching talles:", error);
     }
@@ -49,6 +46,11 @@ export function AñadirProducto() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // const valor = {
+    //   idCategoria: 50,
+    //   nombreCategoria: "Remera",
+    // };
+
     try {
       const productoData = {
         nombre: nombre,
@@ -56,19 +58,15 @@ export function AñadirProducto() {
         detalle: detalle,
         color: color,
         categorias: {
-          nombreCategoria: selectedCategoria,
+          idCategoria: setCategorias,
+          nombreCategoria: setCategorias,
         },
-        talle: selectedTalle,
+        // talle: selectedTalle,
       };
 
       const response = await axios.post(
         "http://localhost:80/productos/registrar",
-        productoData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        productoData
       );
 
       if (response.status === 200 || response.status === 202) {
@@ -150,10 +148,21 @@ export function AñadirProducto() {
 
           <Form.Select
             value={selectedCategoria}
-            onChange={(e) => setSelectedCategoria(e.target.value)}
+            onChange={function (e) {
+              return (
+                setSelectedCategoria({
+                  ...categorias,
+                  nombreCategoria: e.target.value,
+                }),
+                console.log(selectedCategoria)
+              );
+            }}
           >
             {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.nombreCategoria}>
+              <option
+                key={categoria.idCategoria}
+                value={(categoria.idCategoria, categoria.nombreCategoria)}
+              >
                 {categoria.nombreCategoria}
               </option>
             ))}

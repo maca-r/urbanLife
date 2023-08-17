@@ -40,6 +40,9 @@ export function Admin() {
         <Link to="/añadircategorias">
           <button>Agregar Categoria</button>
         </Link>
+        <Link to="/añadirtalles">
+          <button>Agregar Talles</button>
+        </Link>
       </section>
     </>
   );
