@@ -21,7 +21,7 @@ export function AñadirProducto() {
     try {
       const response = await axios.get("http://localhost:80/categorias/listar");
       setCategorias(response.data);
-      // console.log(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -46,22 +46,20 @@ export function AñadirProducto() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // const valor = {
-    //   idCategoria: 50,
-    //   nombreCategoria: "Remera",
-    // };
-
     try {
+      const selectedCategory = categorias.find(
+        (cat) => cat.nombreCategoria === selectedCategoria
+      );
+
       const productoData = {
         nombre: nombre,
         precio: precio,
         detalle: detalle,
         color: color,
         categorias: {
-          idCategoria: setCategorias,
-          nombreCategoria: setCategorias,
+          idCategoria: selectedCategory.idCategoria,
+          nombreCategoria: selectedCategoria,
         },
-        // talle: selectedTalle,
       };
 
       const response = await axios.post(
@@ -83,6 +81,10 @@ export function AñadirProducto() {
       console.error("Error en la solicitud:", error);
     }
   };
+
+  console.log(selectedCategoria.idCategoria);
+
+  console.log(selectedCategoria.nombreCategoria);
 
   return (
     <div className={styles.formContainer}>
@@ -143,31 +145,31 @@ export function AñadirProducto() {
           ))}
         </Form.Group>
 
-        <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Categoría</Form.Label>
+        {/* ------------------------------------------------------------------ */}
 
+        <Form.Group>
+          <Form.Label>Categoría</Form.Label>
           <Form.Select
+            id="categoria"
             value={selectedCategoria}
-            onChange={function (e) {
-              return (
-                setSelectedCategoria({
-                  ...categorias,
-                  nombreCategoria: e.target.value,
-                }),
-                console.log(selectedCategoria)
+            onChange={(e) => {
+              setSelectedCategoria(e.target.value);
+              const selectedCategory = categorias.find(
+                (cat) => cat.selectedId === e.target.value
               );
+              setSelectedCategoria(selectedCategory.nombreCategoria);
             }}
           >
+            <option value="">Selecciona una categoría</option>
             {categorias.map((categoria) => (
-              <option
-                key={categoria.idCategoria}
-                value={(categoria.idCategoria, categoria.nombreCategoria)}
-              >
+              <option key={categoria.selectedId} value={categoria.selectedId}>
                 {categoria.nombreCategoria}
               </option>
             ))}
           </Form.Select>
         </Form.Group>
+
+        {/* ------------------------------------------------------------------ */}
 
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle</Form.Label>
@@ -184,7 +186,17 @@ export function AñadirProducto() {
           </Form.Select>
         </Form.Group>
 
-        {/* <label>
+        {/* ------------------------------------------------------------------ */}
+
+        <Button type="submit">Agregar Producto</Button>
+      </Form>
+      {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
+    </div>
+  );
+}
+
+{
+  /* <label>
           Imagen:
           <input
             type="file"
@@ -192,9 +204,11 @@ export function AñadirProducto() {
             onChange={(e) => setImagen(e.target.files[0])}
           />
           
-        </label> */}
+        </label> */
+}
 
-        {/* <Form.Group style={{marginBottom:"2%"}}>
+{
+  /* <Form.Group style={{marginBottom:"2%"}}>
           <Form.Label>
             Imagen
           </Form.Label>
@@ -204,10 +218,5 @@ export function AñadirProducto() {
             accept="image/*"
             onChange={(e) => setImagen(e.target.files[0])}
           />
-        </Form.Group> */}
-        <Button type="submit">Agregar Producto</Button>
-      </Form>
-      {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
-    </div>
-  );
+        </Form.Group> */
 }
