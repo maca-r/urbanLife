@@ -3,17 +3,19 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "./AñadirProducto.module.css";
+import { Alert } from "bootstrap";
 
 export function AñadirProducto() {
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [detalle, setDetalle] = useState("");
   const [color, setColor] = useState("");
-  const [nombreCategoria, setNombreCategoria] = useState("");
   const [categorias, setCategorias] = useState([]);
   const [talles, setTalles] = useState([]);
-  const [talle, setTalle] = useState("");
+  const [selectedCategoria, setSelectedCategoria] = useState("");
+  const [selectedTalle, setSelectedTalle] = useState("");
   const [opciones, setOpciones] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   const check = ["TELA", "FINA", "TEXTURA", "GRUESA"];
 
@@ -44,56 +46,6 @@ export function AñadirProducto() {
     fetchTalles();
   }, []);
 
-  const handleAgregarCategoria = async () => {
-    try {
-      if (nombreCategoria === null || nombreCategoria === "") {
-        console.log("El valor de la categoria no es válido");
-        return;
-      }
-
-      const categoriaData = {
-        nombreCategoria: nombreCategoria,
-      };
-
-      const response = await axios.post(
-        "http://localhost:80/categorias/registrar",
-        categoriaData
-      );
-
-      if (response.status === 200) {
-        console.log("Categoría agregada exitosamente");
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
-    window.location.reload();
-  };
-
-  const handleAgregarTalle = async () => {
-    try {
-      if (talle === null || talle === "") {
-        console.log("El valor del talle no es válido");
-        return;
-      }
-
-      const talleData = {
-        talle: talle,
-      };
-
-      const response = await axios.post(
-        "http://localhost:80/talles/registrarTalle",
-        talleData
-      );
-
-      if (response.status === 200) {
-        console.log("Talle agregado exitosamente");
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
-    window.location.reload();
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -104,8 +56,9 @@ export function AñadirProducto() {
         detalle: detalle,
         color: color,
         categorias: {
-          nombreCategoria: nombreCategoria,
+          nombreCategoria: selectedCategoria,
         },
+        talle: selectedTalle,
       };
 
       const response = await axios.post(
@@ -118,47 +71,23 @@ export function AñadirProducto() {
         }
       );
 
-      if (response.status === 200) {
-        console.log("Producto agregado exitosamente");
+      if (response.status === 200 || response.status === 202) {
+        setMensaje("Producto agregado exitosamente");
+        setNombre("");
+        setPrecio("");
+        setDetalle("");
+        setColor("");
+        setSelectedCategoria("");
+        setSelectedTalle("");
+        setOpciones("");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
-    window.location.reload();
   };
 
   return (
     <div className={styles.formContainer}>
-      <Form style={{ marginBottom: "2%" }}>
-        <h3>Categoria</h3>
-        <Form.Group>
-          <Form.Label>Categoria nueva</Form.Label>
-          <Form.Control
-            style={{ width: "30%" }}
-            type="text"
-            value={nombreCategoria}
-            onChange={(e) => setNombreCategoria(e.target.value)}
-          />
-        </Form.Group>
-
-        <Button onClick={handleAgregarCategoria}>Agregar Categoría</Button>
-      </Form>
-
-      <h3>Talles</h3>
-      <Form>
-        <Form.Group>
-          <Form.Label>Talle nuevo</Form.Label>
-
-          <Form.Control
-            style={{ width: "30%" }}
-            type="text"
-            value={talle}
-            onChange={(e) => setTalle(e.target.value)}
-          />
-        </Form.Group>
-        <Button onClick={handleAgregarTalle}>Agregar Talle</Button>
-      </Form>
-
       <h3>Agregar Producto</h3>
       <Form onSubmit={handleSubmit}>
         <Form.Group style={{ marginBottom: "2%" }}>
@@ -220,8 +149,8 @@ export function AñadirProducto() {
           <Form.Label>Categoría</Form.Label>
 
           <Form.Select
-            value={nombreCategoria}
-            onChange={(e) => setNombreCategoria(e.target.value)}
+            value={selectedCategoria}
+            onChange={(e) => setSelectedCategoria(e.target.value)}
           >
             {categorias.map((categoria) => (
               <option key={categoria.id} value={categoria.nombreCategoria}>
@@ -234,7 +163,10 @@ export function AñadirProducto() {
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle</Form.Label>
 
-          <Form.Select value={talle} onChange={(e) => setTalle(e.target.value)}>
+          <Form.Select
+            value={selectedTalle}
+            onChange={(e) => setSelectedTalle(e.target.value)}
+          >
             {talles.map((talle) => (
               <option key={talle.idMedida} value={talle.talle}>
                 {talle.talle}
@@ -266,6 +198,7 @@ export function AñadirProducto() {
         </Form.Group> */}
         <Button type="submit">Agregar Producto</Button>
       </Form>
+      {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
     </div>
   );
 }

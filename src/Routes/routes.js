@@ -5,7 +5,8 @@ export const routes = {
   admin: "admin",
   listaProductos: "listaproductos",
   añadirProducto: "añadirproducto",
-  // addCategorias: "añadircategorias",
+  añadirCategorias: "añadircategorias",
+  añadirTalles: "añadirtalles",
   login: "login",
   registro: "registro",
 };

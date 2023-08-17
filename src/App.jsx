@@ -10,7 +10,8 @@ import { Admin } from "./Components/Admin/Admin";
 import { ListaProductos } from "./Components/Admin/ListaProductos";
 import { AñadirProducto } from "./Components/Admin/AñadirProducto";
 import Registro from "./Components/Registro/Registro";
-// import { AddCategorias } from "./Components/Admin/AddCategorias";
+import { AddCategorias } from "./Components/Admin/AddCategorias";
+import { AddTalles } from "./Components/Admin/AddTalles";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path={routes.admin} element={<Admin />} />
           <Route path={routes.listaProductos} element={<ListaProductos />} />
           <Route path={routes.añadirProducto} element={<AñadirProducto />} />
-          {/* <Route path={routes.añadirCategoria} element={<AddCategorias />} /> */}
+          <Route path={routes.añadirCategorias} element={<AddCategorias />} />
+          <Route path={routes.añadirTalles} element={<AddTalles />} />
           <Route path={routes.registro} element={<Registro />} />
         </Route>
       </Routes>
