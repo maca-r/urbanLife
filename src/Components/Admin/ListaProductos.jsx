@@ -33,7 +33,6 @@ export function ListaProductos() {
     try {
       const response = await axios.get(`http://localhost:80/categorias/listar`);
       setCategoriaId(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(
         `Error al obtener la categoría con ID ${categoriaId}:`,
