@@ -39,25 +39,22 @@ const Home = () => {
 
     
 
-    const [carouselVisible, setCarouselVisible] = useState("block")
-    const [dimensions, setDimensions] = useState(window.innerWidth)
+    const [carouselVisible, setCarouselVisible] = useState("none")
+    // const [dimensions, setDimensions] = useState(window.innerWidth)
 
-    useEffect(() => {
     function handleResize() {
-        if(dimensions >= 780) {
+        if(window.innerWidth >= 780 ) {
             setCarouselVisible("none")
-            setDimensions(window.innerWidth)
         } else{
-        
-            setCarouselVisible("block")
+        setCarouselVisible("block")
         }
-
-        }
+    }
+    
+    useEffect(() => {
         window.addEventListener("resize", handleResize)
         window.addEventListener("load",handleResize)
         
-
-    },[dimensions])
+    },[])
 
 
     const [categorias, setCategorias] = useState([{}])

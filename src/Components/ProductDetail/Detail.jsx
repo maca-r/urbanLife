@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
-import { useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Modal from 'react-bootstrap/Modal';
@@ -13,27 +13,39 @@ const Detail = () => {
 
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
-  const [carouselVisible, setCarouselVisible] = useState("block")
-  const [dimensions, setDimensions] = useState(window.innerWidth)
+  const [carouselVisible, setCarouselVisible] = useState("none")
+  // const [dimensions, setDimensions] = useState(window.innerWidth)
   const [detalle, setDetalle] = useState({})
-
-
-    useEffect(() => {
-    function handleResize() {
-        if(dimensions >= 780) {
-            setCarouselVisible("none")
-            setDimensions(window.innerWidth)
-    } else{
-
+  
+  
+  function handleResize() {
+    if(window.innerWidth >= 780 ) {
+        setCarouselVisible("none")
+  } else{
     setCarouselVisible("block")
-        }
+    }
+  }
+  
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+    window.addEventListener("load",handleResize)
+    
+  },[])
 
-        }
-        window.addEventListener("resize", handleResize)
-        window.addEventListener("load",handleResize)
-        
+    // const desktopMediaQuery = window.matchMedia('min-width: 780px')
 
-    },[dimensions])
+
+    // useEffect(() => {
+    //   desktopMediaQuery.addEventListener('change', (event) =>
+    //   { if (event.matches) {
+    //     setCarouselVisible("none")
+  
+    //   }}
+      
+    //   )
+    // },[desktopMediaQuery])
+    
+    // console.log(desktopMediaQuery);
 
 
     const params = useParams()
