@@ -21,9 +21,8 @@ export function AñadirProducto() {
     try {
       const response = await axios.get("http://localhost:80/categorias/listar");
       setCategorias(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error("Error fetching categorias:", error);
     }
   };
 
@@ -81,10 +80,6 @@ export function AñadirProducto() {
       console.error("Error en la solicitud:", error);
     }
   };
-
-  console.log(selectedCategoria.idCategoria);
-
-  console.log(selectedCategoria.nombreCategoria);
 
   return (
     <div className={styles.formContainer}>

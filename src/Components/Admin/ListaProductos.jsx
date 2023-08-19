@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export function ListaProductos() {
   const [producto, setProducto] = useState([]);
-  const [productoId, setProductoId] = useState(null);
+  const [productoId, setProductoId] = useState("");
   const [categoriaId, setCategoriaId] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export function ListaProductos() {
     try {
       const response = await axios.get(`http://localhost:80/categorias/listar`);
       setCategoriaId(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(
         `Error al obtener la categoría con ID ${categoriaId}:`,
@@ -90,20 +89,17 @@ export function ListaProductos() {
           </tbody>
         </table>
       </div>
-      {productoId && categoriaId && (
+      {productoId && (
         <div>
           <h3>Detalles del Producto</h3>
-          <p>ID: {productoId.idProducto}</p>
+          <p>ID Producto: {productoId.idProducto}</p>
           <p>Nombre: {productoId.nombre}</p>
           <p>Color: {productoId.color}</p>
           <p>Detalle: {productoId.detalle}</p>
           <p>Precio: ${productoId.precio}</p>
-          <p>Caracteristica: {productoId.caracteristica}</p>
-          <p>ID Cat: {productoId.idCategoria}</p>
-
-          <h3>Detalles de la Categoría</h3>
-          <p>ID Cat: {categoriaId.idCategoria}</p>
-          <p>Nombre Cat: {categoriaId.nombreCategoria}</p>
+          {/* <p>Caracteristica: {productoId.caracteristica}</p> */}
+          <p>ID Catategoria: {productoId.categorias.idCategoria}</p>
+          <p>Nombre categoria: {productoId.categorias.nombreCategoria}</p>
         </div>
       )}
     </section>

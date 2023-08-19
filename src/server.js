@@ -1,4 +1,4 @@
-const express = require("express");
+const express = "express";
 const app = express();
 
 app.use((req, res, next) => {
@@ -9,5 +9,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(80, () => {
-  console.log("Server is running on port 80");
+  console.log("Servidor funcionando en el puerto 80");
 });
