@@ -3,6 +3,9 @@ import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
@@ -175,15 +178,11 @@ const Detail = () => {
                 Galería
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{display: "grid",
-                gridTemplateColumns: "30% 40%",
-                gridTemplateRows: "30% 40%",
-                gridColumnGap: "10px",
-                gridRowGap: "10px",
+            <Modal.Body style={{display: "flex",
                 justifyItems: "center",
                 alignItems: "stretch",
                 justifyContent: "center"}}>
-            {imagesGallery.map((image, index) => (
+            {/* {imagesGallery.map((image, index) => (
               <img
                 key={index}
                 src={image}
@@ -194,7 +193,35 @@ const Detail = () => {
                   
                   }}
               />
-            ))}
+            ))} */}
+
+            <Box sx={{ width: 'auto', height: 'auto', overflowY: 'scroll' }}>
+              <ImageList variant="masonry" cols={4} gap={8}>
+                {imagesGallery.map((image, index) => (
+                  <ImageListItem key={index}>
+                    <img
+                      src={image}
+                      srcSet={image}
+                      
+                    />
+                  </ImageListItem>
+              ))}
+                  </ImageList>
+            </Box>
+
+            {/* {imagesGallery.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+
+                style={{
+                  width: "",
+                  margin: "3%"
+                  
+                  }}
+              />
+            ))} */}
+
             </Modal.Body>
             </Modal>
 
@@ -219,7 +246,8 @@ const Detail = () => {
                   <h5>PRECIO: ${detalle.precio}</h5>
                   <button>RESERVAR</button>
               </div>
-            </div>
+            
+          </div>
 
             
       

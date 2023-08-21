@@ -87,9 +87,10 @@ const Home = () => {
     // ]
 
         const categoriasImagenes = [
-            "https://images.pexels.com/photos/3838501/pexels-photo-3838501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://images.pexels.com/photos/4737509/pexels-photo-4737509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://images.pexels.com/photos/5273686/pexels-photo-5273686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_081-83e6bde4313e1cde2d16904126922417-640-0.webp",
+            "https://acdn.mitiendanube.com/stores/008/089/products/_pantalon-gollic-gris_011-3777820bf7b7dab9e316856674617159-640-0.webp",
+            "https://acdn.mitiendanube.com/stores/008/089/products/_camisa-nazgul-negro_071-9fdb49f56179eac55a16771641208498-640-0.webp",
+            "https://acdn.mitiendanube.com/stores/008/089/products/_cartera-chain-b-negro_011-e4c3d9205f09b625f216878911243673-640-0.webp"
     ]
 
     
@@ -154,12 +155,12 @@ const Home = () => {
                 </input>
             </div>
         </form>
-
+            
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
             {categorias.map((categoria, index) => (
                 <div key={index}>
-                    <img src={categoriasImagenes[index]} alt={`Imagen ${index}`}/>
+                    <img src={categoriasImagenes[index]} alt={`Imagen ${categoria.idCategoria}`}/>
                     
                 <div>
                     <h4>{categoria.nombreCategoria}</h4>
