@@ -210,6 +210,7 @@ const Home = () => {
                             <h5>{producto.detalle}</h5>
                         </div>
                     </Link>
+                    
                 ))}
             </div>
         </div>

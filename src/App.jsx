@@ -12,6 +12,7 @@ import { AñadirProducto } from "./Components/Admin/AñadirProducto";
 import Registro from "./Components/Registro/Registro";
 import { AddCategorias } from "./Components/Admin/AddCategorias";
 import { AddTalles } from "./Components/Admin/AddTalles";
+import Login from "./Components/Login/Login";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path={routes.añadirCategorias} element={<AddCategorias />} />
           <Route path={routes.añadirTalles} element={<AddTalles />} />
           <Route path={routes.registro} element={<Registro />} />
+          <Route path={routes.login} element={<Login />} />
         </Route>
       </Routes>
     </>
