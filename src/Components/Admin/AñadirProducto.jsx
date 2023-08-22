@@ -84,7 +84,8 @@ export function AñadirProducto() {
   return (
     <div className={styles.formContainer}>
       <h3>Agregar Producto</h3>
-      <Form onSubmit={handleSubmit}>
+
+      <Form onSubmit={handleSubmit} className={styles.customFont}>
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control

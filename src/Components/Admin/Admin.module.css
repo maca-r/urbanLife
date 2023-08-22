@@ -21,6 +21,7 @@ h3 .mensaje{
     }
 
     .sectionDesktop button{
+        font-family: 'Catamaran', sans-serif;;
         background-color: #E3B04B;
         border: 1px solid #2B2B28;
         margin: 10px;

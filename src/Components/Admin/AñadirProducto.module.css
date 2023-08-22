@@ -1,5 +1,13 @@
 .formContainer{
     width: 80%;
     margin: 3% 7%;
+    
 }
 
+h3{
+    font-family: 'Chakra Petch', sans-serif
+}
+
+.customFont{
+    font-family: 'Catamaran', sans-serif;
+}

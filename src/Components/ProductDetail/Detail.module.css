@@ -110,10 +110,39 @@ form .calendar{
     border: 2px solid #E3B04B
 }
 
+.caracteristicasBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px #E3B04B solid;
+    margin: 3%;
+    width: 70%;
+    padding: 1%;
+    
+}
+
+.caracteristicas{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 2%;
+    
+}
+
 .container, .verMas, .backButton{
     display: none
 }
 
+ul{
+    padding-left: 0;
+    
+}
+
+li{
+    list-style: none;
+
+}
 
 
 
@@ -163,8 +192,7 @@ form .calendar{
     }
 
     .leftContainer{
-        
-        width: 50%;
+        align-items: center;
         margin-right: 3%;
         
     }
@@ -172,7 +200,7 @@ form .calendar{
     .leftContainer img{
         
         width: 100%;
-        height: 90%;        
+                
         flex-grow: 1;
         
     }
@@ -191,8 +219,6 @@ form .calendar{
         display: flex;
         flex-direction: column;
         
-
-        
     }
 
     .rightContainer .smallImages{
@@ -201,27 +227,25 @@ form .calendar{
         grid-template-rows: repeat(2, 1fr);
         grid-column-gap: 10px;
         grid-row-gap: 10px;
-        margin-bottom: 7%;
+        margin-bottom: 3%;
+        justify-items: center;
     }
 
     .rightContainer img {
-        
-        width: 100%;
+        width: 70%;
     }
 
     .verMas{
         display: block;
         position: relative;
         bottom: 9%;
-        left: 85%;
+        left: 80%;
         width: fit-content;
-        
-        
     }
 
     .rightContainer p{
         margin: 0;
-        margin-bottom: 7%;
+        margin-bottom: 4%;
     }
 
     .tallesPrecioM{
@@ -261,6 +285,8 @@ form .calendar{
         width: 60%;
         padding: 2%;
     }
+
+    
 
 
 }
