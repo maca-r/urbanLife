@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.controllers;
 
+import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import com.urbanlife.urbanlife.models.Medidas;
 import com.urbanlife.urbanlife.repository.MedidaRepository;
 import com.urbanlife.urbanlife.services.IMedidaService;
@@ -17,8 +18,6 @@ import java.util.List;
 public class MedidaController {
     @Autowired
     IMedidaService medidaService;
-    @Autowired
-    MedidaRepository medidaRepository;
 
     @PostMapping("/registrarTalle")
     public ResponseEntity<?> registrarTalle(@RequestBody Medidas medida) {
@@ -26,8 +25,12 @@ public class MedidaController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/listartalles")
+    @GetMapping("/listartalles-all")
     public ResponseEntity<Collection<Medidas>> listartalles() {
         return ResponseEntity.ok(medidaService.getAllMedidas());
+    }
+    @GetMapping("/listatalles-producto/{id}")
+    public ResponseEntity<List<Medidas>> listaTallesProducto(@PathVariable Integer id) {
+        return ResponseEntity.ok(medidaService.listarTallesProducto(id));
     }
 }

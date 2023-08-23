@@ -1,4 +1,5 @@
 package com.urbanlife.urbanlife.services;
+import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 
@@ -10,5 +11,6 @@ public interface IProductoService {
     Collection<Productos> productosAletorios();
     ProductosDto obtenerProducto(Integer id);
     void modificarEstadoDelete(Integer id);
+    ProductoDto obtenerProductos(Integer id);
 
 }

@@ -1,6 +1,8 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.models.Dto.MedidaDto;
+import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
@@ -16,6 +18,8 @@ import java.util.Set;
 public class ProductoService implements IProductoService {
     @Autowired
     ProductoRepository productoRepository;
+    @Autowired
+    MedidaService medidaService;
     @Autowired
     ObjectMapper objectMapper;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
@@ -54,7 +58,21 @@ public class ProductoService implements IProductoService {
         Optional<Productos> producto = productoRepository.findById(id);
         return objectMapper.convertValue(producto, ProductosDto.class);
     }
+    @Override
+    public ProductoDto obtenerProductos(Integer id) {
+        Optional<Productos> producto = productoRepository.findById(id);
+        ProductosDto result = obtenerProducto(id);
+        ProductoDto productoDto = new ProductoDto();
+        productoDto.setIdProducto(result.getIdProducto());
+        productoDto.setNombre(result.getNombre());
+        productoDto.setPrecio(result.getPrecio());
+        productoDto.setDetalle(result.getDetalle());
+        productoDto.setColor(result.getColor());
+        productoDto.setCategorias(result.getCategorias());
+        productoDto.setTalles(medidaService.listarTallesProducto(id));
 
+        return productoDto;
+    }
     @Override
     public void modificarEstadoDelete(Integer id) {
         productoRepository.setEstadoEliminar(id, true);

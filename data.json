@@ -1,0 +1,23 @@
+{
+    "nombre": "Remera lacostea",
+    "precio": 5.607,
+    "detalle": "Remera de jersey algodon pesado con recorte canesu espalda y cuello de ribb, con estampa en frente, oversize.Material: Algodon.",
+    "color": "Gris",
+    "categorias": {
+            "idCategoria": 1,
+            "nombreCategoria": "Remera"
+    },
+    "talles":[
+        {
+            "idMedida": 1,
+            "talle": "S"
+        }, 
+        {
+            "idMedida": 2,
+            "talle": "M"
+        }
+    ]
+}
+
+
+

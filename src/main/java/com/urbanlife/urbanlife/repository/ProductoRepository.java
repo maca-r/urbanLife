@@ -21,4 +21,5 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
     @Modifying
     @Query(value = "UPDATE productos SET eliminar_producto = :estado WHERE id_producto = :id", nativeQuery = true)
     void setEstadoEliminar(@Param("id") Integer id, @Param("estado") boolean estado);
+
 }

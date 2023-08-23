@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.controllers;
 
+import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.services.IProductoService;
@@ -35,10 +36,16 @@ public class ProductoController {
     public ResponseEntity<Collection<Productos>> listaAletoria(){
         return ResponseEntity.ok(productoService.productosAletorios());
     }
+    /*Eliminar*/
     @GetMapping("/{id}")
     public ProductosDto obtenerProducto(@PathVariable Integer id) {
         return productoService.obtenerProducto(id);
     }
+    @GetMapping("/obtener/{id}")
+    public ProductoDto obtenerProductoCompletos(@PathVariable Integer id) {
+        return productoService.obtenerProductos(id);
+    }
+
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarProducto (@PathVariable Integer id) {
         ResponseEntity<String> response = null;

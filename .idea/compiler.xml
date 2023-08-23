@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="urbanlife" />
-        <module name="equipo-05" />
       </profile>
     </annotationProcessing>
   </component>

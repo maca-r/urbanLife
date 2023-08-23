@@ -1,15 +1,14 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import com.urbanlife.urbanlife.models.Medidas;
 import com.urbanlife.urbanlife.repository.MedidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
-import java.util.Collection;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class MedidaService implements IMedidaService {
@@ -33,5 +32,10 @@ public class MedidaService implements IMedidaService {
     @Override
     public List<Medidas> getAllMedidas() {
         return medidaRepository.findAll();
+    }
+
+    @Override
+    public List<Medidas> listarTallesProducto(Integer id) {
+        return medidaRepository.listarTallesEnBaseProducto(id);
     }
 }
