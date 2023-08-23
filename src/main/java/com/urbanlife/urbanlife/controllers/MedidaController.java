@@ -1,9 +1,7 @@
 package com.urbanlife.urbanlife.controllers;
 
-import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import com.urbanlife.urbanlife.models.Medidas;
-import com.urbanlife.urbanlife.repository.MedidaRepository;
-import com.urbanlife.urbanlife.services.IMedidaService;
+import com.urbanlife.urbanlife.services.impl.IMedidaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

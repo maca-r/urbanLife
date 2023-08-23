@@ -3,15 +3,15 @@ package com.urbanlife.urbanlife.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanlife.urbanlife.models.Imagenes;
 import com.urbanlife.urbanlife.repository.ImagenRepository;
+import com.urbanlife.urbanlife.services.impl.IImagenService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ImagenService implements IImagenService{
+public class ImagenService implements IImagenService {
 
     @Autowired
     ImagenRepository imagenRepository;

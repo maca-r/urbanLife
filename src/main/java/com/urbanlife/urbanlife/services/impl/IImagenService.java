@@ -1,4 +1,4 @@
-package com.urbanlife.urbanlife.services;
+package com.urbanlife.urbanlife.services.impl;
 
 import com.urbanlife.urbanlife.models.Imagenes;
 
@@ -10,4 +10,6 @@ public interface IImagenService {
     void createImagen(Imagenes imagenes);
     List<Imagenes> getAllImagenes();
     List<Imagenes> listarImagenes(Integer id);
+
+    List<Imagenes> listarImagenesPorProducto(Integer idProducto);
 }

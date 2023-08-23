@@ -3,6 +3,7 @@ package com.urbanlife.urbanlife.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
+import com.urbanlife.urbanlife.services.impl.ICategoriaService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

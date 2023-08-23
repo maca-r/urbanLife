@@ -1,9 +1,9 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import com.urbanlife.urbanlife.models.Medidas;
 import com.urbanlife.urbanlife.repository.MedidaRepository;
+import com.urbanlife.urbanlife.services.impl.IMedidaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;

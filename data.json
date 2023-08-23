@@ -25,6 +25,20 @@
             "idMedida": 103,
             "talle": "L"
         }
+    ],
+    "imagenes":[
+        {
+            "idImagen": 1,
+            "UrlImagen": ""
+        },
+        {
+            "idImagen": 2,
+            "UrlImagen": ""
+        },
+        {
+            "idImagen": 3,
+            "UrlImagen": ""
+        }
     ]
 }
 

@@ -1,4 +1,4 @@
-package com.urbanlife.urbanlife.services;
+package com.urbanlife.urbanlife.services.impl;
 
 import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import com.urbanlife.urbanlife.models.Medidas;
