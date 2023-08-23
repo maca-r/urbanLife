@@ -9,7 +9,5 @@ public interface IImagenService {
 
     void createImagen(Imagenes imagenes);
     List<Imagenes> getAllImagenes();
-    List<Imagenes> listarImagenes(Integer id);
-
     List<Imagenes> listarImagenesPorProducto(Integer idProducto);
 }

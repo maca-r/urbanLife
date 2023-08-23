@@ -35,8 +35,9 @@ public class ImagenService implements IImagenService {
     }
 
     @Override
-    public List<Imagenes> listarImagenes(Integer id) {
-        return imagenRepository.findByIdImagen(id);
+    public List<Imagenes> listarImagenesPorProducto(Integer idProducto) {
+        return imagenRepository.findByProductosIdProducto(idProducto);
 
 
-    }}
+    }
+}
