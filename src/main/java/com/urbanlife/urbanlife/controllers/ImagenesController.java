@@ -21,18 +21,18 @@ public class ImagenesController {
     IImagenService imagenService;
 
 
-    @PostMapping("/guardarimagen")
+    @PostMapping("/registrar")
     public ResponseEntity<?>guardarImagen(@RequestBody Imagenes imagenes) {
         imagenService.createImagen(imagenes);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/listarimagenes")
+    @GetMapping("/listarimagenes-all")
     public  ResponseEntity<Collection<Imagenes>>getAllImagenes(){
         return ResponseEntity.ok(imagenService.getAllImagenes());
     }
 
-    @GetMapping("/listarimagenes/{idProducto}")
+    @GetMapping("/obtener/{idProducto}")
     public ResponseEntity<List<Imagenes>> listarImagenesPorProducto(@PathVariable Integer idProducto) {
         List<Imagenes> imagenesDelProducto = imagenService.listarImagenesPorProducto(idProducto);
         return ResponseEntity.ok(imagenesDelProducto);
