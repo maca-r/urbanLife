@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +21,7 @@ public class ImagenesController {
     IImagenService imagenService;
 
 
-    @PostMapping("/guardarImagen")
+    @PostMapping("/guardarimagen")
     public ResponseEntity<?>guardarImagen(@RequestBody Imagenes imagenes) {
         imagenService.createImagen(imagenes);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -32,13 +33,8 @@ public class ImagenesController {
     }
 
     @GetMapping("/listarimagenes/{id}")
-    public ResponseEntity<Imagenes> listarImagenes(@PathVariable Integer id) {
-        Optional<Imagenes> imagenOptional = imagenService.listarImagenes(id);
-
-        if (imagenOptional.isPresent()) {
-            return ResponseEntity.ok(imagenOptional.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<Imagenes>> listarImagenes(@PathVariable Integer id) {
+        return ResponseEntity.ok(imagenService.listarImagenes(id));
     }
+
 }
