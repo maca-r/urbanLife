@@ -25,6 +25,10 @@ public class Productos {
     private double precio;
     private String detalle;
     private String color;
+    private String tela;
+    private String genero;
+    private String evento;
+    private String temporada;
     private LocalDateTime fechaActual;
     private Boolean eliminarProducto;
 

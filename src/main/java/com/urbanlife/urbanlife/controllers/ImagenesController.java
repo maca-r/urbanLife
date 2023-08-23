@@ -20,13 +20,13 @@ public class ImagenesController {
     IImagenService imagenService;
 
 
-    @PostMapping("/guardarImagen")
+    @PostMapping("/registrar")
     public ResponseEntity<?>guardarImagen(@RequestBody Imagenes imagenes) {
         imagenService.createImagen(imagenes);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/listarimagenes")
+    @GetMapping("/listarimagenes-all")
     public  ResponseEntity<Collection<Imagenes>>getAllImagenes(){
         return ResponseEntity.ok(imagenService.getAllImagenes());
     }

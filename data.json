@@ -1,20 +1,29 @@
 {
-    "nombre": "Remera lacostea",
-    "precio": 5.607,
-    "detalle": "Remera de jersey algodon pesado con recorte canesu espalda y cuello de ribb, con estampa en frente, oversize.Material: Algodon.",
-    "color": "Gris",
+    "idProducto": 1,
+    "nombre": "Remera Pray",
+    "precio": 8.649,
+    "detalle": "Remera de jersey algodon poliester, con estampa en frente y espalda, calce oversize.Material: Jersey Algodon.",
+    "color": "Negro",
+    "tela": "Algodon",
+    "genero": "Hombre",
+    "evento": "Urbano",
+    "temporada": "Verano",
     "categorias": {
-            "idCategoria": 1,
-            "nombreCategoria": "Remera"
+        "idCategoria": 1,
+        "nombreCategoria": "Remera"
     },
-    "talles":[
+    "talles": [
         {
-            "idMedida": 1,
+            "idMedida": 104,
             "talle": "S"
-        }, 
+        },
         {
-            "idMedida": 2,
+            "idMedida": 105,
             "talle": "M"
+        },
+        {
+            "idMedida": 103,
+            "talle": "L"
         }
     ]
 }

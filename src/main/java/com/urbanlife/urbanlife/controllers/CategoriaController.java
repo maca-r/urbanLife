@@ -20,7 +20,7 @@ public class CategoriaController {
         categoriaService.crearCategoria(categoria);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Se registro exitosamente");
     }
-    @GetMapping("/listarcategoria-all")
+    @GetMapping("/listarcategorias-all")
     public ResponseEntity<List<Categorias>> listarCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerListaCategoria());
     }

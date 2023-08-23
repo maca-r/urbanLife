@@ -28,7 +28,7 @@ public class ProductoController {
         productoService.crearProducto(productosDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Producto Creado");
     }
-    @GetMapping()
+    @GetMapping("listaproductos-all")
     public ResponseEntity<Collection<ProductosDto>> listarProductos() {
         return ResponseEntity.ok(productoService.obtenerListaProductos());
     }
