@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 
 export function EditarProducto() {
   const { idProducto } = useParams();
@@ -11,7 +11,7 @@ export function EditarProducto() {
   const [selectedCategoria, setSelectedCategoria] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
-  const eventos = ["A", "B", "C", "D"];
+  const eventos = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
@@ -81,9 +81,7 @@ export function EditarProducto() {
   return (
     <div>
       <h3>Editar Producto</h3>
-
-
-      <Form style={{width:"50%", marginLeft: "3%"}}> 
+      <Form style={{ width: "50%", marginLeft: "3%" }}>
         <Form.Group>
           <Form.Label>Nombre:</Form.Label>
           <Form.Control
@@ -107,7 +105,7 @@ export function EditarProducto() {
         <Form.Group>
           <Form.Label>Detalle:</Form.Label>
           <Form.Control
-            as= "textarea"
+            as="textarea"
             name="detalle"
             value={editedProduct.detalle || ""}
             onChange={handleInputChange}
@@ -201,8 +199,10 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
       </Form>
-      <Button style={{margin: "3%"}} onClick={handleEdit}>Guardar Cambios</Button>
-      <p>{statusMessage}</p>
+      <Button style={{ margin: "3%" }} onClick={handleEdit}>
+        Guardar Cambios
+      </Button>
+      {statusMessage && <Alert variant="success">{statusMessage}</Alert>}{" "}
     </div>
   );
 }

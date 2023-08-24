@@ -22,7 +22,7 @@ export function AñadirProducto() {
   const [mensaje, setMensaje] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
-  const eventos = ["A", "B", "C", "D"];
+  const eventos = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
@@ -165,65 +165,63 @@ export function AñadirProducto() {
 
         {/* -------------------------------------------------------------- */}
 
-      <div className={styles.checks}>
-      <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Telas:</Form.Label>
-          {telas.map((option, index) => (
-            <Form.Check
-              key={index}
-              type="checkbox"
-              label={option}
-              value={option}
-              checked={tela === option}
-              onChange={() => setTela(option)}
-            />
-          ))}
-        </Form.Group>
+        <div className={styles.checks}>
+          <Form.Group style={{ marginBottom: "2%" }}>
+            <Form.Label>Telas:</Form.Label>
+            {telas.map((option, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                label={option}
+                value={option}
+                checked={tela === option}
+                onChange={() => setTela(option)}
+              />
+            ))}
+          </Form.Group>
 
-        <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Eventos:</Form.Label>
-          {eventos.map((option, index) => (
-            <Form.Check
-              key={index}
-              type="checkbox"
-              label={option}
-              value={option}
-              checked={evento === option}
-              onChange={() => setEvento(option)}
-            />
-          ))}
-        </Form.Group>
+          <Form.Group style={{ marginBottom: "2%" }}>
+            <Form.Label>Eventos:</Form.Label>
+            {eventos.map((option, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                label={option}
+                value={option}
+                checked={evento === option}
+                onChange={() => setEvento(option)}
+              />
+            ))}
+          </Form.Group>
 
-        <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Generos:</Form.Label>
-          {generos.map((option, index) => (
-            <Form.Check
-              key={index}
-              type="checkbox"
-              label={option}
-              value={option}
-              checked={genero === option}
-              onChange={() => setGenero(option)}
-            />
-          ))}
-        </Form.Group>
+          <Form.Group style={{ marginBottom: "2%" }}>
+            <Form.Label>Generos:</Form.Label>
+            {generos.map((option, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                label={option}
+                value={option}
+                checked={genero === option}
+                onChange={() => setGenero(option)}
+              />
+            ))}
+          </Form.Group>
 
-        <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Temporadas:</Form.Label>
-          {temporadas.map((option, index) => (
-            <Form.Check
-              key={index}
-              type="checkbox"
-              label={option}
-              value={option}
-              checked={temporada === option}
-              onChange={() => setTemporada(option)}
-            />
-          ))}
-        </Form.Group>
-      </div>
-
-        
+          <Form.Group style={{ marginBottom: "2%" }}>
+            <Form.Label>Temporadas:</Form.Label>
+            {temporadas.map((option, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                label={option}
+                value={option}
+                checked={temporada === option}
+                onChange={() => setTemporada(option)}
+              />
+            ))}
+          </Form.Group>
+        </div>
 
         {/* ------------------------------------------------------------------ */}
 
