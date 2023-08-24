@@ -165,7 +165,8 @@ export function AñadirProducto() {
 
         {/* -------------------------------------------------------------- */}
 
-        <Form.Group style={{ marginBottom: "2%" }}>
+      <div className={styles.checks}>
+      <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Telas:</Form.Label>
           {telas.map((option, index) => (
             <Form.Check
@@ -220,6 +221,9 @@ export function AñadirProducto() {
             />
           ))}
         </Form.Group>
+      </div>
+
+        
 
         {/* ------------------------------------------------------------------ */}
 
@@ -235,7 +239,7 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Form.Group>
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Categoría</Form.Label>
           <Form.Select
             id="categoria"

@@ -104,17 +104,20 @@ const Detail = () => {
 
 
   const caracteristicas = [
-    "color", "tela", "género", "temporada", "evento"
+    detalle.color,
+    detalle.tela,
+    detalle.genero,
+    detalle.temporada,
+    detalle.evento
   ]
 
-  const iconoCaracteristicas = {
-    color: <ColorLensIcon sx={{ color: "#E3B04B" }}/>,
-    tela: <CheckroomIcon sx={{ color: "#E3B04B" }}/>,
-    género: <WcIcon sx={{ color: "#E3B04B" }}/>,
-    temporada: <DeviceThermostatIcon sx={{ color: "#E3B04B" }}/>,
-    evento: <LocalActivityIcon sx={{ color: "#E3B04B" }}/>
-  }
-
+  const iconoCaracteristicas = 
+    [<ColorLensIcon sx={{ color: "#E3B04B" }}/>,
+    <CheckroomIcon sx={{ color: "#E3B04B" }}/>,
+    <WcIcon sx={{ color: "#E3B04B" }}/>,
+    <DeviceThermostatIcon sx={{ color: "#E3B04B" }}/>,
+    <LocalActivityIcon sx={{ color: "#E3B04B" }}/>
+  ]
 
   return (
     
@@ -304,7 +307,7 @@ const Detail = () => {
       {caracteristicas.map((caracteristica, index) => (
         <ul key={index}>
           <li>
-            <i>{iconoCaracteristicas[caracteristica]}</i>
+            <i>{iconoCaracteristicas[index]}</i>
             {caracteristica}
           </li>
         </ul>

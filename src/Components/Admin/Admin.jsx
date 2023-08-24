@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import styles from "./Admin.module.css";
+import {ListaProductos} from "./ListaProductos"
+import {AddCategorias} from "./AddCategorias"
+import {AddTalles} from "./AddTalles"
+import {AñadirProducto} from "./AñadirProducto"
+
+
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -20,6 +26,16 @@ export function Admin() {
 
     },[])
 
+    const [panelSection, setPanelSection] = useState("")
+    
+
+    const handlePanelSection = (targetSection) => {
+      setPanelSection(targetSection)
+      
+    }
+
+
+
   return (
     <>
       <h2>Panel de Administración</h2>
@@ -32,21 +48,48 @@ export function Admin() {
 
         :
 
-        <section className={styles.sectionDesktop}>
+        <div className={styles.panel}>
+        {/* <section className={styles.sectionDesktop}>
         <Link to="/listaproductos">
-          <button>Lista Productos</button>
+          <button onClick={handlePanelSection("listaProductos")}>Lista Productos</button>
         </Link>
         <Link to="/añadirproducto">
-          <button>Agregar Producto</button>
+          <button onClick={handlePanelSection("agregarProducto")}>Agregar Producto</button>
         </Link>
         <Link to="/añadircategorias">
-          <button>Agregar Categoria</button>
+          <button onClick={handlePanelSection("agregarCategoria")}>Agregar Categoria</button>
         </Link>
         <Link to="/añadirtalles">
-          <button>Agregar Talles</button>
+          <button onClick={handlePanelSection("agregarTalles")}>Agregar Talles</button>
         </Link>
-      </section>
+      </section> */}
 
+        <div className={styles.buttonPanel}>
+
+            <button onClick={ () => handlePanelSection("listaProductos")}>Lista Productos</button>
+
+
+            <button onClick={ () => handlePanelSection("agregarProducto")}>Agregar Producto</button>
+
+
+            <button onClick={ () => handlePanelSection("agregarCategoria")}>Agregar Categoria</button>
+
+
+            <button onClick={ () => handlePanelSection("agregarTalles")}>Agregar Talles</button>
+
+        </div>
+
+
+
+        <div className={styles.showPanelSection}>
+          {panelSection == "" && <h3>Haga click en un botón del panel izquierdo para visualizar el contenido</h3>}
+          {panelSection == "listaProductos" && <ListaProductos/>}
+          {panelSection == "agregarProducto" && <AñadirProducto/>}
+          {panelSection == "agregarCategoria" && <AddCategorias/>}
+          {panelSection == "agregarTalles" && <AddTalles/>}
+        </div>
+      
+      </div>
       }
 
     </>
