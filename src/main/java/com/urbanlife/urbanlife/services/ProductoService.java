@@ -21,6 +21,8 @@ public class ProductoService implements IProductoService {
     @Autowired
     MedidaService medidaService;
     @Autowired
+    ImagenService imagenService;
+    @Autowired
     ObjectMapper objectMapper;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
@@ -68,8 +70,13 @@ public class ProductoService implements IProductoService {
         productoDto.setPrecio(result.getPrecio());
         productoDto.setDetalle(result.getDetalle());
         productoDto.setColor(result.getColor());
+        productoDto.setTela(result.getTela());
+        productoDto.setGenero(result.getGenero());
+        productoDto.setEvento(result.getEvento());
+        productoDto.setTemporada(result.getTemporada());
         productoDto.setCategorias(result.getCategorias());
         productoDto.setTalles(medidaService.listarTallesProducto(id));
+        productoDto.setImagenes(imagenService.listarImagenesPorProducto(id));
 
         return productoDto;
     }

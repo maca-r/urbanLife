@@ -1,6 +1,7 @@
 package com.urbanlife.urbanlife.models.Dto;
 
 import com.urbanlife.urbanlife.models.Categorias;
+import com.urbanlife.urbanlife.models.Imagenes;
 import com.urbanlife.urbanlife.models.Medidas;
 import jakarta.persistence.JoinColumn;
 import lombok.Getter;
@@ -16,7 +17,12 @@ public class ProductoDto {
     private double precio;
     private String detalle;
     private String color;
+    private String tela;
+    private String genero;
+    private String evento;
+    private String temporada;
     @JoinColumn(name = "idCategoria")
     private Categorias categorias;
     private List<Medidas> talles;
+    private List<Imagenes> imagenes;
 }

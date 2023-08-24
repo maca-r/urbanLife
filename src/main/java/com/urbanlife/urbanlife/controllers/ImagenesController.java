@@ -32,9 +32,9 @@ public class ImagenesController {
         return ResponseEntity.ok(imagenService.getAllImagenes());
     }
 
-    @GetMapping("/obtener/{idProducto}")
-    public ResponseEntity<List<Imagenes>> listarImagenesPorProducto(@PathVariable Integer idProducto) {
-        List<Imagenes> imagenesDelProducto = imagenService.listarImagenesPorProducto(idProducto);
+    @GetMapping("/obtener/{id}")
+    public ResponseEntity<List<Imagenes>> listarImagenesPorProducto(@PathVariable Integer id) {
+        List<Imagenes> imagenesDelProducto = imagenService.listarImagenesPorProducto(id);
         return ResponseEntity.ok(imagenesDelProducto);
     }
 
