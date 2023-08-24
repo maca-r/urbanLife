@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { useEffect, useState } from "react";
 import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
@@ -87,7 +88,7 @@ const Detail = () => {
 
   const [show, setShow] = useState(false);
 
-  const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
+  // const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
   const caracteristicas = [
     detalle.color,
@@ -97,13 +98,13 @@ const Detail = () => {
     detalle.evento,
   ];
 
-  const iconoCaracteristicas = {
-    color: <ColorLensIcon sx={{ color: "#E3B04B" }} />,
-    tela: <CheckroomIcon sx={{ color: "#E3B04B" }} />,
-    género: <WcIcon sx={{ color: "#E3B04B" }} />,
-    temporada: <DeviceThermostatIcon sx={{ color: "#E3B04B" }} />,
-    evento: <LocalActivityIcon sx={{ color: "#E3B04B" }} />,
-  };
+  const iconoCaracteristicas = [
+    <ColorLensIcon sx={{ color: "#E3B04B" }} />,
+    <CheckroomIcon sx={{ color: "#E3B04B" }} />,
+    <WcIcon sx={{ color: "#E3B04B" }} />,
+    <DeviceThermostatIcon sx={{ color: "#E3B04B" }} />,
+    <LocalActivityIcon sx={{ color: "#E3B04B" }} />,
+  ];
 
   return (
     <div className={styles.detalleProducto}>
@@ -264,7 +265,7 @@ const Detail = () => {
           {caracteristicas.map((caracteristica, index) => (
             <ul key={index}>
               <li>
-                <i>{iconoCaracteristicas[caracteristica]}</i>
+                <i>{iconoCaracteristicas[index]}</i>
                 {caracteristica}
               </li>
             </ul>
