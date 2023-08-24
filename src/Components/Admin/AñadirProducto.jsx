@@ -14,7 +14,7 @@ export function AñadirProducto() {
   const [temporada, setTemporada] = useState("");
   const [categorias, setCategorias] = useState([]);
   // const [talles, setTalles] = useState([]);
-  const [urlImagenes, setUrlImagenes] = useState([]);
+  // const [urlImagenes, setUrlImagenes] = useState([]);
 
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedTalles, setSelectedTalles] = useState([]);
@@ -223,7 +223,7 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Form.Group style={{ marginBottom: "2%" }}>
+        {/* <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>URLs de Imágenes</Form.Label>
           <Form.Control
             type="text"
@@ -231,7 +231,7 @@ export function AñadirProducto() {
             placeholder="Ingrese una URL de imagen"
             onChange={(e) => setUrlImagenes(e.target.value)}
           />
-        </Form.Group>
+        </Form.Group> */}
 
         {/* ------------------------------------------------------------------ */}
 
