@@ -14,12 +14,14 @@ h3 .mensaje{
         width: 20%;
         display: flex;
         flex-direction: column;
-        background-color: #F1D6AB;
+        
+        background-color: #fff3df;
         justify-content: space-between;
 
     }
 
     .sectionDesktop button{
+        font-family: 'Catamaran', sans-serif;;
         background-color: #E3B04B;
         border: 1px solid #2B2B28;
         margin: 10px;

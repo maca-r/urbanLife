@@ -3,10 +3,17 @@ import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
-
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import WcIcon from '@mui/icons-material/Wc';
+import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 const Detail = () => {
 
@@ -68,10 +75,10 @@ const Detail = () => {
 
   const images = [
     
-    'https://images.unsplash.com/photo-1603252109612-24fa03d145c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    'https://images.unsplash.com/photo-1603251578711-3290ca1a0187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-    "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1603252110971-b8a57087be18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+    'https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_041-304a2ebf0f06670f1b16903373804733-640-0.webp',
+    'https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_071-87ed1ac2935fa5da4b16903373805560-640-0.webp',
+    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_051-aa7e5a2891fb73660e16903373802933-640-0.webp",
+    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_061-6adf07e0e97da7cf3316903373804049-640-0.webp"
     
   ];
 
@@ -95,6 +102,18 @@ const Detail = () => {
 
   const [show, setShow] = useState(false);
 
+
+  const caracteristicas = [
+    "color", "tela", "género", "temporada", "evento"
+  ]
+
+  const iconoCaracteristicas = {
+    color: <ColorLensIcon sx={{ color: "#E3B04B" }}/>,
+    tela: <CheckroomIcon sx={{ color: "#E3B04B" }}/>,
+    género: <WcIcon sx={{ color: "#E3B04B" }}/>,
+    temporada: <DeviceThermostatIcon sx={{ color: "#E3B04B" }}/>,
+    evento: <LocalActivityIcon sx={{ color: "#E3B04B" }}/>
+  }
 
 
   return (
@@ -137,7 +156,7 @@ const Detail = () => {
           </div> */}
 
           <div className={styles.leftContainer}>
-            <img src='https://images.unsplash.com/photo-1603252109303-2751441dd157?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt="" />
+            <img src='https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_011-482f8f219a675f850916903373802103-640-0.webp' alt="" />
           </div>
 
 
@@ -151,10 +170,10 @@ const Detail = () => {
                 // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
                 // onClick={() => handleImageClick(index)}
                 
-                style={{maxWidth: "auto",
-                  height: "auto",
-                  cursor: "pointer",
-                  }}
+                // style={{maxWidth: "auto",
+                //   height: "auto",
+                  
+                //   }}
               />
             ))}
             </div>
@@ -175,15 +194,11 @@ const Detail = () => {
                 Galería
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{display: "grid",
-                gridTemplateColumns: "30% 40%",
-                gridTemplateRows: "30% 40%",
-                gridColumnGap: "10px",
-                gridRowGap: "10px",
+            <Modal.Body style={{display: "flex",
                 justifyItems: "center",
                 alignItems: "stretch",
                 justifyContent: "center"}}>
-            {imagesGallery.map((image, index) => (
+            {/* {imagesGallery.map((image, index) => (
               <img
                 key={index}
                 src={image}
@@ -194,7 +209,35 @@ const Detail = () => {
                   
                   }}
               />
-            ))}
+            ))} */}
+
+            <Box sx={{ width: 'auto', height: 'auto', overflowY: 'scroll' }}>
+              <ImageList variant="masonry" cols={4} gap={8}>
+                {imagesGallery.map((image, index) => (
+                  <ImageListItem key={index}>
+                    <img
+                      src={image}
+                      srcSet={image}
+                      
+                    />
+                  </ImageListItem>
+              ))}
+                  </ImageList>
+            </Box>
+
+            {/* {imagesGallery.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+
+                style={{
+                  width: "",
+                  margin: "3%"
+                  
+                  }}
+              />
+            ))} */}
+
             </Modal.Body>
             </Modal>
 
@@ -219,7 +262,8 @@ const Detail = () => {
                   <h5>PRECIO: ${detalle.precio}</h5>
                   <button>RESERVAR</button>
               </div>
-            </div>
+            
+          </div>
 
             
       
@@ -254,7 +298,20 @@ const Detail = () => {
       </div>
     </span>
     
-        
+    <div className={styles.caracteristicasBox}>
+      <h4>Caracteristicas de la prenda</h4>
+      <div className={styles.caracteristicas}>
+      {caracteristicas.map((caracteristica, index) => (
+        <ul key={index}>
+          <li>
+            <i>{iconoCaracteristicas[caracteristica]}</i>
+            {caracteristica}
+          </li>
+        </ul>
+      ))}
+      </div>
+      
+    </div>
       
 
     </div>

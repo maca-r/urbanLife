@@ -3,10 +3,11 @@ div .footer {
     align-items: center;
     padding: 3%;
     margin: 0;
-    background-color: #F1D6AB;
+    background-color: #fff3df;
     /*e3b04b
     F1D6AB*/
     color: #2B2B28;
+    font-family: 'Catamaran', sans-serif;;
     
 }
 
