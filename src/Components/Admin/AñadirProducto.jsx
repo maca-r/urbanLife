@@ -19,7 +19,9 @@ export function AñadirProducto() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:80/categorias/listar");
+      const response = await axios.get(
+        "http://localhost:80/categorias/listarcategorias-all"
+      );
       setCategorias(response.data);
     } catch (error) {
       console.error("Error fetching categorias:", error);
@@ -29,7 +31,7 @@ export function AñadirProducto() {
   const fetchTalles = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:80/talles/listartalles"
+        "http://localhost:80/talles/listartalles-all"
       );
       setTalles(response.data);
     } catch (error) {
@@ -84,7 +86,6 @@ export function AñadirProducto() {
   return (
     <div className={styles.formContainer}>
       <h3>Agregar Producto</h3>
-
       <Form onSubmit={handleSubmit} className={styles.customFont}>
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Nombre</Form.Label>

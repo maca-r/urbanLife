@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function ListaProductos() {
   const [producto, setProducto] = useState([]);
   const [productoId, setProductoId] = useState("");
-  const [categoriaId, setCategoriaId] = useState([]);
+  const [productoImagenes, setProductoImagenes] = useState([]);
 
   useEffect(() => {
     fetchProductos();
@@ -12,32 +13,24 @@ export function ListaProductos() {
 
   async function fetchProductos() {
     try {
-      const response = await axios.get("http://localhost:80/productos");
+      const response = await axios.get(
+        "http://localhost:80/productos/listaproductos-all"
+      );
       setProducto(response.data);
     } catch (error) {
-      console.error("Error al obtener el producto:", error);
+      console.error("Error al obtener los productos:", error);
     }
   }
 
   async function fetchProductoPorId(id) {
     try {
-      const response = await axios.get(`http://localhost:80/productos/${id}`);
+      const response = await axios.get(
+        `http://localhost:80/productos/obtener/${id}`
+      );
       setProductoId(response.data);
-      fetchCategoriaPorId(response.data.idCategoria);
+      fetchImagenesPorProducto(id);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
-    }
-  }
-
-  async function fetchCategoriaPorId() {
-    try {
-      const response = await axios.get(`http://localhost:80/categorias/listar`);
-      setCategoriaId(response.data);
-    } catch (error) {
-      console.error(
-        `Error al obtener la categoría con ID ${categoriaId}:`,
-        error
-      );
     }
   }
 
@@ -52,6 +45,20 @@ export function ListaProductos() {
       setProducto(actProducto);
     } catch (error) {
       console.error("Error al eliminar producto:", error);
+    }
+  }
+
+  async function fetchImagenesPorProducto(idProducto) {
+    try {
+      const response = await axios.get(
+        `http://localhost:80/imagenes/obtener/${idProducto}`
+      );
+      setProductoImagenes(response.data);
+    } catch (error) {
+      console.error(
+        `Error al obtener las imágenes del producto ${idProducto}:`,
+        error
+      );
     }
   }
 
@@ -80,6 +87,9 @@ export function ListaProductos() {
                     Ver Detalles
                   </button>
 
+                  <Link to="/editarproducto">
+                    <button>Editar</button>
+                  </Link>
                   <button onClick={() => eliminarProducto(producto.idProducto)}>
                     Eliminar
                   </button>
@@ -97,9 +107,26 @@ export function ListaProductos() {
           <p>Color: {productoId.color}</p>
           <p>Detalle: {productoId.detalle}</p>
           <p>Precio: ${productoId.precio}</p>
-          {/* <p>Caracteristica: {productoId.caracteristica}</p> */}
+          <p>Evento: {productoId.evento}</p>
+          <p>Genero: {productoId.genero}</p>
+          <p>Tela: {productoId.tela}</p>
+          <p>Temporada: {productoId.temporada}</p>
           <p>ID Catategoria: {productoId.categorias.idCategoria}</p>
           <p>Nombre categoria: {productoId.categorias.nombreCategoria}</p>
+          {/* <p>ID Talle: {productoId.medidas.idMedida}</p>
+          <p>Tipo talle: {productoId.medidas.nombreTalle}</p> */}
+
+          {productoImagenes.map((img) => (
+            <div key={img.idImagen}>
+              <div>
+                <h4>Imagenes de este producto</h4>
+                <img
+                  src={img.urlImagen}
+                  alt={`Imagen del producto ${img.idImagen}`}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </section>
