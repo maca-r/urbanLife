@@ -7,7 +7,7 @@ export const routes = {
   añadirProducto: "añadirproducto",
   añadirCategorias: "añadircategorias",
   añadirTalles: "añadirtalles",
-  editarProducto: "editarproducto",
+  editarProducto: "editarproducto/:idProducto",
   login: "login",
   registro: "registro",
 };

@@ -26,7 +26,7 @@ export function ListaProductos() {
     try {
       const response = await axios.get(`http://localhost:80/productos/${id}`);
       setProductoId(response.data);
-      fetchImagenesPorProducto(id);
+      // fetchImagenesPorProducto(id);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
@@ -46,19 +46,19 @@ export function ListaProductos() {
     }
   }
 
-  async function fetchImagenesPorProducto(idProducto) {
-    try {
-      const response = await axios.get(
-        `http://localhost:80/imagenes/${idProducto}`
-      );
-      setProductoImagenes(response.data);
-    } catch (error) {
-      console.error(
-        `Error al obtener las imágenes del producto ${idProducto}:`,
-        error
-      );
-    }
-  }
+  // async function fetchImagenesPorProducto(idProducto) {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:80/imagenes/${idProducto}`
+  //     );
+  //     setProductoImagenes(response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       `Error al obtener las imágenes del producto ${idProducto}:`,
+  //       error
+  //     );
+  //   }
+  // }
 
   return (
     <section>
@@ -85,7 +85,7 @@ export function ListaProductos() {
                     Ver Detalles
                   </button>
 
-                  <Link to="/editarproducto">
+                  <Link to={`/editarproducto/${producto.idProducto}`}>
                     <button>Editar</button>
                   </Link>
                   <button onClick={() => eliminarProducto(producto.idProducto)}>
@@ -111,8 +111,8 @@ export function ListaProductos() {
           <p>Temporada: {productoId.temporada}</p>
           <p>ID Catategoria: {productoId.categorias.idCategoria}</p>
           <p>Nombre categoria: {productoId.categorias.nombreCategoria}</p>
-          {/* <p>ID Talle: {productoId.medidas.idMedida}</p>
-          <p>Tipo talle: {productoId.medidas.nombreTalle}</p> */}
+          {/* <p>Nombre talles: {productoId.talles}</p>
+          <p>Nombre talles: {productoId.talle}</p> */}
 
           {productoImagenes.map((img) => (
             <div key={img.idImagen}>

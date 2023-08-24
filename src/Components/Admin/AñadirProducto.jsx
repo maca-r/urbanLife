@@ -13,11 +13,12 @@ export function AñadirProducto() {
   const [genero, setGenero] = useState("");
   const [temporada, setTemporada] = useState("");
   const [categorias, setCategorias] = useState([]);
-  const [talles, setTalles] = useState([]);
+  // const [talles, setTalles] = useState([]);
   const [urlImagenes, setUrlImagenes] = useState([]);
 
   const [selectedCategoria, setSelectedCategoria] = useState("");
-  const [selectedTalle, setSelectedTalle] = useState("");
+  const [selectedTalles, setSelectedTalles] = useState([]);
+
   const [mensaje, setMensaje] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
@@ -36,20 +37,20 @@ export function AñadirProducto() {
     }
   };
 
-  const fetchTalles = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:80/talles/listartalles-all"
-      );
-      setTalles(response.data);
-    } catch (error) {
-      console.error("Error fetching talles:", error);
-    }
-  };
+  // const fetchTalles = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:80/talles/listartalles-all"
+  //     );
+  //     setTalles(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching talles:", error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchCategories();
-    fetchTalles();
+    // fetchTalles();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -73,6 +74,7 @@ export function AñadirProducto() {
           idCategoria: selectedCategory.idCategoria,
           nombreCategoria: selectedCategoria,
         },
+        talles: selectedTalles,
       };
 
       const response = await axios.post(
@@ -107,7 +109,7 @@ export function AñadirProducto() {
         setEvento("");
         setGenero("");
         setSelectedCategoria("");
-        setSelectedTalle("");
+        setSelectedTalles("");
         // setUrlImagenes("");
       }
       // }
@@ -257,22 +259,28 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Form.Group style={{ marginBottom: "2%" }}>
+        {/* <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle</Form.Label>
 
           <Form.Select
             id="talle"
-            value={selectedTalle}
-            onChange={(e) => setSelectedTalle(e.target.value)}
+            multiple
+            value={selectedTalles}
+            onChange={(e) =>
+              setSelectedTalles(
+                Array.from(e.target.selectedOptions, (option) => option.value)
+              )
+            }
           >
-            <option value="">Selecciona un talle</option>
+            <option value="">Selecciona uno o más talles</option>
             {talles.map((talle) => (
               <option key={talle.idMedida} value={talle.idMedida}>
                 {talle.talle}
               </option>
             ))}
           </Form.Select>
-        </Form.Group>
+          <div>Talles seleccionados: {selectedTalles.join(", ")}</div>
+        </Form.Group> */}
 
         {/* ------------------------------------------------------------------ */}
 
