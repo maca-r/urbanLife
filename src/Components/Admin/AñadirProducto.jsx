@@ -8,14 +8,22 @@ export function AñadirProducto() {
   const [precio, setPrecio] = useState("");
   const [detalle, setDetalle] = useState("");
   const [color, setColor] = useState("");
+  const [evento, setEvento] = useState("");
+  const [tela, setTela] = useState("");
+  const [genero, setGenero] = useState("");
+  const [temporada, setTemporada] = useState("");
   const [categorias, setCategorias] = useState([]);
   const [talles, setTalles] = useState([]);
+  const [urlImagenes, setUrlImagenes] = useState([]);
+
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedTalle, setSelectedTalle] = useState("");
-  const [opciones, setOpciones] = useState("");
   const [mensaje, setMensaje] = useState("");
 
-  const check = ["TELA", "FINA", "TEXTURA", "GRUESA"];
+  const telas = ["GRUESA", "FINA", "SUAVE", "ASPERA"];
+  const eventos = ["A", "B", "C", "D"];
+  const generos = ["MASCULINO", "FEMENINO"];
+  const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
   const fetchCategories = async () => {
     try {
@@ -57,6 +65,10 @@ export function AñadirProducto() {
         precio: precio,
         detalle: detalle,
         color: color,
+        tela: tela,
+        genero: genero,
+        evento: evento,
+        temporada: temporada,
         categorias: {
           idCategoria: selectedCategory.idCategoria,
           nombreCategoria: selectedCategoria,
@@ -68,16 +80,37 @@ export function AñadirProducto() {
         productoData
       );
 
+      // if (response.status === 200 || response.status === 202) {
+      //   const productId = response.data.idProducto;
+      //   console.log(productId);
+
+      //   const imagenesData = {
+      //     urlImagen: urlImagenes,
+      //     productos: {
+      //       idProducto: productId,
+      //     },
+      //   };
+
+      //   const imageResponse = await axios.post(
+      //     "http://localhost:80/imagenes/guardarimagen",
+      //     imagenesData
+      //   );
+
       if (response.status === 200 || response.status === 202) {
         setMensaje("Producto agregado exitosamente");
         setNombre("");
         setPrecio("");
         setDetalle("");
         setColor("");
+        setTela("");
+        setTemporada("");
+        setEvento("");
+        setGenero("");
         setSelectedCategoria("");
         setSelectedTalle("");
-        setOpciones("");
+        // setUrlImagenes("");
       }
+      // }
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
@@ -128,18 +161,74 @@ export function AñadirProducto() {
           />
         </Form.Group>
 
+        {/* -------------------------------------------------------------- */}
+
         <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Checklist</Form.Label>
-          {check.map((option, index) => (
+          <Form.Label>Telas:</Form.Label>
+          {telas.map((option, index) => (
             <Form.Check
               key={index}
               type="checkbox"
               label={option}
               value={option}
-              checked={opciones === option}
-              onChange={() => setOpciones(option)}
+              checked={tela === option}
+              onChange={() => setTela(option)}
             />
           ))}
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Eventos:</Form.Label>
+          {eventos.map((option, index) => (
+            <Form.Check
+              key={index}
+              type="checkbox"
+              label={option}
+              value={option}
+              checked={evento === option}
+              onChange={() => setEvento(option)}
+            />
+          ))}
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Generos:</Form.Label>
+          {generos.map((option, index) => (
+            <Form.Check
+              key={index}
+              type="checkbox"
+              label={option}
+              value={option}
+              checked={genero === option}
+              onChange={() => setGenero(option)}
+            />
+          ))}
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Temporadas:</Form.Label>
+          {temporadas.map((option, index) => (
+            <Form.Check
+              key={index}
+              type="checkbox"
+              label={option}
+              value={option}
+              checked={temporada === option}
+              onChange={() => setTemporada(option)}
+            />
+          ))}
+        </Form.Group>
+
+        {/* ------------------------------------------------------------------ */}
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>URLs de Imágenes</Form.Label>
+          <Form.Control
+            type="text"
+            value={urlImagenes}
+            placeholder="Ingrese una URL de imagen"
+            onChange={(e) => setUrlImagenes(e.target.value)}
+          />
         </Form.Group>
 
         {/* ------------------------------------------------------------------ */}
@@ -172,11 +261,13 @@ export function AñadirProducto() {
           <Form.Label>Talle</Form.Label>
 
           <Form.Select
+            id="talle"
             value={selectedTalle}
             onChange={(e) => setSelectedTalle(e.target.value)}
           >
+            <option value="">Selecciona un talle</option>
             {talles.map((talle) => (
-              <option key={talle.idMedida} value={talle.talle}>
+              <option key={talle.idMedida} value={talle.idMedida}>
                 {talle.talle}
               </option>
             ))}
@@ -190,30 +281,4 @@ export function AñadirProducto() {
       {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
     </div>
   );
-}
-
-{
-  /* <label>
-          Imagen:
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImagen(e.target.files[0])}
-          />
-          
-        </label> */
-}
-
-{
-  /* <Form.Group style={{marginBottom:"2%"}}>
-          <Form.Label>
-            Imagen
-          </Form.Label>
-          
-          <Form.Control
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImagen(e.target.files[0])}
-          />
-        </Form.Group> */
 }

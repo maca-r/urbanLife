@@ -49,7 +49,7 @@ export function ListaProductos() {
   async function fetchImagenesPorProducto(idProducto) {
     try {
       const response = await axios.get(
-        `http://localhost:80/imagenes/obtener/${idProducto}`
+        `http://localhost:80/imagenes/${idProducto}`
       );
       setProductoImagenes(response.data);
     } catch (error) {
