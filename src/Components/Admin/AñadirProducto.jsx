@@ -20,9 +20,9 @@ export function AñadirProducto() {
   const [selectedTalle, setSelectedTalle] = useState("");
   const [mensaje, setMensaje] = useState("");
 
-  const telas = ["GRUESA", "FINA", "SUAVE", "ASPERA"];
+  const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
   const eventos = ["A", "B", "C", "D"];
-  const generos = ["MASCULINO", "FEMENINO"];
+  const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
   const fetchCategories = async () => {
