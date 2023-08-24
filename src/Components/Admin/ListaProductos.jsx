@@ -24,9 +24,7 @@ export function ListaProductos() {
 
   async function fetchProductoPorId(id) {
     try {
-      const response = await axios.get(
-        `http://localhost:80/productos/obtener/${id}`
-      );
+      const response = await axios.get(`http://localhost:80/productos/${id}`);
       setProductoId(response.data);
       fetchImagenesPorProducto(id);
     } catch (error) {
