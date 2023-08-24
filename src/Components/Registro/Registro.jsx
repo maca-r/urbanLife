@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import {  useNavigate } from "react-router-dom";
+import {useEffect} from 'react';
+
 import styles from "./Registro.module.css";
 
 const Registro = () => {
@@ -60,7 +63,7 @@ const Registro = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+=?`{|}~^.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/);
 
@@ -83,8 +86,41 @@ const Registro = () => {
       setGmail('')
       setGmailError('El mail no es válido')
     }
+
     
-  };
+    //REDIRIJO 
+    handleSubmitInicioSesion()
+
+    };
+
+
+    // REDIRIJO A HOME (CON LOS CAPOS CORRECTOS)
+
+
+    const navigate = useNavigate()
+
+    const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('userData'));
+    if (items) {
+      setItems(items);
+    }
+}, []);
+
+    const handleSubmitInicioSesion = () => {
+      
+      console.log(items);
+      if (items !== []) {
+          return(navigate("/"))
+      }else{
+        console.log(false);
+      }
+  }
+    
+    
+    
+    
 
   return (
     <form className={styles.formLogin} onSubmit={handleSubmit}>
@@ -108,7 +144,11 @@ const Registro = () => {
         <input type="password" value={password} onChange={handlePasswordChange} required/>
         {passwordError && <p className={styles.errorMessage}>{passwordError}</p>}
       </div>
-      <button className={styles.boton} type="submit">Registrarse</button>
+      <button className={styles.boton} type="submit"
+      onClick={()=>{
+        handleSubmit()
+      }}
+      >Registrarse</button>
     </form>
   );
 };

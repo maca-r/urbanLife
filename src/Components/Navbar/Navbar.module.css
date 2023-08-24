@@ -102,6 +102,36 @@ nav .rutas a{
     border-bottom-left-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28; 
 }
+
+.profileImage {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    padding: 5%;
+    border-radius: 50%;
+    background: #2B2B28;
+    color: #fff;
+    text-align: center;
+}
+
+.cerrarSesionBOX{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.logOut{
+    border-right: 0.1rem solid #2B2B28;
+    border-radius: 0.45rem;
+    border-top: 0.1rem solid #2B2B28;
+    background-color: #E3B04B;
+    color: #fff;
+    font-weight: bold;
+    min-width: fit-content;
+
+}
+
 @media (min-width: 780px){
     nav .logo{
         display: flex;

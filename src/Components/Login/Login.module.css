@@ -28,3 +28,18 @@ div > input {
 .errorMessage{
     color:red;
 }
+
+
+
+.profileImage {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: #2B2B28;
+    font-size: 3.5rem;
+    color: #fff;
+    text-align: center;
+    line-height: 10rem;
+    margin: 2rem 0;
+}

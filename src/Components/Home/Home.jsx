@@ -10,12 +10,13 @@ import axios from 'axios';
 const Home = () => {
     const [searchText, setSearchText] = useState('');
 
+    
     const handleChange = (e) => {
         setSearchText(e.target.value);
     };
     
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         // realizariamos las solicitudes a la API.
         console.log('Texto de búsqueda:', searchText);
     };  
@@ -213,8 +214,7 @@ const Home = () => {
                 ))}
             </div>
         </div>
-        
-        
+
     </div>
     )
 }
