@@ -35,10 +35,10 @@ const Login = () => {
         } else {
             localStorage.setItem('user', JSON.stringify(user));
             navigate("/");
+            window.location.reload()
         }
     }
 
-   
     
 
 

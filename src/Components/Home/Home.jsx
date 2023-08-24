@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Carousel from "react-bootstrap/Carousel";
+import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { routes } from "../../Routes/routes";
 
@@ -59,7 +60,7 @@ const Home = () => {
 
 
     const [categorias, setCategorias] = useState([{}])
-    const urlCategorias = 'http://localhost:80/categorias/listar'
+    const urlCategorias = 'http://localhost:80/categorias/listarcategorias-all'
     
 
     useEffect(() => {
@@ -202,16 +203,31 @@ const Home = () => {
             <h2>PRODUCTOS ALEATORIOS</h2>
             <div className={styles.producAleatorio}>
                 {productosAleatorios.map((producto, index) => (
-                    <Link to={routes.detail} key={index} className={styles.productoItem}>
-                        <div>
-                            <img src={producto.imagen} alt={`Product ${index}`} />
-                        </div>
-                        <div className={styles.textoProduct}>
-                            <h5 className={styles.productoTitulo}>{producto.nombre}</h5>
-                            <h5>{producto.detalle}</h5>
-                        </div>
-                    </Link>
+                    // <Link to={routes.detail} key={index} className={styles.productoItem}>
+                    //     <div>
+                    //         <img src={producto.imagen} alt={`Product ${index}`} />
+                    //     </div>
+                    //     <div className={styles.textoProduct}>
+                    //         <h5 className={styles.productoTitulo}>{producto.nombre}</h5>
+                    //         <h5>{producto.detalle}</h5>
+                    //     </div>
+                    // </Link>
                     
+
+                    <Link to={`/product/`+ producto.idProducto } key={index} className={styles.productoItem}>    
+                        <Card style={{backgroundColor: ""}}>
+                            <Card.Img src={producto.imagen}/>
+                            <Card.Body>
+                                <Card.Title>{producto.nombre}</Card.Title>
+                                <Card.Text>
+                                {producto.detalle}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Link>
+
+
+
                 ))}
             </div>
         </div>

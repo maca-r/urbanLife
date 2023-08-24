@@ -8,16 +8,49 @@ export const initialState = {
     producto: {}
 }
 
-export const ContextGlobal = createContext(undefined);
+export const GlobalContext = createContext(undefined);
+
+const dataReducer = (state,action) => {
+  switch(action.type){
+    case "GET_PRODUCTS":
+      return{...state, productos: action.payload}
+    case "GET_A_PRODUCT":
+      return {...state, producto: action.payload}
+    default:
+      throw new Error()
+  }
+}
+
+export const ContextProvider = ({children}) => {
+
+  const [dataState, dataDispatch] = useReducer(dataReducer, initialState)
+
+  const urlProductos = "http://localhost:80/productos/listaproductos-all"
+
+  
+  useEffect(() => {
+
+    try{
+      axios.get(urlProductos)
+      .then(response => {
+      console.log(response.data)
+      dataDispatch(({type: "GET_PRODUCTS", payload: response.data}))
+    })
+    }catch (error){
+      console.error(error);
+    }
+    
+  },[urlProductos])
 
 
-
-const GlobalContext = () => {
   return (
-    <div>
-      
-    </div>
+    
+    <GlobalContext.Provider value={{
+      dataState, dataDispatch
+    }}>
+      {children}
+    </GlobalContext.Provider>
   )
 }
 
-export default GlobalContext
+export const useGlobalContext = () => useContext(GlobalContext)

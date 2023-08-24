@@ -34,7 +34,7 @@ const Navbar = () => {
 
 
   const logout = () => {
-    localStorage.removeItem('userData');
+    //localStorage.removeItem('userData');
     localStorage.removeItem('user');
     setUserData([])
     setUser([])
@@ -65,7 +65,7 @@ const Navbar = () => {
       <div className={styles.rutas}>
 
       {
-          userData.length == 0 && !localStorage.getItem('user')? (
+          userData.length == 0 || !localStorage.getItem('user')? (
             <>
               <Link to={routes.registro} className={styles.crearCuenta}>
                 Crear cuenta
@@ -77,7 +77,7 @@ const Navbar = () => {
           ) : (
             <div className={styles.cerrarSesionBOX}>
 
-              {renderProfileImageOrLoading()}
+            {renderProfileImageOrLoading()}
 
             <button className={styles.logOut} onClick={logout}>Cerrar sesión</button>
             </div>
