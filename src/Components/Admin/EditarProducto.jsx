@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 export function EditarProducto() {
   const { idProducto } = useParams();
@@ -81,49 +81,52 @@ export function EditarProducto() {
   return (
     <div>
       <h3>Editar Producto</h3>
-      <form>
-        <div>
-          <label>Nombre:</label>
-          <input
+
+
+      <Form style={{width:"50%", marginLeft: "3%"}}> 
+        <Form.Group>
+          <Form.Label>Nombre:</Form.Label>
+          <Form.Control
             type="text"
             name="nombre"
             value={editedProduct.nombre || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </Form.Group>
 
-        <div>
-          <label>Color:</label>
-          <input
+        <Form.Group>
+          <Form.Label>Color:</Form.Label>
+          <Form.Control
             type="text"
             name="color"
             value={editedProduct.color || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </Form.Group>
 
-        <div>
-          <label>Detalle:</label>
-          <textarea
+        <Form.Group>
+          <Form.Label>Detalle:</Form.Label>
+          <Form.Control
+            as= "textarea"
             name="detalle"
             value={editedProduct.detalle || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </Form.Group>
 
-        <div>
-          <label>Precio:</label>
-          <input
+        <Form.Group>
+          <Form.Label>Precio:</Form.Label>
+          <Form.Control
             type="number"
             name="precio"
             value={editedProduct.precio || ""}
             onChange={handleInputChange}
           />
-        </div>
+        </Form.Group>
 
-        <div>
-          <label>Evento:</label>
-          <select
+        <Form.Group>
+          <Form.Label>Evento:</Form.Label>
+          <Form.Select
             name="evento"
             value={editedProduct.evento || ""}
             onChange={handleInputChange}
@@ -133,12 +136,12 @@ export function EditarProducto() {
                 {evento}
               </option>
             ))}
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div>
-          <label>Género:</label>
-          <select
+        <Form.Group>
+          <Form.Label>Género:</Form.Label>
+          <Form.Select
             name="genero"
             value={editedProduct.genero || ""}
             onChange={handleInputChange}
@@ -148,12 +151,12 @@ export function EditarProducto() {
                 {genero}
               </option>
             ))}
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div>
-          <label>Tela:</label>
-          <select
+        <Form.Group>
+          <Form.Label>Tela:</Form.Label>
+          <Form.Select
             name="tela"
             value={editedProduct.tela || ""}
             onChange={handleInputChange}
@@ -163,12 +166,12 @@ export function EditarProducto() {
                 {tela}
               </option>
             ))}
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div>
-          <label>Temporada:</label>
-          <select
+        <Form.Group>
+          <Form.Label>Temporada:</Form.Label>
+          <Form.Select
             name="temporada"
             value={editedProduct.temporada || ""}
             onChange={handleInputChange}
@@ -178,8 +181,8 @@ export function EditarProducto() {
                 {temporada}
               </option>
             ))}
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
         <Form.Group>
           <Form.Label>Categoría</Form.Label>
@@ -197,8 +200,8 @@ export function EditarProducto() {
             ))}
           </Form.Select>
         </Form.Group>
-      </form>
-      <button onClick={handleEdit}>Guardar Cambios</button>
+      </Form>
+      <Button style={{margin: "3%"}} onClick={handleEdit}>Guardar Cambios</Button>
       <p>{statusMessage}</p>
     </div>
   );

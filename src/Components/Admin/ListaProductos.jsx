@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export function ListaProductos() {
@@ -64,7 +65,7 @@ export function ListaProductos() {
     <section>
       <div>
         <h3>Listado de Productos</h3>
-        <table>
+        <Table striped>
           <thead>
             <tr>
               <th>ID</th>
@@ -79,23 +80,23 @@ export function ListaProductos() {
                 <td>{producto.nombre}</td>
 
                 <td>
-                  <button
+                  <Button variant="info" size="sm" style={{marginRight:"5px"}}
                     onClick={() => fetchProductoPorId(producto.idProducto)}
                   >
                     Ver Detalles
-                  </button>
+                  </Button>
 
                   <Link to={`/editarproducto/${producto.idProducto}`}>
-                    <button>Editar</button>
+                    <Button variant="warning" size="sm" style={{marginRight:"5px"}}>Editar</Button>
                   </Link>
-                  <button onClick={() => eliminarProducto(producto.idProducto)}>
+                  <Button variant="danger" size="sm" style={{marginRight:"5px"}} onClick={() => eliminarProducto(producto.idProducto)}>
                     Eliminar
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
       {productoId && (
         <div>

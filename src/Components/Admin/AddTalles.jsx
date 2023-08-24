@@ -37,7 +37,7 @@ export function AddTalles() {
       <Form style={{ marginBottom: "2%" }}>
         <h3>Talles</h3>
         {mensaje && <Alert variant="info">{mensaje}</Alert>}
-        <Form.Group>
+        <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle nuevo</Form.Label>
           <Form.Control
             style={{ width: "30%" }}

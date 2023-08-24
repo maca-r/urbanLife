@@ -11,3 +11,8 @@ h3{
 .customFont{
     font-family: 'Catamaran', sans-serif;
 }
+
+.checks{
+    display: flex;
+    justify-content: space-between;
+}

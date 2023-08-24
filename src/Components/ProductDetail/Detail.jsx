@@ -89,6 +89,14 @@ const Detail = () => {
 
   const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
+  const caracteristicas = [
+    detalle.color,
+    detalle.tela,
+    detalle.genero,
+    detalle.temporada,
+    detalle.evento,
+  ];
+
   const iconoCaracteristicas = {
     color: <ColorLensIcon sx={{ color: "#E3B04B" }} />,
     tela: <CheckroomIcon sx={{ color: "#E3B04B" }} />,
