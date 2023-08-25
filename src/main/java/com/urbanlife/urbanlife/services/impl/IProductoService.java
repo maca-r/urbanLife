@@ -11,6 +11,8 @@ public interface IProductoService {
     Collection<Productos> productosAletorios();
     ProductosDto obtenerProducto(Integer id);
     void modificarEstadoDelete(Integer id);
+
+    void editarProducto (Integer id, ProductosDto productosDto);
     ProductoDto obtenerProductos(Integer id);
 
 }

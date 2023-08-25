@@ -36,7 +36,21 @@ public class ProductoController {
     public ResponseEntity<Collection<Productos>> listaAletoria(){
         return ResponseEntity.ok(productoService.productosAletorios());
     }
+
+
+    /*Editar*/
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<String> editarProducto(
+            @PathVariable Integer id,
+            @RequestBody ProductosDto productosDto) {
+        productoService.editarProducto(id, productosDto);
+        return ResponseEntity.ok("Producto actualizado exitosamente");
+    }
+
+
+
     /*Eliminar*/
+
     @GetMapping("/{id}")
     public ProductosDto obtenerProducto(@PathVariable Integer id) {
         return productoService.obtenerProducto(id);
