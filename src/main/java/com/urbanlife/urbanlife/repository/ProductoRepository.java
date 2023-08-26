@@ -15,7 +15,7 @@ import java.util.Collection;
 public interface ProductoRepository extends CrudRepository<Productos, Integer> {
     @Transactional
     @Modifying
-    @Query(value = "SELECT * FROM urbanlife.productos ORDER BY RAND() LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT * FROM urbanlife.productos WHERE eliminar_producto <> 1 ORDER BY RAND() LIMIT 10", nativeQuery = true)
     Collection<Productos> listProductosAletorios();
     @Transactional
     @Modifying

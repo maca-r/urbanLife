@@ -80,9 +80,6 @@ public class ProductoService implements IProductoService {
 
         return productoDto;
     }
-
-
-
     @Override
     public void editarProducto(Integer id, ProductosDto productosDto) {
         Optional<Productos> existingProductoOptional = productoRepository.findById(id);
@@ -109,8 +106,6 @@ public class ProductoService implements IProductoService {
             logger.error("No se encontró el producto con ID: " + id);
         }
     }
-
-
 
     @Override
     public void modificarEstadoDelete(Integer id) {

@@ -14,7 +14,7 @@ import java.util.List;
 public interface ImagenRepository extends JpaRepository<Imagenes, Integer> {
     @Transactional
     @Modifying
-    @Query (value = "Select id_imagen, url_imagen from imagenes as ima\n" +
+    @Query (value = "Select * from imagenes as ima\n" +
             "where ima.id_producto = :id", nativeQuery = true)
     List<Imagenes> findByProductosIdProducto(@Param("id") Integer id);
 }

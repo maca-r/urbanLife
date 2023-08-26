@@ -32,7 +32,7 @@ public class ProductoController {
     public ResponseEntity<Collection<ProductosDto>> listarProductos() {
         return ResponseEntity.ok(productoService.obtenerListaProductos());
     }
-    @GetMapping("/listaAleatoria")
+    @GetMapping("/listaproductos-aleatorio")
     public ResponseEntity<Collection<Productos>> listaAletoria(){
         return ResponseEntity.ok(productoService.productosAletorios());
     }

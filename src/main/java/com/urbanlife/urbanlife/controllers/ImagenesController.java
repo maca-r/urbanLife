@@ -1,6 +1,7 @@
 package com.urbanlife.urbanlife.controllers;
 
 
+import com.urbanlife.urbanlife.models.Dto.ImagenDto;
 import com.urbanlife.urbanlife.models.Imagenes;
 import com.urbanlife.urbanlife.services.impl.IImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class ImagenesController {
     }
 
     @GetMapping("/obtener/{id}")
-    public ResponseEntity<List<Imagenes>> listarImagenesPorProducto(@PathVariable Integer id) {
-        List<Imagenes> imagenesDelProducto = imagenService.listarImagenesPorProducto(id);
+    public ResponseEntity<Collection<ImagenDto>> listarImagenesPorProducto(@PathVariable Integer id) {
+        Collection<ImagenDto> imagenesDelProducto = imagenService.listarImagenesPorProducto(id);
         return ResponseEntity.ok(imagenesDelProducto);
     }
 

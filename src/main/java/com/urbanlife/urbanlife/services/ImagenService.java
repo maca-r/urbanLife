@@ -1,14 +1,19 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.models.Dto.ImagenDto;
 import com.urbanlife.urbanlife.models.Imagenes;
+import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.repository.ImagenRepository;
 import com.urbanlife.urbanlife.services.impl.IImagenService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ImagenService implements IImagenService {
@@ -16,7 +21,7 @@ public class ImagenService implements IImagenService {
     @Autowired
     ImagenRepository imagenRepository;
     @Autowired
-    ObjectMapper mapper;
+    ObjectMapper objectMapper;
     private static final Logger logger = Logger.getLogger(ImagenService.class);
 
     @Override
@@ -35,7 +40,14 @@ public class ImagenService implements IImagenService {
     }
 
     @Override
-    public List<Imagenes> listarImagenesPorProducto(Integer id) {
-        return imagenRepository.findByProductosIdProducto(id);
+    public Collection<ImagenDto> listarImagenesPorProducto(Integer id) {
+        Iterable<Imagenes>listaImagenes = imagenRepository.findByProductosIdProducto(id);
+        Set<ImagenDto> imagenesPorProducto = new HashSet<ImagenDto>();
+
+        for (Imagenes imagen : listaImagenes) {
+            imagenesPorProducto.add(objectMapper.convertValue(imagen, ImagenDto.class));
+        }
+        logger.info("Proceso Finalizado con Exito!");
+        return imagenesPorProducto;
     }
 }

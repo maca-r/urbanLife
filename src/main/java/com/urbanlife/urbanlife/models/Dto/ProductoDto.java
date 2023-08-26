@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -24,5 +25,5 @@ public class ProductoDto {
     @JoinColumn(name = "idCategoria")
     private Categorias categorias;
     private List<Medidas> talles;
-    private List<Imagenes> imagenes;
+    private Collection<ImagenDto> imagenes;
 }

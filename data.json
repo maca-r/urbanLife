@@ -8,24 +8,8 @@
     "genero": "Hombre",
     "evento": "Urbano",
     "temporada": "Verano",
-    "categorias": {
-        "idCategoria": 1,
-        "nombreCategoria": "Remera"
-    },
-    "talles": [
-        {
-            "idMedida": 104,
-            "talle": "S"
-        },
-        {
-            "idMedida": 105,
-            "talle": "M"
-        },
-        {
-            "idMedida": 103,
-            "talle": "L"
-        }
-    ],
+    "categorias": 1,
+    "talles": [1,2,3],
     "imagenes":[
         {
             "idImagen": 1,
