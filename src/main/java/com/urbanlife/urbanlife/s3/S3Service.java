@@ -30,7 +30,6 @@ public class S3Service {
                     .build();
             putObjectRequest.acl();
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
-
             return key;
         }catch (IOException e) {
             throw new IOException(e.getMessage());
