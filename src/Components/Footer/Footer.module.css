@@ -3,11 +3,9 @@ div .footer {
     align-items: center;
     padding: 3%;
     margin: 0;
-    background-color: #fff3df;
-    /*e3b04b
-    F1D6AB*/
-    color: #2B2B28;
-    font-family: 'Catamaran', sans-serif;;
+    background-color: #2B2B28;
+    color: #E3CE8D;
+    
     
 }
 
@@ -21,7 +19,6 @@ div .footer img{
 }
 
 div.footer h5,h6{
-    color: #2B2B28;
     margin-right: 5px;
 }
 

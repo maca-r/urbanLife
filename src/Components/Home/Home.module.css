@@ -8,11 +8,11 @@ div .body{
 .Search {
     display: flex;
     align-items: center;
-    background-color: #f4f4f4;
+    background-color: #EFEEEE;
     padding-left: 12px;
     border-radius: 30px;
     margin-top: 3%;
-    font-family: 'Catamaran', sans-serif;
+    border: 0.5px solid #2B2B28;
 }
 
 figure {
@@ -22,19 +22,27 @@ figure {
     background-color: #f4f4f4;
 }
 
-form input{
+form .Search input{
     width: 82vw;
     height: 37px;
-    background-color: #f4f4f4;
+    background-color: #EFEEEE;
     border: none;
     border-radius: 30px;
     outline: none;
 }
 
+.buscarButton{
+    font-size: 0.9rem;
+    padding: 0.9% 3%;
+    border-radius: 50px;
+    background-color: #2B2B28;
+    color: #EFEEEE;
+    border: none;
+}
 
 h2{
     margin: 25px;
-    font-family: 'Chakra Petch', sans-serif;
+    
     
 }
 
@@ -51,6 +59,17 @@ h2{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.categoria div h6{
+    display: block;
+    position: relative;
+    top: -35px;
+    background-color: #E3CE8D;
+    padding: 2%;
+    box-shadow: -1px 6px 22px -4px rgba(43,43,40,0.75);
+    webkit-box-shadow: -1px 6px 22px -4px rgba(43,43,40,0.75);
+    moz-box-shadow: -1px 6px 22px -4px rgba(43,43,40,0.75);
 }
 
 /* .categoria div h4{
@@ -79,13 +98,11 @@ h2{
 }
 
 .producAleatorioBox {
-    background-color: #f1d6abd8;
+    
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: solid 1px #F1D6AB;
-    width: 65%; 
     margin: 25px auto;
     padding: 25px;
     text-align: center; 
@@ -100,6 +117,7 @@ h2{
 }
 
 .productoItem {
+    
     width: calc(33.33% - 10px); 
     max-width: calc(33.33% - 10px);
     display: flex;
@@ -108,18 +126,11 @@ h2{
     text-align: left;
     text-decoration: none;
     color: #2B2B28;
-    font-family: 'Catamaran', sans-serif;;
+    
 }
 
 
 
-.productoTitulo{
-    color: #2B2B28;
-}
-
-.productoTitulo{
-    color:#E3B04B
-}
 
 .productoItem img {
     width: 100px;
@@ -130,6 +141,16 @@ h2{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+}
+
+.detalleBoton{
+    border: none;
+    background-color: #E3B04B;
+    text-transform: uppercase;
+    padding: 2% 5%;
+    font-size: 0.7rem;
+    border-radius: 50px;
+    margin-right: 2%;
 }
 
 @media (max-width: 780px) {

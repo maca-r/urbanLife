@@ -4,7 +4,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { routes } from "../../Routes/routes";
-
+import Pagination from 'react-bootstrap/Pagination';
 import { Search } from '../Icon';
 import axios from 'axios';
 
@@ -140,6 +140,16 @@ const Home = () => {
 
     },[urlProductosAleatorios])
 
+
+    /*PAGINACION */
+
+    // const [paginaActual, setPaginaActual] = useState(1)
+    // const elementosPagina = []
+    // for (let number = 1; number <= productosAleatorios.length; number++) {
+    //     elementosPagina.push(number);
+
+    // }
+
     return (
     <div className={styles.body}>
 
@@ -155,22 +165,27 @@ const Home = () => {
                     onChange={handleChange} 
                 >
                 </input>
+                <button className={styles.buscarButton}>Buscar</button>
             </div>
         </form>
+
+        {/* AGREGAR IMAGEN */}
+        <img src="" alt="" />
             
+        <>
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
             {categorias.map((categoria, index) => (
                 <div key={index}>
                     <img src={categoriasImagenes[index]} alt={`Imagen ${categoria.idCategoria}`}/>
-                    
+                    <h6>{categoria.nombreCategoria}</h6>
                 <div>
-                    <h4>{categoria.nombreCategoria}</h4>
+                    
                 </div>
             </div>
             ))}
         </div>
-
+        </>
         
         <Carousel className={"d-" + carouselVisible} 
         data-bs-theme="dark"
@@ -186,10 +201,13 @@ const Home = () => {
                 />
                 
                 <Carousel.Caption>
-                    <h4 style={{color:"#2B2B28", 
+                    <h4 style={{color:"#2B2B28",
+                    backgroundColor: "#E3CE8D",
                     textAlign:"center",
                     textTransform: "uppercase",
-                    fontSize: "1rem"}}>
+                    width: "50%",
+                    marginLeft: "25%"}}>
+
                     {categoria.nombreCategoria}</h4>
                 </Carousel.Caption>
                 
@@ -199,8 +217,12 @@ const Home = () => {
             ))}
         </Carousel>
         
+
+        
         <div className={styles.producAleatorioBox}>
-            <h2>PRODUCTOS ALEATORIOS</h2>
+
+            <h2>PRODUCTOS</h2>
+
             <div className={styles.producAleatorio}>
                 {productosAleatorios.map((producto, index) => (
                     // <Link to={routes.detail} key={index} className={styles.productoItem}>
@@ -214,21 +236,44 @@ const Home = () => {
                     // </Link>
                     
 
-                    <Link to={`/product/`+ producto.idProducto } key={index} className={styles.productoItem}>    
-                        <Card style={{backgroundColor: ""}}>
-                            <Card.Img src={producto.imagen}/>
+                    <div key={index} className={styles.productoItem}>    
+                        <Card style={{width: "100%",height: "100%"}}>
+                            <Card.Img src="/images/logo.png"/>
                             <Card.Body>
-                                <Card.Title>{producto.nombre}</Card.Title>
-                                <Card.Text>
-                                {producto.detalle}
+                                <Card.Title style={{textTransform: "uppercase", width:"fit-content"}}>{producto.nombre}</Card.Title>
+                                
+                                <Card.Text>$
+                                {producto.precio}
                                 </Card.Text>
+                                
+                                <Link to={`/product/`+ producto.idProducto }>   
+                                    <button className={styles.detalleBoton} >detalle</button>
+                                </Link>
+                                
+                                <i>icono</i>
                             </Card.Body>
                         </Card>
-                    </Link>
+                    </div>
 
 
 
                 ))}
+
+                {/* <Pagination>
+                    <Pagination.First />
+                    <Pagination.Prev />
+                    {elementosPagina.map((elemento, index) => (
+                        <Pagination.Item key={index} 
+                            onClick={(event) => setPaginaActual(event.target.value)} 
+                            active={elemento === paginaActual}>
+                            {elemento}
+                        </Pagination.Item>
+                    ))}
+                    
+                    
+                    <Pagination.Next />
+                    <Pagination.Last />
+                </Pagination> */}
             </div>
         </div>
 

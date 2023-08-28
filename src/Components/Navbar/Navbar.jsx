@@ -70,8 +70,10 @@ const Navbar = () => {
             alt="logo Urban Life"
           />
         </div>
-        <h6>Donde el diseño encuentra a todos</h6>
+        
       </Link>
+
+      <h6>Donde el diseño encuentra a todos</h6>
 
       <div className={styles.rutas}>
         {userData.length == 0 || !localStorage.getItem("user") ? (

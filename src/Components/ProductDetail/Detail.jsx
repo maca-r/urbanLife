@@ -7,8 +7,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-
 import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import axios from "axios";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
@@ -78,6 +78,22 @@ const Detail = () => {
     "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
   ];
 
+
+  //LLAMADA API TALLES
+  
+  // const urlProductoTalle = `http://localhost:80/productomedida/listarproductomedida-all`;
+
+  // useEffect(() => {
+  //   try {
+  //     axios.get(urlProductoTalle).then((response) => {
+  //       console.log(response.data);
+        
+  //     });
+  //   } catch (error) {
+  //     console.error("error al obtener detalles");
+  //   }
+  // }, [urlProductoTalle]);
+
   const talles = ["TALLE S", "TALLE M", "TALLE L"];
 
   const navigate = useNavigate();
@@ -108,6 +124,7 @@ const Detail = () => {
 
   return (
     <div className={styles.detalleProducto}>
+      
       <div className={styles.tituloBackButton}>
         <h3>{detalle.nombre}</h3>
 
@@ -116,6 +133,7 @@ const Detail = () => {
         </button>
       </div>
 
+    {/* CAROUSEL MOBILE */}
       <Carousel
         className={"d-" + carouselVisible}
         style={{ width: "80%" }}
@@ -127,6 +145,9 @@ const Detail = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+
+
+    {/* CONTAINERS DESKTOP */}
 
       <div className={styles.container}>
         {/* código para una img grande donde se vea la que se selecciona desde las img más chicas */}
@@ -158,9 +179,14 @@ const Detail = () => {
             ))}
           </div>
 
-          <button className={styles.verMas} onClick={() => setShow(true)}>
+          <Button variant="light" 
+                  className={styles.verMas} 
+                  onClick={() => setShow(true)}>
             Ver más
-          </button>
+          </Button>
+
+
+          {/* MODAL CON FOTOS BOTON VER MAS */}
 
           <Modal
             show={show}
@@ -219,6 +245,8 @@ const Detail = () => {
             </Modal.Body>
           </Modal>
 
+
+          {/* DETALLE DEL PRODUCTO */}
           <p>{detalle.detalle} </p>
 
           <div className={styles.tallesCalendario}>
