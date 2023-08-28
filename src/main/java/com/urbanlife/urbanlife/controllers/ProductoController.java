@@ -47,8 +47,6 @@ public class ProductoController {
         return ResponseEntity.ok("Producto actualizado exitosamente");
     }
 
-
-
     /*Eliminar*/
 
     @GetMapping("/{id}")
