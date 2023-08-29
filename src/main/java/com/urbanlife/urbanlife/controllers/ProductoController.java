@@ -34,10 +34,6 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerListaProductos());
     }
     @GetMapping("/listaproductos-aleatorio")
-    public ResponseEntity<Collection<Productos>> listaAletoria(){
-        return ResponseEntity.ok(productoService.productosAletorios());
-    }
-    @GetMapping("/listaproductos-aleatorio-all")
     public ResponseEntity<Collection<ProductosAletoriosDTO>> listaAletoria2(){
         return ResponseEntity.ok(productoService.listarProductosAletoriosDTO());
     }
@@ -65,7 +61,7 @@ public class ProductoController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarProducto (@PathVariable Integer id) {
         ResponseEntity<String> response = null;
-        productoService.modificarEstadoDelete(id);
+        productoService.eliminarProducto(id);
         response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
     }
