@@ -1,7 +1,9 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.models.Dto.ImagenDto;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
+import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
@@ -54,6 +56,21 @@ public class ProductoService implements IProductoService {
     @Override
     public Collection<Productos> productosAletorios() {
         return productoRepository.listProductosAletorios();
+    }
+
+    public Collection<ProductosAletoriosDTO> listarProductosAletoriosDTO() {
+        Iterable<Productos> listaProductos = productoRepository.listProductosAletorios();
+        Set<ProductosAletoriosDTO> listaProductosDTO = new HashSet<ProductosAletoriosDTO>();
+        for (Productos productos : listaProductos) {
+            listaProductosDTO.add(objectMapper.convertValue(productos, ProductosAletoriosDTO.class));
+            for (ProductosAletoriosDTO productoDTO : listaProductosDTO ) {
+                if (imagenService.obtenerImagen(productoDTO.getIdProducto()).isPresent()) {
+                    productoDTO.setImagenes(imagenService.listarImagenesPorProducto(productos.getIdProducto()));
+                }
+            }
+        }
+        logger.info("Productos Aleatorios: Proceso Finalizado con Exito!");
+        return listaProductosDTO;
     }
     @Override
     public ProductosDto obtenerProducto(Integer id) {

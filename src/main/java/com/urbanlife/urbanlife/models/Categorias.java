@@ -21,7 +21,9 @@ public class Categorias {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorias_sequence")
 
     private int idCategoria;
-    private String nombreCategoria;
+    private String titulo;
+    private String descripcion;
+    private String URLIMAGEN;
 
     @OneToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     @JsonIgnore

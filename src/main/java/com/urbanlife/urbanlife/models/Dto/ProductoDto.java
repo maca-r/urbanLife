@@ -1,7 +1,6 @@
 package com.urbanlife.urbanlife.models.Dto;
 
 import com.urbanlife.urbanlife.models.Categorias;
-import com.urbanlife.urbanlife.models.Imagenes;
 import com.urbanlife.urbanlife.models.Medidas;
 import jakarta.persistence.JoinColumn;
 import lombok.Getter;
