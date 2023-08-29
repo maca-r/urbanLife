@@ -1,6 +1,7 @@
 package com.urbanlife.urbanlife.controllers;
 
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
+import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
@@ -36,7 +37,10 @@ public class ProductoController {
     public ResponseEntity<Collection<Productos>> listaAletoria(){
         return ResponseEntity.ok(productoService.productosAletorios());
     }
-
+    @GetMapping("/listaproductos-aleatorio-all")
+    public ResponseEntity<Collection<ProductosAletoriosDTO>> listaAletoria2(){
+        return ResponseEntity.ok(productoService.listarProductosAletoriosDTO());
+    }
 
     /*Editar*/
     @PutMapping("/editar/{id}")

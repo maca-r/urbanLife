@@ -10,10 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ImagenService implements IImagenService {
@@ -36,7 +33,9 @@ public class ImagenService implements IImagenService {
     public List<Imagenes> getAllImagenes() {
         return imagenRepository.findAll();
     }
-
+    public Optional<Imagenes> obtenerImagen(Integer id) {
+        return imagenRepository.findById(id);
+    }
     @Override
     public Collection<ImagenDto> listarImagenesPorProducto(Integer id) {
         Iterable<Imagenes>listaImagenes = imagenRepository.findByProductosIdProducto(id);
