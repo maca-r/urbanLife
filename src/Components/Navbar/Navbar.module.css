@@ -15,22 +15,21 @@ nav {
 
 
 nav a{
+    width: 70%;
     color:  #FFFFFF;
-    
+    text-decoration: none;
     
 }
 
-/* nav a:active{
-    background-color: #F1D6AB;
-    color: #2B2B28;
-    border: 2px solid #E3B04B
-} */
 
-/* nav .logo{
+
+nav .logo{
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+    
+}
 
 
 
@@ -42,20 +41,18 @@ nav .logo img {
 }
 
 nav h6{
-    
+    font-size: 0.8rem;
+    margin-left: 1%;
     color: #FFFFFF;
     text-transform: uppercase;
     text-shadow: -1px 3px 9px rgba(239,238,238,0.55);
-    
-    
 }
 
-nav a{
-    text-decoration: none;
-}
+
 
 
 nav .rutas a{
+    
     font-size: 0.78rem;
     padding: 0.50rem 1rem;
     text-decoration: none;
@@ -84,7 +81,10 @@ nav .rutas a{
 }
 */
 
+
+
 .crearCuenta {
+    
     margin-right: 10px;
     background-color: #E3CE8D;
     color:#2B2B28;
@@ -130,6 +130,7 @@ nav .rutas a{
 
 @media (min-width: 780px){
     nav .logo{
+        
         display: flex;
         flex-direction: row;
         

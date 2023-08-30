@@ -62,18 +62,21 @@ const Navbar = () => {
 
   return (
     <nav>
-      <Link to={routes.home} className={styles.logo}>
+
+      <Link to={routes.home} className={styles.logoLink}>
         <div className={styles.logo}>
           <img
             className={styles.logoImage}
             src="/images/logo.png"
             alt="logo Urban Life"
           />
+          <h6>Vivi tu estilo</h6>
         </div>
         
       </Link>
 
-      <h6>Donde el diseño encuentra a todos</h6>
+      {/* <h6>Donde el diseño encuentra a todos</h6> */}
+      
 
       <div className={styles.rutas}>
         {userData.length == 0 || !localStorage.getItem("user") ? (

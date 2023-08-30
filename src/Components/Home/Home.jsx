@@ -110,7 +110,7 @@ const Home = () => {
   //     },
   // ]
 
-  const [productosAleatorios, setProductosAleatorios] = useState([{}]);
+  const [productosAleatorios, setProductosAleatorios] = useState([]);
   const urlProductosAleatorios = "http://localhost:80/productos/listaAleatoria";
 
   useEffect(() => {
@@ -124,6 +124,8 @@ const Home = () => {
     }
   }, [urlProductosAleatorios]);
 
+
+  {console.log(productosAleatorios.length)}
   /*PAGINACION */
 
   // const [paginaActual, setPaginaActual] = useState(1)
@@ -204,6 +206,7 @@ const Home = () => {
       <div className={styles.producAleatorioBox}>
         <h2>PRODUCTOS</h2>
 
+        {!productosAleatorios.length == 0 &&         
         <div className={styles.producAleatorio}>
           {productosAleatorios.map((producto, index) => (
             // <Link to={routes.detail} key={index} className={styles.productoItem}>
@@ -254,6 +257,7 @@ const Home = () => {
                     <Pagination.Last />
                 </Pagination> */}
         </div>
+        }
       </div>
     </div>
   );

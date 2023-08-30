@@ -14,7 +14,7 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import WcIcon from "@mui/icons-material/Wc";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
-import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import ContentCutIcon from '@mui/icons-material/ContentCut';
 
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
@@ -119,8 +119,11 @@ const Detail = () => {
     <CheckroomIcon sx={{ color: "#E3B04B" }} />,
     <WcIcon sx={{ color: "#E3B04B" }} />,
     <DeviceThermostatIcon sx={{ color: "#E3B04B" }} />,
-    <LocalActivityIcon sx={{ color: "#E3B04B" }} />,
+    <ContentCutIcon sx={{ color: "#E3B04B" }} />,
   ];
+
+
+  
 
   return (
     <div className={styles.detalleProducto}>
@@ -149,7 +152,7 @@ const Detail = () => {
 
     {/* CONTAINERS DESKTOP */}
 
-      <div className={styles.container}>
+      <div className={styles.containerImagenes}>
         {/* código para una img grande donde se vea la que se selecciona desde las img más chicas */}
         {/* <div className={styles.largeImg}>
             <img src={selectedImage} />
@@ -247,7 +250,7 @@ const Detail = () => {
 
 
           {/* DETALLE DEL PRODUCTO */}
-          <p>{detalle.detalle} </p>
+          {/* <p>{detalle.detalle} </p>
 
           <div className={styles.tallesCalendario}>
             <div className={styles.talles}>
@@ -264,11 +267,60 @@ const Detail = () => {
           <div className={styles.precioReserva}>
             <h5>PRECIO: ${detalle.precio}</h5>
             <button>RESERVAR</button>
+          </div> */}
+        </div>
+      </div>
+
+
+      <div className={styles.containerDetalles}>
+
+        <div className={styles.detalleCaracteristicas}>
+
+          <p>{detalle.detalle} </p>
+
+          <div className={styles.caracteristicasBox}>
+            <h4>Caracteristicas</h4>
+            <div className={styles.caracteristicas}>
+              {caracteristicas.map((caracteristica, index) => (
+                <ul key={index}>
+                  <li>
+                    <i>{iconoCaracteristicas[index]}</i>
+                    {caracteristica}
+                  </li>
+                </ul>
+              ))}
+            </div>
+          </div>
+              
+        </div>
+              
+        <div className={styles.detalleReserva}>
+
+        
+
+          <h5>${detalle.precio}</h5>
+              
+              
+          <div className={styles.talles}>
+            {talles.map((talle, index) => (
+              <button key={index}>{talle}</button>
+            ))}
+          </div>
+            
+            
+          <div className={styles.reserva}>
+            <form className={styles.calendar} action="">
+                  <input type="date" />
+            </form>
+            
+            <button>reservar</button>
           </div>
         </div>
       </div>
 
-      <span className={styles.tallesPrecioM}>
+      
+
+      {/* <span className={styles.tallesPrecioM}>
         <div className={styles.tallesCalendario}>
           <div className={styles.talles}>
             {talles.map((talle, index) => (
@@ -282,24 +334,12 @@ const Detail = () => {
         </div>
 
         <div className={styles.precioReserva}>
-          <h5>PRECIO: $100</h5>
+          <h5>PRECIO: ${detalle.precio}</h5>
           <button>RESERVAR</button>
         </div>
-      </span>
+      </span> */}
 
-      <div className={styles.caracteristicasBox}>
-        <h4>Caracteristicas de la prenda</h4>
-        <div className={styles.caracteristicas}>
-          {caracteristicas.map((caracteristica, index) => (
-            <ul key={index}>
-              <li>
-                <i>{iconoCaracteristicas[index]}</i>
-                {caracteristica}
-              </li>
-            </ul>
-          ))}
-        </div>
-      </div>
+      
     </div>
   );
 };

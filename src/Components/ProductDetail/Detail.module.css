@@ -1,3 +1,5 @@
+
+
 .detalleProducto {
   display: flex;
   flex-direction: column;
@@ -10,16 +12,58 @@
   margin-top: 5%;
 }
 
+.tituloBackButton{
+  width: 90%;
+  margin: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.backButton {
+  display: block;
+  height: auto;
+  border-radius: 50%;
+}
+
+h3{
+  text-transform: capitalize;
+}
+
 .tallesPrecioM {
   width: 100%;
 }
 
-.tallesCalendario {
+/* .tallesCalendario {
   margin-left: 10%;
   margin-top: 3%;
   margin-bottom: 3%;
   width: 80%;
   display: flex;
+} */
+
+h5{
+  font-weight: bold;
+  color:#2b2b28;
+  font-size: 1.5rem;
+  margin-top: 50px;
+}
+
+.containerDetalles{
+  margin-top: 3% 0;
+}
+
+.detalleCaracteristicas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.detalleReserva{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }
 
 .talles {
@@ -28,46 +72,64 @@
   justify-content: space-between;
   padding: 0px;
   height: fit-content;
-  border: 2px solid #2b2b28;
+  border: 3px solid #E3B04B;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
-.tallesCalendario button {
+.talles button {
   font-size: 0.7rem;
   border-radius: 0;
   background-color: #f8f8f8;
   color: #2b2b28;
   border: none;
-  padding: 3.5% 5%;
+  padding: 2%;
 }
 
-.tallesCalendario button:focus {
+.talles button:focus {
   background-color: #e3b04b;
-  border: 1px solid #e3b04b;
+  
 }
 
-form .calendar {
-  width: 40%;
-  height: max-content;
+.reserva{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  height: 35px;
+  margin-bottom: 80px;
 }
+
+
 
 .calendar input {
-  width: 100%;
-  height: 38px;
+  height: 30px;
+  text-transform: uppercase;
+  background-color: #EFEFEE;
   font-size: 0.7rem;
   padding: 5%;
   border-radius: 0;
-  border: 2px solid #2b2b28;
-  color-scheme: light;
+  border: none;
+  /* color-scheme: light; */
   margin: 0;
 }
 
-.precioReserva {
+.reserva button{
+    border: none;
+    background-color: #E3B04B;
+    text-transform: uppercase;
+    padding: 1% 7%;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    
+}
+
+/* .precioReserva {
   display: flex;
-  width: 30%;
+  width: ;
   align-items: center;
   margin-bottom: 3%;
   margin-left: 10%;
-  width: 100%;
+  
 }
 
 .precioReserva h5 {
@@ -96,29 +158,35 @@ form .calendar {
   background-color: #f1d6ab;
   color: #2b2b28;
   border: 2px solid #e3b04b;
-}
+} */
 
 .caracteristicasBox {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px #e3b04b solid;
+  background-color: #EFEFEE;
   margin: 3%;
-  width: 70%;
-  padding: 1%;
+  width: fit-content;
+  padding: 5%;
 }
 
 .caracteristicas {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  margin-left: 50%;
   width: 100%;
   margin-top: 2%;
 }
 
-.container,
-.verMas,
-.backButton {
+.caracteristicas i {
+  margin-right: 5%;
+}
+
+.containerImagenes,
+.verMas
+{
   display: none;
 }
 
@@ -140,19 +208,21 @@ li {
     justify-content: space-evenly;
     width: 100%;
     margin: 2%;
-    background-color: #f1d6ab;
+    
     padding: 2%;
   }
 
   .tituloBackButton h3 {
     margin: 0;
     width: 80%;
-    text-transform: uppercase;
+    font-size:  2rem;
   }
 
   .backButton {
-    display: block;
-    height: auto;
+    color:#2b2b28;
+    
+    background-color: #E3CE8D;
+    border: none;
     border-radius: 50%;
   }
 
@@ -160,22 +230,26 @@ li {
     font-size: 2rem;
   }
 
-  .container {
+  .containerImagenes {
     display: flex;
     justify-content: space-between;
-
+    height: 50%;
     width: 90%;
   }
 
   .leftContainer {
-    align-items: center;
-    margin-right: 3%;
+    width: 50%;
+    display: flex;
+    
+    justify-content: center;
+    margin-right: 10%;
+    
   }
 
   .leftContainer img {
-    width: 100%;
-
-    flex-grow: 1;
+    max-width: 100%;
+    height: min-content;
+    
   }
 
   /* .smallImg{
@@ -189,8 +263,7 @@ li {
 
   .rightContainer {
     width: 50%;
-    display: flex;
-    flex-direction: column;
+    
   }
 
   .rightContainer .smallImages {
@@ -198,16 +271,22 @@ li {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 10px;
-    grid-row-gap: 10px;
-    margin-bottom: 3%;
-    justify-items: center;
+    grid-row-gap: 15px;
+    
   }
 
+  
+
   .rightContainer img {
-    width: 70%;
+    max-width: 100%;
+    height: auto
   }
 
   .verMas {
+    background-color:#E3B04B;
+    border-radius: 0;
+    text-transform: uppercase;
+    border: none;
     display: block;
     position: relative;
     bottom: 9%;
@@ -215,7 +294,7 @@ li {
     width: fit-content;
   }
 
-  .rightContainer p {
+  /* .rightContainer p {
     margin: 0;
     margin-bottom: 4%;
   }
@@ -228,12 +307,38 @@ li {
     margin: 0;
     width: 100%;
     margin-bottom: 7%;
+  } */
+
+  .containerDetalles{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    
+  }
+
+  .detalleCaracteristicas{
+    width: 50%;
+    margin-right: 10%;
+  }
+
+  .caracteristicasBox{
+    font-size: 0.8rem;
+  }
+
+  .detalleReserva{
+    width: 50%;
+    
   }
 
   .talles {
-    width: 60%;
-    height: 43px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 90%;
+    height: 40px;
+    
   }
+
+
 
   .calendar {
     width: 40%;
