@@ -15,14 +15,13 @@ import java.util.UUID;
 
 @Service
 public class S3Service {
-    private final static String BUCKET = "springboots3awstest";
+    private final static String BUCKET = "e5imagenes";
     private final S3Client s3Client;
     @Autowired
     public S3Service(S3Client s3Client) { this.s3Client = s3Client;}
     public String uploadFile(MultipartFile file) throws IOException {
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
         String key = String.format("%s.%s", UUID.randomUUID(), extension);
-
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(BUCKET)
@@ -52,7 +51,7 @@ public class S3Service {
     }
 
     public String getObjectUrl(String key) {
-        return String.format("http://%s.s3.amazonaws.com/%s", "springboots3awstest", key);
+        return String.format("http://%s.s3.amazonaws.com/%s", "e5imagenes", key);
     }
     public void getURL(String keyName ) {
 
