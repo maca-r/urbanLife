@@ -16,6 +16,9 @@ import java.util.Map;
 public class S3Controller {
     @Autowired
     S3Service s3Service;
+    @Autowired
+    S3Buckets s3Buckets;
+    /*
     @PostMapping("/upload")
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         String Key = s3Service.uploadFile(file);
@@ -23,19 +26,19 @@ public class S3Controller {
         resultado.put("key", Key);
         resultado.put("URL", s3Service.getObjectUrl(Key));
         return resultado;
-    }
+    }*/
     @GetMapping(
             value = "/get-object/{key}",
             produces = MediaType.IMAGE_PNG_VALUE
     )
     ResponseEntity<ByteArrayResource> getObject(@PathVariable String key) {
-        ByteArrayResource resource = new ByteArrayResource(s3Service.getObjectBytes(key));
+        ByteArrayResource resource = new ByteArrayResource(s3Service.getObjectBytes(s3Buckets.getCustomer(), key));
         return ResponseEntity
                 .ok()
                 .body(resource);
     }
     @GetMapping("/{key}")
     public void getURLS(@PathVariable String key) {
-        s3Service.getURL(key);
+        s3Service.getURL(s3Buckets.getCustomer(),key);
     }
 }

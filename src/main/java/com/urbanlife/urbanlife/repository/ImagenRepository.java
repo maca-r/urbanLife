@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ImagenRepository extends JpaRepository<Imagenes, Integer> {
+public interface ImagenRepository extends JpaRepository<Imagenes, String> {
     @Transactional
     @Modifying
     @Query (value = "Select * from imagenes as ima\n" +

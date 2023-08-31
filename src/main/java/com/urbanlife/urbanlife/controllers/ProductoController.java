@@ -7,8 +7,10 @@ import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -29,6 +31,16 @@ public class ProductoController {
         productoService.crearProducto(productosDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Producto Creado");
     }
+    @PostMapping(
+            value = "{idProducto}/producto-image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public void uploadProductImage(
+            @PathVariable("idProducto") Integer idProducto,
+            @RequestParam("file") MultipartFile file) {
+        productoService.uploadProductImagen(idProducto, file);
+    }
+
     @GetMapping("/listaproductos-all")
     public ResponseEntity<Collection<ProductosDto>> listarProductos() {
         return ResponseEntity.ok(productoService.obtenerListaProductos());

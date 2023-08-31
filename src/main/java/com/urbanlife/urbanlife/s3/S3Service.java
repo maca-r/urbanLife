@@ -15,32 +15,25 @@ import java.util.UUID;
 
 @Service
 public class S3Service {
-    private final static String BUCKET = "springboots3awstest";
     private final S3Client s3Client;
     @Autowired
     public S3Service(S3Client s3Client) { this.s3Client = s3Client;}
-    public String uploadFile(MultipartFile file) throws IOException {
-        String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-        String key = String.format("%s.%s", UUID.randomUUID(), extension);
-
-        try {
+    public void uploadFile(String bucketName, byte[] file, String key) throws IOException {
+        //String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        //String key = String.format("%s.%s", UUID.randomUUID(), extension);
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(BUCKET)
+                    .bucket(bucketName)
                     .key(key)
                     .build();
             putObjectRequest.acl();
-            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
-            return key;
-        }catch (IOException e) {
-            throw new IOException(e.getMessage());
-        }
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file));
     }
-    public byte[] getObjectBytes(String keyName) {
+    public byte[] getObjectBytes(String bucketName,String keyName) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()
                     .key(keyName)
-                    .bucket(BUCKET)
+                    .bucket(bucketName)
                     .build();
             ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -54,11 +47,11 @@ public class S3Service {
     public String getObjectUrl(String key) {
         return String.format("http://%s.s3.amazonaws.com/%s", "springboots3awstest", key);
     }
-    public void getURL(String keyName ) {
+    public void getURL(String bucketName,String keyName ) {
 
         try {
             GetUrlRequest request = GetUrlRequest.builder()
-                    .bucket(BUCKET)
+                    .bucket(bucketName)
                     .key(keyName)
                     .build();
 

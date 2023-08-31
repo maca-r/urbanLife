@@ -12,5 +12,5 @@ public interface IImagenService {
     void createImagen(Imagenes imagenes);
     List<Imagenes> getAllImagenes();
     Collection<ImagenDto> listarImagenesPorProducto(Integer id);
-    public Optional<Imagenes> obtenerImagen(Integer id);
+    public Optional<Imagenes> obtenerImagen(String id);
 }

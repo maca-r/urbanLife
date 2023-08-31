@@ -1,20 +1,21 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.urbanlife.urbanlife.models.Dto.ImagenDto;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
+import com.urbanlife.urbanlife.s3.S3Buckets;
+import com.urbanlife.urbanlife.s3.S3Service;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,9 +27,12 @@ public class ProductoService implements IProductoService {
     @Autowired
     ImagenService imagenService;
     @Autowired
+    S3Service s3Service;
+    @Autowired
+    S3Buckets s3Buckets;
+    @Autowired
     ObjectMapper objectMapper;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
-
     @Override
     public void crearProducto(ProductosDto productosDto) {
         if (productosDto != null) {
@@ -40,7 +44,26 @@ public class ProductoService implements IProductoService {
         Productos newProducto = objectMapper.convertValue(productosDto, Productos.class);
         productoRepository.save(newProducto);
     }
-
+    @Override
+    public void uploadProductImagen(Integer idProducto,
+                                           MultipartFile file) {
+        //checkIfCustomerExistsOrThrow(idProducto);
+        String profileImageId = UUID.randomUUID().toString();
+        try {
+            s3Service.uploadFile(
+                    s3Buckets.getCustomer(),
+                    file.getBytes(),
+                    "product-images/%s/%s".formatted(idProducto, profileImageId)
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("failed to upload profile image", e);
+        }
+        productoRepository.resgistrarImagenesConProducto(
+                profileImageId,
+                "product-images/%s/%s".formatted(idProducto, profileImageId),
+                idProducto);
+    }
+    //public void uploadProductoTalle
     @Override
     public Collection<ProductosDto> obtenerListaProductos() {
         Iterable<Productos> listarProductos = productoRepository.findAll();
@@ -50,7 +73,7 @@ public class ProductoService implements IProductoService {
                 listarProductoDto.add(objectMapper.convertValue(producto, ProductosDto.class));
             }
         }
-        logger.info("Proceso Finalizado con Exito!");
+        logger.info("Lista Productos: Proceso Finalizado con Exito!");
         return listarProductoDto;
     }
     @Override
@@ -98,7 +121,6 @@ public class ProductoService implements IProductoService {
         if (existingProductoOptional.isPresent()) {
             Productos existingProducto = existingProductoOptional.get();
 
-
             existingProducto.setNombre(productosDto.getNombre());
             existingProducto.setPrecio(productosDto.getPrecio());
             existingProducto.setDetalle(productosDto.getDetalle());
@@ -108,7 +130,6 @@ public class ProductoService implements IProductoService {
             existingProducto.setEvento(productosDto.getEvento());
             existingProducto.setTemporada(productosDto.getTemporada());
             existingProducto.setCategorias(productosDto.getCategorias());
-
 
             productoRepository.save(existingProducto);
 
