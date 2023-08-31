@@ -17,6 +17,7 @@ public class CategoriaController {
     ICategoriaService categoriaService;
     @PostMapping("/registrar")
     public ResponseEntity<String> registrarCategoria (@RequestBody Categorias categoria) {
+        //AGREGAR SEGUNDO PARAMETRO FILE
         categoriaService.crearCategoria(categoria);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Se registro exitosamente");
     }
