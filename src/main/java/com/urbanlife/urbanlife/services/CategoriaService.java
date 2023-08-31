@@ -31,21 +31,24 @@ public class CategoriaService implements ICategoriaService {
     public void crearCategoria(Categorias categoria) {
         if (categoria != null) {
             guardarCategoria(categoria);
-            logger.info("Se registro exitosamente el talle");
-        }else {logger.error("Surgio un problema, no se registro el talle");}
+            logger.info("Se registro exitosamente la categoria");
+        }else {logger.error("Surgio un problema, no se registro la categoria");}
     }
-    private Categorias guardarCategoria(Categorias categoria) {
-        return categoriaRepository.save(categoria);
+    private void guardarCategoria(Categorias categoria) {
+        categoriaRepository.save(categoria);
     }
-    public String uploadCategoryImage(Integer id, MultipartFile file) {
+    public void uploadCategoryImage(Integer id, MultipartFile file) {
         //checkIfCustomerExistsOrThrow(customerId);
         String profileImageId = UUID.randomUUID().toString();
         try {
-            return s3Service.uploadFile(file);
+             s3Service.uploadFile(
+                    s3Buckets.getCustomer(),
+                    file.getBytes(),
+                    "categoria-images/%s/%s".formatted(id, profileImageId)
+            );
         } catch (IOException e) {
-            throw new RuntimeException("failed to upload profile image", e);
+            throw new RuntimeException("failed to upload profile image category", e);
         }
-        //customerDao.updateCustomerProfileImageId(profileImageId, customerId);
     }
     @Override
     public List<Categorias> obtenerListaCategoria() {

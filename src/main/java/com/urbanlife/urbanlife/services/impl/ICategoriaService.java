@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ICategoriaService {
     void crearCategoria(Categorias categoria);
-    String uploadCategoryImage(Integer id,MultipartFile file);
+    void uploadCategoryImage(Integer id,MultipartFile file);
     List<Categorias> obtenerListaCategoria();
 }
