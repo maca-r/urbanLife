@@ -1,6 +1,7 @@
 package com.urbanlife.urbanlife.controllers;
 
 import com.urbanlife.urbanlife.models.Categorias;
+import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
 import com.urbanlife.urbanlife.services.impl.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class CategoriaController {
     ICategoriaService categoriaService;
     @PostMapping("/registrar")
     public ResponseEntity<String> registrarCategoria (
-            @RequestBody Categorias categoria
+            @RequestBody CategoriaDto categoria
     ) {
         //AGREGAR SEGUNDO PARAMETRO FILE
         categoriaService.crearCategoria(categoria);

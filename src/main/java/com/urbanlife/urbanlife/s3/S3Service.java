@@ -9,7 +9,6 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.UUID;
 
 @Service
 public class S3Service {
@@ -43,7 +42,7 @@ public class S3Service {
     }
 
     public String getObjectUrl(String key) {
-        return String.format("http://%s.s3.amazonaws.com/%s", "springboots3awstest", key);
+        return String.format("http://%s.s3.amazonaws.com/%s", "e5imagenes", key);
     }
     public void getURL(String bucketName,String keyName ) {
 

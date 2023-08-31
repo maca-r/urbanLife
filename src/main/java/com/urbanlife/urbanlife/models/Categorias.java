@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.net.URL;
 import java.util.Set;
 
 @Table
@@ -14,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Categorias {
     @Id
     @SequenceGenerator(name="categorias_sequence", sequenceName = "categorias_sequence", allocationSize = 1)
@@ -28,4 +28,8 @@ public class Categorias {
     @OneToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Productos> Productos;
+
+    public Categorias() {
+        URLIMAGEN = "";
+    }
 }
