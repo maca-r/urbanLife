@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition
 public class UrbanlifeApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(UrbanlifeApplication.class, args);
 	}
