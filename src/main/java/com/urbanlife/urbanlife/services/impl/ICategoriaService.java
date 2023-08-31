@@ -6,8 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ICategoriaService {
-
-    // AGREGAR IMAGEN FILE => MultipartFile
-    public void crearCategoria(Categorias categoria);
+    void crearCategoria(Categorias categoria);
+    String uploadCategoryImage(Integer id,MultipartFile file);
     List<Categorias> obtenerListaCategoria();
 }

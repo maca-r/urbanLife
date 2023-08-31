@@ -28,16 +28,16 @@ public class CategoriaService implements ICategoriaService {
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
     @Override
-    public void crearCategoria(Categorias categoria, MultipartFile file) {
+    public void crearCategoria(Categorias categoria) {
         if (categoria != null) {
-            guardarCategoria(categoria).setURLIMAGEN(uploadCategoryImage(file));
+            guardarCategoria(categoria);
             logger.info("Se registro exitosamente el talle");
         }else {logger.error("Surgio un problema, no se registro el talle");}
     }
     private Categorias guardarCategoria(Categorias categoria) {
         return categoriaRepository.save(categoria);
     }
-    public String uploadCategoryImage(MultipartFile file) {
+    public String uploadCategoryImage(Integer id, MultipartFile file) {
         //checkIfCustomerExistsOrThrow(customerId);
         String profileImageId = UUID.randomUUID().toString();
         try {
