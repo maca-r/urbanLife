@@ -28,7 +28,7 @@ public class S3Controller {
         return resultado;
     }*/
     @GetMapping(
-            value = "/get-object/{key}",
+            value = "/get-object/{key}/categoria-images",
             produces = MediaType.IMAGE_PNG_VALUE
     )
     ResponseEntity<ByteArrayResource> getObject(@PathVariable String key) {

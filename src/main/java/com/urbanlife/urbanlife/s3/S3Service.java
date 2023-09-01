@@ -26,13 +26,13 @@ public class S3Service {
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file));
     }
     public byte[] getObjectBytes(String bucketName,String keyName) {
+        GetObjectRequest objectRequest = GetObjectRequest
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
+        ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
         try {
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
-            ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
         }catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

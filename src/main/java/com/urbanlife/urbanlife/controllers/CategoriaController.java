@@ -22,7 +22,6 @@ public class CategoriaController {
     public ResponseEntity<String> registrarCategoria (
             @RequestBody CategoriaDto categoria
     ) {
-        //AGREGAR SEGUNDO PARAMETRO FILE
         categoriaService.crearCategoria(categoria);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Se registro exitosamente");
     }
@@ -35,6 +34,15 @@ public class CategoriaController {
             @RequestParam("file") MultipartFile file) {
         categoriaService.uploadCategoryImage(id, file);
     }
+    @GetMapping(
+            value = "{id}/categoria-image",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    public byte[] getCustomerProfileImage(
+            @PathVariable("id") Integer id) {
+        return categoriaService.getCategoryImagen(id);
+    }
+
     @GetMapping("/listarcategorias-all")
     public ResponseEntity<List<Categorias>> listarCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerListaCategoria());

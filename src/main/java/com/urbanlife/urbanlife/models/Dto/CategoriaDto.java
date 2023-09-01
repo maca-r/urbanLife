@@ -9,4 +9,5 @@ public class CategoriaDto {
     private int idCategoria;
     private String titulo;
     private String descripcion;
+    private String urlImagen;
 }
