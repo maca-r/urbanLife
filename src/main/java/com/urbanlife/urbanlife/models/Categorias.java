@@ -24,6 +24,7 @@ public class Categorias {
     private String titulo;
     private String descripcion;
     private String URLIMAGEN;
+    private Boolean eliminarCategoria;
 
     @OneToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -31,5 +32,6 @@ public class Categorias {
 
     public Categorias() {
         URLIMAGEN = "";
+        eliminarCategoria = false;;
     }
 }

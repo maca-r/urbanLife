@@ -16,8 +16,6 @@ public class S3Service {
     @Autowired
     public S3Service(S3Client s3Client) { this.s3Client = s3Client;}
     public void uploadFile(String bucketName, byte[] file, String key) throws IOException {
-        //String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-        //String key = String.format("%s.%s", UUID.randomUUID(), extension);
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(key)
@@ -45,7 +43,6 @@ public class S3Service {
         return String.format("http://%s.s3.amazonaws.com/%s", "e5imagenes", key);
     }
     public void getURL(String bucketName,String keyName ) {
-
         try {
             GetUrlRequest request = GetUrlRequest.builder()
                     .bucket(bucketName)

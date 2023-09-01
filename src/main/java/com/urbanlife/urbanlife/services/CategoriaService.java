@@ -73,6 +73,10 @@ public class CategoriaService implements ICategoriaService {
         );
         return profileImage;
     }
+    public void eliminarCategoria(Integer idCategoria) {
+        //checkIfCustomerExistsOrThrow(customerId);
+        categoriaRepository.setEstadoEliminar(idCategoria, true);
+    }
     @Override
     public List<Categorias> obtenerListaCategoria() {
         return categoriaRepository.findAll().stream()

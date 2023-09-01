@@ -15,4 +15,7 @@ public interface CategoriaRepository extends JpaRepository<Categorias, Integer> 
             SET urlimagen = :urlImagen
             WHERE id_categoria = :id""",nativeQuery = true)
     void updateUrlImagen(@Param("id")Integer id, @Param("urlImagen")String urlImagen);
+    @Modifying
+    @Query(value = "UPDATE categorias SET eliminar_categoria = :estado WHERE id_categoria = :id", nativeQuery = true)
+    void setEstadoEliminar(@Param("id") Integer id, @Param("estado") boolean estado);
 }
