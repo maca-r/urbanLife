@@ -1,6 +1,8 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
+import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
@@ -12,6 +14,7 @@ import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,6 +36,17 @@ public class ProductoService implements IProductoService {
     @Autowired
     ObjectMapper objectMapper;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
+    public boolean existsCustomerById(Integer id) {
+        Optional<Productos> producto = productoRepository.findById(id);
+        return producto.isPresent();
+    }
+    private void checkIfProductoExistsOrThrow(Integer id) {
+        if (!existsCustomerById(id)) {
+            throw new ResourceNotFoundException(
+                    "La categoria con el id [%s] NO EXISTE".formatted(id)
+            );
+        }
+    }
     @Override
     public void crearProducto(ProductosDto productosDto) {
         if (productosDto != null) {
@@ -45,25 +59,25 @@ public class ProductoService implements IProductoService {
         productoRepository.save(newProducto);
     }
     @Override
-    public void uploadProductImagen(Integer idProducto,
+    public void uploadProductImagen(Integer idProduct,
                                            MultipartFile file) {
-        //checkIfCustomerExistsOrThrow(idProducto);
+        checkIfProductoExistsOrThrow(idProduct);
         String profileImageId = UUID.randomUUID().toString();
+        String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
         try {
             s3Service.uploadFile(
                     s3Buckets.getCustomer(),
                     file.getBytes(),
-                    "product-images/%s/%s".formatted(idProducto, profileImageId)
+                    "producto-images/%s/%s.%s".formatted(idProduct, profileImageId,extension)
             );
         } catch (IOException e) {
             throw new RuntimeException("failed to upload profile image", e);
         }
         productoRepository.resgistrarImagenesConProducto(
                 profileImageId,
-                "product-images/%s/%s".formatted(idProducto, profileImageId),
-                idProducto);
+                "%s.%s".formatted(profileImageId, extension),
+                idProduct);
     }
-    //public void uploadProductoTalle
     @Override
     public Collection<ProductosDto> obtenerListaProductos() {
         Iterable<Productos> listarProductos = productoRepository.findAll();
@@ -90,29 +104,13 @@ public class ProductoService implements IProductoService {
                 .collect(Collectors.toList());
     }
     @Override
-    public ProductosDto obtenerProducto(Integer id) {
+    public ProductoDto obtenerProducto(Integer id) {
+        checkIfProductoExistsOrThrow(id);
         Optional<Productos> producto = productoRepository.findById(id);
-        return objectMapper.convertValue(producto, ProductosDto.class);
-    }
-    @Override
-    public ProductoDto obtenerProductos(Integer id) {
-        Optional<Productos> producto = productoRepository.findById(id);
-        ProductosDto result = obtenerProducto(id);
-        ProductoDto productoDto = new ProductoDto();
-        productoDto.setIdProducto(result.getIdProducto());
-        productoDto.setNombre(result.getNombre());
-        productoDto.setPrecio(result.getPrecio());
-        productoDto.setDetalle(result.getDetalle());
-        productoDto.setColor(result.getColor());
-        productoDto.setTela(result.getTela());
-        productoDto.setGenero(result.getGenero());
-        productoDto.setEvento(result.getEvento());
-        productoDto.setTemporada(result.getTemporada());
-        productoDto.setCategorias(result.getCategorias());
-        productoDto.setTalles(medidaService.listarTallesProducto(id));
-        productoDto.setImagenes(imagenService.listarImagenesPorProducto(id));
-
-        return productoDto;
+        ProductoDto result = objectMapper.convertValue(producto, ProductoDto.class);
+        result.setTalles(medidaService.listarTallesProducto(id));
+        result.setImagenes(imagenService.listarImagenesPorProducto(id));
+        return result;
     }
     @Override
     public void editarProducto(Integer id, ProductosDto productosDto) {

@@ -2,7 +2,6 @@ package com.urbanlife.urbanlife.controllers;
 
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
-import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,18 +57,10 @@ public class ProductoController {
         productoService.editarProducto(id, productosDto);
         return ResponseEntity.ok("Producto actualizado exitosamente");
     }
-
-    /*Eliminar*/
-
-    @GetMapping("/{id}")
-    public ProductosDto obtenerProducto(@PathVariable Integer id) {
-        return productoService.obtenerProducto(id);
-    }
     @GetMapping("/obtener/{id}")
     public ProductoDto obtenerProductoCompletos(@PathVariable Integer id) {
-        return productoService.obtenerProductos(id);
+        return productoService.obtenerProducto(id);
     }
-
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarProducto (@PathVariable Integer id) {
         ResponseEntity<String> response = null;

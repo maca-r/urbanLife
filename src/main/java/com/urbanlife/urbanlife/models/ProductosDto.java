@@ -1,6 +1,5 @@
 package com.urbanlife.urbanlife.models;
 
-import com.urbanlife.urbanlife.models.Dto.MedidaDto;
 import jakarta.persistence.JoinColumn;
 import lombok.Getter;
 import lombok.Setter;

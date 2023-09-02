@@ -9,13 +9,10 @@ import java.util.Collection;
 
 public interface IProductoService {
     void crearProducto(ProductosDto productosDto);
-    void uploadProductImagen(Integer idProducto,
-                                    MultipartFile file);
+    void uploadProductImagen(Integer idProducto, MultipartFile file);
     Collection<ProductosDto> obtenerListaProductos();
-    public Collection<ProductosAletoriosDTO> listarProductosAletoriosDTO();
-    ProductosDto obtenerProducto(Integer id);
+    Collection<ProductosAletoriosDTO> listarProductosAletoriosDTO();
     void eliminarProducto(Integer id);
     void editarProducto (Integer id, ProductosDto productosDto);
-    ProductoDto obtenerProductos(Integer id);
-
+    ProductoDto obtenerProducto(Integer id);
 }

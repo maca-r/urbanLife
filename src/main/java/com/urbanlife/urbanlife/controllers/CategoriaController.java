@@ -39,7 +39,7 @@ public class CategoriaController {
             value = "{id}/categoria-image",
             produces = MediaType.IMAGE_PNG_VALUE
     )
-    public byte[] getCustomerProfileImage(
+    public byte[] getCategoryImage(
             @PathVariable("id") Integer id) {
         return categoriaService.getCategoryImagen(id);
     }
