@@ -26,7 +26,7 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Se registro exitosamente");
     }
     @PostMapping(
-            value = "{id}/category-image",
+            value = "{id}/categoria-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public void uploadCategoryImage(
@@ -46,6 +46,10 @@ public class CategoriaController {
     @GetMapping("/listarcategorias-all")
     public ResponseEntity<List<Categorias>> listarCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerListaCategoria());
+    }
+    @DeleteMapping("{id}/eliminar")
+    public void eliminarCategorias(@PathVariable("id") Integer id) {
+        categoriaService.eliminarCategoria(id);
     }
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
+import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;
 import com.urbanlife.urbanlife.s3.S3Service;
@@ -15,7 +16,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,8 @@ public class CategoriaService implements ICategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
     @Autowired
+    ProductoService productoService;
+    @Autowired
     ObjectMapper mapper;
     @Autowired
     S3Service s3Service;
@@ -31,6 +36,21 @@ public class CategoriaService implements ICategoriaService {
     S3Buckets s3Buckets;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
+    public boolean existsCustomerById(Integer id) {
+        Optional<Categorias> categorias = categoriaRepository.findById(id);
+        return categorias.isPresent();
+    }
+    private void checkIfCategoriaExistsOrThrow(Integer idCategoria) {
+        if (!existsCustomerById(idCategoria)) {
+            throw new ResourceNotFoundException(
+                    "La categoria con el id [%s] NO EXISTE".formatted(idCategoria)
+            );
+        }
+    }
+    private void guardarCategoria(CategoriaDto categoriaDto) {
+        Categorias newCategorias = mapper.convertValue(categoriaDto, Categorias.class);
+        categoriaRepository.save(newCategorias);
+    }
     @Override
     public void crearCategoria(CategoriaDto categoriaDto) {
         if (categoriaDto != null) {
@@ -38,12 +58,10 @@ public class CategoriaService implements ICategoriaService {
             logger.info("Se registro exitosamente la categoria");
         }else {logger.error("Surgio un problema, no se registro la categoria");}
     }
-    private void guardarCategoria(CategoriaDto categoriaDto) {
-        Categorias newCategorias = mapper.convertValue(categoriaDto, Categorias.class);
-        categoriaRepository.save(newCategorias);
-    }
+    @Override
     public void uploadCategoryImage(Integer id, MultipartFile file) {
-        //checkIfCustomerExistsOrThrow(customerId);
+        checkIfCategoriaExistsOrThrow(id);
+
         String profileImageId = UUID.randomUUID().toString();
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
         try {
@@ -52,18 +70,19 @@ public class CategoriaService implements ICategoriaService {
                     file.getBytes(),
                     "categoria-images/%s/%s.%s".formatted(id, profileImageId,extension)
             );
-
         } catch (IOException e) {
             throw new RuntimeException("failed to upload profile image category", e);
         }
         categoriaRepository.updateUrlImagen(id,"%s.%s".formatted(profileImageId,extension));
     }
+    @Override
     public byte[] getCategoryImagen(Integer idCategoria) {
         var categoria = categoriaRepository.findById(idCategoria)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "No existe la categoria con el [%s]".formatted(idCategoria)
+                        "La categoria con el id [%s] NO EXISTE".formatted(idCategoria)
                 ));
-        if (StringUtils.hasText(categoria.getURLIMAGEN())) {
+
+        if (!StringUtils.hasText(categoria.getURLIMAGEN())) {
             throw new ResourceNotFoundException(
                     "Esta categoria [%s] no tiene una imagen asignada".formatted(idCategoria));
         }
@@ -73,9 +92,14 @@ public class CategoriaService implements ICategoriaService {
         );
         return profileImage;
     }
+    @Override
     public void eliminarCategoria(Integer idCategoria) {
-        //checkIfCustomerExistsOrThrow(customerId);
+        checkIfCategoriaExistsOrThrow(idCategoria);
         categoriaRepository.setEstadoEliminar(idCategoria, true);
+        Collection<ProductosDto> productos = productoService.obtenerListaProductos();
+        productos.stream()
+                .peek(productosDto -> productoService.eliminarProducto(productosDto.getIdProducto()))
+                .collect(Collectors.toList());
     }
     @Override
     public List<Categorias> obtenerListaCategoria() {
@@ -84,4 +108,5 @@ public class CategoriaService implements ICategoriaService {
                         .formatted(categorias.getIdCategoria())))
                 .collect(Collectors.toList());
     }
+
 }

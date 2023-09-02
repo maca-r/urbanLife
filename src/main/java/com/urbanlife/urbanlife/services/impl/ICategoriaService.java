@@ -10,5 +10,6 @@ public interface ICategoriaService {
     void crearCategoria(CategoriaDto categoriaDto);
     void uploadCategoryImage(Integer id,MultipartFile file);
     byte[] getCategoryImagen(Integer idCategoria);
+    void eliminarCategoria(Integer idCategoria);
     List<Categorias> obtenerListaCategoria();
 }
