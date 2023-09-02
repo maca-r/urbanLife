@@ -1,10 +1,12 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.exception.RequestValidationException;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
 import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.models.update.CategoriaUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;
 import com.urbanlife.urbanlife.s3.S3Service;
@@ -86,11 +88,10 @@ public class CategoriaService implements ICategoriaService {
             throw new ResourceNotFoundException(
                     "Esta categoria [%s] no tiene una imagen asignada".formatted(idCategoria));
         }
-        byte[] profileImage = s3Service.getObjectBytes(
+        return s3Service.getObjectBytes(
                 s3Buckets.getCustomer(),
                 "categoria-images/%s/%s".formatted(idCategoria, categoria.getURLIMAGEN())
         );
-        return profileImage;
     }
     @Override
     public void eliminarCategoria(Integer idCategoria) {
@@ -107,6 +108,43 @@ public class CategoriaService implements ICategoriaService {
                 .peek(categorias -> categorias.setURLIMAGEN("http://localhost/categorias/%s/categoria-image"
                         .formatted(categorias.getIdCategoria())))
                 .collect(Collectors.toList());
+    }
+    @Override
+    public void actualizarCategorias(Integer id,
+                                           CategoriaUpdateRequest updateRequest) {
+        checkIfCategoriaExistsOrThrow(id);
+        Optional<Categorias> categoria = categoriaRepository.findById(id);
+        categoria
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "La categoria con el id [%s] NO EXISTE".formatted(id)));
+
+        boolean changes = false;
+
+        if (updateRequest.getDescripcion() != null &&
+                !updateRequest.getDescripcion().equals(categoria.get().getDescripcion()))
+        {
+            categoria.get().setDescripcion(updateRequest.getDescripcion());
+            changes = true;
+        }
+        if (updateRequest.getTitulo() != null &&
+                !updateRequest.getTitulo().equals(categoria.get().getTitulo()))
+        {
+            categoria.get().setTitulo(updateRequest.getTitulo());
+            changes = true;
+        }
+        if (!changes) {
+            throw new RequestValidationException("No se encontro datos para actualizar");
+        }
+        update(categoria);
+    }
+    void update(Optional<Categorias> categorias) {
+        categoriaRepository.setTitulo(
+                categorias.get().getTitulo(),
+                categorias.get().getIdCategoria());
+        categoriaRepository.setDescripcion(
+                categorias.get().getDescripcion(),
+                categorias.get().getIdCategoria()
+        );
     }
 
 }

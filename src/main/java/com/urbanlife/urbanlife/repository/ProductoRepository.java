@@ -42,7 +42,7 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
             SELECT id_producto, fecha_actual,nombre
             FROM productos
             ORDER BY fecha_actual DESC
-            LIMIT 1;
+            LIMIT 1
             """, nativeQuery = true)
     ProductoTestDto productoMasReciente();
 }

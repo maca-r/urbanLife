@@ -2,6 +2,7 @@ package com.urbanlife.urbanlife.controllers;
 
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
+import com.urbanlife.urbanlife.models.update.CategoriaUpdateRequest;
 import com.urbanlife.urbanlife.services.impl.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,11 @@ public class CategoriaController {
     @DeleteMapping("{id}/eliminar")
     public void eliminarCategorias(@PathVariable("id") Integer id) {
         categoriaService.eliminarCategoria(id);
+    }
+    @PutMapping("{id}/actualizar")
+    public void actualizarCategorias(@PathVariable("id") Integer id,
+                                     @RequestBody CategoriaUpdateRequest updateRequest){
+        categoriaService.actualizarCategorias(id, updateRequest);
     }
 
 }
