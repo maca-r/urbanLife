@@ -125,7 +125,7 @@ public class ProductoService implements IProductoService {
             existingProducto.setColor(productosDto.getColor());
             existingProducto.setTela(productosDto.getTela());
             existingProducto.setGenero(productosDto.getGenero());
-            existingProducto.setEvento(productosDto.getEvento());
+            existingProducto.setCorte(productosDto.getCorte());
             existingProducto.setTemporada(productosDto.getTemporada());
             existingProducto.setCategorias(productosDto.getCategorias());
 

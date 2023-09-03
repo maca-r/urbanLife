@@ -14,7 +14,7 @@ public class ProductosDto {
     private String color;
     private String tela;
     private String genero;
-    private String evento;
+    private String corte;
     private String temporada;
     @JoinColumn(name = "idCategoria")
     private Categorias categorias;
