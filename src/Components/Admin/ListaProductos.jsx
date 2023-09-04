@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export function ListaProductos() {
   const [producto, setProducto] = useState([]);
@@ -80,17 +82,17 @@ export function ListaProductos() {
                 <td>{producto.nombre}</td>
 
                 <td>
-                  <Button variant="info" size="sm" style={{marginRight:"5px"}}
+                  <Button variant="secondary" size="sm" style={{marginRight:"5px"}}
                     onClick={() => fetchProductoPorId(producto.idProducto)}
                   >
                     Ver Detalles
                   </Button>
 
                   <Link to={`/editarproducto/${producto.idProducto}`}>
-                    <Button variant="warning" size="sm" style={{marginRight:"5px"}}>Editar</Button>
+                    <Button variant="warning" size="sm" style={{marginRight:"5px"}}><EditIcon style={{color:"#2b2b28"}}/></Button>
                   </Link>
                   <Button variant="danger" size="sm" style={{marginRight:"5px"}} onClick={() => eliminarProducto(producto.idProducto)}>
-                    Eliminar
+                    <DeleteIcon/>
                   </Button>
                 </td>
               </tr>

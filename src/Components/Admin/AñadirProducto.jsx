@@ -286,7 +286,7 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Button type="submit">Agregar Producto</Button>
+        <Button variant="secondary" type="submit">Agregar Producto</Button>
       </Form>
       {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
     </div>

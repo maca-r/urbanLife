@@ -52,7 +52,8 @@ const Navbar = () => {
 
   const renderProfileImageOrLoading = () => {
     if (userData.nombre !== "" && inicialesUserData !== "") {
-      return <div className={styles.profileImage}>{inicialesUserData}</div>;
+      return <div className={styles.profileImage}>{inicialesUserData} </div>;
+      
     } else if (user.email !== "" && inicialesUSER !== "") {
       return <div className={styles.profileImage}>{inicialesUSER}</div>;
     } else {

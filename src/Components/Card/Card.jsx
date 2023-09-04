@@ -3,6 +3,8 @@ import { useContextoGlobal } from '../GlobalContext'
 import { Link } from 'react-router-dom'
 import styles from "./Card.module.css";
 import StarIcon from '@mui/icons-material/Star';
+import { toast } from 'sonner'
+
 
 const Card = (data) => {
 
@@ -17,13 +19,12 @@ const Card = (data) => {
             dataDispatch({type: 'LIKE', payload: data.data})    
             console.log(data.data)
             setFavorite("like")
-            alert("Add succesfully")
+            toast.success('Producto agregado a favoritos')
 
         } 
         else {
 
             dataDispatch({type: 'DISLIKE', payload: data.data})
-            console.log(data.data)
             setFavorite("dislike")
         }
 

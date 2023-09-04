@@ -16,7 +16,7 @@ const dataReducer = (state,action) => {
     case "LIKE":
     return {...state, favs: [action.payload,...state.favs]}
     case "DISLIKE":
-      return {...state, favs: state.favs.filter(fav => fav.id !== action.payload.id)};
+      return {...state, favs: state.favs.filter(fav => fav.idProducto !== action.payload.idProducto)};
     case "GET_PRODUCTS":
       return{...state, productos: action.payload}
     case "GET_A_PRODUCT":

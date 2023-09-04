@@ -29,7 +29,7 @@ export function Admin() {
 
   return (
     <>
-      <h2>Panel de Administración</h2>
+      <h2 className={styles.title}>Panel de Administración</h2>
 
       {alertaResponsive ? (
         <h3 className={styles.mensaje}>
