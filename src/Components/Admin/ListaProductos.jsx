@@ -11,6 +11,7 @@ export function ListaProductos() {
   const [productoImagenes, setProductoImagenes] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productoToDelete, setProductoToDelete] = useState(null);
+  const [noProductosMessage, setNoProductosMessage] = useState("");
 
   useEffect(() => {
     fetchProductos();
@@ -22,6 +23,13 @@ export function ListaProductos() {
         "http://localhost:80/productos/listaproductos-all"
       );
       setProducto(response.data);
+
+      // Verificar si no hay productos
+      if (response.data.length === 0) {
+        setNoProductosMessage("No hay productos disponibles.");
+      } else {
+        setNoProductosMessage("");
+      }
     } catch (error) {
       console.error("Error al obtener los productos:", error);
     }
@@ -33,7 +41,6 @@ export function ListaProductos() {
         `http://localhost:80/productos/obtener/${id}`
       );
       setProductoId(response.data);
-      // fetchImagenesPorProducto(id);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
@@ -59,71 +66,60 @@ export function ListaProductos() {
     }
   }
 
-  // async function fetchImagenesPorProducto(idProducto) {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:80/imagenes/${idProducto}`
-  //     );
-  //     setProductoImagenes(response.data);
-  //   } catch (error) {
-  //     console.error(
-  //       `Error al obtener las imágenes del producto ${idProducto}:`,
-  //       error
-  //     );
-  //   }
-  // }
-
   return (
     <section>
       <div>
         <h3>Listado de Productos</h3>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {producto.map((producto) => (
-              <tr key={producto.idProducto}>
-                <td>{producto.idProducto}</td>
-                <td>{producto.nombre}</td>
+        {noProductosMessage && <p>{noProductosMessage}</p>}
+        {producto.length > 0 && (
+          <Table striped>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {producto.map((producto) => (
+                <tr key={producto.idProducto}>
+                  <td>{producto.idProducto}</td>
+                  <td>{producto.nombre}</td>
 
-                <td>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    style={{ marginRight: "5px" }}
-                    onClick={() => fetchProductoPorId(producto.idProducto)}
-                  >
-                    Ver Detalles
-                  </Button>
-
-                  <Link to={`/editarproducto/${producto.idProducto}`}>
+                  <td>
                     <Button
-                      variant="warning"
+                      variant="secondary"
                       size="sm"
                       style={{ marginRight: "5px" }}
+                      onClick={() => fetchProductoPorId(producto.idProducto)}
                     >
-                      <EditIcon style={{ color: "#2b2b28" }} />
+                      Ver Detalles
                     </Button>
-                  </Link>
 
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    style={{ marginRight: "5px" }}
-                    onClick={() => showDeleteConfirmation(producto)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+                    <Link to={`/editarproducto/${producto.idProducto}`}>
+                      <Button
+                        variant="warning"
+                        size="sm"
+                        style={{ marginRight: "5px" }}
+                      >
+                        <EditIcon style={{ color: "#2b2b28" }} />
+                      </Button>
+                    </Link>
+
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      style={{ marginRight: "5px" }}
+                      onClick={() => showDeleteConfirmation(producto)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </div>
       {productoId && (
         <div>
@@ -137,10 +133,8 @@ export function ListaProductos() {
           <p>Genero: {productoId.genero}</p>
           <p>Tela: {productoId.tela}</p>
           <p>Temporada: {productoId.temporada}</p>
-          <p>ID Catategoria: {productoId.categorias.idCategoria}</p>
+          <p>ID Categoria: {productoId.categorias.idCategoria}</p>
           <p>Nombre categoria: {productoId.categorias.titulo}</p>
-          {/* <p>Nombre talles: {productoId.talles}</p>
-          <p>Nombre talles: {productoId.talle}</p> */}
 
           {productoImagenes.map((img) => (
             <div key={img.idImagen}>

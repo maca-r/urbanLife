@@ -5,14 +5,17 @@ import { Alert } from "react-bootstrap";
 export function ImgCategoria() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState("");
-  const [categorias, setCategorias] = useState([]);
   const [selectedCategoria, setSelectedCategoria] = useState("");
+  const [categoriasNoEliminadas, setCategoriasNoEliminadas] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:80/categorias/listarcategorias-all")
       .then((response) => {
-        setCategorias(response.data);
+        const categoriasFiltradas = response.data.filter(
+          (categoria) => !categoria.eliminarCategoria
+        );
+        setCategoriasNoEliminadas(categoriasFiltradas);
       })
       .catch((error) => {
         console.error("Error al obtener las categorías:", error);
@@ -75,7 +78,7 @@ export function ImgCategoria() {
         onChange={(e) => setSelectedCategoria(e.target.value)}
       >
         <option value="">Seleccione una categoría</option>
-        {categorias.map((categoria) => (
+        {categoriasNoEliminadas.map((categoria) => (
           <option key={categoria.idCategoria} value={categoria.idCategoria}>
             {categoria.titulo}
           </option>
