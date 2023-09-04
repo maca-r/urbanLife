@@ -13,8 +13,6 @@ export function AñadirProducto() {
   const [genero, setGenero] = useState("");
   const [temporada, setTemporada] = useState("");
   const [categorias, setCategorias] = useState([]);
-  // const [talles, setTalles] = useState([]);
-  // const [urlImagenes, setUrlImagenes] = useState([]);
 
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedTalles, setSelectedTalles] = useState([]);
@@ -28,29 +26,21 @@ export function AñadirProducto() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:80/categorias/listarcategorias-all"
-      );
-      setCategorias(response.data);
+      axios
+        .get("http://localhost:80/categorias/listarcategorias-all")
+        .then((response) => {
+          const categoriasNoEliminadas = response.data.filter(
+            (categoria) => categoria.eliminarCategoria === false
+          );
+          setCategorias(categoriasNoEliminadas);
+        });
     } catch (error) {
       console.error("Error fetching categorias:", error);
     }
   };
 
-  // const fetchTalles = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:80/talles/listartalles-all"
-  //     );
-  //     setTalles(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching talles:", error);
-  //   }
-  // };
-
   useEffect(() => {
     fetchCategories();
-    // fetchTalles();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -82,22 +72,6 @@ export function AñadirProducto() {
         productoData
       );
 
-      // if (response.status === 200 || response.status === 202) {
-      //   const productId = response.data.idProducto;
-      //   console.log(productId);
-
-      //   const imagenesData = {
-      //     urlImagen: urlImagenes,
-      //     productos: {
-      //       idProducto: productId,
-      //     },
-      //   };
-
-      //   const imageResponse = await axios.post(
-      //     "http://localhost:80/imagenes/guardarimagen",
-      //     imagenesData
-      //   );
-
       if (response.status === 200 || response.status === 202) {
         setMensaje("Producto agregado exitosamente");
         setNombre("");
@@ -110,7 +84,6 @@ export function AñadirProducto() {
         setGenero("");
         setSelectedCategoria("");
         setSelectedTalles("");
-        // setUrlImagenes("");
       }
       // }
     } catch (error) {
@@ -225,18 +198,6 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        {/* <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>URLs de Imágenes</Form.Label>
-          <Form.Control
-            type="text"
-            value={urlImagenes}
-            placeholder="Ingrese una URL de imagen"
-            onChange={(e) => setUrlImagenes(e.target.value)}
-          />
-        </Form.Group> */}
-
-        {/* ------------------------------------------------------------------ */}
-
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Categoría</Form.Label>
           <Form.Select
@@ -244,10 +205,6 @@ export function AñadirProducto() {
             value={selectedCategoria}
             onChange={(e) => {
               setSelectedCategoria(e.target.value);
-              const selectedCategory = categorias.find(
-                (cat) => cat.selectedId === e.target.value
-              );
-              setSelectedCategoria(selectedCategory.titulo);
             }}
           >
             <option value="">Selecciona una categoría</option>
