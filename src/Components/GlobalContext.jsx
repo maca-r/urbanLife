@@ -5,13 +5,18 @@ import axios from 'axios';
 
 export const initialState = {
     productos: [],
-    producto: {}
+    producto: {},
+    favs: JSON.parse(localStorage.getItem('favs')) || [],
 }
 
 export const GlobalContext = createContext(undefined);
 
 const dataReducer = (state,action) => {
   switch(action.type){
+    case "LIKE":
+    return {...state, favs: [action.payload,...state.favs]}
+    case "DISLIKE":
+      return {...state, favs: state.favs.filter(fav => fav.id !== action.payload.id)};
     case "GET_PRODUCTS":
       return{...state, productos: action.payload}
     case "GET_A_PRODUCT":
@@ -24,6 +29,11 @@ const dataReducer = (state,action) => {
 export const ContextProvider = ({children}) => {
 
   const [dataState, dataDispatch] = useReducer(dataReducer, initialState)
+
+    useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(dataState.favs))
+  },[dataState.favs])
+
 
   const urlProductos = "http://localhost:80/productos/listaproductos-all"
 
@@ -53,4 +63,4 @@ export const ContextProvider = ({children}) => {
   )
 }
 
-export const useGlobalContext = () => useContext(GlobalContext)
+export const useContextoGlobal = () => useContext(GlobalContext)

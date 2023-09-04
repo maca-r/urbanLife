@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import Carousel from "react-bootstrap/Carousel";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { routes } from "../../Routes/routes";
 import Pagination from "react-bootstrap/Pagination";
 import { Search } from "../Icon";
 import axios from "axios";
+import StarIcon from '@mui/icons-material/Star';
+import {useContextoGlobal} from "../GlobalContext.jsx"
+import Card from "../Card/Card";
+
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
@@ -125,7 +129,8 @@ const Home = () => {
   }, [urlProductosAleatorios]);
 
 
-  {console.log(productosAleatorios.length)}
+  
+  
   /*PAGINACION */
 
   // const [paginaActual, setPaginaActual] = useState(1)
@@ -161,14 +166,14 @@ const Home = () => {
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
           {categorias.map((categoria, index) => (
-            <div key={index}>
+            <Link to={`/categoria/` + categoria.idCategoria} key={index}>
               <img
                 src={categoriasImagenes[index]}
                 alt={`Imagen ${categoria.idCategoria}`}
               />
               <h6>{categoria.nombreCategoria}</h6>
               <div></div>
-            </div>
+            </Link>
           ))}
         </div>
       </>
@@ -220,8 +225,8 @@ const Home = () => {
             // </Link>
 
             <div key={index} className={styles.productoItem}>
-              <Card style={{ width: "100%", height: "100%" }}>
-                <Card.Img src="/images/logo.png" />
+              <Card data={producto} style={{ width: "100%", height: "100%" }}>
+                {/* <Card.Img src="/images/logo.png" />
                 <Card.Body>
                   <Card.Title
                     style={{ textTransform: "uppercase", width: "fit-content" }}
@@ -235,8 +240,8 @@ const Home = () => {
                     <button className={styles.detalleBoton}>detalle</button>
                   </Link>
 
-                  <i>icono</i>
-                </Card.Body>
+                  <button onClick={addFav} className={styles.favBoton}><StarIcon style={{color: "#E3CE8D"}}/></button>
+                </Card.Body> */}
               </Card>
             </div>
           ))}

@@ -1,6 +1,7 @@
 export const routes = {
   home: "/",
   detail: "product/:id",
+  categoria: "categoria/:id",
   notFound: "*",
   admin: "admin",
   listaProductos: "listaproductos",
