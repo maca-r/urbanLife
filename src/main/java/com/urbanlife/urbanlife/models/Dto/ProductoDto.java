@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductoDto {
-    private int idProducto;
+    private Integer idProducto;
     private String nombre;
     private double precio;
     private String detalle;

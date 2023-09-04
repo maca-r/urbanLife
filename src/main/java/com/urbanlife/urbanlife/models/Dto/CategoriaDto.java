@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoriaDto {
-    private int idCategoria;
+    private Integer idCategoria;
     private String titulo;
     private String descripcion;
 }

@@ -9,7 +9,7 @@ import java.util.Collection;
 @Getter
 @Setter
 public class ProductosAletoriosDTO {
-    private int idProducto;
+    private Integer idProducto;
     private String nombre;
     private double precio;
     private Collection<ImagenDto> imagenes;
