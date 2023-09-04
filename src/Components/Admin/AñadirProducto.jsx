@@ -8,7 +8,7 @@ export function AñadirProducto() {
   const [precio, setPrecio] = useState("");
   const [detalle, setDetalle] = useState("");
   const [color, setColor] = useState("");
-  const [evento, setEvento] = useState("");
+  const [corte, setCorte] = useState("");
   const [tela, setTela] = useState("");
   const [genero, setGenero] = useState("");
   const [temporada, setTemporada] = useState("");
@@ -22,7 +22,7 @@ export function AñadirProducto() {
   const [mensaje, setMensaje] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
-  const eventos = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
+  const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
@@ -58,7 +58,7 @@ export function AñadirProducto() {
 
     try {
       const selectedCategory = categorias.find(
-        (cat) => cat.nombreCategoria === selectedCategoria
+        (cat) => cat.titulo === selectedCategoria
       );
 
       const productoData = {
@@ -68,11 +68,11 @@ export function AñadirProducto() {
         color: color,
         tela: tela,
         genero: genero,
-        evento: evento,
+        corte: corte,
         temporada: temporada,
         categorias: {
           idCategoria: selectedCategory.idCategoria,
-          nombreCategoria: selectedCategoria,
+          titulo: selectedCategoria,
         },
         talles: selectedTalles,
       };
@@ -106,7 +106,7 @@ export function AñadirProducto() {
         setColor("");
         setTela("");
         setTemporada("");
-        setEvento("");
+        setCorte("");
         setGenero("");
         setSelectedCategoria("");
         setSelectedTalles("");
@@ -181,15 +181,15 @@ export function AñadirProducto() {
           </Form.Group>
 
           <Form.Group style={{ marginBottom: "2%" }}>
-            <Form.Label>Eventos:</Form.Label>
-            {eventos.map((option, index) => (
+            <Form.Label>Corte:</Form.Label>
+            {cortes.map((option, index) => (
               <Form.Check
                 key={index}
                 type="checkbox"
                 label={option}
                 value={option}
-                checked={evento === option}
-                onChange={() => setEvento(option)}
+                checked={corte === option}
+                onChange={() => setCorte(option)}
               />
             ))}
           </Form.Group>
@@ -247,13 +247,13 @@ export function AñadirProducto() {
               const selectedCategory = categorias.find(
                 (cat) => cat.selectedId === e.target.value
               );
-              setSelectedCategoria(selectedCategory.nombreCategoria);
+              setSelectedCategoria(selectedCategory.titulo);
             }}
           >
             <option value="">Selecciona una categoría</option>
             {categorias.map((categoria) => (
               <option key={categoria.selectedId} value={categoria.selectedId}>
-                {categoria.nombreCategoria}
+                {categoria.titulo}
               </option>
             ))}
           </Form.Select>
@@ -286,7 +286,9 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Button variant="secondary" type="submit">Agregar Producto</Button>
+        <Button variant="secondary" type="submit">
+          Agregar Producto
+        </Button>
       </Form>
       {mensaje && <Alert variant="success">{mensaje}</Alert>}{" "}
     </div>

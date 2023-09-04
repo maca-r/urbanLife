@@ -11,7 +11,7 @@ export function EditarProducto() {
   const [selectedCategoria, setSelectedCategoria] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
-  const eventos = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
+  const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
@@ -33,7 +33,9 @@ export function EditarProducto() {
 
   const fetchProductoPorId = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:80/productos/${id}`);
+      const response = await axios.get(
+        `http://localhost:80/productos/obtener/${id}`
+      );
       setEditedProduct(response.data);
       setSelectedCategoria(response.data.categorias.idCategoria);
     } catch (error) {
@@ -59,7 +61,7 @@ export function EditarProducto() {
           ...editedProduct,
           categorias: {
             idCategoria: selectedCategory.idCategoria,
-            nombreCategoria: selectedCategory.nombreCategoria,
+            titulo: selectedCategory.titulo,
           },
         }
       );
@@ -123,15 +125,15 @@ export function EditarProducto() {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Evento:</Form.Label>
+          <Form.Label>Corte:</Form.Label>
           <Form.Select
             name="evento"
             value={editedProduct.evento || ""}
             onChange={handleInputChange}
           >
-            {eventos.map((evento) => (
-              <option key={evento} value={evento}>
-                {evento}
+            {cortes.map((corte) => (
+              <option key={corte} value={corte}>
+                {corte}
               </option>
             ))}
           </Form.Select>
@@ -193,7 +195,7 @@ export function EditarProducto() {
           >
             {categorias.map((categoria) => (
               <option key={categoria.idCategoria} value={categoria.idCategoria}>
-                {categoria.nombreCategoria}
+                {categoria.titulo}
               </option>
             ))}
           </Form.Select>

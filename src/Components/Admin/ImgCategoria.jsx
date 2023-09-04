@@ -36,7 +36,7 @@ export function ImgCategoria() {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        `http://localhost:80/categorias/${selectedCategoria}/category-image`,
+        `http://localhost:80/categorias/${selectedCategoria}/categoria-image`,
         formData,
         {
           headers: {

@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export function ListaProductos() {
   const [producto, setProducto] = useState([]);
   const [productoId, setProductoId] = useState("");
   const [productoImagenes, setProductoImagenes] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productoToDelete, setProductoToDelete] = useState(null);
 
   useEffect(() => {
     fetchProductos();
@@ -27,12 +29,19 @@ export function ListaProductos() {
 
   async function fetchProductoPorId(id) {
     try {
-      const response = await axios.get(`http://localhost:80/productos/${id}`);
+      const response = await axios.get(
+        `http://localhost:80/productos/obtener/${id}`
+      );
       setProductoId(response.data);
       // fetchImagenesPorProducto(id);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
+  }
+
+  function showDeleteConfirmation(producto) {
+    setProductoToDelete(producto);
+    setShowDeleteModal(true);
   }
 
   async function eliminarProducto(productoId) {
@@ -44,6 +53,7 @@ export function ListaProductos() {
         (producto) => producto.idProducto !== productoId
       );
       setProducto(actProducto);
+      setShowDeleteModal(false);
     } catch (error) {
       console.error("Error al eliminar producto:", error);
     }
@@ -82,17 +92,32 @@ export function ListaProductos() {
                 <td>{producto.nombre}</td>
 
                 <td>
-                  <Button variant="secondary" size="sm" style={{marginRight:"5px"}}
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    style={{ marginRight: "5px" }}
                     onClick={() => fetchProductoPorId(producto.idProducto)}
                   >
                     Ver Detalles
                   </Button>
 
                   <Link to={`/editarproducto/${producto.idProducto}`}>
-                    <Button variant="warning" size="sm" style={{marginRight:"5px"}}><EditIcon style={{color:"#2b2b28"}}/></Button>
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      style={{ marginRight: "5px" }}
+                    >
+                      <EditIcon style={{ color: "#2b2b28" }} />
+                    </Button>
                   </Link>
-                  <Button variant="danger" size="sm" style={{marginRight:"5px"}} onClick={() => eliminarProducto(producto.idProducto)}>
-                    <DeleteIcon/>
+
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    style={{ marginRight: "5px" }}
+                    onClick={() => showDeleteConfirmation(producto)}
+                  >
+                    <DeleteIcon />
                   </Button>
                 </td>
               </tr>
@@ -108,12 +133,12 @@ export function ListaProductos() {
           <p>Color: {productoId.color}</p>
           <p>Detalle: {productoId.detalle}</p>
           <p>Precio: ${productoId.precio}</p>
-          <p>Evento: {productoId.evento}</p>
+          <p>Corte: {productoId.corte}</p>
           <p>Genero: {productoId.genero}</p>
           <p>Tela: {productoId.tela}</p>
           <p>Temporada: {productoId.temporada}</p>
           <p>ID Catategoria: {productoId.categorias.idCategoria}</p>
-          <p>Nombre categoria: {productoId.categorias.nombreCategoria}</p>
+          <p>Nombre categoria: {productoId.categorias.titulo}</p>
           {/* <p>Nombre talles: {productoId.talles}</p>
           <p>Nombre talles: {productoId.talle}</p> */}
 
@@ -130,6 +155,23 @@ export function ListaProductos() {
           ))}
         </div>
       )}
+
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>¿Seguro que quieres eliminar este producto?</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancelar
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => eliminarProducto(productoToDelete.idProducto)}
+          >
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </section>
   );
 }
