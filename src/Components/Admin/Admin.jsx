@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-//import { Link } from "react-router-dom";
 import styles from "./Admin.module.css";
 import { ListaProductos } from "./ListaProductos";
-import { AddCategorias } from "./AddCategorias";
-import { AddTalles } from "./AddTalles";
+// import { AddTalles } from "./AddTalles";
 import { AñadirProducto } from "./AñadirProducto";
+import { Categorias } from "./Categorias";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -39,21 +38,6 @@ export function Admin() {
         </h3>
       ) : (
         <div className={styles.panel}>
-          {/* <section className={styles.sectionDesktop}>
-        <Link to="/listaproductos">
-          <button onClick={handlePanelSection("listaProductos")}>Lista Productos</button>
-        </Link>
-        <Link to="/añadirproducto">
-          <button onClick={handlePanelSection("agregarProducto")}>Agregar Producto</button>
-        </Link>
-        <Link to="/añadircategorias">
-          <button onClick={handlePanelSection("agregarCategoria")}>Agregar Categoria</button>
-        </Link>
-        <Link to="/añadirtalles">
-          <button onClick={handlePanelSection("agregarTalles")}>Agregar Talles</button>
-        </Link>
-      </section> */}
-
           <div className={styles.buttonPanel}>
             <button onClick={() => handlePanelSection("listaProductos")}>
               Lista Productos
@@ -63,8 +47,8 @@ export function Admin() {
               Agregar Producto
             </button>
 
-            <button onClick={() => handlePanelSection("agregarCategoria")}>
-              Agregar Categoria
+            <button onClick={() => handlePanelSection("categorias")}>
+              Administrar Categorias
             </button>
 
             {/* <button onClick={ () => handlePanelSection("agregarTalles")}>Agregar Talles</button> */}
@@ -79,8 +63,8 @@ export function Admin() {
             )}
             {panelSection == "listaProductos" && <ListaProductos />}
             {panelSection == "agregarProducto" && <AñadirProducto />}
-            {panelSection == "agregarCategoria" && <AddCategorias />}
-            {panelSection == "agregarTalles" && <AddTalles />}
+            {panelSection == "categorias" && <Categorias />}
+            {/* {panelSection == "agregarTalles" && <AddTalles />} */}
           </div>
         </div>
       )}

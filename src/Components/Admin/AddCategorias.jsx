@@ -3,18 +3,20 @@ import { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 
 export function AddCategorias() {
-  const [nombreCategoria, setNombreCategoria] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
   const [mensaje, setMensaje] = useState("");
 
   const handleAgregarCategoria = async () => {
     try {
-      if (nombreCategoria === null || nombreCategoria === "") {
+      if (titulo === null || titulo === "") {
         setMensaje("El valor de la categoría no es válido");
         return;
       }
 
       const categoriaData = {
-        nombreCategoria: nombreCategoria,
+        titulo: titulo,
+        descripcion: descripcion,
       };
 
       const response = await axios.post(
@@ -24,7 +26,8 @@ export function AddCategorias() {
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Categoría agregada exitosamente");
-        setNombreCategoria("");
+        setTitulo("");
+        setDescripcion("");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -36,14 +39,30 @@ export function AddCategorias() {
     <div>
       <Form style={{ marginBottom: "2%" }}>
         <h3>Categoría</h3>
-        {mensaje && <Alert variant="info">{mensaje}</Alert>}
+        {mensaje && (
+          <Alert
+            variant={mensaje.includes("exitosamente") ? "success" : "danger"}
+          >
+            {mensaje}
+          </Alert>
+        )}
         <Form.Group className="mb-3">
           <Form.Label>Categoría nueva</Form.Label>
           <Form.Control
             style={{ width: "30%" }}
             type="text"
-            value={nombreCategoria}
-            onChange={(e) => setNombreCategoria(e.target.value)}
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Detalle</Form.Label>
+          <Form.Control
+            as="textarea"
+            value={descripcion}
+            placeholder="Ingrese el detalle del producto"
+            onChange={(e) => setDescripcion(e.target.value)}
           />
         </Form.Group>
 
