@@ -3,7 +3,7 @@ import { AddCategorias } from "./AddCategorias";
 import { ImgCategoria } from "./ImgCategoria";
 import { ListarCategorias } from "./ListarCategorias";
 import { PapeleraCategoria } from "./PapeleraCategoria";
-import styles from "./Categorias.module.css"
+import styles from "./Categorias.module.css";
 
 export function Categorias() {
   const [panelSection, setPanelSection] = useState(null);
@@ -17,8 +17,6 @@ export function Categorias() {
   return (
     <section>
       <div className={styles.buttonPanel}>
-
-      
         <button onClick={() => handlePanelSection("añadirCategorias")}>
           Agregar Categorias
         </button>

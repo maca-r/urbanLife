@@ -17,6 +17,7 @@ import { EditarProducto } from "./Components/Admin/EditarProducto";
 import { ImgCategoria } from "./Components/Admin/ImgCategoria";
 import { ListarCategorias } from "./Components/Admin/ListarCategorias";
 import { Categorias } from "./Components/Admin/Categorias";
+import { EditarCategorias } from "./Components/Admin/EditarCategorias";
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
           <Route
             path={routes.listarCategorias}
             element={<ListarCategorias />}
+          />
+          <Route
+            path={routes.editarCategorias}
+            element={<EditarCategorias />}
           />
           <Route path={routes.añadirTalles} element={<AddTalles />} />
           <Route path={routes.editarProducto} element={<EditarProducto />} />

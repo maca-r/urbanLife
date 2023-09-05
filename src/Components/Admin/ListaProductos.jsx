@@ -24,7 +24,6 @@ export function ListaProductos() {
       );
       setProducto(response.data);
 
-      // Verificar si no hay productos
       if (response.data.length === 0) {
         setNoProductosMessage("No hay productos disponibles.");
       } else {

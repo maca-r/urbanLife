@@ -1,6 +1,8 @@
+import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export function ListarCategorias() {
   const [categorias, setCategorias] = useState([]);
@@ -81,6 +83,15 @@ export function ListarCategorias() {
                   >
                     Eliminar
                   </button>
+                  <Link to={`/categorias/${categoria.idCategoria}/actualizar`}>
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      style={{ marginRight: "5px" }}
+                    >
+                      <EditIcon style={{ color: "#2b2b28" }} />
+                    </Button>
+                  </Link>
                 </td>
               </tr>
             ))}

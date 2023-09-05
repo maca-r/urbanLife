@@ -10,8 +10,9 @@ export const routes = {
   añadirCategorias: "añadircategorias",
   imgCategoria: "imgcategoria",
   listarCategorias: "listarcategorias",
+  editarCategorias: "categorias/:idCategoria/actualizar",
   añadirTalles: "añadirtalles",
-  editarProducto: "editarproducto/:idProducto",
+  editarProducto: "editar/:idProducto",
   login: "login",
   registro: "registro",
 };
