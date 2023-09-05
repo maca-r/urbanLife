@@ -18,7 +18,13 @@ const Login = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (user.email === localStorage.getItem("userData").gmail){
+            console.log(user.email);
+            console.log(localStorage.getItem("userData").gmail);
+        }
         console.log(user);
+        localStorage.getItem("userData").gmail
     }
     
     const handleInputChange = (e) => {

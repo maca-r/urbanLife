@@ -5,9 +5,8 @@ div .body{
     align-items: center;
 }
 
-.Search {
-    display: flex;
-    align-items: center;
+.search {
+    width: 90%;
     background-color: #EFEEEE;
     padding-left: 12px;
     border-radius: 30px;
@@ -15,15 +14,16 @@ div .body{
     border: 0.5px solid #2B2B28;
 }
 
-figure {
+/* figure {
     width: 15px;
     margin: auto;
     margin-right: 12px;
     background-color: #f4f4f4;
-}
+} */
 
-form .Search input{
-    width: 82vw;
+.search form input{
+    /* width: 82vw; */
+    display: flex;
     height: 37px;
     background-color: #EFEEEE;
     border: none;
@@ -31,21 +31,37 @@ form .Search input{
     outline: none;
 }
 
+.calendar{
+    width: 30%;
+    
+}
+
 .buscarButton{
-    font-size: 0.9rem;
-    padding: 0.9% 3%;
+    
+    font-size: small;
+    padding: 5px 9px;
     border-radius: 50px;
     background-color: #2B2B28;
     color: #EFEEEE;
     border: none;
 }
 
-h2{
+.imagenBanner{
+    width: 100%;
+}
+
+.categorias h2{
     margin: 25px;
     
     
 }
 
+.categorias{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .categoria{
     display: flex;
     justify-content: space-around;

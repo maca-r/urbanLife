@@ -10,6 +10,7 @@ import axios from "axios";
 import StarIcon from '@mui/icons-material/Star';
 import {useContextoGlobal} from "../GlobalContext.jsx"
 import Card from "../Card/Card";
+import DataPicker from "../DataPicker/DataPicker";
 
 
 const Home = () => {
@@ -115,7 +116,7 @@ const Home = () => {
   // ]
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
-  const urlProductosAleatorios = "http://localhost:80/productos/listaAleatoria";
+  const urlProductosAleatorios = "http://localhost:80/productos/listaproductos-aleatorio";
 
   useEffect(() => {
     try {
@@ -144,39 +145,46 @@ const Home = () => {
     <div className={styles.body}>
       {/* BUSCADOR */}
 
-      <form onSubmit={handleSubmit}>
-        <div className={styles.Search}>
-          <figure>
-            <Search />
-          </figure>
-          <input
-            type="text"
-            placeholder="Buscar"
-            value={searchText}
-            onChange={handleChange}
-          ></input>
-          <button className={styles.buscarButton}>Buscar</button>
-        </div>
-      </form>
+      <div className={styles.search}>
+        <form onSubmit={handleSubmit}>
+
+            {/* <figure>
+              <Search />
+            </figure> */}
+            <input
+              type="text"
+              placeholder="Buscar"
+              value={searchText}
+              onChange={handleChange}
+            ></input>
+
+            <DataPicker className={styles.calendar}/>
+
+            <button className={styles.buscarButton}>Realizar búsqueda</button>
+
+        </form>
+      </div>
+      
 
       {/* AGREGAR IMAGEN */}
-      <img src="" alt="" />
+      <img className={styles.imagenBanner} src="./public/images/Imagen LandingPage.png" alt="" />
 
-      <>
+      <div className={styles.categorias}>
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
           {categorias.map((categoria, index) => (
             <Link to={`/categoria/` + categoria.idCategoria} key={index}>
               <img
-                src={categoriasImagenes[index]}
+                // src={categoriasImagenes[index]}
+                src={categoria.urlimagen}
                 alt={`Imagen ${categoria.idCategoria}`}
               />
-              <h6>{categoria.nombreCategoria}</h6>
+              <h6>{categoria.titulo}</h6>
               <div></div>
             </Link>
           ))}
         </div>
-      </>
+      </div>
 
       <Carousel
         className={"d-" + carouselVisible}
@@ -211,7 +219,7 @@ const Home = () => {
       <div className={styles.producAleatorioBox}>
         <h2>PRODUCTOS</h2>
 
-        {!productosAleatorios.length == 0 &&         
+        {!productosAleatorios.length == 0 ?         
         <div className={styles.producAleatorio}>
           {productosAleatorios.map((producto, index) => (
             // <Link to={routes.detail} key={index} className={styles.productoItem}>
@@ -243,9 +251,9 @@ const Home = () => {
                   <button onClick={addFav} className={styles.favBoton}><StarIcon style={{color: "#E3CE8D"}}/></button>
                 </Card.Body> */}
               </Card>
-            </div>
-          ))}
-
+            </div> 
+          )) }
+        
           {/* <Pagination>
                     <Pagination.First />
                     <Pagination.Prev />
@@ -262,6 +270,8 @@ const Home = () => {
                     <Pagination.Last />
                 </Pagination> */}
         </div>
+        :
+        <h3>Aún no hay productos para mostrar</h3>
         }
       </div>
     </div>

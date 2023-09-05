@@ -51,7 +51,7 @@ const Detail = () => {
   // console.log(desktopMediaQuery);
 
   const params = useParams();
-  const urlDetalleProducto = `http://localhost:80/productos/${params.id}`;
+  const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
 
   useEffect(() => {
     try {
@@ -111,7 +111,7 @@ const Detail = () => {
     detalle.tela,
     detalle.genero,
     detalle.temporada,
-    detalle.evento,
+    detalle.corte,
   ];
 
   const iconoCaracteristicas = [

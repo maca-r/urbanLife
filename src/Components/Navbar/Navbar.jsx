@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const confirmLogout = () => {
     localStorage.removeItem("user");
-    setUserData([]);
+    //setUserData([]);
     setUser([]);
     setShowLogoutModal(false); // Cierra el modal después de confirmar el cierre de sesión
   };

@@ -35,22 +35,22 @@ export const ContextProvider = ({children}) => {
   },[dataState.favs])
 
 
-  const urlProductos = "http://localhost:80/productos/listaproductos-all"
+  // const urlProductos = "http://localhost:80/productos/listaproductos-all"
 
   
-  useEffect(() => {
+  // useEffect(() => {
 
-    try{
-      axios.get(urlProductos)
-      .then(response => {
-      console.log(response.data)
-      dataDispatch(({type: "GET_PRODUCTS", payload: response.data}))
-    })
-    }catch (error){
-      console.error(error);
-    }
+  //   try{
+  //     axios.get(urlProductos)
+  //     .then(response => {
+  //     console.log(response.data)
+  //     dataDispatch(({type: "GET_PRODUCTS", payload: response.data}))
+  //   })
+  //   }catch (error){
+  //     console.error(error);
+  //   }
     
-  },[urlProductos])
+  // },[urlProductos])
 
 
   return (

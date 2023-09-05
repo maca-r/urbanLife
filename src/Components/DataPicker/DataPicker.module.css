@@ -1,0 +1,20 @@
+
+
+.calendario{
+    width: 50%;
+}
+
+.calendarioElemento{
+    width: fit-content;
+    ;
+}
+
+input.inputBox {
+    font-size: 1rem;
+    padding: 5px 8px 4px 8px;
+    border-radius: 3px;
+    border: 1px solid #666;
+}
+
+
+
