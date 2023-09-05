@@ -70,7 +70,7 @@ public class ProductoController {
         return response;
     }
     @PostMapping("{id}/registrartalles")
-    public ResponseEntity<?> registrartalles (@PathVariable Integer id,
+    public ResponseEntity<?> registrartalles (@PathVariable("id") Integer id,
                                               @RequestBody Collection<ProductoMedidasRequest> request) {
         productoService.guardarListaMedidas(request,id);
         return ResponseEntity.status(HttpStatus.OK).body("Registro Completo");

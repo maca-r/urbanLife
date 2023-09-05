@@ -24,8 +24,8 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
     void setEstadoEliminar(@Param("id") Integer id, @Param("estado") boolean estado);
 
     @Modifying
-    @Query(value = "Insert into producto_medida (id_producto_medida, cantidad, id_medida, id_producto)\n" +
-            "values (:id, :cantidad, :id_medida, :id_producto)", nativeQuery = true)
+    @Query(value = "Insert into producto_medida (cantidad, id_medida, id_producto)\n" +
+            "values (:cantidad, :id_medida, :id_producto)", nativeQuery = true)
     void registrarTalleConProducto(@Param("cantidad") Integer cantidad,
                                   @Param("id_medida") Integer id_medida,
                                   @Param("id_producto") Integer id_producto);

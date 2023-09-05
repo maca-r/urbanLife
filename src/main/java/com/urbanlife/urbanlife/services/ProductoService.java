@@ -162,11 +162,12 @@ public class ProductoService implements IProductoService {
     }
     public void guardarListaMedidas(Collection<ProductoMedidasRequest> request, Integer id) {
         checkIfProductoExistsOrThrow(id);
-        request.stream()
-                .peek(request1 -> {
-                    productoRepository.registrarTalleConProducto(
-                            10, request1.getIdMedida(), id);
-                })
-                .collect(Collectors.toList());
+        for (ProductoMedidasRequest producto : request) {
+            productoRepository.registrarTalleConProducto(
+                    10,
+                    producto.getIdMedida(),
+                    id
+            );
+        }
     }
 }
