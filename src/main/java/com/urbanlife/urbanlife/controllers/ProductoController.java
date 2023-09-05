@@ -3,6 +3,7 @@ package com.urbanlife.urbanlife.controllers;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,8 @@ public class ProductoController {
     IProductoService productoService;
     @PostMapping("/registrar")
     public ResponseEntity<?> RegistrarTalle(@RequestBody ProductosDto productosDto){
-        Collection<ProductosDto> listaProductos = productoService.obtenerListaProductos();
-        for (ProductosDto producto : listaProductos) {
+        Collection<ProductoDto> listaProductos = productoService.listaProductosAll();
+        for (ProductoDto producto : listaProductos) {
             if (productosDto.getNombre().equals(producto.getNombre())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Este Producto ya existe!");
             }
@@ -41,8 +42,8 @@ public class ProductoController {
     }
 
     @GetMapping("/listaproductos-all")
-    public ResponseEntity<Collection<ProductosDto>> listarProductos() {
-        return ResponseEntity.ok(productoService.obtenerListaProductos());
+    public ResponseEntity<Collection<ProductoDto>> listarProductos() {
+        return ResponseEntity.ok(productoService.listaProductosAll());
     }
     @GetMapping("/listaproductos-aleatorio")
     public ResponseEntity<Collection<ProductosAletoriosDTO>> listaAletoria2(){
@@ -67,6 +68,12 @@ public class ProductoController {
         productoService.eliminarProducto(id);
         response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
+    }
+    @PostMapping("{id}/registrartalles")
+    public ResponseEntity<?> registrartalles (@PathVariable Integer id,
+                                              @RequestBody Collection<ProductoMedidasRequest> request) {
+        productoService.guardarListaMedidas(request,id);
+        return ResponseEntity.status(HttpStatus.OK).body("Registro Completo");
     }
 
 }

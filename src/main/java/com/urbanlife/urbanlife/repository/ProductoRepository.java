@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.repository;
 
+import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.ProductoTestDto;
 import com.urbanlife.urbanlife.models.Productos;
 import jakarta.transaction.Transactional;
@@ -25,16 +26,14 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
     @Modifying
     @Query(value = "Insert into producto_medida (id_producto_medida, cantidad, id_medida, id_producto)\n" +
             "values (:id, :cantidad, :id_medida, :id_producto)", nativeQuery = true)
-    void registrarTalleConProducto(@Param("id") Integer id,
-                                  @Param("cantidad") Integer cantidad,
+    void registrarTalleConProducto(@Param("cantidad") Integer cantidad,
                                   @Param("id_medida") Integer id_medida,
                                   @Param("id_producto") Integer id_producto);
 
     @Modifying
-    @Query(value = "INSERT INTO imagenes (id_imagen, url_imagen, id_producto)\n" +
-            "    VALUES (:id_imagen,\":URL_IMAGEN\",:id_producto)", nativeQuery = true)
-    void resgistrarImagenesConProducto(@Param("id_imagen") String id_imagen,
-                                       @Param("URL_IMAGEN") String URL_IMAGEN,
+    @Query(value = "INSERT INTO imagenes (url_imagen, id_producto)\n" +
+                    "VALUES (:URL_IMAGEN,:id_producto)", nativeQuery = true)
+    void resgistrarImagenesConProducto(@Param("URL_IMAGEN") String URL_IMAGEN,
                                        @Param("id_producto") Integer id_producto);
     //Investigar ERROR
     @Modifying

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -56,6 +57,10 @@ public class CategoriaController {
     public void actualizarCategorias(@PathVariable("id") Integer id,
                                      @RequestBody CategoriaUpdateRequest updateRequest){
         categoriaService.actualizarCategorias(id, updateRequest);
+    }
+    @GetMapping("{id}")
+    public Categorias obtenerCategoria(@PathVariable("id") Integer id){
+        return categoriaService.getCategorias(id);
     }
 
 }

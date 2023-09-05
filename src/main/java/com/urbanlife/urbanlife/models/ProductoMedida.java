@@ -14,7 +14,7 @@ import lombok.Setter;
 public class ProductoMedida {
     @Id
     @SequenceGenerator(name = "productoMedida_sequence", sequenceName = "productoMedida_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productoMedida")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "productoMedida")
     private int idProductoMedida;
     private int cantidad;
 

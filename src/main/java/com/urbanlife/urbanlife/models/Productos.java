@@ -43,4 +43,28 @@ public class Productos {
         fechaActual = LocalDateTime.now();
         eliminarProducto = false;
     }
+    /*
+    public Productos(
+                     String nombre,
+                     double precio,
+                     String detalle,
+                     String color,
+                     String tela,
+                     String genero,
+                     String evento,
+                     String temporada,
+                     Categorias categorias
+    ) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.detalle = detalle;
+        this.color = color;
+        this.tela = tela;
+        this.genero = genero;
+        this.evento = evento;
+        this.temporada = temporada;
+        this.categorias = categorias;
+        fechaActual = LocalDateTime.now();
+        eliminarProducto = false;
+    }*/
 }

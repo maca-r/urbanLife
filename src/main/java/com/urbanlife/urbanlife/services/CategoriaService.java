@@ -5,6 +5,7 @@ import com.urbanlife.urbanlife.exception.RequestValidationException;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
+import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.models.update.CategoriaUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
@@ -97,7 +98,7 @@ public class CategoriaService implements ICategoriaService {
     public void eliminarCategoria(Integer idCategoria) {
         checkIfCategoriaExistsOrThrow(idCategoria);
         categoriaRepository.setEstadoEliminar(idCategoria, true);
-        Collection<ProductosDto> productos = productoService.obtenerListaProductos();
+        Collection<ProductoDto> productos = productoService.listaProductosAll();
         productos.stream()
                 .peek(productosDto -> productoService.eliminarProducto(productosDto.getIdProducto()))
                 .collect(Collectors.toList());
@@ -145,6 +146,12 @@ public class CategoriaService implements ICategoriaService {
                 categorias.get().getDescripcion(),
                 categorias.get().getIdCategoria()
         );
+    }
+    @Override
+    public Categorias getCategorias(Integer id) {
+        checkIfCategoriaExistsOrThrow(id);
+        Optional<Categorias> found = categoriaRepository.findById(id);
+        return mapper.convertValue(found.get(), Categorias.class);
     }
 
 }

@@ -20,7 +20,7 @@ public class Categorias {
     @SequenceGenerator(name="categorias_sequence", sequenceName = "categorias_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorias_sequence")
 
-    private int idCategoria;
+    private Integer idCategoria;
     private String titulo;
     private String descripcion;
     private String URLIMAGEN;

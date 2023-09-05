@@ -33,7 +33,7 @@ public class ImagenService implements IImagenService {
     public List<Imagenes> getAllImagenes() {
         return imagenRepository.findAll();
     }
-    public Optional<Imagenes> obtenerImagen(String id) {
+    public Optional<Imagenes> obtenerImagen(Integer id) {
         return imagenRepository.findById(id);
     }
     @Override

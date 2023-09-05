@@ -7,6 +7,9 @@ import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
+import com.urbanlife.urbanlife.models.update.ProductoUpdateRequest;
+import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;
 import com.urbanlife.urbanlife.s3.S3Service;
@@ -54,10 +57,22 @@ public class ProductoService implements IProductoService {
             logger.info("Paciente: Se registro exitosamente!");
         }else { logger.error("Surgio un problema");}
     }
+
     private void guardarProducto(ProductosDto productosDto){
         Productos newProducto = objectMapper.convertValue(productosDto, Productos.class);
         productoRepository.save(newProducto);
     }
+    /*
+    private void guardarProductoRequest(ProductoUpdateRequest request) {
+        Productos productos = objectMapper.convertValue(request, Productos.class);
+        System.out.println("BBBBBBBBBBB" + productos.getGenero());
+        System.out.println("AAAAAAAAAAAAA" + productos.getCategorias());
+        productoRepository.save(productos);
+    }
+    public Categorias getCategorias(Integer id) {
+        Optional<Categorias> found = categoriaRepository.findById(id);
+        return objectMapper.convertValue(found.get(), Categorias.class);
+    }*/
     @Override
     public void uploadProductImagen(Integer idProduct,
                                            MultipartFile file) {
@@ -74,21 +89,26 @@ public class ProductoService implements IProductoService {
             throw new RuntimeException("failed to upload profile image", e);
         }
         productoRepository.resgistrarImagenesConProducto(
-                profileImageId,
                 "%s.%s".formatted(profileImageId, extension),
                 idProduct);
     }
     @Override
-    public Collection<ProductosDto> obtenerListaProductos() {
+    public Collection<ProductoDto> listaProductosAll() {
         Iterable<Productos> listarProductos = productoRepository.findAll();
-        Set<ProductosDto> listarProductoDto = new HashSet<ProductosDto>();
+        Set<ProductoDto> listarProductoDto = new HashSet<ProductoDto>();
         for (Productos producto : listarProductos) {
             if (!producto.getEliminarProducto()) {
-                listarProductoDto.add(objectMapper.convertValue(producto, ProductosDto.class));
+                listarProductoDto.add(objectMapper.convertValue(producto, ProductoDto.class));
             }
         }
         logger.info("Lista Productos: Proceso Finalizado con Exito!");
-        return listarProductoDto;
+        return listarProductoDto
+                .stream()
+                .peek(productoDto -> {
+                    productoDto.setTalles(medidaService.listarTallesProducto(productoDto.getIdProducto()));
+                    productoDto.setImagenes(imagenService.listarImagenesPorProducto(productoDto.getIdProducto()));
+                })
+                .collect(Collectors.toList());
     }
     @Override
     public Collection<ProductosAletoriosDTO> listarProductosAletoriosDTO() {
@@ -136,9 +156,17 @@ public class ProductoService implements IProductoService {
             logger.error("No se encontró el producto con ID: " + id);
         }
     }
-
     @Override
     public void eliminarProducto(Integer id) {
         productoRepository.setEstadoEliminar(id, true);
+    }
+    public void guardarListaMedidas(Collection<ProductoMedidasRequest> request, Integer id) {
+        checkIfProductoExistsOrThrow(id);
+        request.stream()
+                .peek(request1 -> {
+                    productoRepository.registrarTalleConProducto(
+                            10, request1.getIdMedida(), id);
+                })
+                .collect(Collectors.toList());
     }
 }

@@ -34,4 +34,9 @@ public interface CategoriaRepository extends JpaRepository<Categorias, Integer> 
             """, nativeQuery = true)
     void setDescripcion(@Param("descripcion") String descripcion,
                         @Param("id") Integer id);
+
+    //----Investigar Error -----
+    @Modifying
+    @Query(value ="SELECT * FROM categorias where id_categoria = :id", nativeQuery = true)
+    Categorias obtenerCategoria(@Param("id") Integer id);
 }
