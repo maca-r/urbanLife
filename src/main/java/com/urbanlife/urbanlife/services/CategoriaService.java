@@ -151,7 +151,9 @@ public class CategoriaService implements ICategoriaService {
     public Categorias getCategorias(Integer id) {
         checkIfCategoriaExistsOrThrow(id);
         Optional<Categorias> found = categoriaRepository.findById(id);
-        return mapper.convertValue(found.get(), Categorias.class);
+        Categorias categorias = mapper.convertValue(found.get(), Categorias.class);
+        categorias.setURLIMAGEN("http://localhost/categorias/%s/categoria-image".formatted(id));
+        return categorias;
     }
 
 }
