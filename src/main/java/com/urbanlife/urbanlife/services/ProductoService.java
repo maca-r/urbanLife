@@ -7,6 +7,7 @@ import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.models.request.BusquedaRequest;
 import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
 import com.urbanlife.urbanlife.models.update.ProductoUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
@@ -169,5 +170,9 @@ public class ProductoService implements IProductoService {
                     id
             );
         }
+    }
+    public Collection<ProductoDto> busquedaDelProducto(BusquedaRequest productoRequest) {
+
+        return null;
     }
 }

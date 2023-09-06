@@ -6,6 +6,8 @@ import jakarta.persistence.JoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class ProductoDto {
     private String genero;
     private String corte;
     private String temporada;
+    private LocalDate fechaActual;
     @JoinColumn(name = "idCategoria")
     private Categorias categorias;
     private List<Medidas> talles;
