@@ -1,6 +1,5 @@
 package com.urbanlife.urbanlife.repository;
 
-import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.ProductoTestDto;
 import com.urbanlife.urbanlife.models.Productos;
 import jakarta.transaction.Transactional;

@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Transactional
 @Repository
 public interface ImagenRepository extends JpaRepository<Imagenes, Integer> {
-    @Transactional
+
     @Modifying
     @Query (value = "Select * from imagenes as ima\n" +
             "where ima.id_producto = :id", nativeQuery = true)

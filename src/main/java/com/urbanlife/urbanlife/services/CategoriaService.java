@@ -6,7 +6,6 @@ import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
-import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.models.update.CategoriaUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;

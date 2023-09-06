@@ -20,7 +20,6 @@ public class ImagenesController {
     @Autowired
     IImagenService imagenService;
 
-
     @PostMapping("/registrar")
     public ResponseEntity<?>guardarImagen(@RequestBody Imagenes imagenes) {
         imagenService.createImagen(imagenes);
