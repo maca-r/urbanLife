@@ -9,6 +9,8 @@ export function ListaProductos() {
   const [producto, setProducto] = useState([]);
   const [productoId, setProductoId] = useState("");
   const [productoImagenes, setProductoImagenes] = useState([]);
+  const [productoTalles, setProductoTalles] = useState([]);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productoToDelete, setProductoToDelete] = useState(null);
   const [noProductosMessage, setNoProductosMessage] = useState("");
@@ -40,8 +42,38 @@ export function ListaProductos() {
         `http://localhost:80/productos/obtener/${id}`
       );
       setProductoId(response.data);
+      fetchImagenesProducto(id);
+      fetchTallesProducto(id);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
+    }
+  }
+
+  async function fetchImagenesProducto(id) {
+    try {
+      const response = await axios.get(
+        `http://localhost:80/imagenes/obtener/${id}`
+      );
+      setProductoImagenes(response.data);
+    } catch (error) {
+      console.error(
+        `Error al obtener las imágenes del producto con ID ${id}:`,
+        error
+      );
+    }
+  }
+
+  async function fetchTallesProducto(id) {
+    try {
+      const response = await axios.get(
+        `http://localhost:80/talles/listatalles-producto/${id}`
+      );
+      setProductoTalles(response.data);
+    } catch (error) {
+      console.error(
+        `Error al obtener los talles del producto con ID ${id}:`,
+        error
+      );
     }
   }
 
@@ -95,7 +127,7 @@ export function ListaProductos() {
                       Ver Detalles
                     </Button>
 
-                    <Link to={`/editarproducto/${producto.idProducto}`}>
+                    <Link to={`/editar/${producto.idProducto}`}>
                       <Button
                         variant="warning"
                         size="sm"
@@ -135,17 +167,30 @@ export function ListaProductos() {
           <p>ID Categoria: {productoId.categorias.idCategoria}</p>
           <p>Nombre categoria: {productoId.categorias.titulo}</p>
 
-          {productoImagenes.map((img) => (
-            <div key={img.idImagen}>
-              <div>
-                <h4>Imagenes de este producto</h4>
-                <img
-                  src={img.urlImagen}
-                  alt={`Imagen del producto ${img.idImagen}`}
-                />
-              </div>
+          {productoTalles.length > 0 && (
+            <div>
+              <h4>Talles de este producto</h4>
+              <ul>
+                {productoTalles.map((talle) => (
+                  <li key={talle.idMedida}>{talle.talle}</li>
+                ))}
+              </ul>
             </div>
-          ))}
+          )}
+
+          {productoImagenes.length > 0 && (
+            <div>
+              <h4>Imágenes de este producto</h4>
+              {productoImagenes.map((img) => (
+                <div key={img.idImagen}>
+                  <img
+                    src={img.urlImagen}
+                    alt={`ID de la imagen: ${img.idImagen}`}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

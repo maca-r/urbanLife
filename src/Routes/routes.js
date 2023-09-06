@@ -6,6 +6,7 @@ export const routes = {
   admin: "admin",
   listaProductos: "listaproductos",
   añadirProducto: "añadirproducto",
+  addImages: "addimages",
   categorias: "categorias",
   añadirCategorias: "añadircategorias",
   imgCategoria: "imgcategoria",

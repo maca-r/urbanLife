@@ -12,10 +12,12 @@ export function AñadirProducto() {
   const [tela, setTela] = useState("");
   const [genero, setGenero] = useState("");
   const [temporada, setTemporada] = useState("");
-  const [categorias, setCategorias] = useState([]);
 
+  const [categorias, setCategorias] = useState([]);
   const [selectedCategoria, setSelectedCategoria] = useState("");
+
   const [selectedTalles, setSelectedTalles] = useState([]);
+  const [talles, setTalles] = useState([]);
 
   const [mensaje, setMensaje] = useState("");
 
@@ -39,8 +41,20 @@ export function AñadirProducto() {
     }
   };
 
+  const fetchTalles = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:80/talles/listartalles-all"
+      );
+      setTalles(response.data);
+    } catch (error) {
+      console.error("Error fetching talles:", error);
+    }
+  };
+
   useEffect(() => {
     fetchCategories();
+    fetchTalles();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -64,7 +78,7 @@ export function AñadirProducto() {
           idCategoria: selectedCategory.idCategoria,
           titulo: selectedCategoria,
         },
-        talles: selectedTalles,
+        talle: selectedTalles,
       };
 
       const response = await axios.post(
@@ -85,7 +99,6 @@ export function AñadirProducto() {
         setSelectedCategoria("");
         setSelectedTalles("");
       }
-      // }
     } catch (error) {
       console.error("Error en la solicitud:", error);
     }
@@ -218,28 +231,27 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        {/* <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Talle</Form.Label>
-
-          <Form.Select
-            id="talle"
-            multiple
-            value={selectedTalles}
-            onChange={(e) =>
-              setSelectedTalles(
-                Array.from(e.target.selectedOptions, (option) => option.value)
-              )
-            }
-          >
-            <option value="">Selecciona uno o más talles</option>
-            {talles.map((talle) => (
-              <option key={talle.idMedida} value={talle.idMedida}>
-                {talle.talle}
-              </option>
-            ))}
-          </Form.Select>
-          <div>Talles seleccionados: {selectedTalles.join(", ")}</div>
-        </Form.Group> */}
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Talles</Form.Label>
+          {talles.map((talle) => (
+            <Form.Check
+              key={talle.idMedida}
+              type="checkbox"
+              label={talle.talle}
+              value={talle.talle}
+              checked={selectedTalles.includes(talle.talle)}
+              onChange={() => {
+                if (selectedTalles.includes(talle.talle)) {
+                  setSelectedTalles(
+                    selectedTalles.filter((value) => value !== talle.talle)
+                  );
+                } else {
+                  setSelectedTalles([...selectedTalles, talle.talle]);
+                }
+              }}
+            />
+          ))}
+        </Form.Group>
 
         {/* ------------------------------------------------------------------ */}
 

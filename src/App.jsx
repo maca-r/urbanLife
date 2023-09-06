@@ -18,6 +18,7 @@ import { ImgCategoria } from "./Components/Admin/ImgCategoria";
 import { ListarCategorias } from "./Components/Admin/ListarCategorias";
 import { Categorias } from "./Components/Admin/Categorias";
 import { EditarCategorias } from "./Components/Admin/EditarCategorias";
+import { AddImages } from "./Components/Admin/AddImages";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path={routes.admin} element={<Admin />} />
           <Route path={routes.listaProductos} element={<ListaProductos />} />
           <Route path={routes.añadirProducto} element={<AñadirProducto />} />
+          <Route path={routes.addImages} element={<AddImages />} />
           <Route path={routes.categorias} element={<Categorias />} />
 
           <Route path={routes.añadirCategorias} element={<AddCategorias />} />

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./Admin.module.css";
 import { ListaProductos } from "./ListaProductos";
-// import { AddTalles } from "./AddTalles";
+import { AddTalles } from "./AddTalles";
 import { AñadirProducto } from "./AñadirProducto";
 import { Categorias } from "./Categorias";
+import { AddImages } from "./AddImages";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -47,11 +48,17 @@ export function Admin() {
               Agregar Producto
             </button>
 
+            <button onClick={() => handlePanelSection("addimages")}>
+              Añadir Imagen
+            </button>
+
             <button onClick={() => handlePanelSection("categorias")}>
               Administrar Categorias
             </button>
 
-            {/* <button onClick={ () => handlePanelSection("agregarTalles")}>Agregar Talles</button> */}
+            <button onClick={() => handlePanelSection("agregarTalles")}>
+              Agregar Talles
+            </button>
           </div>
 
           <div className={styles.showPanelSection}>
@@ -64,7 +71,8 @@ export function Admin() {
             {panelSection == "listaProductos" && <ListaProductos />}
             {panelSection == "agregarProducto" && <AñadirProducto />}
             {panelSection == "categorias" && <Categorias />}
-            {/* {panelSection == "agregarTalles" && <AddTalles />} */}
+            {panelSection == "addimages" && <AddImages />}
+            {panelSection == "agregarTalles" && <AddTalles />}
           </div>
         </div>
       )}
