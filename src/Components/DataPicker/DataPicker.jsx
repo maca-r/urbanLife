@@ -14,6 +14,8 @@ const DataPicker = () => {
         key: 'selection'
     }])
 
+    {console.log(format(range[0].startDate, 'yyyy-MM-dd'))}
+
     const [open, setOpen] = useState(false) 
 
     useEffect(() => {
@@ -57,6 +59,10 @@ const DataPicker = () => {
                 months={2}
                 direction='horizontal'
                 className={styles.elemento}
+                rangeColors={["#E3B04B"]}
+                // disabledDates={["2023-09-10", "2023-09-13"]}
+                fixedHeight={false}
+                
                 />
             }
             </div>

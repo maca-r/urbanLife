@@ -5,15 +5,33 @@ div .body{
     align-items: center;
 }
 
-.search {
+/* .search {
     width: 90%;
     background-color: #EFEEEE;
     padding-left: 12px;
     border-radius: 30px;
     margin-top: 3%;
     border: 0.5px solid #2B2B28;
+} */
+
+form{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: none;
+    border-radius: 30px;
+    outline: none;
 }
 
+.inputSearch{
+    padding: 1%;
+    width: 30%;
+    border-radius: 30px;
+    border: 0.5px solid #2B2B28;
+    background-color: #EFEEEE;
+    border: none;
+}
 /* figure {
     width: 15px;
     margin: auto;
@@ -21,15 +39,17 @@ div .body{
     background-color: #f4f4f4;
 } */
 
-.search form input{
-    /* width: 82vw; */
-    display: flex;
-    height: 37px;
+
+
+form .inputSearch input{
+    width: 90%;
+    padding: 1%;
+    border-radius: 30px;
     background-color: #EFEEEE;
     border: none;
-    border-radius: 30px;
     outline: none;
 }
+
 
 .calendar{
     width: 30%;
@@ -39,7 +59,7 @@ div .body{
 .buscarButton{
     
     font-size: small;
-    padding: 5px 9px;
+    padding: 1.5%;
     border-radius: 50px;
     background-color: #2B2B28;
     color: #EFEEEE;

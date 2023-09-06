@@ -32,7 +32,8 @@ const Card = (data) => {
 
     return (
         <div className={styles.cardItem}>
-            <img src="/images/logo.png" />
+            {/* {console.log(data.data.imagenes[0].urlImagen)} */}
+            <img src={data.data.imagenes[0].urlImagen} />
                 <div>
                     <h6
                         style={{ textTransform: "uppercase", width: "fit-content" }}

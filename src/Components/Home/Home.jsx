@@ -3,26 +3,44 @@ import styles from "./Home.module.css";
 import Carousel from "react-bootstrap/Carousel";
 // import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { routes } from "../../Routes/routes";
-import Pagination from "react-bootstrap/Pagination";
-import { Search } from "../Icon";
+// import { routes } from "../../Routes/routes";
+// import Pagination from "react-bootstrap/Pagination";
+// import { Search } from "../Icon";
 import axios from "axios";
-import StarIcon from '@mui/icons-material/Star';
-import {useContextoGlobal} from "../GlobalContext.jsx"
+import {useContextoGlobal} from "../GlobalContext.jsx";
 import Card from "../Card/Card";
 import DataPicker from "../DataPicker/DataPicker";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
 
+
+  const {dataState, dataDispatch} = useContextoGlobal()
+
+  const [id, setId] = useState()
+
+  const [productoBuscado, setProductoBuscado] = useState()
+
   const handleChange = (e) => {
+    console.log(dataState.productos);
+    dataState.productos.forEach(producto => {
+      if(producto.nombre == e.target.value){
+        console.log(producto.nombre)
+        setId(producto.idProducto)
+        
+      }
+    });
     setSearchText(e.target.value);
   };
 
   const handleSubmit = (e) => {
     // e.preventDefault();
     // realizariamos las solicitudes a la API.
+    // console.log(dataState.producto);
+    // setProductoBuscado(dataState.productos[id])
+    // alert(dataState.producto.idProducto)
     console.log("Texto de búsqueda:", searchText);
   };
 
@@ -81,12 +99,12 @@ const Home = () => {
   //     categoria: "categoria 4"}
   // ]
 
-  const categoriasImagenes = [
-    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_081-83e6bde4313e1cde2d16904126922417-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_pantalon-gollic-gris_011-3777820bf7b7dab9e316856674617159-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_camisa-nazgul-negro_071-9fdb49f56179eac55a16771641208498-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_cartera-chain-b-negro_011-e4c3d9205f09b625f216878911243673-640-0.webp",
-  ];
+  // const categoriasImagenes = [
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_081-83e6bde4313e1cde2d16904126922417-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_pantalon-gollic-gris_011-3777820bf7b7dab9e316856674617159-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_camisa-nazgul-negro_071-9fdb49f56179eac55a16771641208498-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_cartera-chain-b-negro_011-e4c3d9205f09b625f216878911243673-640-0.webp",
+  // ];
 
   // const productoAleatorio = [
   //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
@@ -145,29 +163,38 @@ const Home = () => {
     <div className={styles.body}>
       {/* BUSCADOR */}
 
-      <div className={styles.search}>
+      {/* <div className={styles.search}> */}
+
         <form onSubmit={handleSubmit}>
 
             {/* <figure>
               <Search />
             </figure> */}
-            <input
-              type="text"
-              placeholder="Buscar"
-              value={searchText}
-              onChange={handleChange}
-            ></input>
+            <div className={styles.inputSearch}>
+              <SearchIcon/> 
+              <input
+                type="text"
+                placeholder="Buscar"
+                value={searchText}
+                onChange={handleChange}
+              ></input>
+            </div>
+            
+            {/* <input type="date" onChange={(e) => console.log(e.target.value)} /> */}
 
             <DataPicker className={styles.calendar}/>
 
             <button className={styles.buscarButton}>Realizar búsqueda</button>
 
         </form>
-      </div>
+      {/* </div> */}
       
+      
+      {/* {console.log(productoBuscado)}
+      <div>{productoBuscado}</div> */}
 
       {/* AGREGAR IMAGEN */}
-      <img className={styles.imagenBanner} src="./public/images/Imagen LandingPage.png" alt="" />
+      <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt="" />
 
       <div className={styles.categorias}>
         <h2>CATEGORIAS</h2>
@@ -194,7 +221,7 @@ const Home = () => {
         {categorias.map((categoria, index) => (
           <Carousel.Item key={index}>
             <img
-              src={categoriasImagenes[index]}
+              src={categoria.urlimagen}
               style={{ width: "100%", height: "50%", cursor: "pointer" }}
             />
 

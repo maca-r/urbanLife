@@ -15,6 +15,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import WcIcon from "@mui/icons-material/Wc";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import ContentCutIcon from '@mui/icons-material/ContentCut';
+import { useContextoGlobal } from "../GlobalContext";
 
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
@@ -49,7 +50,7 @@ const Detail = () => {
   // },[desktopMediaQuery])
 
   // console.log(desktopMediaQuery);
-
+  const {dataState,dataDispatch} = useContextoGlobal()
   const params = useParams();
   const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
 
@@ -57,12 +58,14 @@ const Detail = () => {
     try {
       axios.get(urlDetalleProducto).then((response) => {
         console.log(response.data);
-        setDetalle(response.data);
+        // setDetalle(response.data);
+        dataDispatch({type: "GET_A_PRODUCT", payload: response.data})
       });
     } catch (error) {
       console.error("error al obtener producto con id " + `${params.id}`);
     }
   }, [urlDetalleProducto]);
+
 
   const images = [
     "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_041-304a2ebf0f06670f1b16903373804733-640-0.webp",
@@ -107,11 +110,11 @@ const Detail = () => {
   // const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
   const caracteristicas = [
-    detalle.color,
-    detalle.tela,
-    detalle.genero,
-    detalle.temporada,
-    detalle.corte,
+    dataState.producto.color,
+    dataState.producto.tela,
+    dataState.producto.genero,
+    dataState.producto.temporada,
+    dataState.producto.corte,
   ];
 
   const iconoCaracteristicas = [
@@ -129,7 +132,7 @@ const Detail = () => {
     <div className={styles.detalleProducto}>
       
       <div className={styles.tituloBackButton}>
-        <h3>{detalle.nombre}</h3>
+        <h3>{dataState.producto.nombre}</h3>
 
         <button className={styles.backButton} onClick={() => navigate(-1)}>
           <ArrowBackIcon />
@@ -276,7 +279,7 @@ const Detail = () => {
 
         <div className={styles.detalleCaracteristicas}>
 
-          <p>{detalle.detalle} </p>
+          <p>{dataState.producto.detalle} </p>
 
           <div className={styles.caracteristicasBox}>
             <h4>Caracteristicas</h4>
@@ -298,7 +301,7 @@ const Detail = () => {
 
         
 
-          <h5>${detalle.precio}</h5>
+          <h5>${dataState.producto.precio}</h5>
               
               
           <div className={styles.talles}>
