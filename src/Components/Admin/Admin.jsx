@@ -41,16 +41,16 @@ export function Admin() {
       ) : (
         <div className={styles.panel}>
           <div className={styles.buttonPanel}>
-            <button onClick={() => handlePanelSection("producto")}>
-              Administrar Productos
+            <button onClick={() => handlePanelSection("agregarTalles")}>
+              Registrar Talles
             </button>
 
             <button onClick={() => handlePanelSection("categorias")}>
               Administrar Categorias
             </button>
 
-            <button onClick={() => handlePanelSection("agregarTalles")}>
-              Registrar Talles
+            <button onClick={() => handlePanelSection("producto")}>
+              Administrar Productos
             </button>
           </div>
 
