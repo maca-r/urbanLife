@@ -21,6 +21,7 @@ import { EditarCategorias } from "./Components/Admin/EditarCategorias";
 import { AddImages } from "./Components/Admin/AddImages";
 import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
 import { Producto } from "./Components/Admin/Producto";
+import { Caracteristicas } from "./Components/Admin/Caracteristicas";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path={routes.añadirProducto} element={<AñadirProducto />} />
           <Route path={routes.addImages} element={<AddImages />} />
           <Route path={routes.categorias} element={<Categorias />} />
+          <Route path={routes.caracteristicas} element={<Caracteristicas />} />
 
           <Route path={routes.añadirCategorias} element={<AddCategorias />} />
           <Route path={routes.imgCategoria} element={<ImgCategoria />} />

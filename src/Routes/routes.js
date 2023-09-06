@@ -9,6 +9,7 @@ export const routes = {
   añadirProducto: "añadirproducto",
   addImages: "addimages",
   categorias: "categorias",
+  caracteristicas: "caracteristicas",
   añadirCategorias: "añadircategorias",
   imgCategoria: "imgcategoria",
   listarCategorias: "listarcategorias",
