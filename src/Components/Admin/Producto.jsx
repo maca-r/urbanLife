@@ -5,7 +5,6 @@ import { AddImages } from "./AddImages";
 import styles from "./Categorias.module.css";
 import { RegistrarTalleProd } from "./RegistrarTalleProd";
 import { ListaProductos } from "./ListaProductos";
-import { PapeleraProductos } from "./PapeleraProductos";
 
 export function Producto() {
   const [panelSection, setPanelSection] = useState(null);
@@ -34,10 +33,6 @@ export function Producto() {
         <button onClick={() => handlePanelSection("listarProducto")}>
           Listar Producto
         </button>
-
-        <button onClick={() => handlePanelSection("papeleraProductos")}>
-          Papelera Productos
-        </button>
       </div>
       {showTitle && <h4>Elija una acción del panel superior</h4>}
 
@@ -45,7 +40,6 @@ export function Producto() {
       {panelSection === "addImages" && <AddImages />}
       {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
       {panelSection === "listarProducto" && <ListaProductos />}
-      {panelSection === "papeleraProductos" && <PapeleraProductos />}
     </section>
   );
 }
