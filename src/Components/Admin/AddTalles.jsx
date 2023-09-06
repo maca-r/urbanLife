@@ -18,7 +18,7 @@ export function AddTalles() {
       };
 
       const response = await axios.post(
-        "http://localhost:80/talles/registrarTalle",
+        `http://localhost:80/talles/registrarTalle`,
         talleData
       );
 
@@ -35,8 +35,9 @@ export function AddTalles() {
   return (
     <div>
       <Form style={{ marginBottom: "2%" }}>
-        <h3>Talles</h3>
+        <h3>Registre un nuevo Talle</h3>
         {mensaje && <Alert variant="info">{mensaje}</Alert>}
+
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Talle nuevo</Form.Label>
           <Form.Control
@@ -46,7 +47,7 @@ export function AddTalles() {
             onChange={(e) => setTalle(e.target.value)}
           />
         </Form.Group>
-        <Button onClick={handleAgregarTalle}>Agregar Talle</Button>
+        <Button onClick={handleAgregarTalle}>Registrar</Button>
       </Form>
     </div>
   );

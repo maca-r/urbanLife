@@ -16,9 +16,6 @@ export function AñadirProducto() {
   const [categorias, setCategorias] = useState([]);
   const [selectedCategoria, setSelectedCategoria] = useState("");
 
-  const [selectedTalles, setSelectedTalles] = useState([]);
-  const [talles, setTalles] = useState([]);
-
   const [mensaje, setMensaje] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
@@ -41,20 +38,8 @@ export function AñadirProducto() {
     }
   };
 
-  const fetchTalles = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:80/talles/listartalles-all"
-      );
-      setTalles(response.data);
-    } catch (error) {
-      console.error("Error fetching talles:", error);
-    }
-  };
-
   useEffect(() => {
     fetchCategories();
-    fetchTalles();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -78,7 +63,6 @@ export function AñadirProducto() {
           idCategoria: selectedCategory.idCategoria,
           titulo: selectedCategoria,
         },
-        talle: selectedTalles,
       };
 
       const response = await axios.post(
@@ -97,7 +81,6 @@ export function AñadirProducto() {
         setCorte("");
         setGenero("");
         setSelectedCategoria("");
-        setSelectedTalles("");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -227,30 +210,6 @@ export function AñadirProducto() {
               </option>
             ))}
           </Form.Select>
-        </Form.Group>
-
-        {/* ------------------------------------------------------------------ */}
-
-        <Form.Group style={{ marginBottom: "2%" }}>
-          <Form.Label>Talles</Form.Label>
-          {talles.map((talle) => (
-            <Form.Check
-              key={talle.idMedida}
-              type="checkbox"
-              label={talle.talle}
-              value={talle.talle}
-              checked={selectedTalles.includes(talle.talle)}
-              onChange={() => {
-                if (selectedTalles.includes(talle.talle)) {
-                  setSelectedTalles(
-                    selectedTalles.filter((value) => value !== talle.talle)
-                  );
-                } else {
-                  setSelectedTalles([...selectedTalles, talle.talle]);
-                }
-              }}
-            />
-          ))}
         </Form.Group>
 
         {/* ------------------------------------------------------------------ */}

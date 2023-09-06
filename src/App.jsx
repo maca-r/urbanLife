@@ -19,6 +19,8 @@ import { ListarCategorias } from "./Components/Admin/ListarCategorias";
 import { Categorias } from "./Components/Admin/Categorias";
 import { EditarCategorias } from "./Components/Admin/EditarCategorias";
 import { AddImages } from "./Components/Admin/AddImages";
+import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
+import { Producto } from "./Components/Admin/Producto";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path={routes.detail} element={<Detail />} />
           <Route path={routes.notFound} element={<NotFound />} />
           <Route path={routes.admin} element={<Admin />} />
+          <Route path={routes.producto} element={<Producto />} />
           <Route path={routes.listaProductos} element={<ListaProductos />} />
           <Route path={routes.añadirProducto} element={<AñadirProducto />} />
           <Route path={routes.addImages} element={<AddImages />} />
@@ -45,6 +48,10 @@ function App() {
             element={<EditarCategorias />}
           />
           <Route path={routes.añadirTalles} element={<AddTalles />} />
+          <Route
+            path={routes.registrarTalleProd}
+            element={<RegistrarTalleProd />}
+          />
           <Route path={routes.editarProducto} element={<EditarProducto />} />
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />

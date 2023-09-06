@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./Admin.module.css";
-import { ListaProductos } from "./ListaProductos";
+
 import { AddTalles } from "./AddTalles";
-import { AñadirProducto } from "./AñadirProducto";
+
 import { Categorias } from "./Categorias";
-import { AddImages } from "./AddImages";
+
+import { Producto } from "./Producto";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -40,16 +41,8 @@ export function Admin() {
       ) : (
         <div className={styles.panel}>
           <div className={styles.buttonPanel}>
-            <button onClick={() => handlePanelSection("listaProductos")}>
-              Lista Productos
-            </button>
-
-            <button onClick={() => handlePanelSection("agregarProducto")}>
-              Agregar Producto
-            </button>
-
-            <button onClick={() => handlePanelSection("addimages")}>
-              Añadir Imagen
+            <button onClick={() => handlePanelSection("producto")}>
+              Administrar Productos
             </button>
 
             <button onClick={() => handlePanelSection("categorias")}>
@@ -57,7 +50,7 @@ export function Admin() {
             </button>
 
             <button onClick={() => handlePanelSection("agregarTalles")}>
-              Agregar Talles
+              Registrar Talles
             </button>
           </div>
 
@@ -68,10 +61,10 @@ export function Admin() {
                 contenido
               </h3>
             )}
-            {panelSection == "listaProductos" && <ListaProductos />}
-            {panelSection == "agregarProducto" && <AñadirProducto />}
+            {panelSection == "producto" && <Producto />}
+
             {panelSection == "categorias" && <Categorias />}
-            {panelSection == "addimages" && <AddImages />}
+
             {panelSection == "agregarTalles" && <AddTalles />}
           </div>
         </div>
