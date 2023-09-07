@@ -22,6 +22,7 @@ import { AddImages } from "./Components/Admin/AddImages";
 import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
 import { Producto } from "./Components/Admin/Producto";
 import { Caracteristicas } from "./Components/Admin/Caracteristicas";
+import Favs from "./Components/Favs/Favs";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path={routes.editarProducto} element={<EditarProducto />} />
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />
+          <Route path={routes.favs} element={<Favs/>}/>
         </Route>
       </Routes>
     </>
