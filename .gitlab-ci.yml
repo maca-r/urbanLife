@@ -1,10 +1,11 @@
+image: docker:20.10
+
 stages:
   - build
   - deploy
 
 build:
   stage: build
-  image: docker:latest
   script:
     - docker build -t urbanlife .
 
