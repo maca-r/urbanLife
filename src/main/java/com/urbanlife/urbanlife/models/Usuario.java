@@ -1,71 +1,58 @@
 package com.urbanlife.urbanlife.models;
 
-public class Usuario {
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-    private String  Nombre,Correo,Contrasena;
+import java.util.Collection;
+import java.util.List;
 
-    private RolUser rol;
+@Data
+@Builder
 
-    public Usuario(String nombre, String correo, String contrasena, RolUser rol) {
-        Nombre = nombre;
-        Correo = correo;
-        Contrasena = contrasena;
-        this.rol = rol;
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+public class Usuario implements UserDetails {
+
+    @Id
+    @GeneratedValue
+    Integer id;
+    @Basic
+    @Column(nullable = false)
+    String username;
+    @Column(nullable = false)
+    String name;
+    String password;
+    String ubicacion;
+
+    @Enumerated(EnumType.STRING)
+    private RolUser role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
     }
-
-    public String getNombre() {
-        return Nombre;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
-
-    public String getCorreo() {
-        return Correo;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
-
-    public void setCorreo(String correo) {
-        Correo = correo;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-
-    public String getContrasena() {
-        return Contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
-    }
-
-    public RolUser getRol() {
-        return rol;
-    }
-
-    public void setRol(RolUser rol) {
-        this.rol = rol;
-    }
-
- /*   public void realizarAccionPublica() {
-        // Acción pública disponible para todos los usuarios (tanto administradores como clientes)
-        System.out.println("Acción pública realizada por " + Nombre);
-    }
-
-    public void realizarAccionAdmin() {
-        // Acción específica para administradores
-        if (rol == RolUser.ADMINISTRADOR) {
-            System.out.println("Acción administrativa realizada por " + Nombre);
-        } else {
-            System.out.println("Acceso denegado. Esta acción solo está permitida para administradores.");
-        }
-    }
-
-    public void realizarAccionCliente() {
-        // Acción específica para clientes
-        if (rol == RolUser.CLIENTE) {
-            System.out.println("Acción para cliente realizada por " + Nombre);
-        } else {
-            System.out.println("Acceso denegado. Esta acción solo está permitida para clientes.");
-        }
-    }
-*/
 }
