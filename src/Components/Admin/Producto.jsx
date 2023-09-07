@@ -7,7 +7,7 @@ import { RegistrarTalleProd } from "./RegistrarTalleProd";
 import { ListaProductos } from "./ListaProductos";
 
 export function Producto() {
-  const [panelSection, setPanelSection] = useState(null);
+  const [panelSection, setPanelSection] = useState("");
   const [showTitle, setShowTitle] = useState(true);
 
   const handlePanelSection = (targetSection) => {
@@ -16,7 +16,7 @@ export function Producto() {
   };
 
   return (
-    <section>
+    <section className={styles.panel}>
       <div className={styles.buttonPanel}>
         <button onClick={() => handlePanelSection("agregarProducto")}>
           Agregar Producto
@@ -34,12 +34,23 @@ export function Producto() {
           Listar Producto
         </button>
       </div>
-      {showTitle && <h4>Elija una acción del panel superior</h4>}
+      <div className={styles.showPanelSection}>
+        {panelSection == "" && (
+              <h3>
+                Elija una acción del panel superior
+              </h3>
+            )}
+            {panelSection === "agregarProducto" && <AñadirProducto />}
+            {panelSection === "addImages" && <AddImages />}
+            {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
+            {panelSection === "listarProducto" && <ListaProductos />}
+      </div>
+      {/* {showTitle && <h4>Elija una acción del panel superior</h4>}
 
       {panelSection === "agregarProducto" && <AñadirProducto />}
       {panelSection === "addImages" && <AddImages />}
       {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
-      {panelSection === "listarProducto" && <ListaProductos />}
+      {panelSection === "listarProducto" && <ListaProductos />} */}
     </section>
   );
 }

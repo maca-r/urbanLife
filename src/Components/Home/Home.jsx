@@ -21,26 +21,28 @@ const Home = () => {
 
   const [id, setId] = useState()
 
-  const [productoBuscado, setProductoBuscado] = useState()
+  const [productoBuscado, setProductoBuscado] = useState({})
 
   const handleChange = (e) => {
     console.log(dataState.productos);
     dataState.productos.forEach(producto => {
       if(producto.nombre == e.target.value){
-        console.log(producto.nombre)
-        setId(producto.idProducto)
-        
+        console.log(producto.idProducto)
+        setId((producto.idProducto)-1)
+        //setProductoBuscado(dataState.productos[id]);
+        console.log(productoBuscado);
       }
     });
     setSearchText(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     // realizariamos las solicitudes a la API.
     // console.log(dataState.producto);
     // setProductoBuscado(dataState.productos[id])
-    // alert(dataState.producto.idProducto)
+    setProductoBuscado(dataState.productos[id]);
+    console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
   };
 
@@ -80,8 +82,11 @@ const Home = () => {
   useEffect(() => {
     try {
       axios.get(urlCategorias).then((response) => {
+        const categoriasNoEliminadas = response.data.filter(
+          (categoria) => categoria.eliminarCategoria === false
+        );
         console.log(response.data);
-        setCategorias(response.data);
+        setCategorias(categoriasNoEliminadas);
       });
     } catch (error) {
       console.error("error al obtener categorias");
@@ -189,13 +194,25 @@ const Home = () => {
         </form>
       {/* </div> */}
       
-      
+      {/* {productoBuscado == {} ?
+      <Card data={productoBuscado}></Card> 
+      :
+      <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt="" />} */}
+
+      <div className={styles.productoItem}>
+      <Card data={productoBuscado} >{console.log(productoBuscado)}</Card>
+      </div>
+
+      {console.log(productoBuscado)}      
+
       {/* {console.log(productoBuscado)}
-      <div>{productoBuscado}</div> */}
+      <div>{productoBuscado}</div> 
 
       {/* AGREGAR IMAGEN */}
-      <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt="" />
+      
 
+
+      {console.log(dataState.productos)}
       <div className={styles.categorias}>
         <h2>CATEGORIAS</h2>
         <div className={styles.categoria}>
@@ -204,8 +221,10 @@ const Home = () => {
               <img
                 // src={categoriasImagenes[index]}
                 src={categoria.urlimagen}
+                
                 alt={`Imagen ${categoria.idCategoria}`}
               />
+              
               <h6>{categoria.titulo}</h6>
               <div></div>
             </Link>
@@ -248,6 +267,7 @@ const Home = () => {
 
         {!productosAleatorios.length == 0 ?         
         <div className={styles.producAleatorio}>
+          
           {productosAleatorios.map((producto, index) => (
             // <Link to={routes.detail} key={index} className={styles.productoItem}>
             //     <div>
