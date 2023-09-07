@@ -9,8 +9,7 @@ install_docker:
   stage: setup
   script:
     - apk add --update docker
-    - rc-update add docker boot
-    - /etc/init.d/docker start
+    - dockerd &
 
 build:
   stage: build
