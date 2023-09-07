@@ -9,7 +9,6 @@ install_docker:
   stage: setup
   script:
     - apk add --update docker
-    - rc-update add docker boot
     - service docker start
 
 build:
