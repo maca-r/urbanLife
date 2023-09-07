@@ -23,11 +23,16 @@ const Home = () => {
 
   const [productoBuscado, setProductoBuscado] = useState({})
 
+
+  const productosOrdenados = [...dataState.productos].sort((a,b) => a.idProducto - b.idProducto)
+
   const handleChange = (e) => {
     console.log(dataState.productos);
-    dataState.productos.forEach(producto => {
+    console.log(productosOrdenados);
+    productosOrdenados.forEach(producto => {
       if(producto.nombre == e.target.value){
         console.log(producto.idProducto)
+        
         setId((producto.idProducto)-1)
         //setProductoBuscado(dataState.productos[id]);
         console.log(productoBuscado);
@@ -41,7 +46,7 @@ const Home = () => {
     // realizariamos las solicitudes a la API.
     // console.log(dataState.producto);
     // setProductoBuscado(dataState.productos[id])
-    setProductoBuscado(dataState.productos[id]);
+    setProductoBuscado(productosOrdenados[id]);
     console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
   };
