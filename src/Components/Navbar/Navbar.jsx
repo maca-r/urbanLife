@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import { routes } from "../../Routes/routes";
 import styles from "./Navbar.module.css";
 import { useEffect, useState } from "react";
@@ -29,9 +30,17 @@ const Navbar = () => {
     }
   }, []);
 
+  const navigate = useNavigate()
+
+  const favoritos = () => {
+    navigate("/favs");
+  }
+
   const logout = () => {
     setShowLogoutModal(true); // Mostrar el modal al hacer clic en "Cerrar sesión"
   };
+
+  
 
   const confirmLogout = () => {
     localStorage.removeItem("user");
@@ -92,7 +101,9 @@ const Navbar = () => {
         ) : (
           <div className={styles.cerrarSesionBOX}>
             {renderProfileImageOrLoading()}
-
+            <button className={styles.logOut} onClick={favoritos}>
+              Favoritos
+            </button>
             <button className={styles.logOut} onClick={logout}>
               Cerrar sesión
             </button>
