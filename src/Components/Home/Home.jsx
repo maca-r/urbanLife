@@ -22,13 +22,13 @@ const Home = () => {
   const [id, setId] = useState()
 
   const [productoBuscado, setProductoBuscado] = useState({})
-
+  {console.log(productoBuscado)}
 
   const productosOrdenados = [...dataState.productos].sort((a,b) => a.idProducto - b.idProducto)
 
   const handleChange = (e) => {
-    console.log(dataState.productos);
-    console.log(productosOrdenados);
+    // console.log(dataState.productos);
+    // console.log(productosOrdenados);
     productosOrdenados.forEach(producto => {
       if(producto.nombre == e.target.value){
         console.log(producto.idProducto)
@@ -46,10 +46,13 @@ const Home = () => {
     // realizariamos las solicitudes a la API.
     // console.log(dataState.producto);
     // setProductoBuscado(dataState.productos[id])
+    console.log(e.target);
     setProductoBuscado(productosOrdenados[id]);
+    setSearchText("")
     console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
   };
+
 
   // const urlProductos = `http://localhost:80/productos`
 
@@ -81,7 +84,7 @@ const Home = () => {
     window.addEventListener("load", handleResize);
   }, []);
 
-  const [categorias, setCategorias] = useState([{}]);
+  const [categorias, setCategorias] = useState([]);
   const urlCategorias = "http://localhost:80/categorias/listarcategorias-all";
 
   useEffect(() => {
@@ -199,14 +202,20 @@ const Home = () => {
         </form>
       {/* </div> */}
       
-      {/* {productoBuscado == {} ?
-      <Card data={productoBuscado}></Card> 
-      :
-      <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt="" />} */}
+      <div className={styles.bannerProducto}>
+        {productoBuscado && Object.keys(productoBuscado).length > 0 ?
 
-      <div className={styles.productoItem}>
-      <Card data={productoBuscado} >{console.log(productoBuscado)}</Card>
+        <Card data={productoBuscado} ></Card> 
+        :
+        <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt=""/>
+        }
+
       </div>
+      
+
+      {/* <div className={styles.productoItem}>
+      <Card data={productoBuscado} >{console.log(productoBuscado)}</Card>
+      </div> */}
 
       {console.log(productoBuscado)}      
 
@@ -215,57 +224,72 @@ const Home = () => {
 
       {/* AGREGAR IMAGEN */}
       
-
-
       {console.log(dataState.productos)}
+
+      
       <div className={styles.categorias}>
-        <h2>CATEGORIAS</h2>
-        <div className={styles.categoria}>
-          {categorias.map((categoria, index) => (
-            <Link to={`/categoria/` + categoria.idCategoria} key={index}>
-              <img
-                // src={categoriasImagenes[index]}
-                src={categoria.urlimagen}
-                
-                alt={`Imagen ${categoria.idCategoria}`}
-              />
-              
-              <h6>{categoria.titulo}</h6>
-              <div></div>
-            </Link>
-          ))}
-        </div>
+      <h2>CATEGORIAS</h2>
+
+      
+      {!categorias.length == 0  ? 
+
+        carouselVisible == "none" ? 
+          
+
+            <div className={styles.categoria}>
+              {categorias.map((categoria, index) => (
+                <Link to={`/categoria/` + categoria.idCategoria} key={index}>
+                  <img
+                    // src={categoriasImagenes[index]}
+                    src={categoria.urlimagen}
+
+                    alt={`Imagen ${categoria.idCategoria}`}
+                  />
+
+                  <h6>{categoria.titulo}</h6>
+                  <div></div>
+                </Link>
+              ))}
+            </div>
+          
+
+          :
+
+          <Carousel
+            className={"d-" + carouselVisible}
+            data-bs-theme="dark"
+            style={{ width: "80%" }}
+          >
+            {categorias.map((categoria, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  src={categoria.urlimagen}
+                  style={{ width: "100%", height: "50%", cursor: "pointer" }}
+                />
+
+                <Carousel.Caption>
+                  <h4
+                    style={{
+                      color: "#2B2B28",
+                      backgroundColor: "#E3CE8D",
+                      textAlign: "center",
+                      textTransform: "uppercase",
+                      width: "50%",
+                      marginLeft: "25%",
+                    }}
+                  >
+                    {categoria.nombreCategoria}
+                  </h4>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+      :
+      <h3>Aún no hay categorias para mostrar</h3>
+      }
+
       </div>
-
-      <Carousel
-        className={"d-" + carouselVisible}
-        data-bs-theme="dark"
-        style={{ width: "80%" }}
-      >
-        {categorias.map((categoria, index) => (
-          <Carousel.Item key={index}>
-            <img
-              src={categoria.urlimagen}
-              style={{ width: "100%", height: "50%", cursor: "pointer" }}
-            />
-
-            <Carousel.Caption>
-              <h4
-                style={{
-                  color: "#2B2B28",
-                  backgroundColor: "#E3CE8D",
-                  textAlign: "center",
-                  textTransform: "uppercase",
-                  width: "50%",
-                  marginLeft: "25%",
-                }}
-              >
-                {categoria.nombreCategoria}
-              </h4>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+      
 
       <div className={styles.producAleatorioBox}>
         <h2>PRODUCTOS</h2>
@@ -285,7 +309,7 @@ const Home = () => {
             // </Link>
 
             <div key={index} className={styles.productoItem}>
-              <Card data={producto} style={{ width: "100%", height: "100%" }}>
+              <Card data={producto} >
                 {/* <Card.Img src="/images/logo.png" />
                 <Card.Body>
                   <Card.Title

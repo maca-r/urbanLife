@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Alert } from "react-bootstrap";
 
+
 export function AddImages() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadMessage, setUploadMessage] = useState("");
@@ -67,14 +68,16 @@ export function AddImages() {
   };
 
   return (
-    <div>
-      <h3>Añadir Imágenes a Producto</h3>
+    <div >
+      
+      <h5>Añadir Imágenes a Producto</h5>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
         multiple
       />
+
       {previewImages.map((image, index) => (
         <div key={index}>
           <img

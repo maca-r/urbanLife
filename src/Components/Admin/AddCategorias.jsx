@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 
+
 export function AddCategorias() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -36,9 +37,9 @@ export function AddCategorias() {
   };
 
   return (
-    <div>
-      <Form style={{ marginBottom: "2%" }}>
-        <h3>Categoría</h3>
+    <>
+      <Form style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+        <h5>Categoría</h5>
         {mensaje && (
           <Alert
             variant={mensaje.includes("exitosamente") ? "success" : "danger"}
@@ -56,7 +57,7 @@ export function AddCategorias() {
           />
         </Form.Group>
 
-        <Form.Group style={{ marginBottom: "2%" }}>
+        <Form.Group style={{ marginBottom: "2%", width: "50%" }}>
           <Form.Label>Detalle</Form.Label>
           <Form.Control
             as="textarea"
@@ -66,8 +67,8 @@ export function AddCategorias() {
           />
         </Form.Group>
 
-        <Button onClick={handleAgregarCategoria}>Agregar Categoría</Button>
+        <Button onClick={handleAgregarCategoria} style={{width: "20%"}} variant="secondary">Agregar Categoría</Button>
       </Form>
-    </div>
+    </>
   );
 }

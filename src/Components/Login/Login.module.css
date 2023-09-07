@@ -13,10 +13,10 @@
     flex-direction: column;
 }
 
-div > input {
+div .input > input {
     width: 480px;
     border-radius: 15px;
-    background-color:  #fff3df;
+    background-color:  #EFEEEE;
     padding: 10px;
 }
 

@@ -36,9 +36,9 @@ export function Producto() {
       </div>
       <div className={styles.showPanelSection}>
         {panelSection == "" && (
-              <h3>
+              <h4>
                 Elija una acción del panel superior
-              </h3>
+              </h4>
             )}
             {panelSection === "agregarProducto" && <AñadirProducto />}
             {panelSection === "addImages" && <AddImages />}

@@ -66,9 +66,18 @@ form .inputSearch input{
     border: none;
 }
 
-.imagenBanner{
-    width: 100%;
+
+/* .bannerProducto {
+    
+} */
+
+.cardBusqueda{
+    width: 50%;
 }
+
+/* .imagenBanner{
+    
+} */
 
 .categorias h2{
     margin: 25px;

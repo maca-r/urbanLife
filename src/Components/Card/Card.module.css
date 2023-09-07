@@ -1,5 +1,15 @@
 .cardItem{
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardItem img{
+    width: 50%;
+}
+
+.datosItem{
+    width: fit-content;
 }
 
 .detalleBoton{

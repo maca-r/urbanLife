@@ -15,7 +15,7 @@ export function Categorias() {
   };
 
   return (
-    <section>
+    <section className={styles.panel}>
       <div className={styles.buttonPanel}>
         <button onClick={() => handlePanelSection("añadirCategorias")}>
           Agregar Categorias
@@ -33,12 +33,21 @@ export function Categorias() {
           Papelera
         </button>
       </div>
-      {showTitle && <h4>Elija una acción del panel superior</h4>}
 
-      {panelSection === "añadirCategorias" && <AddCategorias />}
-      {panelSection === "imgCategoria" && <ImgCategoria />}
-      {panelSection === "listarCategorias" && <ListarCategorias />}
-      {panelSection === "papeleraCategoria" && <PapeleraCategoria />}
+      <div className={styles.showPanelSection}>
+        {panelSection == "" && (
+              <h3>
+                <h4>Elija una acción del panel superior</h4>
+              </h3>
+        )}
+        {panelSection === "añadirCategorias" && <AddCategorias />}
+        {panelSection === "imgCategoria" && <ImgCategoria />}
+        {panelSection === "listarCategorias" && <ListarCategorias />}
+        {panelSection === "papeleraCategoria" && <PapeleraCategoria />}
+      </div>
+      
+
+      
     </section>
   );
 }

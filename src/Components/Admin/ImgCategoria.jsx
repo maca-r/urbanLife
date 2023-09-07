@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 
 export function ImgCategoria() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -60,8 +60,8 @@ export function ImgCategoria() {
   };
 
   return (
-    <div>
-      <h3>Añadir / cambiar imagen</h3>
+    <div style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+      <h5>Añadir / cambiar imagen</h5>
       {uploadMessage && (
         <Alert
           variant={
@@ -71,11 +71,13 @@ export function ImgCategoria() {
           {uploadMessage}
         </Alert>
       )}
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+
+      <input type="file" accept="image/*" onChange={handleFileChange} style={{backgroundColor:"#EFEEEE"}} />
 
       <select
         value={selectedCategoria}
         onChange={(e) => setSelectedCategoria(e.target.value)}
+        style={{width: "25%", margin: "10px"}}
       >
         <option value="">Seleccione una categoría</option>
         {categoriasNoEliminadas.map((categoria) => (
@@ -85,7 +87,12 @@ export function ImgCategoria() {
         ))}
       </select>
 
-      <button onClick={handleUpload}>Subir Imagen</button>
+      <Button 
+      variant="secondary"
+      onClick={handleUpload}
+      style={{width: "20%", margin: "10px"}}>
+        Subir Imagen
+      </Button>
     </div>
   );
 }

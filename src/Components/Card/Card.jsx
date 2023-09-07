@@ -79,11 +79,11 @@ const Card = (data) => {
   };
 
   const imageUrl = data.data?.imagenes?.[0]?.urlImagen || "";
-
+  
   return (
     <div className={styles.cardItem}>
       <img src={imageUrl} alt={data.data.nombre} />
-      <div>
+      <div className={styles.datosItem}>
         <h6 style={{ textTransform: "uppercase", width: "fit-content" }}>
           {data.data.nombre}
         </h6>
