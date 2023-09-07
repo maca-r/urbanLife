@@ -1,8 +1,16 @@
-image: docker:20.10
+image: alpine:latest
 
 stages:
+  - setup
   - build
   - deploy
+
+install_docker:
+  stage: setup
+  script:
+    - apk add --update docker
+    - rc-update add docker boot
+    - service docker start
 
 build:
   stage: build
@@ -15,4 +23,8 @@ deploy:
     - docker save urbanlife | gzip -c > urbanlife.tar.gz
     - scp -i /home/ubuntu/e5-clave.pem urbanlife.tar.gz ubuntu@18.232.157.54:~/urbanlife.tar.gz
     - ssh -i /home/ubuntu/e5-clave.pem ubuntu@18.232.157.54 'docker load -i /home/ubuntu/urbanlife.tar.gz'
-    - ssh -i /home/ubuntu/e5-clave.pem ubuntu@18.232.157.54 'docker run -d -p 80:80 urbanlife'
+    - ssh -i /home/ubuntu/e5-clave.pem ubuntu@18.232.157.54 'docker run -p 443:5040 urbanlife'
+
+
+
+
