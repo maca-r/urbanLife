@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 
 
 export function AddImages() {
@@ -68,14 +68,15 @@ export function AddImages() {
   };
 
   return (
-    <div >
+    <div style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
       
-      <h5>Añadir Imágenes a Producto</h5>
+      <h3>Añadir Imágenes a Producto</h3>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
         multiple
+        style={{backgroundColor:"#EFEEEE"}}
       />
 
       {previewImages.map((image, index) => (
@@ -91,6 +92,7 @@ export function AddImages() {
       <select
         value={selectedProduct}
         onChange={(e) => setSelectedProduct(e.target.value)}
+        style={{width: "30%", margin: "10px", border: "none",borderRadius: "5px", padding: "7px"}}
       >
         <option value="">Seleccione un producto</option>
         {products.map((product) => (
@@ -100,7 +102,10 @@ export function AddImages() {
         ))}
       </select>
 
-      <button onClick={handleUpload}>Subir Imágenes</button>
+      <Button 
+      variant="secondary" 
+      onClick={handleUpload}
+      style={{width: "20%", margin: "10px"}}>Subir Imágenes</Button>
 
       {uploadMessage && (
         <Alert

@@ -4,7 +4,7 @@ import { ListaCaracteristicas } from "./ListaCaracteristicas";
 import { RegistrarCaracteristicas } from "./RegistrarCaracteristicas";
 
 export function Caracteristicas() {
-  const [panelSection, setPanelSection] = useState(null);
+  const [panelSection, setPanelSection] = useState("");
   const [showTitle, setShowTitle] = useState(true);
 
   const handlePanelSection = (targetSection) => {
@@ -27,12 +27,23 @@ export function Caracteristicas() {
           Listar Caracteristicas
         </button>
       </div>
-      {showTitle && <h4>Elija una acción del panel superior</h4>}
 
+      <div className={styles.showPanelSection}>
+      {panelSection == "" && (
+              <h4 style={{margin: "2%"}}>
+                Elija una acción del panel superior
+              </h4>
+      )}
       {panelSection === "registrarCaracteristicas" && (
         <RegistrarCaracteristicas />
       )}
       {panelSection === "listadoCaracteristicas" && <ListaCaracteristicas />}
+      </div>
+      
+
+      {/* {showTitle && <h4>Elija una acción del panel superior</h4>} */}
+
+      
     </section>
   );
 }

@@ -6,7 +6,7 @@ import { PapeleraCategoria } from "./PapeleraCategoria";
 import styles from "./Categorias.module.css";
 
 export function Categorias() {
-  const [panelSection, setPanelSection] = useState(null);
+  const [panelSection, setPanelSection] = useState("");
   const [showTitle, setShowTitle] = useState(true);
 
   const handlePanelSection = (targetSection) => {
@@ -36,9 +36,8 @@ export function Categorias() {
 
       <div className={styles.showPanelSection}>
         {panelSection == "" && (
-              <h3>
-                <h4>Elija una acción del panel superior</h4>
-              </h3>
+              <h4 style={{margin: "2%"}}>Elija una acción del panel superior</h4>
+              
         )}
         {panelSection === "añadirCategorias" && <AddCategorias />}
         {panelSection === "imgCategoria" && <ImgCategoria />}

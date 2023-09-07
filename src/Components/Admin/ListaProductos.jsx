@@ -99,7 +99,7 @@ export function ListaProductos() {
 
   return (
     <section>
-      <div>
+      <div style={{margin:"2%"}}>
         <h3>Listado de Productos</h3>
         {noProductosMessage && <p>{noProductosMessage}</p>}
         {producto.length > 0 && (
@@ -186,6 +186,7 @@ export function ListaProductos() {
                   <img
                     src={img.urlImagen}
                     alt={`ID de la imagen: ${img.idImagen}`}
+                    style={{ maxWidth: "100px" }}
                   />
                 </div>
               ))}

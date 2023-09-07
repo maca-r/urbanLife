@@ -47,7 +47,7 @@ export function ListarCategorias() {
   };
 
   return (
-    <div>
+    <div style={{margin: "2%"}}>
       <h3>Lista de Categorías</h3>
       {loading ? (
         <p>Cargando categorías...</p>
@@ -74,6 +74,7 @@ export function ListarCategorias() {
                   <img
                     src={`http://localhost:80/categorias/${categoria.idCategoria}/categoria-image`}
                     alt={categoria.titulo}
+                    style={{ maxWidth: "100px" }}
                   />
                 </td>
                 <td>

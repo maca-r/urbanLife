@@ -1,7 +1,7 @@
 export function ListaCaracteristicas() {
   return (
     <section>
-      <h1>Listado</h1>
+      <h3>Listado</h3>
     </section>
   );
 }

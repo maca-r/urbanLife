@@ -36,7 +36,7 @@ export function Producto() {
       </div>
       <div className={styles.showPanelSection}>
         {panelSection == "" && (
-              <h4>
+              <h4 style={{margin: "2%"}}>
                 Elija una acción del panel superior
               </h4>
             )}

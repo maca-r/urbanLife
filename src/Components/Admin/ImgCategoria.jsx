@@ -7,6 +7,7 @@ export function ImgCategoria() {
   const [uploadMessage, setUploadMessage] = useState("");
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [categoriasNoEliminadas, setCategoriasNoEliminadas] = useState([]);
+  
 
   useEffect(() => {
     axios
@@ -61,7 +62,7 @@ export function ImgCategoria() {
 
   return (
     <div style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
-      <h5>Añadir / cambiar imagen</h5>
+      <h3>Añadir / cambiar imagen</h3>
       {uploadMessage && (
         <Alert
           variant={
@@ -77,7 +78,7 @@ export function ImgCategoria() {
       <select
         value={selectedCategoria}
         onChange={(e) => setSelectedCategoria(e.target.value)}
-        style={{width: "25%", margin: "10px"}}
+        style={{width: "30%", margin: "10px", border: "none",borderRadius: "5px", padding: "7px"}}
       >
         <option value="">Seleccione una categoría</option>
         {categoriasNoEliminadas.map((categoria) => (

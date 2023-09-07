@@ -22,7 +22,7 @@ export function PapeleraCategoria() {
   }, []);
 
   return (
-    <section>
+    <section style={{margin: "2%"}}>
       <h3>Categorías Eliminadas</h3>
       {loading ? (
         <p>Cargando categorías eliminadas...</p>

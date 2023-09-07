@@ -60,11 +60,11 @@ export function RegistrarTalleProd() {
   };
 
   return (
-    <section>
+    <section style={{margin:"2%"}}>
       <h3>Registrar Talle/s a Producto/s</h3>
 
-      <Form>
-        <Form.Group controlId="selectProducto">
+      <Form style={{display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+        <Form.Group controlId="selectProducto" style={{width:"30%"}}>
           <Form.Label>Seleccione un producto:</Form.Label>
           <Form.Control
             as="select"
@@ -80,7 +80,7 @@ export function RegistrarTalleProd() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="selectTalles">
+        <Form.Group controlId="selectTalles" style={{width:"30%"}}>
           <Form.Label>Seleccione un talle:</Form.Label>
           {talles.map((talle) => (
             <Form.Check
@@ -99,7 +99,7 @@ export function RegistrarTalleProd() {
           ))}
         </Form.Group>
 
-        <Button variant="primary" onClick={handleGuardarRelacion}>
+        <Button style={{width:"30%"}} variant="secondary" onClick={handleGuardarRelacion}>
           Guardar Relación
         </Button>
       </Form>

@@ -34,7 +34,7 @@ export function AddTalles() {
 
   return (
     <div>
-      <Form style={{ marginBottom: "2%" }}>
+      <Form style={{ marginBottom: "2%", display:"flex",flexDirection: "column", alignItems: "stretch" }}>
         <h3>Registre un nuevo Talle</h3>
         {mensaje && <Alert variant="info">{mensaje}</Alert>}
 
@@ -47,7 +47,7 @@ export function AddTalles() {
             onChange={(e) => setTalle(e.target.value)}
           />
         </Form.Group>
-        <Button onClick={handleAgregarTalle}>Registrar</Button>
+        <Button variant="secondary" style={{width:"25%"}} onClick={handleAgregarTalle}>Registrar</Button>
       </Form>
     </div>
   );
