@@ -1,18 +1,10 @@
 stages:
-  - setup
   - build
   - deploy
 
-setup:
-  stage: setup
-  image: alpine
-  script:
-    - apk update
-    - apk add docker
-    - docker --version
-
 build:
   stage: build
+  image: docker:latest
   script:
     - docker build -t urbanlife .
 
