@@ -1,23 +1,16 @@
-image: docker:latest
-
-services:
-  - docker:dind
-
 stages:
   - build
   - deploy
 
+variables:
+  DOCKER_IMAGE_NAME: "urbanlife"
+
 build:
   stage: build
   script:
-    - docker build -t urbanlife .
-    - docker tag urbanlife registry.gitlab.com/urbanlife/urbanlife:latest
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-    - docker push registry.gitlab.com/urbanlife/urbanlife:latest
+    - docker build -t $DOCKER_IMAGE_NAME .
 
 deploy:
   stage: deploy
   script:
-    - docker run --rm urbanlife deploy.sh
-  only:
-    - front
+    - docker run -d -p 443:5040 $DOCKER_IMAGE_NAME
