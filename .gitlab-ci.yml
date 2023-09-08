@@ -15,4 +15,4 @@ build:
 deploy:
   stage: deploy
   script:
-    - docker run -d -p 80:5040 $DOCKER_IMAGE_NAME
+    - docker run -d -p 443:5040 $DOCKER_IMAGE_NAME
