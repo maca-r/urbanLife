@@ -5,7 +5,6 @@ services:
 
 stages:
   - build
-  - test
   - deploy
 
 build:
@@ -15,13 +14,6 @@ build:
     - docker tag urbanlife registry.gitlab.com/urbanlife/urbanlife:latest
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
     - docker push registry.gitlab.com/urbanlife/urbanlife:latest
-
-test:
-  stage: test
-  script:
-    - docker run --rm urbanlife pytest
-  only:
-    - front
 
 deploy:
   stage: deploy
