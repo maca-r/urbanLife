@@ -15,4 +15,11 @@ build:
 deploy:
   stage: deploy
   script:
+    - |
+      CONTAINER_ID=$(docker ps -q --filter "publish=443")
+      if [ ! -z "$CONTAINER_ID" ]; then
+        docker stop $CONTAINER_ID
+        docker rm $CONTAINER_ID
+      fi
     - docker run -d -p 443:5040 $DOCKER_IMAGE_NAME
+
