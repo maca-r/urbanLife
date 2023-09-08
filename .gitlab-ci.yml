@@ -20,7 +20,7 @@ deploy:
   stage: deploy
   script:
     - docker save $DOCKER_IMAGE_NAME | gzip -c > $DOCKER_IMAGE_NAME.tar.gz
-    - scp -o StrictHostKeyChecking=no -i $SSH_KEY_PATH $DOCKER_IMAGE_NAME.tar.gz ubuntu@$REMOTE_SERVER_IP:~/
+    - scp -i $SSH_KEY_PATH $DOCKER_IMAGE_NAME.tar.gz ubuntu@$REMOTE_SERVER_IP:~/
     - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP 'docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz'
     - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
   only:
