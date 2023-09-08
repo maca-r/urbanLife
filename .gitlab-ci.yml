@@ -6,7 +6,7 @@ stages:
 
 variables:
   DOCKER_IMAGE_NAME: urbanlife
-#  SSH_KEY_PATH: /home/ubuntu/equipo-05/e5-clave.pem
+  SSH_KEY_PATH: /home/ubuntu/e5-clave.pem
   REMOTE_SERVER_IP: 35.173.196.9
 
 build:
@@ -19,10 +19,10 @@ build:
 deploy:
   stage: deploy
   script:
-    - docker save $DOCKER_IMAGE_NAME | gzip -c > $DOCKER_IMAGE_NAME.tar.gz
-#    - scp -i $SSH_KEY_PATH $DOCKER_IMAGE_NAME.tar.gz ubuntu@$REMOTE_SERVER_IP:~/
-    - ssh -i ubuntu@$REMOTE_SERVER_IP 'docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz'
-    - ssh -i ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
+   - docker save $DOCKER_IMAGE_NAME | gzip -c > $DOCKER_IMAGE_NAME.tar.gz
+    - scp -i $SSH_KEY_PATH $DOCKER_IMAGE_NAME.tar.gz ubuntu@$REMOTE_SERVER_IP:~/
+    - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP 'docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz'
+    - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
   only:
     - front
 
