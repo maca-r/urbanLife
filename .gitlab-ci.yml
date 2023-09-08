@@ -1,29 +1,30 @@
 image: docker:latest
 
 stages:
-  - build
   - stop_runner
+  - build
+  - stop_container
   - deploy
 
 variables:
   DOCKER_IMAGE_NAME: "urbanlife:latest"
+
+stop_runner:
+  stage: stop_runner
+  script:
+    - sudo killall -9 gitlab-ru
 
 build:
   stage: build
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
 
-stop_runner:
-  stage: stop_runner
+stop_container:
+  stage: stop_container
   script:
-    - |
-      PID_TO_KILL=$(ps aux | grep '[g]itlab-runner' | awk '{print $2}')
-      if [ -n "$PID_TO_KILL" ]; then
-        echo "Deteniendo gitlab-runner con PID $PID_TO_KILL"
-        sudo kill -9 $PID_TO_KILL
-      else
-        echo "No se encontró el proceso gitlab-runner"
-      fi
+    - CONTAINER_ID=$(docker ps -q -f "expose=443")
+    - if [ -n "$CONTAINER_ID" ]; then docker stop $CONTAINER_ID; fi
+    - if [ -n "$CONTAINER_ID" ]; then docker rm $CONTAINER_ID; fi
 
 deploy:
   stage: deploy
