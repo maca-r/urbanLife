@@ -1,46 +1,31 @@
 image: docker:latest
 
+services:
+  - docker:dind
+
 stages:
-  - setup
   - build
+  - test
   - deploy
-
-variables:
-  DOCKER_IMAGE_NAME: urbanlife
-  SSH_KEY_PATH: "/home/ubuntu/e5-clave.pem"
-  REMOTE_SERVER_IP: 35.173.196.9
-
-.before_script_ssh: &before_script_ssh
-  before_script:
-    - mkdir -p ~/.ssh
-    - touch ~/.ssh/known_hosts
-    - cd ~/.ssh
-    - echo "${SSH_PRIVATE_KEY}" > id_rsa
-    - chmod 0400 id_rsa
-    - ssh-keyscan -t rsa ${REMOTE_SERVER_IP} >> ~/.ssh/known_hosts
-
-setup:
-  stage: setup
-  script:
-    - apk update
-    - apk add openssh-client
-  <<: *before_script_ssh
-  only:
-    - front
 
 build:
   stage: build
   script:
-    - docker build -t $DOCKER_IMAGE_NAME .
+    - docker build -t urbanlife .
+    - docker tag urbanlife registry.gitlab.com/urbanlife/urbanlife:latest
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+    - docker push registry.gitlab.com/urbanlife/urbanlife:latest
+
+test:
+  stage: test
+  script:
+    - docker run --rm urbanlife pytest
   only:
     - front
 
 deploy:
   stage: deploy
   script:
-    - docker save $DOCKER_IMAGE_NAME | gzip -c > $DOCKER_IMAGE_NAME.tar.gz
-    - scp -i "$SSH_KEY_PATH" "$DOCKER_IMAGE_NAME.tar.gz" ubuntu@$REMOTE_SERVER_IP:~/
-    - ssh -i "$SSH_KEY_PATH" ubuntu@$REMOTE_SERVER_IP "docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz"
-    - ssh -i "$SSH_KEY_PATH" ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
+    - docker run --rm urbanlife deploy.sh
   only:
     - front
