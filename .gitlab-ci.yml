@@ -23,7 +23,7 @@ setup:
   stage: setup
   script:
     - apk update
-    - apk openssh-client
+    - apk add openssh-client
   <<: *before_script_ssh
   only:
     - front
