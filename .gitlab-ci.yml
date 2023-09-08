@@ -1,6 +1,7 @@
 image: docker:latest
 
 stages:
+  - setup
   - build
   - deploy
 
@@ -8,6 +9,24 @@ variables:
   DOCKER_IMAGE_NAME: urbanlife
   SSH_KEY_PATH: "$CI_PROJECT_DIR/e5-clave.pem"
   REMOTE_SERVER_IP: 35.173.196.9
+
+.before_script_ssh: &before_script_ssh
+  before_script:
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - cd ~/.ssh
+    - echo "${SSH_PRIVATE_KEY}" > id_rsa
+    - chmod 0400 id_rsa
+    - ssh-keyscan -t rsa ${REMOTE_SERVER_IP} >> ~/.ssh/known_hosts
+
+setup:
+  stage: setup
+  script:
+    - apt-get update
+    - apt-get install -y openssh-client
+  <<: *before_script_ssh
+  only:
+    - front
 
 build:
   stage: build
@@ -23,6 +42,5 @@ deploy:
     - scp -i "$SSH_KEY_PATH" "$DOCKER_IMAGE_NAME.tar.gz" ubuntu@$REMOTE_SERVER_IP:~/
     - ssh -i "$SSH_KEY_PATH" ubuntu@$REMOTE_SERVER_IP "docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz"
     - ssh -i "$SSH_KEY_PATH" ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
-
   only:
     - front
