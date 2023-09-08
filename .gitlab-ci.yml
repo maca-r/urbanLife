@@ -7,6 +7,10 @@ stages:
 variables:
   DOCKER_IMAGE_NAME: "urbanlife:latest"
 
+before_script:
+  - CONTAINER_ID=$(docker ps -q -f "publish=443")
+  - if [ -n "$CONTAINER_ID" ]; then docker stop $CONTAINER_ID && docker rm $CONTAINER_ID; fi
+
 build:
   stage: build
   script:
@@ -15,11 +19,4 @@ build:
 deploy:
   stage: deploy
   script:
-    - |
-      CONTAINER_ID=$(docker ps -q --filter "publish=443")
-      if [ ! -z "$CONTAINER_ID" ]; then
-        docker stop $CONTAINER_ID
-        docker rm $CONTAINER_ID
-      fi
     - docker run -d -p 443:5040 $DOCKER_IMAGE_NAME
-
