@@ -6,7 +6,7 @@ stages:
 
 variables:
   DOCKER_IMAGE_NAME: urbanlife
-  SSH_KEY_PATH: /home/ubuntu/e5-clave.pem
+  SSH_KEY_PATH: /home/ubuntu/equipo-05/e5-clave.pem
   REMOTE_SERVER_IP: 35.173.196.9
 
 build:
