@@ -12,7 +12,7 @@ variables:
 stop_runner:
   stage: stop_runner
   script:
-    - sudo killall -9 gitlab-ru
+    - killall -9 gitlab-ru
 
 build:
   stage: build
