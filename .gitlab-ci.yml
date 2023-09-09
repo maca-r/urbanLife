@@ -12,7 +12,7 @@ variables:
 stop_container:
   stage: stop_container
   script:
-    - lsof -i :$CONTAINER_PORT | grep 'LISTEN' | awk '{print $2}' | xargs sudo kill -9 || true
+    - sudo pkill -f "docker-pr"
     - CONTAINER_ID=$(docker ps -q -f "expose=$CONTAINER_PORT")
     - if [ -n "$CONTAINER_ID" ]; then docker stop $CONTAINER_ID; fi
     - if [ -n "$CONTAINER_ID" ]; then docker rm $CONTAINER_ID; fi
