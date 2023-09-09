@@ -7,7 +7,7 @@ stages:
 variables:
   DOCKER_IMAGE_NAME: "urbanlife:latest"
   CONTAINER_NAME: "urbanlife"
-  CONTAINER_PORT: "80"
+  CONTAINER_PORT: "8888"
 
 build:
   stage: build
