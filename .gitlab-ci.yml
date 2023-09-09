@@ -11,13 +11,14 @@ variables:
 
 build:
   stage: build
+  before_script:
+    - if lsof -i :8888 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
+    - docker stop urbanlife
+    - docker rm -f urbanlife
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
-    - docker restart docker
 
 deploy:
   stage: deploy
   script:
-    - docker stop urbanlife
-    - docker rm -f urbanlife
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
