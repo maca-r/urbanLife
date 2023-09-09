@@ -12,9 +12,15 @@ variables:
 stop_container:
   stage: stop_container
   script:
-    - if lsof -i :$CONTAINER_PORT | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
-    - CONTAINER_ID=$(docker ps -q --filter "expose=$CONTAINER_PORT")
-    - for CONTAINER_ID in $CONTAINER_IDS; do
+    - if lsof -i :80 | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
+    - if lsof -i :8080 | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
+    - CONTAINER_IDS_80=$(docker ps -q --filter "expose=80")
+    - for CONTAINER_ID in $CONTAINER_IDS_80; do
+        docker stop $CONTAINER_ID || true
+        docker rm -f $CONTAINER_ID || true
+    - done
+    - CONTAINER_IDS_8080=$(docker ps -q --filter "expose=8080")
+    - for CONTAINER_ID in $CONTAINER_IDS_8080; do
         docker stop $CONTAINER_ID || true
         docker rm -f $CONTAINER_ID || true
     - done
