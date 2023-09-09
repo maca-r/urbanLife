@@ -12,6 +12,7 @@ variables:
 build:
   stage: build
   before_script:
+    - docker ps -a
     - docker stop $CONTAINER_NAME || true
     - docker rm -f $CONTAINER_NAME || true
     - sleep 10
