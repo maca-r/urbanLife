@@ -5,8 +5,8 @@ stages:
   - deploy
 
 variables:
-  DOCKER_IMAGE_NAME: "urbanlife"
-  CONTAINER_NAME: "urbanlife"
+  DOCKER_IMAGE_NAME: "urbanlife:latest"
+  CONTAINER_NAME: "urbanlife:latest"
   CONTAINER_PORT: "8888"
 
 build:
