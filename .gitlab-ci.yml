@@ -11,16 +11,15 @@ variables:
 
 build:
   stage: build
-  script:
-    - docker build -t $DOCKER_IMAGE_NAME .
-
-deploy:
-  stage: deploy
   before_script:
     - docker stop $CONTAINER_NAME || true
     - docker rm -f $CONTAINER_NAME || true
     - sleep 10
   script:
-    - docker stop $CONTAINER_NAME || true
-    - docker rm $CONTAINER_NAME || true
+    - docker build -t $DOCKER_IMAGE_NAME .
+
+deploy:
+  stage: deploy
+  script:
+    - docker ps -a
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
