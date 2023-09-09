@@ -19,4 +19,5 @@ deploy:
   script:
     - docker stop urbanlife
     - docker rm -f urbanlife
+    - systemctl restart docker
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
