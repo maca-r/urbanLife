@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/Auth/**").permitAll()
                         .requestMatchers("/productos/**").permitAll()
+                        .requestMatchers("/categorias/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement
