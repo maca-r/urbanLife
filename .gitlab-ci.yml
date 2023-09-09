@@ -18,12 +18,12 @@ stop_container:
     - for CONTAINER_ID in $CONTAINER_IDS_80; do
         docker stop $CONTAINER_ID || true
         docker rm -f $CONTAINER_ID || true
-      done
+    - done
     - CONTAINER_IDS_8080=$(docker ps -q --filter "expose=8080")
     - for CONTAINER_ID in $CONTAINER_IDS_8080; do
         docker stop $CONTAINER_ID || true
         docker rm -f $CONTAINER_ID || true
-      done
+    - done
 
 build:
   stage: build
