@@ -14,10 +14,10 @@ stop_container:
   script:
     - if lsof -i :$CONTAINER_PORT | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
     - CONTAINER_ID=$(docker ps -q --filter "expose=$CONTAINER_PORT")
-    - if [ -n "$CONTAINER_ID" ]; then
-        docker rm -f $CONTAINER_ID || true
+    - for CONTAINER_ID in $CONTAINER_IDS; do
         docker stop $CONTAINER_ID || true
-    - fi
+        docker rm -f $CONTAINER_ID || true
+    - done
 
 build:
   stage: build
