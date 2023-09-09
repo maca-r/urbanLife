@@ -19,6 +19,7 @@ build:
     - docker rm -f $CONTAINER_NAME || true
     - sleep 10
     - docker ps -a
+    - docker images
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
 
@@ -26,6 +27,7 @@ deploy:
   stage: deploy
   script:
     - docker ps -a
+    - docker images
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
     - 'if [[ "$(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited)" ]]; then docker rm $(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited); fi'
     - docker stop $CONTAINER_NAME || true
