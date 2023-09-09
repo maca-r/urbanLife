@@ -1,35 +1,12 @@
 image: docker:latest
 
 stages:
-  - stop_container
   - build
   - deploy
 
 variables:
   DOCKER_IMAGE_NAME: "urbanlife:latest"
   CONTAINER_PORT: "80"
-
-stop_container:
-  stage: stop_container
-  script:
-    - if lsof -i :80 | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
-    - if lsof -i :8080 | grep -q 'docker-pr'; then sudo pkill -f "docker-pr"; fi
-    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker stop
-    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm
-    - docker ps -aq --filter "expose=80" | xargs -r docker stop
-    - docker ps -aq --filter "expose=80" | xargs -r docker rm
-    - docker ps -aq --filter "expose=8080" | xargs -r docker stop
-    - docker ps -aq --filter "expose=8080" | xargs -r docker rm
-    - CONTAINER_IDS_80=$(docker ps -q --filter "expose=80")
-    - for CONTAINER_ID in $CONTAINER_IDS_80; do
-        docker stop $CONTAINER_ID || true
-        docker rm -f $CONTAINER_ID || true
-    - done
-    - CONTAINER_IDS_8080=$(docker ps -q --filter "expose=8080")
-    - for CONTAINER_ID in $CONTAINER_IDS_8080; do
-        docker stop $CONTAINER_ID || true
-        docker rm -f $CONTAINER_ID || true
-    - done
 
 build:
   stage: build
@@ -40,10 +17,11 @@ deploy:
   stage: deploy
   script:
     - if lsof -i :8080 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
+    - if lsof -i :80 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
     - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker stop
-    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm
+    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm -f
     - docker ps -aq --filter "expose=80" | xargs -r docker stop
-    - docker ps -aq --filter "expose=80" | xargs -r docker rm
+    - docker ps -aq --filter "expose=80" | xargs -r docker rm -f
     - docker ps -aq --filter "expose=8080" | xargs -r docker stop
-    - docker ps -aq --filter "expose=8080" | xargs -r docker rm
+    - docker ps -aq --filter "expose=8080" | xargs -r docker rm -f
     - docker run -d -p $CONTAINER_PORT:5040 $DOCKER_IMAGE_NAME
