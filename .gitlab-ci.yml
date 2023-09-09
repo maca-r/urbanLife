@@ -18,7 +18,8 @@ deploy:
   stage: deploy
   before_script:
     - if lsof -i :8888 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
-    - docker stop urbanlife
-    - docker rm -f urbanlife
+    - docker stop urbanlife || true
+    - docker rm -f urbanlife || true
+    - sleep 10
   script:
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
