@@ -6,15 +6,16 @@ stages:
 
 variables:
   DOCKER_IMAGE_NAME: "urbanlife"
+  CONTAINER_NAME: "urbanlife"
   CONTAINER_PORT: "8888"
 
 build:
   stage: build
   script:
-    - if docker ps -a | grep -q 'urbanlife'; then docker stop urbanlife && docker rm urbanlife; fi
+    - if docker ps -a | grep -q "$CONTAINER_NAME"; then docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME; fi
     - docker build -t $DOCKER_IMAGE_NAME .
 
 deploy:
   stage: deploy
   script:
-    - docker run -d -p $CONTAINER_PORT:5040 $DOCKER_IMAGE_NAME
+    - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
