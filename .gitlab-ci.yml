@@ -23,3 +23,4 @@ deploy:
   script:
     - docker ps -a
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
+    - docker ps -a
