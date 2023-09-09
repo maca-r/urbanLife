@@ -12,7 +12,7 @@ variables:
 stop_container:
   stage: stop_container
   script:
-    - sudo pkill -f "docker-pr"
+    - pkill -f "docker-pr"
     - CONTAINER_ID=$(docker ps -q -f "expose=$CONTAINER_PORT")
     - if [ -n "$CONTAINER_ID" ]; then docker stop $CONTAINER_ID; fi
     - if [ -n "$CONTAINER_ID" ]; then docker rm $CONTAINER_ID; fi
