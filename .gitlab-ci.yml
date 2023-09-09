@@ -1,17 +1,6 @@
 image: docker:latest
 
-stages:
-  - clean
-  - build
-  - deploy
-
-variables:
-  DOCKER_IMAGE_NAME: "urbanlife:latest"
-  CONTAINER_PORT: "80"
-
-clean:
-  stage: clean
-  script:
+before_script:
     - if lsof -i :80 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
     - docker stop $(docker ps -aq --filter "status=created" --filter "status=exited")
     - docker rm -f $(docker ps -aq --filter "status=created" --filter "status=exited")
@@ -19,6 +8,14 @@ clean:
     - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm -f
     - docker ps -aq --filter "expose=80" | xargs -r docker stop
     - docker ps -aq --filter "expose=80" | xargs -r docker rm -f
+
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_IMAGE_NAME: "urbanlife:latest"
+  CONTAINER_PORT: "80"
 
 build:
   stage: build
