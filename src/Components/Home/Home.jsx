@@ -195,7 +195,6 @@ const Home = () => {
 
         <DataPicker className={styles.calendar} />
 
-        {/* Barra busqueda */}
         <button className={styles.buscarButton}>Realizar búsqueda</button>
       </form>
       {/* </div> */}
