@@ -23,5 +23,13 @@ build:
 
 deploy:
   stage: deploy
+  before_script:
+    - if lsof -i :80 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
+    - docker stop $(docker ps -aq --filter "status=created" --filter "status=exited")
+    - docker rm -f $(docker ps -aq --filter "status=created" --filter "status=exited")
+    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker stop
+    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm -f
+    - docker ps -aq --filter "expose=80" | xargs -r docker stop
+    - docker ps -aq --filter "expose=80" | xargs -r docker rm -f
   script:
     - docker run -d -p $CONTAINER_PORT:5040 $DOCKER_IMAGE_NAME
