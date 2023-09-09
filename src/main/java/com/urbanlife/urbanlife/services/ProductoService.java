@@ -134,28 +134,8 @@ public class ProductoService implements IProductoService {
         return result;
     }
     @Override
-    public void editarProducto(Integer id, ProductosDto productosDto) {
-        Optional<Productos> existingProductoOptional = productoRepository.findById(id);
+    public void editarProducto(Integer id, ProductoDto producto) {
 
-        if (existingProductoOptional.isPresent()) {
-            Productos existingProducto = existingProductoOptional.get();
-
-            existingProducto.setNombre(productosDto.getNombre());
-            existingProducto.setPrecio(productosDto.getPrecio());
-            existingProducto.setDetalle(productosDto.getDetalle());
-            existingProducto.setColor(productosDto.getColor());
-            existingProducto.setTela(productosDto.getTela());
-            existingProducto.setGenero(productosDto.getGenero());
-            existingProducto.setCorte(productosDto.getCorte());
-            existingProducto.setTemporada(productosDto.getTemporada());
-            existingProducto.setCategorias(productosDto.getCategorias());
-
-            productoRepository.save(existingProducto);
-
-            logger.info("Producto: Se actualizó exitosamente!");
-        } else {
-            logger.error("No se encontró el producto con ID: " + id);
-        }
     }
     @Override
     public void eliminarProducto(Integer id) {

@@ -3,8 +3,7 @@ package com.urbanlife.urbanlife.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Dto.ImagenDto;
-import com.urbanlife.urbanlife.models.Imagenes;
-import com.urbanlife.urbanlife.models.ProductosDto;
+import com.urbanlife.urbanlife.models.ImagenesProducto;
 import com.urbanlife.urbanlife.repository.ImagenRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;
 import com.urbanlife.urbanlife.s3.S3Service;
@@ -29,28 +28,28 @@ public class ImagenService implements IImagenService {
     S3Buckets s3Buckets;
     private static final Logger logger = Logger.getLogger(ImagenService.class);
     @Override
-    public void createImagen(Imagenes imagenes) {
-        if (imagenes != null) {
-            guardarImagen(imagenes);
+    public void createImagen(ImagenesProducto imagenesProducto) {
+        if (imagenesProducto != null) {
+            guardarImagen(imagenesProducto);
             logger.info("Se guardo la imagen");
         }else {logger.error("Surgio un problema, no se guardo la imagen");}
     }
-    private Imagenes guardarImagen(Imagenes imagenes) {
-        return imagenRepository.save(imagenes);
+    private ImagenesProducto guardarImagen(ImagenesProducto imagenesProducto) {
+        return imagenRepository.save(imagenesProducto);
     }
     @Override
-    public List<Imagenes> getAllImagenes() {
+    public List<ImagenesProducto> getAllImagenes() {
         return imagenRepository.findAll();
     }
-    public Optional<Imagenes> obtenerImagen(Integer id) {
+    public Optional<ImagenesProducto> obtenerImagen(Integer id) {
         return imagenRepository.findById(id);
     }
     @Override
     public Collection<ImagenDto> listarImagenesPorProducto(Integer id) {
-        Iterable<Imagenes>listaImagenes = imagenRepository.findByProductosIdProducto(id);
+        Iterable<ImagenesProducto>listaImagenes = imagenRepository.findByProductosIdProducto(id);
         Set<ImagenDto> imagenesPorProducto = new HashSet<ImagenDto>();
 
-        for (Imagenes imagen : listaImagenes) {
+        for (ImagenesProducto imagen : listaImagenes) {
             imagenesPorProducto.add(objectMapper.convertValue(imagen, ImagenDto.class));
         }
         logger.info("Proceso Finalizado con Exito!");

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -27,10 +27,9 @@ public class Productos {
     private String color;
     private String tela;
     private String genero;
-    private String corte;
-    private String temporada;
-    private LocalDateTime fechaActual;
+    private LocalDate fechaActual;
     private Boolean eliminarProducto;
+    private double puntuacion;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCategoria")
@@ -38,33 +37,10 @@ public class Productos {
 
     @OneToMany(mappedBy = "productos", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Imagenes> Imagenes;
+    private Set<ImagenesProducto> ImagenesProducto;
     public Productos() {
-        fechaActual = LocalDateTime.now();
+        fechaActual = LocalDate.now();
         eliminarProducto = false;
+        puntuacion = 0.0;
     }
-    /*
-    public Productos(
-                     String nombre,
-                     double precio,
-                     String detalle,
-                     String color,
-                     String tela,
-                     String genero,
-                     String evento,
-                     String temporada,
-                     Categorias categorias
-    ) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.detalle = detalle;
-        this.color = color;
-        this.tela = tela;
-        this.genero = genero;
-        this.evento = evento;
-        this.temporada = temporada;
-        this.categorias = categorias;
-        fechaActual = LocalDateTime.now();
-        eliminarProducto = false;
-    }*/
 }

@@ -2,7 +2,7 @@ package com.urbanlife.urbanlife.controllers;
 
 
 import com.urbanlife.urbanlife.models.Dto.ImagenDto;
-import com.urbanlife.urbanlife.models.Imagenes;
+import com.urbanlife.urbanlife.models.ImagenesProducto;
 import com.urbanlife.urbanlife.services.impl.IImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ public class ImagenesController {
     IImagenService imagenService;
 
     @PostMapping("/registrar")
-    public ResponseEntity<?>guardarImagen(@RequestBody Imagenes imagenes) {
-        imagenService.createImagen(imagenes);
+    public ResponseEntity<?>guardarImagen(@RequestBody ImagenesProducto imagenesProducto) {
+        imagenService.createImagen(imagenesProducto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/listarimagenes-all")
-    public  ResponseEntity<Collection<Imagenes>>getAllImagenes(){
+    public  ResponseEntity<Collection<ImagenesProducto>>getAllImagenes(){
         return ResponseEntity.ok(imagenService.getAllImagenes());
     }
 

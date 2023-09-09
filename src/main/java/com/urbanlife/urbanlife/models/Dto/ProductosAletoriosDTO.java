@@ -1,6 +1,5 @@
 package com.urbanlife.urbanlife.models.Dto;
 
-import com.urbanlife.urbanlife.models.Imagenes;
 import lombok.Getter;
 import lombok.Setter;
 

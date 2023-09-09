@@ -15,7 +15,7 @@ public interface IProductoService {
     Collection<ProductoDto> listaProductosAll();
     Collection<ProductosAletoriosDTO> listarProductosAletoriosDTO();
     void eliminarProducto(Integer id);
-    void editarProducto (Integer id, ProductosDto productosDto);
+    void editarProducto (Integer id, ProductoDto productosDto);
     ProductoDto obtenerProducto(Integer id);
     void guardarListaMedidas(Collection<ProductoMedidasRequest> request, Integer id);
 }

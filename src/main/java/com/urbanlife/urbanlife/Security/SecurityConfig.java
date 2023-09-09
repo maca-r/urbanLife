@@ -1,5 +1,6 @@
-package com.urbanlife.urbanlife.Security;
+package com.urbanlife.urbanlife.security;
 
+import com.urbanlife.urbanlife.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,38 +15,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
-    private final JwtAutentFilter jwtAutentFilter;
     private final AuthenticationProvider authProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf ->
-                        csrf
-                                .disable())
-                .authorizeHttpRequests(authRequest ->
-                                authRequest
-                                        .requestMatchers("/" , "/auth/**").permitAll()
-                                        .requestMatchers("/admin").hasRole("ADMINISTRADOR")
-                                        .requestMatchers("product/:id").hasRole("CLIENTE")
-                                        .anyRequest().authenticated()
-/*
-                        .antMatchers("/home").permitAll() // Acceso público
-                .antMatchers("/panelAdmin").hasRole("ADMIN") // Solo administradores
-                .antMatchers("/rentaProducto").hasRole("CLIENTE") // Solo clientes
-                .anyRequest().authenticated() // Cualquier otra ruta requiere autenticación
-*/
-                )
-                .sessionManagement(sessionManager->
-                        sessionManager
+                        csrf.disable())
+                .authorizeHttpRequests(authRequest -> authRequest
+                        .requestMatchers("/Auth/**").permitAll()
+                        .requestMatchers("/productos/**").permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(sessionManagement ->
+                        sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
-                .addFilterBefore(jwtAutentFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-
-
     }
-
 }

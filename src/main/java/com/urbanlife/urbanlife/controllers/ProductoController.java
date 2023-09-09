@@ -54,7 +54,7 @@ public class ProductoController {
     @PutMapping("/editar/{id}")
     public ResponseEntity<String> editarProducto(
             @PathVariable Integer id,
-            @RequestBody ProductosDto productosDto) {
+            @RequestBody ProductoDto productosDto) {
         productoService.editarProducto(id, productosDto);
         return ResponseEntity.ok("Producto actualizado exitosamente");
     }
