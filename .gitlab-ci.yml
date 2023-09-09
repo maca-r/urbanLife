@@ -33,4 +33,8 @@ build:
 deploy:
   stage: deploy
   script:
+    - docker ps -aq --filter "expose=80" | xargs -r docker stop
+    - docker ps -aq --filter "expose=80" | xargs -r docker rm
+    - docker ps -aq --filter "expose=8080" | xargs -r docker stop
+    - docker ps -aq --filter "expose=8080" | xargs -r docker rm
     - docker run -d -p $CONTAINER_PORT:5040 $DOCKER_IMAGE_NAME
