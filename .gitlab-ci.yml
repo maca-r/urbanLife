@@ -35,6 +35,7 @@ build:
 deploy:
   stage: deploy
   script:
+    - if lsof -i :8080 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
     - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker stop
     - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm
     - docker ps -aq --filter "expose=80" | xargs -r docker stop
