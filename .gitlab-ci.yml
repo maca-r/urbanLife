@@ -16,12 +16,4 @@ build:
 deploy:
   stage: deploy
   script:
-    - if lsof -i :8080 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
-    - if lsof -i :80 | grep -q 'LISTEN'; then sudo pkill -f "LISTEN"; fi
-    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker stop
-    - docker ps -aqf "ancestor=urbanlife:latest" | xargs -r docker rm -f
-    - docker ps -aq --filter "expose=80" | xargs -r docker stop
-    - docker ps -aq --filter "expose=80" | xargs -r docker rm -f
-    - docker ps -aq --filter "expose=8080" | xargs -r docker stop
-    - docker ps -aq --filter "expose=8080" | xargs -r docker rm -f
     - docker run -d -p $CONTAINER_PORT:5040 $DOCKER_IMAGE_NAME
