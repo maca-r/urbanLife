@@ -1,4 +1,4 @@
-image: alpine:latest
+image: gitlab/gitlab-runner:latest
 
 stages:
   - build
@@ -12,6 +12,7 @@ variables:
   
 build:
   stage: build
+  build image: alpine:latest
   before_script:
     - apk update
     - apk add docker
