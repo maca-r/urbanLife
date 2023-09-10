@@ -9,7 +9,6 @@ variables:
   CONTAINER_NAME: "urbanlife"
   CONTAINER_PORT: "8888"
 
-  
 build:
   stage: build
   before_script:
