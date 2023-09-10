@@ -17,21 +17,65 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuario",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(
+        name = "usuario",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "customer_username_unique",
+                        columnNames = "username"
+                ),
+                @UniqueConstraint(
+                        name = "profile_image_id_unique",
+                        columnNames = "profileImageId"
+                )
+        }
+)
 public class Usuario implements UserDetails {
     @Id
-    @GeneratedValue
-    private Integer id;
+    @SequenceGenerator(
+            name = "usuario_id_seq",
+            sequenceName = "usuario_id_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "usuario_id_seq"
+    )
+    private Integer idUsuario;
+    @Column(
+            nullable = false
+    )
     private String username;
+    @Column(
+            nullable = false
+    )
     private String nombre;
+    @Column(
+            nullable = false
+    )
     private String apellido;
+    @Column(
+            nullable = false
+    )
     private String password;
+    @Column(
+            nullable = false
+    )
     private Integer telefono;
+    @Column(
+            unique = true
+    )
+    private String profileImageId;
     @Enumerated(EnumType.STRING)
     private RolUser role;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((role.name())));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
 
