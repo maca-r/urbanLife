@@ -51,5 +51,6 @@ deploy:
     - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CONTAINER_NAME
     - docker ps -a
     - docker ps
-    - docker exec -it urbanlife ifconfig
+    - docker exec urbanlife ifconfig
+
 
