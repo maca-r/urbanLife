@@ -35,6 +35,7 @@ deploy:
     - docker rm -f $CONTAINER_NAME || true
     - sleep 10
     - docker ps -a
+    - docker images
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
     - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CONTAINER_NAME
     - docker ps -a
