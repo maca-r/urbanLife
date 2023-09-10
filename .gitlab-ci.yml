@@ -13,10 +13,9 @@ variables:
 build:
   stage: build
   before_script:
-
-    - apt-get update
-    - apt-get install -y bash
-    - bash -c "tu-comando-aquí"
+    - apk update 
+    - apk add --no-cache bash 
+    - apk add --no-cache docker-cli
 
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
