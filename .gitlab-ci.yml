@@ -1,4 +1,4 @@
-image: ubuntu:latest
+image: alpine:latest
 
 stages:
   - build
@@ -13,8 +13,11 @@ variables:
 build:
   stage: build
   before_script:
-    - apk add --no-cache bash
+
+    - apt-get update
+    - apt-get install -y bash
     - bash -c "tu-comando-aquí"
+
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
     - 'if [[ "$(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited)" ]]; then docker rm $(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited); fi'
