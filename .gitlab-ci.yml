@@ -12,7 +12,6 @@ variables:
   
 build:
   stage: build
-  build image: alpine:latest
   before_script:
     - apk update
     - apk add docker
@@ -27,6 +26,7 @@ build:
     - docker images
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
+    - docker images
 
 deploy:
   stage: deploy
