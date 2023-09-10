@@ -36,6 +36,7 @@ deploy:
     - apk update 
     - apk add --no-cache bash 
     - apk add --no-cache docker-cli
+    - apk add --no-cache curl
     - docker --version
     - docker ps -a
     - docker images
