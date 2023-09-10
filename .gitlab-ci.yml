@@ -30,6 +30,9 @@ build:
 deploy:
   stage: deploy
   script:
+    - apk update
+    - apk add docker
+    - docker --version
     - docker ps -a
     - docker images
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
