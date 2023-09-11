@@ -196,25 +196,21 @@ const Home = () => {
         <DataPicker className={styles.calendar} />
 
         <button className={styles.buscarButton}>Realizar búsqueda</button>
-        <button className={styles.buscarButton}>Realizar búsqueda</button>
-        <button className={styles.buscarButton}>Realizar búsqueda</button>
       </form>
       {/* </div> */}
 
       <div className={styles.bannerProducto}>
-        {productoBuscado && Object.keys(productoBuscado).length > 0 ?
-
-          <div style={{width:"50%",height:"50%", marginLeft: "25%"}}>
-            <Card data={productoBuscado} ></Card>
+        {productoBuscado && Object.keys(productoBuscado).length > 0 ? (
+          <div style={{ width: "50%", height: "50%", marginLeft: "25%" }}>
+            <Card data={productoBuscado}></Card>
           </div>
-
-        :
-        
-
-        <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt=""/>
-        
-        }
-
+        ) : (
+          <img
+            className={styles.imagenBanner}
+            src="./images/Imagen LandingPage.png"
+            alt=""
+          />
+        )}
       </div>
 
       {/* <div className={styles.productoItem}>
