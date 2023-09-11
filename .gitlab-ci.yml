@@ -1,31 +1,53 @@
-image: docker:latest
+image: docker:stable
 
 stages:
   - build
   - deploy
+  - test
 
 variables:
-  DOCKER_IMAGE_NAME: urbanlife
-  SSH_KEY_PATH: /home/ubuntu/e5-clave.pem
-  REMOTE_SERVER_IP: 3.95.232.249
+  DOCKER_NAME: "urbanlife"
+  CONTAINER_PORT: "443"
 
 build:
   stage: build
-  script:
-    - docker build -t $DOCKER_IMAGE_NAME .
+  tags:
+    - equipo5
   only:
     - front
+  services:
+    - name: docker:dind
+      alias: docker
+  before_script:
+    - docker stop $DOCKER_NAME || true
+    - docker rm -f $DOCKER_NAME || true
+    - docker rmi $DOCKER_NAME || true
+    - dangling_images=$(docker images -f "dangling=true" -q)
+    - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
+  script:
+    - docker build -t $DOCKER_NAME .
 
 deploy:
   stage: deploy
-  script:
-    - docker save $DOCKER_IMAGE_NAME | gzip -c > $DOCKER_IMAGE_NAME.tar.gz
-    - scp -i $SSH_KEY_PATH $DOCKER_IMAGE_NAME.tar.gz ubuntu@$REMOTE_SERVER_IP:~/$DOCKER_IMAGE_NAME.tar.gz
-    - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP 'docker load -i ~/$DOCKER_IMAGE_NAME.tar.gz'
-    - ssh -i $SSH_KEY_PATH ubuntu@$REMOTE_SERVER_IP "docker run -d -p 443:5040 --name $DOCKER_IMAGE_NAME $DOCKER_IMAGE_NAME"
+  tags:
+    - equipo5
   only:
     - front
+  services:
+    - name: docker:dind
+      alias: docker
+  script:
+    - docker run -d -p $CONTAINER_PORT:5040 --name $DOCKER_NAME $DOCKER_NAME
 
-
-
-
+test:
+  stage: test
+  tags:
+    - equipo5
+  only:
+    - front
+  services:
+    - name: docker:dind
+      alias: docker
+  script:
+    - docker images $DOCKER_NAME
+    - docker ps -a | grep $DOCKER_NAME

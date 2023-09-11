@@ -7,34 +7,35 @@ import { Link } from "react-router-dom";
 // import Pagination from "react-bootstrap/Pagination";
 // import { Search } from "../Icon";
 import axios from "axios";
-import {useContextoGlobal} from "../GlobalContext.jsx";
+import { useContextoGlobal } from "../GlobalContext.jsx";
 import Card from "../Card/Card";
 import DataPicker from "../DataPicker/DataPicker";
-import SearchIcon from '@mui/icons-material/Search';
-
+import SearchIcon from "@mui/icons-material/Search";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
 
+  const { dataState, dataDispatch } = useContextoGlobal();
 
-  const {dataState, dataDispatch} = useContextoGlobal()
+  const [id, setId] = useState();
 
-  const [id, setId] = useState()
+  const [productoBuscado, setProductoBuscado] = useState({});
+  {
+    console.log(productoBuscado);
+  }
 
-  const [productoBuscado, setProductoBuscado] = useState({})
-  {console.log(productoBuscado)}
-
-  const productosOrdenados = [...dataState.productos].sort((a,b) => a.idProducto - b.idProducto)
+  const productosOrdenados = [...dataState.productos].sort(
+    (a, b) => a.idProducto - b.idProducto
+  );
 
   const handleChange = (e) => {
     // console.log(dataState.productos);
     // console.log(productosOrdenados);
-    productosOrdenados.forEach(producto => {
-      console.log(producto.nombre);
-      if(producto.nombre == e.target.value){
-        console.log(producto.idProducto)
-        
-        setId((producto.idProducto)-1)
+    productosOrdenados.forEach((producto) => {
+      if (producto.nombre == e.target.value) {
+        console.log(producto.idProducto);
+
+        setId(producto.idProducto - 1);
         //setProductoBuscado(dataState.productos[id]);
         console.log(productoBuscado);
       }
@@ -49,11 +50,10 @@ const Home = () => {
     // setProductoBuscado(dataState.productos[id])
     console.log(e.target);
     setProductoBuscado(productosOrdenados[id]);
-    setSearchText("")
+    setSearchText("");
     console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
   };
-
 
   // const urlProductos = `http://localhost:80/productos`
 
@@ -148,7 +148,8 @@ const Home = () => {
   // ]
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
-  const urlProductosAleatorios = "http://localhost:80/productos/listaproductos-aleatorio";
+  const urlProductosAleatorios =
+    "http://localhost:80/productos/listaproductos-aleatorio";
 
   useEffect(() => {
     try {
@@ -161,9 +162,6 @@ const Home = () => {
     }
   }, [urlProductosAleatorios]);
 
-
-  
-  
   /*PAGINACION */
 
   // const [paginaActual, setPaginaActual] = useState(1)
@@ -179,30 +177,28 @@ const Home = () => {
 
       {/* <div className={styles.search}> */}
 
-        <form onSubmit={handleSubmit}>
-
-            {/* <figure>
+      <form onSubmit={handleSubmit}>
+        {/* <figure>
               <Search />
             </figure> */}
-            <div className={styles.inputSearch}>
-              <SearchIcon/> 
-              <input
-                type="text"
-                placeholder="Buscar"
-                value={searchText}
-                onChange={handleChange}
-              ></input>
-            </div>
-            
-            {/* <input type="date" onChange={(e) => console.log(e.target.value)} /> */}
+        <div className={styles.inputSearch}>
+          <SearchIcon />
+          <input
+            type="text"
+            placeholder="Buscar"
+            value={searchText}
+            onChange={handleChange}
+          ></input>
+        </div>
 
-            <DataPicker className={styles.calendar}/>
+        {/* <input type="date" onChange={(e) => console.log(e.target.value)} /> */}
 
-            <button className={styles.buscarButton}>Realizar búsqueda</button>
+        <DataPicker className={styles.calendar} />
 
-        </form>
+        <button className={styles.buscarButton}>Realizar búsqueda</button>
+      </form>
       {/* </div> */}
-      
+
       <div className={styles.bannerProducto}>
         {productoBuscado && Object.keys(productoBuscado).length > 0 ?
 
@@ -218,38 +214,31 @@ const Home = () => {
         }
 
       </div>
-      
 
       {/* <div className={styles.productoItem}>
       <Card data={productoBuscado} >{console.log(productoBuscado)}</Card>
       </div> */}
 
-      {console.log(productoBuscado)}      
+      {console.log(productoBuscado)}
 
       {/* {console.log(productoBuscado)}
       <div>{productoBuscado}</div> 
 
       {/* AGREGAR IMAGEN */}
-      
+
       {console.log(dataState.productos)}
 
-      
       <div className={styles.categorias}>
-      <h2>CATEGORIAS</h2>
+        <h2>CATEGORIAS</h2>
 
-      
-      {!categorias.length == 0  ? 
-
-        carouselVisible == "none" ? 
-          
-
+        {!categorias.length == 0 ? (
+          carouselVisible == "none" ? (
             <div className={styles.categoria}>
               {categorias.map((categoria, index) => (
                 <Link to={`/cd ` + categoria.idCategoria} key={index}>
                   <img
                     // src={categoriasImagenes[index]}
                     src={categoria.urlimagen}
-
                     alt={`Imagen ${categoria.idCategoria}`}
                   />
 
@@ -258,66 +247,61 @@ const Home = () => {
                 </Link>
               ))}
             </div>
-          
+          ) : (
+            <Carousel
+              className={"d-" + carouselVisible}
+              data-bs-theme="dark"
+              style={{ width: "80%" }}
+            >
+              {categorias.map((categoria, index) => (
+                <Carousel.Item key={index}>
+                  <img
+                    src={categoria.urlimagen}
+                    style={{ width: "100%", height: "50%", cursor: "pointer" }}
+                  />
 
-          :
-
-          <Carousel
-            className={"d-" + carouselVisible}
-            data-bs-theme="dark"
-            style={{ width: "80%" }}
-          >
-            {categorias.map((categoria, index) => (
-              <Carousel.Item key={index}>
-                <img
-                  src={categoria.urlimagen}
-                  style={{ width: "100%", height: "50%", cursor: "pointer" }}
-                />
-
-                <Carousel.Caption>
-                  <h4
-                    style={{
-                      color: "#2B2B28",
-                      backgroundColor: "#E3CE8D",
-                      textAlign: "center",
-                      textTransform: "uppercase",
-                      width: "50%",
-                      marginLeft: "25%",
-                    }}
-                  >
-                    {categoria.nombreCategoria}
-                  </h4>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-      :
-      <h3>Aún no hay categorias para mostrar</h3>
-      }
-
+                  <Carousel.Caption>
+                    <h4
+                      style={{
+                        color: "#2B2B28",
+                        backgroundColor: "#E3CE8D",
+                        textAlign: "center",
+                        textTransform: "uppercase",
+                        width: "50%",
+                        marginLeft: "25%",
+                      }}
+                    >
+                      {categoria.nombreCategoria}
+                    </h4>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )
+        ) : (
+          <h3>Aún no hay categorias para mostrar</h3>
+        )}
       </div>
-      
 
       <div className={styles.producAleatorioBox}>
         <h2>PRODUCTOS</h2>
 
-        {!productosAleatorios.length == 0 ?         
-        <div className={styles.producAleatorio}>
-          
-          {productosAleatorios.map((producto, index) => (
-            // <Link to={routes.detail} key={index} className={styles.productoItem}>
-            //     <div>
-            //         <img src={producto.imagen} alt={`Product ${index}`} />
-            //     </div>
-            //     <div className={styles.textoProduct}>
-            //         <h5 className={styles.productoTitulo}>{producto.nombre}</h5>
-            //         <h5>{producto.detalle}</h5>
-            //     </div>
-            // </Link>
+        {!productosAleatorios.length == 0 ? (
+          <div className={styles.producAleatorio}>
+            {productosAleatorios.map((producto, index) => (
+              // <Link to={routes.detail} key={index} className={styles.productoItem}>
+              //     <div>
+              //         <img src={producto.imagen} alt={`Product ${index}`} />
+              //     </div>
+              //     <div className={styles.textoProduct}>
+              //         <h5 className={styles.productoTitulo}>{producto.nombre}</h5>
+              //         <h5>{producto.detalle}</h5>
+              //     </div>
+              // </Link>
 
-            <div key={index} className={styles.productoItem}>
-              <Card data={producto} >
-                {/* <Card.Img src="/images/logo.png" />
+              <div key={index} className={styles.productoItem}>
+                <Card data={producto}>
+                  {/* <Card.Img src="/images/logo.png" />
                 <Card.Body>
                   <Card.Title
                     style={{ textTransform: "uppercase", width: "fit-content" }}
@@ -333,11 +317,11 @@ const Home = () => {
 
                   <button onClick={addFav} className={styles.favBoton}><StarIcon style={{color: "#E3CE8D"}}/></button>
                 </Card.Body> */}
-              </Card>
-            </div> 
-          )) }
-        
-          {/* <Pagination>
+                </Card>
+              </div>
+            ))}
+
+            {/* <Pagination>
                     <Pagination.First />
                     <Pagination.Prev />
                     {elementosPagina.map((elemento, index) => (
@@ -352,10 +336,10 @@ const Home = () => {
                     <Pagination.Next />
                     <Pagination.Last />
                 </Pagination> */}
-        </div>
-        :
-        <h3>Aún no hay productos para mostrar</h3>
-        }
+          </div>
+        ) : (
+          <h3>Aún no hay productos para mostrar</h3>
+        )}
       </div>
     </div>
   );

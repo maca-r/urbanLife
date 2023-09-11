@@ -1,3 +1,5 @@
+// probando docker
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
@@ -58,7 +60,7 @@ function App() {
           <Route path={routes.editarProducto} element={<EditarProducto />} />
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />
-          <Route path={routes.favs} element={<Favs/>}/>
+          <Route path={routes.favs} element={<Favs />} />
         </Route>
       </Routes>
     </>
