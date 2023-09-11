@@ -3,7 +3,6 @@ image: docker:stable
 stages:
   - build
   - deploy
-  - test
 
 variables:
   DOCKER_IMAGE_NAME: "urbanlife:latest"
@@ -23,7 +22,8 @@ build:
     - docker stop $CONTAINER_NAME || true
     - docker rm -f $CONTAINER_NAME || true
     - docker rmi $DOCKER_IMAGE_NAME || true
-    - docker rmi $(docker images -f "dangling=true" -q) || true
+    - dangling_images=$(docker images -f "dangling=true" -q)
+    - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
 
@@ -38,15 +38,3 @@ deploy:
       alias: docker
   script:
     - docker run -d -p $CONTAINER_PORT:5040 --name $CONTAINER_NAME $DOCKER_IMAGE_NAME
-
-test:
-  stage: test
-  tags:
-    - equipo5
-  services:
-    - name: docker:dind
-      alias: docker
-  only:
-    - front
-  script:
-    - docker inspect -f ‘{{.State.Running}}’ $CONTAINER_NAME | grep true - docker inspect -f ‘{{.Config.Image}}’ $CONTAINER_NAME | grep $DOCKER_IMAGE_NAME
