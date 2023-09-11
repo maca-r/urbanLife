@@ -11,6 +11,8 @@ variables:
 
 build:
   stage: build
+  tags:
+    - ip-10-0-0-208
   before_script:
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
@@ -26,6 +28,8 @@ build:
 
 deploy:
   stage: deploy
+  tags:
+    - ip-10-0-0-208
   script:
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
