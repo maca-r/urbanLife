@@ -43,6 +43,9 @@ test:
   stage: test
   tags:
     - equipo5
+  services:
+    - name: docker:dind
+      alias: docker
   only:
     - front
   script:
