@@ -1,8 +1,10 @@
 image: docker:stable
 
+variables:
+  DOCKER_NAME: "equipo-05_urbanlife"
+
 stages:
   - build
-  - test
 
 build:
   stage: build
@@ -14,7 +16,10 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - docker rm -f $(docker ps -aq) || true
-    - docker rmi -f $(docker images -q) || true
+    - docker stop $DOCKER_NAME || true
+    - docker rm -f $DOCKER_NAME || true
+    - docker rmi $DOCKER_NAME || true
+    - dangling_images=$(docker images -f "dangling=true" -q)
+    - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
   script:
     - docker-compose up -d --build
