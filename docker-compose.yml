@@ -17,6 +17,7 @@ services:
   urbanlife:
     build:
       context: .
+      dockerfile: Dockerfile  # Especifica el nombre del Dockerfile aquí
 
     ports:
       - 80:80
