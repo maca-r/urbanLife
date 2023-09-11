@@ -1,4 +1,4 @@
-image: docker:stable
+image: gitlab/gitlab-runner:latest
 
 variables:
   DOCKER_NAME: "equipo-05_urbanlife"
@@ -16,12 +16,6 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - docker --version
-    - apk add --no-cache curl  # Instalar curl si no está presente
-    - |
-      # Install Docker Compose
-      curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      chmod +x /usr/local/bin/docker-compose
-      docker-compose --version
+    - docker-compose --version
   script:
     - docker-compose up -d --build
