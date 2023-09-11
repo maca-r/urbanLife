@@ -26,5 +26,5 @@ build:
       chmod +x /usr/local/bin/docker-compose
   script:
     - docker-compose up --build -d
-    - sleep 15
+    - sleep 25
     - docker start equipo-05-urbanlife-1
