@@ -1,0 +1,53 @@
+# image: docker:stable
+
+# stages:
+#   - build
+#   - deploy
+#   - test
+
+# variables:
+#   DOCKER_NAME: "urbanlife"
+#   CONTAINER_PORT: "80"
+
+# build:
+#   stage: build
+#   tags:
+#     - equipo5back
+#   only:
+#     - back
+#   services:
+#     - name: docker:dind
+#       alias: docker
+#   before_script:
+#     - docker stop $DOCKER_NAME || true
+#     - docker rm -f $DOCKER_NAME || true
+#     - docker rmi $DOCKER_NAME || true
+#     - dangling_images=$(docker images -f "dangling=true" -q)
+#     - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
+#   script:
+#     - docker build -t $DOCKER_NAME .
+
+# deploy:
+#   stage: deploy
+#   tags:
+#     - equipo5back
+#   only:
+#     - back
+#   services:
+#     - name: docker:dind
+#       alias: docker
+#   script:
+#     - docker run -d -p $CONTAINER_PORT:5040 --name $DOCKER_NAME $DOCKER_NAME
+
+# test:
+#   stage: test
+#   tags:
+#     - equipo5back
+#   only:
+#     - back
+#   services:
+#     - name: docker:dind
+#       alias: docker
+#   script:
+#     - docker images $DOCKER_NAME
+#     - docker ps -a | grep $DOCKER_NAME

@@ -1,4 +1,4 @@
-version: '2.18.1'
+version: "3"
 services:
   db:
     image: mysql:8.0.32
@@ -15,9 +15,7 @@ services:
       - 3306:3306
 
   urbanlife:
-
     build:
-
       context: .
 
     ports:
