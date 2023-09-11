@@ -17,6 +17,7 @@ build:
       alias: docker
   before_script:
     - docker --version
+    - docker rmi -f equipo-05-urbanlife:latest
     - apk add --no-cache curl
     - |
       # Install Docker Compose
