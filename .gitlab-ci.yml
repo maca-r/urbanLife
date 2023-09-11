@@ -17,5 +17,6 @@ build:
       alias: docker
   before_script:
     - docker --version
+    - sudo apt install docker-compose
   script:
     - docker-compose up -d --build
