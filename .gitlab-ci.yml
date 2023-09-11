@@ -26,4 +26,4 @@ build:
       chmod +x /usr/local/bin/docker-compose
       docker-compose --version
   script:
-    - docker-compose up -d --build
+    - docker-compose up --build
