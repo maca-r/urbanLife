@@ -16,8 +16,8 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - snap install docker
-    - apt install docker-compose
+    - apt update
+    - apt install docker-ce
     - docker stop $DOCKER_NAME || true
     - docker rm -f $DOCKER_NAME || true
     - docker rmi $DOCKER_NAME || true
