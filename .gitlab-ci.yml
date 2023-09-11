@@ -13,6 +13,8 @@ build:
   stage: build
   tags:
     - equipo5
+  only:
+    - front
   services:
     - name: docker:dind
       alias: docker
@@ -28,6 +30,8 @@ deploy:
   stage: deploy
   tags:
     - equipo5
+  only:
+    - front
   services:
     - name: docker:dind
       alias: docker
