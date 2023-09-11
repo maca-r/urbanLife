@@ -19,8 +19,6 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
-    - 'if [[ "$(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited)" ]]; then docker rm $(docker ps -aq -f "publish=$CONTAINER_PORT" -f status=exited); fi'
     - docker stop $CONTAINER_NAME || true
     - docker rm -f $CONTAINER_NAME || true
   script:
