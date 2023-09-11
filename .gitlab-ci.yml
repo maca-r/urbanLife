@@ -16,12 +16,6 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - yum update
-    - yum install docker-ce
-    - docker stop $DOCKER_NAME || true
-    - docker rm -f $DOCKER_NAME || true
-    - docker rmi $DOCKER_NAME || true
-    - dangling_images=$(docker images -f "dangling=true" -q)
-    - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
+    - docker --version
   script:
     - docker-compose up -d --build
