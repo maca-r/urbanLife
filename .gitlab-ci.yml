@@ -13,6 +13,9 @@ build:
   stage: build
   tags:
     - equipo5
+  services:
+    - name: docker:dind
+      alias: docker
   before_script:
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
@@ -30,6 +33,9 @@ deploy:
   stage: deploy
   tags:
     - equipo5
+  services:
+    - name: docker:dind
+      alias: docker
   script:
     - docker ps -a
     - 'if [[ "$(docker ps -q -f "publish=$CONTAINER_PORT")" ]]; then docker stop $(docker ps -q -f "publish=$CONTAINER_PORT"); fi'
