@@ -1,4 +1,4 @@
-# Equipo 05 Urbanlife
+# Equipo 05
 
 ## Getting started
 
