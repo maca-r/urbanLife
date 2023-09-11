@@ -19,8 +19,9 @@ build:
     - docker --version
     - docker rmi -f equipo-05-urbanlife:latest
     - apk add --no-cache curl
+    - dangling_images=$(docker images -f "dangling=true" -q)
+    - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
     - |
-      # Install Docker Compose
       curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
       docker-compose --version
