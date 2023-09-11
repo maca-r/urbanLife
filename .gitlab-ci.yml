@@ -18,6 +18,7 @@ build:
   before_script:
     - docker --version
     - docker rmi -f equipo-05-urbanlife:latest
+    - docker ps -a -q -f status=exited | xargs docker rm
     - apk add --no-cache curl
     - dangling_images=$(docker images -f "dangling=true" -q)
     - if [ -n "$dangling_images" ]; then docker rmi $dangling_images || true; fi
@@ -26,5 +27,4 @@ build:
       chmod +x /usr/local/bin/docker-compose
   script:
     - docker-compose up --build -d
-    - sleep 25
     - docker start equipo-05-urbanlife-1
