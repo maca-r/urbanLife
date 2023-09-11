@@ -143,7 +143,7 @@ export function ListaProductos() {
                       style={{ marginRight: "5px" }}
                       onClick={() => showDeleteConfirmation(producto)}
                     >
-                      <DeleteIcon />
+                      Eliminar
                     </Button>
                   </td>
                 </tr>

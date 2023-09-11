@@ -103,9 +103,9 @@ export function AddImages() {
       </select>
 
       <Button 
-      variant="secondary" 
+      
       onClick={handleUpload}
-      style={{width: "20%", margin: "10px"}}>Subir Imágenes</Button>
+      style={{width: "20%", margin: "10px", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}}>Subir Imágenes</Button>
 
       {uploadMessage && (
         <Alert

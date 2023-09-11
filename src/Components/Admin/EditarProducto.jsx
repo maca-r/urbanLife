@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Alert, Button, Form } from "react-bootstrap";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export function EditarProducto() {
   const { idProducto } = useParams();
@@ -80,11 +81,20 @@ export function EditarProducto() {
     setEditedProduct({ ...editedProduct, [name]: value });
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <h3>Editar Producto</h3>
-      <Form style={{ width: "50%", marginLeft: "3%" }}>
-        <Form.Group>
+    <div style={{margin: "2%"}}>
+      <div style={{display: "flex", justifyContent:"space-between", margin: "2%"}}>
+        <h3>Editar Producto</h3>
+        <button style={{border: "none", padding: "7px"}}
+        onClick={() => navigate(-1)}>
+        <ArrowBackIcon />
+        Panel Admin </button>
+      </div>
+      
+      <Form style={{ width: "50%", marginLeft: "3%", display:"flex",flexDirection: "column", alignItems: "stretch" }}>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Nombre:</Form.Label>
           <Form.Control
             type="text"
@@ -94,7 +104,7 @@ export function EditarProducto() {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Color:</Form.Label>
           <Form.Control
             type="text"
@@ -104,7 +114,7 @@ export function EditarProducto() {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Detalle:</Form.Label>
           <Form.Control
             as="textarea"
@@ -114,7 +124,7 @@ export function EditarProducto() {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Precio:</Form.Label>
           <Form.Control
             type="number"
@@ -124,7 +134,7 @@ export function EditarProducto() {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Corte:</Form.Label>
           <Form.Select
             name="evento"
@@ -139,7 +149,7 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Género:</Form.Label>
           <Form.Select
             name="genero"
@@ -154,7 +164,7 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Tela:</Form.Label>
           <Form.Select
             name="tela"
@@ -169,7 +179,7 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Temporada:</Form.Label>
           <Form.Select
             name="temporada"
@@ -184,7 +194,7 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group style={{marginBottom: "2%"}}>
           <Form.Label>Categoría</Form.Label>
           <Form.Select
             id="categoria"
@@ -201,7 +211,8 @@ export function EditarProducto() {
           </Form.Select>
         </Form.Group>
       </Form>
-      <Button style={{ margin: "3%" }} onClick={handleEdit}>
+      
+      <Button style={{ marginLeft: "3%", width: "15%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28" }} onClick={handleEdit}>
         Guardar Cambios
       </Button>
       {statusMessage && <Alert variant="success">{statusMessage}</Alert>}{" "}

@@ -67,7 +67,7 @@ export function AddCategorias() {
           />
         </Form.Group>
 
-        <Button onClick={handleAgregarCategoria} style={{width: "20%"}} variant="secondary">Agregar Categoría</Button>
+        <Button onClick={handleAgregarCategoria} style={{width: "20%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} >Agregar Categoría</Button>
       </Form>
     </>
   );

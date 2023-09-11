@@ -221,9 +221,9 @@ export function AñadirProducto() {
         {/* ------------------------------------------------------------------ */}
 
         <Button 
-          variant="secondary"
+          
           type="submit"
-          style={{ width: "25%" }}>
+          style={{ width: "25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28" }}>
           Agregar Producto
         </Button>
       </Form>

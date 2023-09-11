@@ -7,6 +7,7 @@ import { Categorias } from "./Categorias";
 
 import { Producto } from "./Producto";
 import { Caracteristicas } from "./Caracteristicas";
+import { ListaProductos } from "./ListaProductos";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -55,7 +56,11 @@ export function Admin() {
             </button>
 
             <button onClick={() => handlePanelSection("producto")}>
-              Administrar Productos
+              Agregar Productos
+            </button>
+
+            <button onClick={() => handlePanelSection("listaProductos")}>
+              Listar Productos
             </button>
           </div>
 
@@ -73,6 +78,8 @@ export function Admin() {
             {panelSection == "caracteristicas" && <Caracteristicas />}
 
             {panelSection == "agregarTalles" && <AddTalles />}
+
+            {panelSection == "listaProductos" && <ListaProductos />}
           </div>
         </div>
       )}

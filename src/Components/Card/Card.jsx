@@ -62,33 +62,38 @@ import { toast } from "sonner";
 
 //SOLUCION TEMPORAL LUCA =>
 
-const Card = (data) => {
+const Card = ({data}) => {
   const [favorite, setFavorite] = useState("");
   const { dataState, dataDispatch } = useContextoGlobal();
 
   const addFav = () => {
-    if (!dataState.favs.includes(data.data)) {
-      dataDispatch({ type: "LIKE", payload: data.data });
-      console.log(data.data);
+    if (!dataState.favs.includes(data)) {
+      dataDispatch({ type: "LIKE", payload: data });
+      console.log(data);
       setFavorite("like");
       toast.success("Producto agregado a favoritos");
     } else {
-      dataDispatch({ type: "DISLIKE", payload: data.data });
+      dataDispatch({ type: "DISLIKE", payload: data });
       setFavorite("dislike");
     }
   };
+  const imagenesOrdenadas = [...data.imagenes].sort((a,b) => a.idImagen - b.idImagen)
+  // const imageUrl = data?.imagenes?.[0]?.urlImagen || "";
 
-  const imageUrl = data.data?.imagenes?.[0]?.urlImagen || "";
+  console.log(imagenesOrdenadas);
+  const imageUrl = imagenesOrdenadas[0].urlImagen
+  console.log(imagenesOrdenadas[0]);
   
   return (
     <div className={styles.cardItem}>
-      <img src={imageUrl} alt={data.data.nombre} />
+      <img src={imageUrl} alt={data.nombre} />
       <div className={styles.datosItem}>
         <h6 style={{ textTransform: "uppercase", width: "fit-content" }}>
-          {data.data.nombre}
+          {data.nombre}
         </h6>
-        <p>${data.data.precio}</p>
-        <Link to={`/product/` + data.data.idProducto}>
+        <p style={{margin: "0"}}>${data.precio}</p>
+        <div className={styles.detalleFav}>
+        <Link to={`/product/` + data.idProducto}>
           <button className={styles.detalleBoton}>detalle</button>
         </Link>
         <button onClick={addFav} className={styles.favBoton}>
@@ -98,6 +103,8 @@ const Card = (data) => {
             <StarIcon style={{ color: "gray" }} />
           )}
         </button>
+        </div>
+        
       </div>
     </div>
   );

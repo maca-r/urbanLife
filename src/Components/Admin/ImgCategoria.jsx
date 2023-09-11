@@ -89,9 +89,9 @@ export function ImgCategoria() {
       </select>
 
       <Button 
-      variant="secondary"
+      
       onClick={handleUpload}
-      style={{width: "20%", margin: "10px"}}>
+      style={{width: "20%", margin: "10px", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}}>
         Subir Imagen
       </Button>
     </div>

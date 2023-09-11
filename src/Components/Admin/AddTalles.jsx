@@ -47,7 +47,7 @@ export function AddTalles() {
             onChange={(e) => setTalle(e.target.value)}
           />
         </Form.Group>
-        <Button variant="secondary" style={{width:"25%"}} onClick={handleAgregarTalle}>Registrar</Button>
+        <Button style={{width:"25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} onClick={handleAgregarTalle}>Registrar</Button>
       </Form>
     </div>
   );

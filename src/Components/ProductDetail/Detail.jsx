@@ -66,6 +66,8 @@ const Detail = () => {
     }
   }, [urlDetalleProducto]);
 
+  const imagenesOrdenadas = [...dataState.producto.imagenes].sort((a,b) => a.idImagen - b.idImagen)
+
 
   const images = [
     "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_041-304a2ebf0f06670f1b16903373804733-640-0.webp",
@@ -145,7 +147,12 @@ const Detail = () => {
         style={{ width: "80%" }}
         data-bs-theme="dark"
       >
-        {images.map((image, index) => (
+        {/* {images.map((image, index) => (
+          <Carousel.Item key={index}>
+            <img src={image} style={{ width: "100%", height: "auto" }} />
+          </Carousel.Item>
+        ))} */}
+        {imagenesOrdenadas.map((image, index) => (
           <Carousel.Item key={index}>
             <img src={image} style={{ width: "100%", height: "auto" }} />
           </Carousel.Item>
@@ -162,18 +169,32 @@ const Detail = () => {
           </div> */}
 
         <div className={styles.leftContainer}>
-          <img
+          {/* <img
             src="https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_011-482f8f219a675f850916903373802103-640-0.webp"
             alt=""
-          />
+          /> */}
+          <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} />
         </div>
 
         <div className={styles.rightContainer}>
           <div className={styles.smallImages}>
-            {images.map((image, index) => (
+            {/* {images.map((image, index) => (
               <img
                 key={index}
                 src={image}
+                // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
+                // onClick={() => handleImageClick(index)}
+
+                // style={{maxWidth: "auto",
+                //   height: "auto",
+
+                //   }}
+              />
+            ))} */}
+            {imagenesOrdenadas.map((image, index) => (
+              <img
+                key={index}
+                src={image.urlImagen}
                 // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
                 // onClick={() => handleImageClick(index)}
 
@@ -226,11 +247,20 @@ const Detail = () => {
               />
             ))} */}
 
-              <Box sx={{ width: "auto", height: "auto", overflowY: "scroll" }}>
+              {/* <Box sx={{ width: "auto", height: "auto", overflowY: "scroll" }}>
                 <ImageList variant="masonry" cols={4} gap={8}>
                   {imagesGallery.map((image, index) => (
                     <ImageListItem key={index}>
                       <img src={image} srcSet={image} />
+                    </ImageListItem>
+                  ))}
+                </ImageList>
+              </Box> */}
+              <Box sx={{ width: "auto", height: "auto", overflowY: "scroll" }}>
+                <ImageList variant="masonry" cols={4} gap={8}>
+                  {imagenesOrdenadas.map((image, index) => (
+                    <ImageListItem key={index}>
+                      <img src={image.urlImagen} srcSet={image.urlImagen} />
                     </ImageListItem>
                   ))}
                 </ImageList>

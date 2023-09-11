@@ -30,9 +30,9 @@ export function Producto() {
           Agregar Imagen
         </button>
 
-        <button onClick={() => handlePanelSection("listarProducto")}>
+        {/* <button onClick={() => handlePanelSection("listarProducto")}>
           Listar Producto
-        </button>
+        </button> */}
       </div>
       <div className={styles.showPanelSection}>
         {panelSection == "" && (

@@ -75,9 +75,9 @@ form .inputSearch input{
     width: 50%;
 }
 
-/* .imagenBanner{
-    
-} */
+.imagenBanner{
+    width: 100%;
+}
 
 .categorias h2{
     margin: 25px;

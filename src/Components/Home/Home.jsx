@@ -30,6 +30,7 @@ const Home = () => {
     // console.log(dataState.productos);
     // console.log(productosOrdenados);
     productosOrdenados.forEach(producto => {
+      console.log(producto.nombre);
       if(producto.nombre == e.target.value){
         console.log(producto.idProducto)
         
@@ -205,9 +206,15 @@ const Home = () => {
       <div className={styles.bannerProducto}>
         {productoBuscado && Object.keys(productoBuscado).length > 0 ?
 
-        <Card data={productoBuscado} ></Card> 
+          <div style={{width:"50%",height:"50%", marginLeft: "25%"}}>
+            <Card data={productoBuscado} ></Card>
+          </div>
+
         :
+        
+
         <img className={styles.imagenBanner} src="./images/Imagen LandingPage.png" alt=""/>
+        
         }
 
       </div>
@@ -238,7 +245,7 @@ const Home = () => {
 
             <div className={styles.categoria}>
               {categorias.map((categoria, index) => (
-                <Link to={`/categoria/` + categoria.idCategoria} key={index}>
+                <Link to={`/cd ` + categoria.idCategoria} key={index}>
                   <img
                     // src={categoriasImagenes[index]}
                     src={categoria.urlimagen}

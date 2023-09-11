@@ -99,7 +99,7 @@ export function RegistrarTalleProd() {
           ))}
         </Form.Group>
 
-        <Button style={{width:"30%"}} variant="secondary" onClick={handleGuardarRelacion}>
+        <Button style={{width:"25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} onClick={handleGuardarRelacion}>
           Guardar Relación
         </Button>
       </Form>
