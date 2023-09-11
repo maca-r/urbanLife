@@ -17,7 +17,8 @@ build:
       alias: docker
   before_script:
     - docker --version
-    - docker rmi -f equipo-05-urbanlife:latest
+    - docker rmi -f equipo-05-urbanlife
+    - docker rm -f equipo-05-urbanlife-1 equipo-05-db-1
     - docker ps -a -q -f status=exited | xargs docker rm
     - apk add --no-cache curl
     - dangling_images=$(docker images -f "dangling=true" -q)
