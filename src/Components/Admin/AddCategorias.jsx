@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 
-
 export function AddCategorias() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -21,7 +20,7 @@ export function AddCategorias() {
       };
 
       const response = await axios.post(
-        "http://localhost:80/categorias/registrar",
+        "http://10.0.1.104:80/categorias/registrar",
         categoriaData
       );
 
@@ -38,7 +37,14 @@ export function AddCategorias() {
 
   return (
     <>
-      <Form style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+      <Form
+        style={{
+          margin: "2%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
         <h3>Categoría</h3>
         {mensaje && (
           <Alert
@@ -48,7 +54,7 @@ export function AddCategorias() {
           </Alert>
         )}
         <Form.Group className="mb-3">
-          <Form.Label>Categoría nueva</Form.Label>
+          <Form.Label>Categoría super nueva</Form.Label>
           <Form.Control
             style={{ width: "30%" }}
             type="text"
@@ -67,7 +73,17 @@ export function AddCategorias() {
           />
         </Form.Group>
 
-        <Button onClick={handleAgregarCategoria} style={{width: "20%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} >Agregar Categoría</Button>
+        <Button
+          onClick={handleAgregarCategoria}
+          style={{
+            width: "20%",
+            backgroundColor: "#E3B04B",
+            border: "none",
+            color: "#2B2B28",
+          }}
+        >
+          Agregar Categoría
+        </Button>
       </Form>
     </>
   );
