@@ -19,6 +19,7 @@ export function AddCategorias() {
         descripcion: descripcion,
       };
 
+      // IP  a cambiar
       const response = await axios.post(
         "http://10.0.1.104:80/categorias/registrar",
         categoriaData
