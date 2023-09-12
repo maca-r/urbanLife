@@ -16,11 +16,10 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - docker --version
-    - docker rmi -f equipo-05-urbanlife
+    - docker rmi -f equipo-05-urbanlife || true
     - docker stop  equipo-05-urbanlife-1 || true
     - docker stop  equipo-05-db-1 || true
-    - docker rm -f equipo-05-urbanlife-1 equipo-05-db-1
+    - docker rm -f equipo-05-urbanlife-1 equipo-05-db-1 || true
     - docker ps -a -q -f status=exited | xargs docker rm
     - apk add --no-cache curl
     - dangling_images=$(docker images -f "dangling=true" -q)
