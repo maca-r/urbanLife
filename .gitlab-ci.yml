@@ -38,9 +38,9 @@ build:
 test:
   stage: test
   tags:
-    - equipo5
+    - equipo5back
   only:
-    - front
+    - back
   services:
     - name: docker:dind
       alias: docker
