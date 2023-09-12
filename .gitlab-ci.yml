@@ -34,7 +34,7 @@ build:
   script:
     - docker-compose up --build -d
     - sleep 10
-    - docker start $DOCKER_SPRING
+    - docker start equipo-05-urbanlife-1
 
 test:
   stage: test
