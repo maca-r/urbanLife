@@ -33,6 +33,7 @@ build:
       chmod +x /usr/local/bin/docker-compose
   script:
     - docker-compose up --build -d
+    - sleep 10
     - docker start $DOCKER_SPRING
 
 test:
