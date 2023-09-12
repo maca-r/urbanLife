@@ -34,7 +34,7 @@ build:
   script:
     - docker-compose up --build -d
     - sleep 10
-    - docker start DOCKER_SPRING
+    - docker start $DOCKER_SPRING
     - docker ps -a
     - docker ps
 
