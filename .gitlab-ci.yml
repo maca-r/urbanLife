@@ -33,10 +33,6 @@ build:
       chmod +x /usr/local/bin/docker-compose
   script:
     - docker-compose up --build -d
-    - sleep 10
-    - docker start $DOCKER_SPRING
-    - docker ps -a
-    - docker ps
 
 test:
   stage: test
@@ -48,6 +44,7 @@ test:
     - name: docker:dind
       alias: docker
   script:
+    - docker start $DOCKER_SPRING
     - docker images $DOCKER_NAME
     - docker ps | grep $DOCKER_SPRING
     - docker ps | grep $DOCKER_DB
