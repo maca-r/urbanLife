@@ -7,6 +7,7 @@ variables:
 
 stages:
   - build
+  - deploy
   - test
 
 build:
@@ -34,6 +35,18 @@ build:
   script:
     - docker-compose up --build -d
 
+deploy:
+  stage: deploy
+  tags:
+    - equipo5back
+  only:
+    - back
+  services:
+    - name: docker:dind
+      alias: docker
+  script:
+    - docker start $DOCKER_SPRING
+
 test:
   stage: test
   tags:
@@ -44,7 +57,6 @@ test:
     - name: docker:dind
       alias: docker
   script:
-    - docker start $DOCKER_SPRING
     - docker images $DOCKER_NAME
     - docker ps | grep $DOCKER_SPRING
     - docker ps | grep $DOCKER_DB
