@@ -1,10 +1,13 @@
 image: docker:stable
 
 variables:
-  DOCKER_NAME: "equipo-05_urbanlife"
+  DOCKER_NAME: "equipo-05-urbanlife"
+  DOCKER_SPRING: "equipo-05-urbanlife-1"
+  DOCKER_DB: "equipo-05-db-1"
 
 stages:
   - build
+  - test
 
 build:
   stage: build
@@ -16,11 +19,11 @@ build:
     - name: docker:dind
       alias: docker
   before_script:
-    - docker rmi -f equipo-05-urbanlife || true
-    - docker stop  equipo-05-urbanlife-1 || true
-    - docker stop  equipo-05-db-1 || true
-    - docker rm -f equipo-05-urbanlife-1 || true
-    - docker rm -f equipo-05-db-1 || true
+    - docker rmi -f $DOCKER_NAME || true
+    - docker stop $DOCKER_DB || true
+    - docker stop $DOCKER_SPRING || true
+    - docker rm -f $DOCKER_DB || true
+    - docker rm -f $DOCKER_SPRING || true
     - docker ps -a -q -f status=exited | xargs docker rm
     - apk add --no-cache curl
     - dangling_images=$(docker images -f "dangling=true" -q)
@@ -30,4 +33,18 @@ build:
       chmod +x /usr/local/bin/docker-compose
   script:
     - docker-compose up --build -d
-    - docker start equipo-05-urbanlife-1
+    - docker start $DOCKER_SPRING
+
+test:
+  stage: test
+  tags:
+    - equipo5back
+  only:
+    - back
+  services:
+    - name: docker:dind
+      alias: docker
+  script:
+    - docker images $DOCKER_NAME
+    - docker ps | grep $DOCKER_SPRING
+    - docker ps | grep $DOCKER_DB
