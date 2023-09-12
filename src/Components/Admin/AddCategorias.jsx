@@ -20,7 +20,7 @@ export function AddCategorias() {
       };
 
       const response = await axios.post(
-        "http://3.228.98.168:80/categorias/registrar",
+        "http://10.0.1.104:80/categorias/registrar",
         categoriaData
       );
 
