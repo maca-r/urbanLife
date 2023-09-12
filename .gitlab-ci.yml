@@ -46,5 +46,5 @@ test:
       alias: docker
   script:
     - docker images $DOCKER_NAME
-    - docker ps -a | grep $DOCKER_SPRING
-    - docker ps -a | grep $DOCKER_DB
+    - docker ps | grep $DOCKER_SPRING
+    - docker ps | grep $DOCKER_DB
