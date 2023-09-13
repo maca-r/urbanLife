@@ -12,7 +12,7 @@ export function ListarCategorias() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:80/categorias/listarcategorias-all")
+      .get("http://10.0.1.104/categorias/listarcategorias-all")
       .then((response) => {
         const categoriasNoEliminadas = response.data.filter(
           (categoria) => categoria.eliminarCategoria === false
@@ -47,7 +47,7 @@ export function ListarCategorias() {
   };
 
   return (
-    <div style={{margin: "2%"}}>
+    <div style={{ margin: "2%" }}>
       <h3>Lista de Categorías</h3>
       {loading ? (
         <p>Cargando categorías...</p>
