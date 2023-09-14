@@ -12,7 +12,7 @@ variables:
 build:
   stage: build
   tags:
-    - equipo5
+    - equipo5front
   only:
     - front
   services:
@@ -30,7 +30,7 @@ build:
 deploy:
   stage: deploy
   tags:
-    - equipo5
+    - equipo5front
   only:
     - front
   services:
@@ -42,7 +42,7 @@ deploy:
 test:
   stage: test
   tags:
-    - equipo5
+    - equipo5front
   only:
     - front
   services:
