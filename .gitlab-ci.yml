@@ -1,9 +1,9 @@
 image: docker:stable
 
 variables:
-  DOCKER_NAME: "equipo-05-urbanlife"
-  DOCKER_SPRING: "equipo-05-urbanlife-1"
-  DOCKER_DB: "equipo-05-db-1"
+  DOCKER_NAME: "equipo-05_urbanlife"
+  DOCKER_SPRING: "equipo-05_urbanlife_1"
+  DOCKER_DB: "equipo-05_db_1"
 
 stages:
   - build
