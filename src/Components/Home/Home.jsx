@@ -28,16 +28,18 @@ const Home = () => {
     (a, b) => a.idProducto - b.idProducto
   );
 
+  
   const handleChange = (e) => {
     // console.log(dataState.productos);
     // console.log(productosOrdenados);
     productosOrdenados.forEach((producto) => {
       if (producto.nombre == e.target.value) {
-        console.log(producto.idProducto);
-
-        setId(producto.idProducto - 1);
+        //console.log(producto.idProducto);
+        console.log(productosOrdenados.indexOf(producto))
+        //setId(producto.idProducto - 1);
+        setId(productosOrdenados.indexOf(producto))
         //setProductoBuscado(dataState.productos[id]);
-        console.log(productoBuscado);
+        //console.log(productoBuscado);
       }
     });
     setSearchText(e.target.value);
@@ -55,6 +57,8 @@ const Home = () => {
     console.log("Texto de búsqueda:", searchText);
   };
 
+
+  
   // const urlProductos = `http://localhost:80/productos`
 
   // useEffect(() => {
@@ -177,7 +181,7 @@ const Home = () => {
 
       {/* <div className={styles.search}> */}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.formBusqueda}>
         {/* <figure>
               <Search />
             </figure> */}
@@ -196,8 +200,7 @@ const Home = () => {
         <DataPicker className={styles.calendar} />
 
         <button className={styles.buscarButton}>Realizar búsqueda</button>
-        <button className={styles.buscarButton}>Realizar búsqueda</button>
-        <button className={styles.buscarButton}>Realizar búsqueda</button>
+        
       </form>
       {/* </div> */}
 
@@ -221,14 +224,14 @@ const Home = () => {
       <Card data={productoBuscado} >{console.log(productoBuscado)}</Card>
       </div> */}
 
-      {console.log(productoBuscado)}
+      
 
       {/* {console.log(productoBuscado)}
       <div>{productoBuscado}</div> 
 
       {/* AGREGAR IMAGEN */}
 
-      {console.log(dataState.productos)}
+      
 
       <div className={styles.categorias}>
         <h2>CATEGORIAS</h2>

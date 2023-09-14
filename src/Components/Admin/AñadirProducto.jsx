@@ -100,7 +100,7 @@ export function AñadirProducto() {
             type="text"
             value={nombre}
             placeholder="Ingrese nombre del producto"
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={(e) => setNombre((e.target.value).toLowerCase())}
           />
         </Form.Group>
 
@@ -111,7 +111,7 @@ export function AñadirProducto() {
             type="number"
             value={precio}
             placeholder="Ingrese el precio del producto"
-            onChange={(e) => setPrecio(e.target.value)}
+            onChange={(e) => setPrecio((e.target.value).toLowerCase())}
           />
         </Form.Group>
 
@@ -122,7 +122,7 @@ export function AñadirProducto() {
             as="textarea"
             value={detalle}
             placeholder="Ingrese el detalle del producto"
-            onChange={(e) => setDetalle(e.target.value)}
+            onChange={(e) => setDetalle((e.target.value).toLowerCase())}
           />
         </Form.Group>
 
@@ -133,7 +133,7 @@ export function AñadirProducto() {
             type="text"
             value={color}
             placeholder="Ingrese el color del producto"
-            onChange={(e) => setColor(e.target.value)}
+            onChange={(e) => setColor((e.target.value).toLowerCase())}
           />
         </Form.Group>
 

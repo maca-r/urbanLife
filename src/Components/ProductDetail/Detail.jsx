@@ -16,13 +16,14 @@ import WcIcon from "@mui/icons-material/Wc";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import { useContextoGlobal } from "../GlobalContext";
+import Skeleton from '@mui/material/Skeleton';
 
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
   const [carouselVisible, setCarouselVisible] = useState("none");
   // const [dimensions, setDimensions] = useState(window.innerWidth)
-  const [detalle, setDetalle] = useState({});
+  
 
   function handleResize() {
     if (window.innerWidth >= 780) {
@@ -53,6 +54,8 @@ const Detail = () => {
   const {dataState,dataDispatch} = useContextoGlobal()
   const params = useParams();
   const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
+  
+  
 
   useEffect(() => {
     try {
@@ -60,28 +63,46 @@ const Detail = () => {
         console.log(response.data);
         // setDetalle(response.data);
         dataDispatch({type: "GET_A_PRODUCT", payload: response.data})
+        
       });
     } catch (error) {
       console.error("error al obtener producto con id " + `${params.id}`);
     }
+
+    
   }, [urlDetalleProducto]);
 
-  const imagenesOrdenadas = [...dataState.producto.imagenes].sort((a,b) => a.idImagen - b.idImagen)
+  //const imagenesOrdenadas = [...dataState.producto.imagenes].sort((a,b) => a.idImagen - b.idImagen) 
 
+  const imagenesOrdenadas = 
+    dataState.producto.imagenes
+    ? [...dataState.producto.imagenes].sort((a, b) => a.idImagen - b.idImagen)
+    : [];
 
-  const images = [
-    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_041-304a2ebf0f06670f1b16903373804733-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_071-87ed1ac2935fa5da4b16903373805560-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_051-aa7e5a2891fb73660e16903373802933-640-0.webp",
-    "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_061-6adf07e0e97da7cf3316903373804049-640-0.webp",
-  ];
+  console.log(imagenesOrdenadas);
+  
+  // const imagenes = dataState.producto.imagenes
+  // if (imagenes.length > 0){
+  //   console.log(imagenes.length);
+  // }
 
-  const imagesGallery = [
-    "https://images.unsplash.com/photo-1602810316693-3667c854239a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1602810319250-a663f0af2f75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-    "https://images.unsplash.com/flagged/photo-1564468781192-f023d514222d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-  ];
+  //const imagenesOrdenadas = [...producto.imagenes].sort((a,b) => a.idImagen - b.idImagen) 
+  
+  //console.log([...(dataState.producto).imagenes]);
+
+  // const images = [
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_041-304a2ebf0f06670f1b16903373804733-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_071-87ed1ac2935fa5da4b16903373805560-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_051-aa7e5a2891fb73660e16903373802933-640-0.webp",
+  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_061-6adf07e0e97da7cf3316903373804049-640-0.webp",
+  // ];
+
+  // const imagesGallery = [
+  //   "https://images.unsplash.com/photo-1602810316693-3667c854239a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+  //   "https://images.unsplash.com/photo-1602810319250-a663f0af2f75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+  //   "https://images.unsplash.com/flagged/photo-1564468781192-f023d514222d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+  //   "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+  // ];
 
 
   //LLAMADA API TALLES
@@ -112,11 +133,11 @@ const Detail = () => {
   // const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
   const caracteristicas = [
-    dataState.producto.color,
-    dataState.producto.tela,
-    dataState.producto.genero,
-    dataState.producto.temporada,
-    dataState.producto.corte,
+    (dataState.producto.color).toUpperCase(),
+    (dataState.producto.tela).toUpperCase(),
+    (dataState.producto.genero).toUpperCase(),
+    (dataState.producto.temporada).toUpperCase(),
+    (dataState.producto.corte).toUpperCase(),
   ];
 
   const iconoCaracteristicas = [
@@ -144,17 +165,22 @@ const Detail = () => {
     {/* CAROUSEL MOBILE */}
       <Carousel
         className={"d-" + carouselVisible}
-        style={{ width: "80%" }}
+        style={{ width: "80%"}}
         data-bs-theme="dark"
       >
         {/* {images.map((image, index) => (
           <Carousel.Item key={index}>
             <img src={image} style={{ width: "100%", height: "auto" }} />
           </Carousel.Item>
-        ))} */}
+        ))}  */}
         {imagenesOrdenadas.map((image, index) => (
           <Carousel.Item key={index}>
-            <img src={image} style={{ width: "100%", height: "auto" }} />
+            <img src={image.urlImagen} style={{ width: "100%", height: "auto" }} />
+            <Carousel.Caption >
+              <p style={{width: "20%",color: "white", backgroundColor: "#E3B04B", fontSize: "0.8rem"}}>
+                {index+1}/{imagenesOrdenadas.length}
+              </p>
+            </Carousel.Caption>
           </Carousel.Item>
         ))}
       </Carousel>
@@ -168,12 +194,19 @@ const Detail = () => {
             <img src={selectedImage} />
           </div> */}
 
+        
         <div className={styles.leftContainer}>
           {/* <img
             src="https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_011-482f8f219a675f850916903373802103-640-0.webp"
             alt=""
           /> */}
-          <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} />
+          {imagenesOrdenadas.length ? 
+            <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} />
+            
+            :
+            <Skeleton variant="rectangular" width={210} height={60} />}
+          {/* <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} /> */}
+          
         </div>
 
         <div className={styles.rightContainer}>
@@ -191,7 +224,7 @@ const Detail = () => {
                 //   }}
               />
             ))} */}
-            {imagenesOrdenadas.map((image, index) => (
+            {imagenesOrdenadas.slice(1, imagenesOrdenadas.length).map((image, index) => (
               <img
                 key={index}
                 src={image.urlImagen}
@@ -256,8 +289,10 @@ const Detail = () => {
                   ))}
                 </ImageList>
               </Box> */}
+
+
               <Box sx={{ width: "auto", height: "auto", overflowY: "scroll" }}>
-                <ImageList variant="masonry" cols={4} gap={8}>
+                <ImageList variant="masonry" cols={5} gap={8}>
                   {imagenesOrdenadas.map((image, index) => (
                     <ImageListItem key={index}>
                       <img src={image.urlImagen} srcSet={image.urlImagen} />
@@ -336,7 +371,7 @@ const Detail = () => {
               
           <div className={styles.talles}>
             {talles.map((talle, index) => (
-              <button key={index}>{talle}</button>
+              <button className={styles.talleButton} key={index}>{talle}</button>
             ))}
           </div>
             
@@ -346,7 +381,7 @@ const Detail = () => {
                   <input type="date" />
             </form>
             
-            <button>reservar</button>
+            <button className={styles.reservaButton}>reservar</button>
           </div>
         </div>
       </div>

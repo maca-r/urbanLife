@@ -79,15 +79,19 @@ export function AddImages() {
         style={{backgroundColor:"#EFEEEE"}}
       />
 
-      {previewImages.map((image, index) => (
-        <div key={index}>
-          <img
-            src={image}
-            alt={`Previsualización de la imagen ${index + 1}`}
-            style={{ maxWidth: "100px" }}
-          />
-        </div>
-      ))}
+      <div style={{width: "50%", display: "flex",
+          justifyContent: "space-between", margin: "1%"}}>
+            {previewImages.map((image, index) => (
+              <div key={index} style={{ borderRadius: "3px"}}>
+                <img
+                  src={image}
+                  alt={`Previsualización de la imagen ${index + 1}`}
+                  style={{maxWidth: "100px", borderRadius: "3px", boxShadow: "1px 9px 17px -7px rgba(43,43,40,0.61)"}
+                  }
+                />
+              </div>
+            ))}
+      </div>
 
       <select
         value={selectedProduct}

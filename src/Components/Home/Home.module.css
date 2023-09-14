@@ -14,9 +14,10 @@ div .body{
     border: 0.5px solid #2B2B28;
 } */
 
-form{
+.formBusqueda{
     width: 90%;
     display: flex;
+    
     justify-content: space-evenly;
     align-items: center;
     border: none;
@@ -220,5 +221,20 @@ form .inputSearch input{
         
     }
 
-    
+    .formBusqueda{
+        width: 90%;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 2%;
+    }
+
+
+    .formBusqueda .inputSearch{
+        width: 45%;
+        margin-bottom: 2%;
+    }
+    .formBusqueda .calendario{
+        margin: 2%;
+    }
 }

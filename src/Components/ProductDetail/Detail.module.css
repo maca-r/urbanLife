@@ -77,16 +77,16 @@
   margin-bottom: 60px;
 }
 
-.talles button {
+.talles .talleButton {
   font-size: 0.7rem;
   border-radius: 0;
   background-color: #f8f8f8;
   color: #2b2b28;
   border: none;
-  padding: 2%;
+  
 }
 
-.talles button:focus {
+.talles .talleButton:focus {
   background-color: #e3b04b;
   
 }
@@ -113,14 +113,15 @@
   margin: 0;
 }
 
-.reserva button{
+.reservaButton{
     border: none;
     background-color: #E3B04B;
     text-transform: uppercase;
-    padding: 1% 7%;
+    padding: 2% 7%;
     font-size: 0.8rem;
     border-radius: 50px;
-    
+    margin: 0;
+    margin-left: 10%
 }
 
 /* .precioReserva {
@@ -240,14 +241,13 @@ li {
   .leftContainer {
     width: 50%;
     display: flex;
-    
     justify-content: center;
     margin-right: 10%;
     
   }
 
   .leftContainer img {
-    max-width: 100%;
+    max-width: 70%;
     height: min-content;
     
   }
@@ -278,11 +278,12 @@ li {
   
 
   .rightContainer img {
-    max-width: 100%;
+    max-width: 60%;
     height: auto
   }
 
   .verMas {
+    font-size: 0.7rem;
     background-color:#E3B04B;
     border-radius: 0;
     text-transform: uppercase;
@@ -290,7 +291,7 @@ li {
     display: block;
     position: relative;
     bottom: 9%;
-    left: 80%;
+    left: 70%;
     width: fit-content;
   }
 
@@ -335,6 +336,21 @@ li {
     margin-bottom: 40px;
     width: 90%;
     height: 40px;
+    
+  }
+
+  .talles .talleButton {
+    font-size: 0.7rem;
+    border-radius: 0;
+    background-color: #f8f8f8;
+    color: #2b2b28;
+    border: none;
+    padding: 2%;
+    margin: 1%;
+  }
+  
+  .talles .talleButton:focus {
+    background-color: #e3b04b;
     
   }
 
