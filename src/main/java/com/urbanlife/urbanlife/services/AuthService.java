@@ -1,6 +1,7 @@
 package com.urbanlife.urbanlife.services;
 
 import com.urbanlife.urbanlife.models.request.LoginRequest;
+import com.urbanlife.urbanlife.models.request.RegisterAdminRequest;
 import com.urbanlife.urbanlife.models.request.RegisterRequest;
 import com.urbanlife.urbanlife.models.response.AuthResponse;
 import com.urbanlife.urbanlife.models.usuario.RolUser;
@@ -42,6 +43,20 @@ public class AuthService {
                 .apellido(request.getApellido())
                 .telefono(request.getTelefono())
                 .role(RolUser.CLIENTE)
+                .build();
+        userRepository.save(user);
+        return AuthResponse.builder()
+                .token(jwtService.getToken(user))
+                .build();
+    }
+    public AuthResponse registerAdmin(RegisterAdminRequest request) {
+        Usuario user = Usuario.builder()
+                .username(request.getCorreo())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .nombre(request.getNombre())
+                .apellido(request.getApellido())
+                .telefono(request.getTelefono())
+                .role(request.getRole())
                 .build();
         userRepository.save(user);
         return AuthResponse.builder()
