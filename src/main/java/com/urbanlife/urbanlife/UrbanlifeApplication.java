@@ -27,6 +27,7 @@ public class UrbanlifeApplication {
 					.apellido("Admin")
 					.correo("admin@mail.com")
 					.password("password")
+					.telefono(12322313)
 					.role(ADMIN)
 					.build();
 			System.out.println("Admin token: " + service.registerAdmin(admin).getAccessToken());

@@ -15,5 +15,6 @@ public class RegisterAdminRequest {
     private String nombre;
     private String apellido;
     private String password;
+    private Integer telefono;
     private RolUser role;
 }
