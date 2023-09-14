@@ -21,7 +21,6 @@ build:
       alias: docker
   before_script:
     - docker rmi -f $DOCKER_NAME || true
-
     - docker stop $DOCKER_SPRING || true
 
     - docker rm -f $DOCKER_SPRING || true
