@@ -1,7 +1,7 @@
 image: docker:stable
 
 variables:
-  DOCKER_NAME: "equipo-05-urbanlife"
+  DOCKER_NAME: "equipo-05_urbanlife"
   DOCKER_SPRING: "equipo-05-urbanlife-1"
   DOCKER_DB: "equipo-05-db-1"
 
@@ -33,7 +33,7 @@ build:
       curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
   script:
-    - docker-compose up --no-start
+    - docker-compose up -d --build
 
 deploy:
   stage: deploy
@@ -45,7 +45,7 @@ deploy:
     - name: docker:dind
       alias: docker
   script:
-
+    - docker start $DOCKER_DB
     - sleep 5
     - docker start $DOCKER_SPRING
 
