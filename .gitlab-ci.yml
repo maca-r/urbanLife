@@ -1,7 +1,7 @@
 image: docker:stable
 
 variables:
-  DOCKER_NAME: "equipo-05_urbanlife"
+  DOCKER_NAME: "equipo-05-urbanlife"
   DOCKER_SPRING: "equipo-05-urbanlife-1"
   DOCKER_DB: "equipo-05-db-1"
 
@@ -59,8 +59,6 @@ test:
     - name: docker:dind
       alias: docker
   script:
-    - docker start $DOCKER_SPRING
-    - spleep 10
     - docker images $DOCKER_NAME
     - docker ps | grep $DOCKER_DB
     - docker ps | grep $DOCKER_SPRING
