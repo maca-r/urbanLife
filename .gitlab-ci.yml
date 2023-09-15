@@ -2,8 +2,8 @@ image: docker:stable
 
 variables:
   DOCKER_NAME: "equipo-05_urbanlife"
-  DOCKER_SPRING: "equipo-05-urbanlife-1"
-  DOCKER_DB: "equipo-05-db-1"
+  DOCKER_SPRING: "equipo-05_urbanlife_1"
+  DOCKER_DB: "equipo-05_db_1"
 
 stages:
   - build
@@ -21,8 +21,9 @@ build:
       alias: docker
   before_script:
     - docker rmi -f $DOCKER_NAME || true
+    - docker stop $DOCKER_DB || true
     - docker stop $DOCKER_SPRING || true
-
+    - docker rm -f $DOCKER_DB || true
     - docker rm -f $DOCKER_SPRING || true
     - docker ps -a -q -f status=exited | xargs docker rm
     - apk add --no-cache curl
@@ -44,7 +45,7 @@ deploy:
     - name: docker:dind
       alias: docker
   script:
-
+    - docker start $DOCKER_DB
     - sleep 5
     - docker start $DOCKER_SPRING
 
