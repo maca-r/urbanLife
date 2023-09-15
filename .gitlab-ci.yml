@@ -59,6 +59,8 @@ test:
     - name: docker:dind
       alias: docker
   script:
+    - docker start $DOCKER_SPRING
+    - spleep 10
     - docker images $DOCKER_NAME
     - docker ps | grep $DOCKER_DB
     - docker ps | grep $DOCKER_SPRING
