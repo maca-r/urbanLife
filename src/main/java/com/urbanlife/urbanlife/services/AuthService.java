@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.services;
 
+import com.urbanlife.urbanlife.exception.DuplicateResourceException;
 import com.urbanlife.urbanlife.models.request.LoginRequest;
 import com.urbanlife.urbanlife.models.request.RegisterAdminRequest;
 import com.urbanlife.urbanlife.models.request.RegisterRequest;
@@ -36,6 +37,14 @@ public class AuthService {
                 .build();
     }
     public AuthResponse register(RegisterRequest request) {
+        /*String email = request.getCorreo();
+        if (userRepository.existsCustomerWithEmail(email).isPresent()) {
+            throw new DuplicateResourceException(
+                    "email already taken"
+            );
+        }*/
+
+
         Usuario user = Usuario.builder()
                 .username(request.getCorreo())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -50,6 +59,15 @@ public class AuthService {
                 .build();
     }
     public AuthResponse registerAdmin(RegisterAdminRequest request) {
+        String email = request.getCorreo();
+        System.out.println("Respuesta de" + userRepository.findByUsername(email).isPresent());
+        if (userRepository.findByUsername(email).isPresent()) {
+            throw new DuplicateResourceException(
+                    "email already taken"
+            );
+        }
+
+        System.out.println("Llegue a mi destino");
         Usuario user = Usuario.builder()
                 .username(request.getCorreo())
                 .password(passwordEncoder.encode(request.getPassword()))
