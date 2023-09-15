@@ -37,7 +37,7 @@ public class UrbanlifeApplication {
 				var admin = RegisterAdminRequest.builder()
 						.nombre("Admin")
 						.apellido("Admin")
-						.correo("admin2@mail.com")
+						.correo("admin@mail.com")
 						.password("password")
 						.telefono(12322313)
 						.role(ADMIN)
