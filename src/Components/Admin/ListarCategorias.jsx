@@ -12,7 +12,7 @@ export function ListarCategorias() {
 
   useEffect(() => {
     axios
-      .get("http://10.0.1.104/categorias/listarcategorias-all")
+      .get("http://34.229.181.144/categorias/listarcategorias-all")
       .then((response) => {
         const categoriasNoEliminadas = response.data.filter(
           (categoria) => categoria.eliminarCategoria === false
@@ -28,7 +28,7 @@ export function ListarCategorias() {
 
   const eliminarCategoria = (id) => {
     axios
-      .delete(`http://localhost:80/categorias/${id}/eliminar`)
+      .delete(`http://34.229.181.144/categorias/${id}/eliminar`)
       .then(() => {
         const updatedCategorias = categorias.filter(
           (categoria) => categoria.idCategoria !== id
@@ -72,7 +72,7 @@ export function ListarCategorias() {
                 <td>{categoria.descripcion}</td>
                 <td>
                   <img
-                    src={`http://localhost:80/categorias/${categoria.idCategoria}/categoria-image`}
+                    src={`http://34.229.181.144/categorias/${categoria.idCategoria}/categoria-image`}
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
                   />
