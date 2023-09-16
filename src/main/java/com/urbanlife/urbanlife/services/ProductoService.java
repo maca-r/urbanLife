@@ -1,14 +1,17 @@
 package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.urbanlife.urbanlife.exception.DuplicateResourceException;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
+import com.urbanlife.urbanlife.models.Medidas;
 import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.models.request.BusquedaRequest;
 import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
+import com.urbanlife.urbanlife.models.request.ProductoRequest;
 import com.urbanlife.urbanlife.models.update.ProductoUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
@@ -16,12 +19,15 @@ import com.urbanlife.urbanlife.s3.S3Buckets;
 import com.urbanlife.urbanlife.s3.S3Service;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,33 +53,46 @@ public class ProductoService implements IProductoService {
     private void checkIfProductoExistsOrThrow(Integer id) {
         if (!existsCustomerById(id)) {
             throw new ResourceNotFoundException(
-                    "La categoria con el id [%s] NO EXISTE".formatted(id)
+                    "El producto con el id [%s] NO EXISTE".formatted(id)
             );
         }
     }
-    @Override
-    public void crearProducto(ProductosDto productosDto) {
-        if (productosDto != null) {
-            guardarProducto(productosDto);
-            logger.info("Paciente: Se registro exitosamente!");
+    public void registrarProducto(ProductoRequest request) {
+        Collection<ProductoDto> listaProductos = listaProductosAll();
+        if (request != null ) {
+            for (ProductoDto producto : listaProductos) {
+                if (request.getNombre().equals(producto.getNombre())) {
+                    logger.error("Este Producto ya existe!");
+                    throw new DuplicateResourceException(
+                            "Este Producto ya existe!"
+                    );
+                }
+            }
+            guardarProductoCompleto(request);
         }else { logger.error("Surgio un problema");}
     }
-
-    private void guardarProducto(ProductosDto productosDto){
-        Productos newProducto = objectMapper.convertValue(productosDto, Productos.class);
-        productoRepository.save(newProducto);
+    private void guardarProductoCompleto (ProductoRequest request) {
+        var producto = Productos.builder()
+                .nombre(request.getNombre())
+                .precio(request.getPrecio())
+                .detalle(request.getDetalle())
+                .color(request.getColor())
+                .fechaActual(LocalDate.now())
+                .eliminarProducto(false)
+                .puntuacion(0.0)
+                .categorias(request.getCategorias())
+                .build();
+        productoRepository.save(producto);
+        checkIfProductoExistsOrThrow(producto.getIdProducto());
+        Collection<Medidas> listaMedidasRequest = request.getTalles();
+        for (Medidas talle : listaMedidasRequest) {
+            productoRepository.registrarTalleConProducto(
+                    10,
+                    talle.getIdMedida(),
+                    producto.getIdProducto()
+            );
+        }
     }
-    /*
-    private void guardarProductoRequest(ProductoUpdateRequest request) {
-        Productos productos = objectMapper.convertValue(request, Productos.class);
-        System.out.println("BBBBBBBBBBB" + productos.getGenero());
-        System.out.println("AAAAAAAAAAAAA" + productos.getCategorias());
-        productoRepository.save(productos);
-    }
-    public Categorias getCategorias(Integer id) {
-        Optional<Categorias> found = categoriaRepository.findById(id);
-        return objectMapper.convertValue(found.get(), Categorias.class);
-    }*/
     @Override
     public void uploadProductImagen(Integer idProduct,
                                            MultipartFile file) {
@@ -144,8 +163,6 @@ public class ProductoService implements IProductoService {
             existingProducto.setPrecio(productosDto.getPrecio());
             existingProducto.setDetalle(productosDto.getDetalle());
             existingProducto.setColor(productosDto.getColor());
-            existingProducto.setTela(productosDto.getTela());
-            existingProducto.setGenero(productosDto.getGenero());
             existingProducto.setCategorias(productosDto.getCategorias());
 
             productoRepository.save(existingProducto);
@@ -158,16 +175,6 @@ public class ProductoService implements IProductoService {
     @Override
     public void eliminarProducto(Integer id) {
         productoRepository.setEstadoEliminar(id, true);
-    }
-    public void guardarListaMedidas(Collection<ProductoMedidasRequest> request, Integer id) {
-        checkIfProductoExistsOrThrow(id);
-        for (ProductoMedidasRequest producto : request) {
-            productoRepository.registrarTalleConProducto(
-                    10,
-                    producto.getIdMedida(),
-                    id
-            );
-        }
     }
     public Collection<ProductoDto> busquedaDelProducto(BusquedaRequest productoRequest) {
 

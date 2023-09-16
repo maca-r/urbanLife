@@ -4,6 +4,7 @@ import com.urbanlife.urbanlife.models.Dto.ProductoDto;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.ProductosDto;
 import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
+import com.urbanlife.urbanlife.models.request.ProductoRequest;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,10 @@ import java.util.Collection;
 public class ProductoController {
     @Autowired
     IProductoService productoService;
+
     @PostMapping("/registrar")
-    public ResponseEntity<?> RegistrarTalle(@RequestBody ProductosDto productosDto){
-        Collection<ProductoDto> listaProductos = productoService.listaProductosAll();
-        for (ProductoDto producto : listaProductos) {
-            if (productosDto.getNombre().equals(producto.getNombre())) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Este Producto ya existe!");
-            }
-        }
-        productoService.crearProducto(productosDto);
+    public ResponseEntity<?> RegistrarProductoCompleto(@RequestBody ProductoRequest request){
+        productoService.registrarProducto(request);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Producto Creado");
     }
     @PostMapping(
@@ -68,12 +64,6 @@ public class ProductoController {
         productoService.eliminarProducto(id);
         response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
-    }
-    @PostMapping("{id}/registrartalles")
-    public ResponseEntity<?> registrartalles (@PathVariable("id") Integer id,
-                                              @RequestBody Collection<ProductoMedidasRequest> request) {
-        productoService.guardarListaMedidas(request,id);
-        return ResponseEntity.status(HttpStatus.OK).body("Registro Completo");
     }
 
 }

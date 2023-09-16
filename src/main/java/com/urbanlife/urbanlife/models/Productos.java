@@ -2,10 +2,7 @@ package com.urbanlife.urbanlife.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Entity
 @Data
 @AllArgsConstructor
+@Builder
 public class Productos {
     @Id
     @SequenceGenerator(name="productos_sequence", sequenceName = "productos_sequence", allocationSize = 1)
@@ -25,8 +23,6 @@ public class Productos {
     private double precio;
     private String detalle;
     private String color;
-    private String tela;
-    private String genero;
     private LocalDate fechaActual;
     private Boolean eliminarProducto;
     private double puntuacion;
