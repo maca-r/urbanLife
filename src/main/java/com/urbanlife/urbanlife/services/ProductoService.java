@@ -157,17 +157,17 @@ public class ProductoService implements IProductoService {
                 "El producton con el id [%s] NO EXISTE".formatted(id)));
 
         boolean changes = false;
-
         if (updateRequest.getNombre() != null &&
                 !updateRequest.getNombre().equals(producto.get().getNombre())) {
             //producto.get().setNombre(updateRequest.getNombre());
-            productoRepository.setNombre(
+            productoRepository.cambiarNombre(
                     producto.get().getIdProducto(),
                     updateRequest.getNombre()
             );
             logger.info("Producto nombre: Se actualizó exitosamente!");
             changes = true;
         }
+
         if (updateRequest.getPrecio() != null && updateRequest.getPrecio() != producto.get().getPrecio()) {
             //producto.get().setPrecio(updateRequest.getPrecio());
             productoRepository.setPrecio(
@@ -199,6 +199,7 @@ public class ProductoService implements IProductoService {
             logger.info("Producto- Color: Se actualizó exitosamente!");
             changes = true;
         }
+
         if (
                 updateRequest.getCategorias() != null &&
                 updateRequest.getCategorias().getIdCategoria() !=

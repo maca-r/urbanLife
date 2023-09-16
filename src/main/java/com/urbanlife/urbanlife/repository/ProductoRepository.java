@@ -3,8 +3,10 @@ package com.urbanlife.urbanlife.repository;
 import com.urbanlife.urbanlife.models.Dto.ProductoTestDto;
 import com.urbanlife.urbanlife.models.Productos;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 @Repository
 @Transactional
-public interface ProductoRepository extends CrudRepository<Productos, Integer> {
+public interface ProductoRepository extends JpaRepository<Productos, Integer> {
 
     @Modifying
     @Query(value = "SELECT * FROM urbanlife.productos WHERE eliminar_producto <> 1 ORDER BY RAND() LIMIT 10", nativeQuery = true)
@@ -38,32 +40,41 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
     @Query(value = """
             UPDATE productos
             SET nombre = :nombre
-            WHERE id_producto = :id\s""")
-    void setNombre(@Param("id") Integer id, @Param("color") String nombre);
+            WHERE id_producto = :id
+            """, nativeQuery = true)
+    void cambiarNombre(@Param("id") Integer id, @Param("nombre") String nombre);
+
+
     @Modifying
     @Query(value = """
             UPDATE productos
             SET precio = :precio
-            WHERE id_producto = :id\s""")
+            WHERE id_producto = :id;
+            """, nativeQuery = true)
     void setPrecio(@Param("id") Integer id, @Param("precio") Double precio);
+
     @Modifying
     @Query(value = """
             UPDATE productos
             SET color = :color
-            WHERE id_producto = :id\s""")
+            WHERE id_producto = :id;
+            """, nativeQuery = true)
     void setColor(@Param("id") Integer id, @Param("color") String color);
     @Modifying
     @Query(value = """
             UPDATE productos
             SET detalle = :detalle
-            WHERE id_producto = :id\s""")
+            WHERE id_producto = :id;
+            """, nativeQuery = true)
     void setDetalle(@Param("id") Integer id, @Param("detalle") String detalle);
+
     @Modifying
     @Query(value = """
             UPDATE productos
-            SET id_categoria = :idCategoria
-            WHERE id_producto = :id\s""")
-    void setCategoria(@Param("id") Integer id, @Param("categoria") Integer idCategoria);
+            SET id_categoria = :categoria
+            WHERE id_producto = :id;
+            """,nativeQuery = true)
+    void setCategoria(@Param("id") Integer id, @Param("categoria") Integer categoria);
 
     //Investigar ERROR
     @Modifying
