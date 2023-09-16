@@ -124,10 +124,11 @@ export function ListarCategorias() {
     setShowConfirmModal(true);
   };
 
-  const imagenCategoria =  privateUrl != "" ? 
-  `${privateUrl}:80/categorias/${params.id}/categoria-image` :
-  `${publicUrl}:80/categorias/${params.id}/categoria-image`
+  // const imagenCategoria =  privateUrl != "" ? 
+  // `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image` :
+  // `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
 
+  
 
 
   return (
@@ -160,8 +161,14 @@ export function ListarCategorias() {
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
                   /> */}
+                  
                   <img
-                    src={imagenCategoria}
+                    src={
+                      privateUrl != "" ?
+                      `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image` :
+                      `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
+                    }
+                    //src={imagenCategoria}
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
                   />
