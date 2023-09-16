@@ -148,6 +148,11 @@ const Home = () => {
   //     },
   // ]
 
+   
+  
+    const [productosAleatorios, setProductosAleatorios] = useState([]);
+  //console.log(urlProductosAleatorios);
+
   const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
   
@@ -156,9 +161,6 @@ const Home = () => {
     privateUrl != "" ? 
     `"http://${privateUrl}:80/productos/listaproductos-aleatorio"` :
     `"http://${publicUrl}:80/productos/listaproductos-aleatorio"`;
-  
-    const [productosAleatorios, setProductosAleatorios] = useState([]);
-  //console.log(urlProductosAleatorios);
 
   useEffect(() => {
     try {

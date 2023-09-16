@@ -180,7 +180,7 @@ const Navbar = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu >
-            <Dropdown.Item >
+            <Dropdown.Item id="itemMenu">
             <button className={styles.logOut} onClick={favoritos}>
               Favoritos
             </button>
