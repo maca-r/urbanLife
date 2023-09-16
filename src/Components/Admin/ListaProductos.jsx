@@ -15,15 +15,13 @@ export function ListaProductos() {
   const [productoToDelete, setProductoToDelete] = useState(null);
   const [noProductosMessage, setNoProductosMessage] = useState("");
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
-
-  const urlListarProductos = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/productos/listaproductos-all` :
-    `${publicUrl}:80/productos/listaproductos-all`;
+  const urlListarProductos =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/listaproductos-all`
+      : `${publicUrl}:80/productos/listaproductos-all`;
 
   useEffect(() => {
     fetchProductos();
@@ -48,9 +46,7 @@ export function ListaProductos() {
 
   async function fetchProductos() {
     try {
-      const response = await axios.get(
-        urlListarProductos
-      );
+      const response = await axios.get(urlListarProductos);
       setProducto(response.data);
 
       if (response.data.length === 0) {
@@ -63,12 +59,12 @@ export function ListaProductos() {
     }
   }
 
-  const params = useParams()
+  const params = useParams();
 
-  const urlListarProductosId = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/productos/obtener/${params.id}` :
-    `${publicUrl}:80/productos/obtener/${params.id}`;
+  const urlListarProductosId =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/obtener/${params.id}`
+      : `${publicUrl}:80/productos/obtener/${params.id}`;
 
   // async function fetchProductoPorId(id) {
   //   try {
@@ -85,9 +81,7 @@ export function ListaProductos() {
 
   async function fetchProductoPorId() {
     try {
-      const response = await axios.get(
-        urlListarProductosId
-      );
+      const response = await axios.get(urlListarProductosId);
       setProductoId(response.data);
       fetchImagenesProducto(params.id);
       fetchTallesProducto(params.id);
@@ -96,11 +90,10 @@ export function ListaProductos() {
     }
   }
 
-  const urlImagenesId = 
-  privateUrl != "" ? 
-  `${privateUrl}:80/imagenes/obtener/${params.id}` :
-  `${publicUrl}:80/imagenes/obtener/${params.id}`;
-
+  const urlImagenesId =
+    privateUrl != ""
+      ? `${privateUrl}:80/imagenes/obtener/${params.id}`
+      : `${publicUrl}:80/imagenes/obtener/${params.id}`;
 
   // async function fetchImagenesProducto(id) {
   //   try {
@@ -118,9 +111,7 @@ export function ListaProductos() {
 
   async function fetchImagenesProducto() {
     try {
-      const response = await axios.get(
-        urlImagenesId
-      );
+      const response = await axios.get(urlImagenesId);
       setProductoImagenes(response.data);
     } catch (error) {
       console.error(
@@ -130,10 +121,10 @@ export function ListaProductos() {
     }
   }
 
-  const urlTallesId = 
-  privateUrl != "" ? 
-  `${privateUrl}:80/talles/listatalles-producto/${params.id}` :
-  `${publicUrl}:80/talles/listatalles-producto/${params.id}`;
+  const urlTallesId =
+    privateUrl != ""
+      ? `${privateUrl}:80/talles/listatalles-producto/${params.id}`
+      : `${publicUrl}:80/talles/listatalles-producto/${params.id}`;
 
   // async function fetchTallesProducto(id) {
   //   try {
@@ -151,9 +142,7 @@ export function ListaProductos() {
 
   async function fetchTallesProducto() {
     try {
-      const response = await axios.get(
-        urlTallesId
-      );
+      const response = await axios.get(urlTallesId);
       setProductoTalles(response.data);
     } catch (error) {
       console.error(
@@ -168,10 +157,10 @@ export function ListaProductos() {
     setShowDeleteModal(true);
   }
 
-  const urlEliminarProducto = 
-  privateUrl != "" ? 
-  `${privateUrl}:80/productos/eliminar/${params.id}` :
-  `${publicUrl}:80/productos/eliminar/${params.id}`;
+  const urlEliminarProducto =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/eliminar/${params.id}`
+      : `${publicUrl}:80/productos/eliminar/${params.id}`;
 
   // async function eliminarProducto(productoId) {
   //   try {
@@ -190,9 +179,7 @@ export function ListaProductos() {
 
   async function eliminarProducto() {
     try {
-      await axios.delete(
-        urlEliminarProducto
-      );
+      await axios.delete(urlEliminarProducto);
       const actProducto = producto.filter(
         (producto) => producto.idProducto !== productoId
       );
@@ -205,7 +192,7 @@ export function ListaProductos() {
 
   return (
     <section>
-      <div style={{margin:"2%"}}>
+      <div style={{ margin: "2%" }}>
         <h3>Listado de Productos</h3>
         {noProductosMessage && <p>{noProductosMessage}</p>}
         {producto.length > 0 && (

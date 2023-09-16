@@ -8,14 +8,13 @@ import { Toaster } from "sonner";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   //React.StrictMode>
-    
-      <BrowserRouter>
-        <ContextProvider>
-          <Toaster richColors/>
-          <App />
-        </ContextProvider>
-      </BrowserRouter>
-    
-    
+
+  <BrowserRouter>
+    <ContextProvider>
+      <Toaster richColors />
+      <App />
+    </ContextProvider>
+  </BrowserRouter>
+
   //</React.StrictMode>
 );

@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const [mobileMenu, setMobileMenu] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   function handleResize() {
     if (window.innerWidth >= 780) {
@@ -46,17 +46,15 @@ const Navbar = () => {
     }
   }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const favoritos = () => {
     navigate("/favs");
-  }
+  };
 
   const logout = () => {
     setShowLogoutModal(true); // Mostrar el modal al hacer clic en "Cerrar sesión"
   };
-
-  
 
   const confirmLogout = () => {
     localStorage.removeItem("user");
@@ -78,7 +76,6 @@ const Navbar = () => {
   const renderProfileImageOrLoading = () => {
     if (userData.nombre !== "" && inicialesUserData !== "") {
       return <div className={styles.profileImage}>{inicialesUserData} </div>;
-      
     } else if (user.email !== "" && inicialesUSER !== "") {
       return <div className={styles.profileImage}>{inicialesUSER}</div>;
     } else {
@@ -88,7 +85,6 @@ const Navbar = () => {
 
   return (
     <nav>
-
       <Link to={routes.home} className={styles.logoLink}>
         <div className={styles.logo}>
           <img
@@ -98,105 +94,120 @@ const Navbar = () => {
           />
           <h6>Vivi tu estilo</h6>
         </div>
-        
       </Link>
 
       {/* <h6>Donde el diseño encuentra a todos</h6> */}
-      
 
-      {mobileMenu === false ? 
-
-      <div className={styles.rutas}>
-        {userData.length == 0 || !localStorage.getItem("user") ? (
-          <>
-            <Link to={routes.registro} className={styles.crearCuenta}>
-              Crear cuenta
-            </Link>
-            <Link to={routes.login} className={styles.iniciarSesion}>
-              Iniciar sesión
-            </Link>
-          </>
-        ) : (
-          <div className={styles.cerrarSesionBOX}>
-            {renderProfileImageOrLoading()}
-            <Dropdown>
-                <Dropdown.Toggle style={{backgroundColor:"#E3CE8D", color:"#2B2B28", border: "none", fontSize: "0.8rem", fontWeight: "bold"}}>
+      {mobileMenu === false ? (
+        <div className={styles.rutas}>
+          {userData.length == 0 || !localStorage.getItem("user") ? (
+            <>
+              <Link to={routes.registro} className={styles.crearCuenta}>
+                Crear cuenta
+              </Link>
+              <Link to={routes.login} className={styles.iniciarSesion}>
+                Iniciar sesión
+              </Link>
+            </>
+          ) : (
+            <div className={styles.cerrarSesionBOX}>
+              {renderProfileImageOrLoading()}
+              <Dropdown>
+                <Dropdown.Toggle
+                  style={{
+                    backgroundColor: "#E3CE8D",
+                    color: "#2B2B28",
+                    border: "none",
+                    fontSize: "0.8rem",
+                    fontWeight: "bold",
+                  }}
+                >
                   Opciones
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   <Dropdown.Item>
-                  <button className={styles.logOut} onClick={favoritos}>
-                    Favoritos
-                  </button>
+                    <button className={styles.logOut} onClick={favoritos}>
+                      Favoritos
+                    </button>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                  <button className={styles.logOut} onClick={logout}>
-                    Cerrar sesión
-                  </button>
+                    <button className={styles.logOut} onClick={logout}>
+                      Cerrar sesión
+                    </button>
                   </Dropdown.Item>
                 </Dropdown.Menu>
-            
-            
+              </Dropdown>
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
+          {userData.length == 0 || !localStorage.getItem("user") ? (
+            <Dropdown>
+              <Dropdown.Toggle
+                style={{
+                  backgroundColor: "#E3CE8D",
+                  color: "#2B2B28",
+                  border: "none",
+                  fontSize: "0.8rem",
+                }}
+              >
+                Menu
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <Link to={routes.registro} style={{ color: "#2B2B28" }}>
+                    Crear cuenta
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to={routes.login} style={{ color: "#2B2B28" }}>
+                    Iniciar sesión
+                  </Link>
+                </Dropdown.Item>
+              </Dropdown.Menu>
             </Dropdown>
-          </div>
-        )}
-      </div>
-
-      :
-      <>
-      {userData.length == 0 || !localStorage.getItem("user") ? (
-      <Dropdown>
-      <Dropdown.Toggle style={{backgroundColor:"#E3CE8D", color:"#2B2B28", border: "none", fontSize: "0.8rem"}}>
-        Menu
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item >
-            <Link to={routes.registro} style={{color: "#2B2B28"}}>
-              Crear cuenta
-            </Link>
-        </Dropdown.Item>
-        <Dropdown.Item>
-            <Link to={routes.login} style={{color: "#2B2B28"}}>
-              Iniciar sesión
-            </Link>
-        </Dropdown.Item>
-        
-      </Dropdown.Menu>
-    </Dropdown>
-    ) : (
-      <div className={styles.cerrarSesionBOX}>
-        {renderProfileImageOrLoading()}
-        {/* <button className={styles.logOut} onClick={favoritos}>
+          ) : (
+            <div className={styles.cerrarSesionBOX}>
+              {renderProfileImageOrLoading()}
+              {/* <button className={styles.logOut} onClick={favoritos}>
           Favoritos
         </button>
         <button className={styles.logOut} onClick={logout}>
           Cerrar sesión
         </button> */}
-        <Dropdown >
-          <Dropdown.Toggle style={{backgroundColor:"#E3CE8D", color:"#2B2B28", border: "none", fontSize: "0.8rem", fontWeight: "bold"}}>
-            Opciones
-          </Dropdown.Toggle>
+              <Dropdown>
+                <Dropdown.Toggle
+                  style={{
+                    backgroundColor: "#E3CE8D",
+                    color: "#2B2B28",
+                    border: "none",
+                    fontSize: "0.8rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Opciones
+                </Dropdown.Toggle>
 
-          <Dropdown.Menu >
-            <Dropdown.Item id="itemMenu">
-            <button className={styles.logOut} onClick={favoritos}>
-              Favoritos
-            </button>
-            </Dropdown.Item>
-            <Dropdown.Item>
-            <button className={styles.logOut} onClick={logout}>
-              Cerrar sesión
-            </button>
-            </Dropdown.Item>
-            
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    )}
-    </>
-      }
+                <Dropdown.Menu>
+                  <Dropdown.Item id="itemMenu">
+                    <button className={styles.logOut} onClick={favoritos}>
+                      Favoritos
+                    </button>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <button className={styles.logOut} onClick={logout}>
+                      Cerrar sesión
+                    </button>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          )}
+        </>
+      )}
 
       <Modal show={showLogoutModal} onHide={() => setShowLogoutModal(false)}>
         <Modal.Header closeButton>
@@ -211,8 +222,6 @@ const Navbar = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      
     </nav>
   );
 };

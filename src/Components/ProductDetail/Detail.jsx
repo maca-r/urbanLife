@@ -14,16 +14,15 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import WcIcon from "@mui/icons-material/Wc";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
-import ContentCutIcon from '@mui/icons-material/ContentCut';
+import ContentCutIcon from "@mui/icons-material/ContentCut";
 import { useContextoGlobal } from "../GlobalContext";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
   const [carouselVisible, setCarouselVisible] = useState("none");
   // const [dimensions, setDimensions] = useState(window.innerWidth)
-  
 
   function handleResize() {
     if (window.innerWidth >= 780) {
@@ -51,54 +50,46 @@ const Detail = () => {
   // },[desktopMediaQuery])
 
   // console.log(desktopMediaQuery);
-  const {dataState,dataDispatch} = useContextoGlobal()
+  const { dataState, dataDispatch } = useContextoGlobal();
   const params = useParams();
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const urlDetalleProducto = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/productos/obtener/${params.id}` :
-    `${publicUrl}:80/productos/obtener/${params.id}`;
-
+  const urlDetalleProducto =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/obtener/${params.id}`
+      : `${publicUrl}:80/productos/obtener/${params.id}`;
 
   //const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
-  
-  
 
   useEffect(() => {
     try {
       axios.get(urlDetalleProducto).then((response) => {
         console.log(response.data);
         // setDetalle(response.data);
-        dataDispatch({type: "GET_A_PRODUCT", payload: response.data})
-        
+        dataDispatch({ type: "GET_A_PRODUCT", payload: response.data });
       });
     } catch (error) {
       console.error("error al obtener producto con id " + `${params.id}`);
     }
-
-    
   }, [urlDetalleProducto]);
 
-  //const imagenesOrdenadas = [...dataState.producto.imagenes].sort((a,b) => a.idImagen - b.idImagen) 
+  //const imagenesOrdenadas = [...dataState.producto.imagenes].sort((a,b) => a.idImagen - b.idImagen)
 
-  const imagenesOrdenadas = 
-    dataState.producto.imagenes
+  const imagenesOrdenadas = dataState.producto.imagenes
     ? [...dataState.producto.imagenes].sort((a, b) => a.idImagen - b.idImagen)
     : [];
 
   console.log(imagenesOrdenadas);
-  
+
   // const imagenes = dataState.producto.imagenes
   // if (imagenes.length > 0){
   //   console.log(imagenes.length);
   // }
 
-  //const imagenesOrdenadas = [...producto.imagenes].sort((a,b) => a.idImagen - b.idImagen) 
-  
+  //const imagenesOrdenadas = [...producto.imagenes].sort((a,b) => a.idImagen - b.idImagen)
+
   //console.log([...(dataState.producto).imagenes]);
 
   // const images = [
@@ -115,16 +106,15 @@ const Detail = () => {
   //   "https://images.unsplash.com/photo-1602810318660-d2c46b750f88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
   // ];
 
-
   //LLAMADA API TALLES
-  
+
   // const urlProductoTalle = `http://localhost:80/productomedida/listarproductomedida-all`;
 
   // useEffect(() => {
   //   try {
   //     axios.get(urlProductoTalle).then((response) => {
   //       console.log(response.data);
-        
+
   //     });
   //   } catch (error) {
   //     console.error("error al obtener detalles");
@@ -144,11 +134,11 @@ const Detail = () => {
   // const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
   const caracteristicas = [
-    (dataState.producto.color).toUpperCase(),
-    (dataState.producto.tela).toUpperCase(),
-    (dataState.producto.genero).toUpperCase(),
-    (dataState.producto.temporada).toUpperCase(),
-    (dataState.producto.corte).toUpperCase(),
+    dataState.producto.color.toUpperCase(),
+    dataState.producto.tela.toUpperCase(),
+    dataState.producto.genero.toUpperCase(),
+    dataState.producto.temporada.toUpperCase(),
+    dataState.producto.corte.toUpperCase(),
   ];
 
   const iconoCaracteristicas = [
@@ -159,12 +149,8 @@ const Detail = () => {
     <ContentCutIcon sx={{ color: "#E3B04B" }} />,
   ];
 
-
-  
-
   return (
     <div className={styles.detalleProducto}>
-      
       <div className={styles.tituloBackButton}>
         <h3>{dataState.producto.nombre}</h3>
 
@@ -173,10 +159,10 @@ const Detail = () => {
         </button>
       </div>
 
-    {/* CAROUSEL MOBILE */}
+      {/* CAROUSEL MOBILE */}
       <Carousel
         className={"d-" + carouselVisible}
-        style={{ width: "80%"}}
+        style={{ width: "80%" }}
         data-bs-theme="dark"
       >
         {/* {images.map((image, index) => (
@@ -186,18 +172,27 @@ const Detail = () => {
         ))}  */}
         {imagenesOrdenadas.map((image, index) => (
           <Carousel.Item key={index}>
-            <img src={image.urlImagen} style={{ width: "100%", height: "auto" }} />
-            <Carousel.Caption >
-              <p style={{width: "20%",color: "white", backgroundColor: "#E3B04B", fontSize: "0.8rem"}}>
-                {index+1}/{imagenesOrdenadas.length}
+            <img
+              src={image.urlImagen}
+              style={{ width: "100%", height: "auto" }}
+            />
+            <Carousel.Caption>
+              <p
+                style={{
+                  width: "20%",
+                  color: "white",
+                  backgroundColor: "#E3B04B",
+                  fontSize: "0.8rem",
+                }}
+              >
+                {index + 1}/{imagenesOrdenadas.length}
               </p>
             </Carousel.Caption>
           </Carousel.Item>
         ))}
       </Carousel>
 
-
-    {/* CONTAINERS DESKTOP */}
+      {/* CONTAINERS DESKTOP */}
 
       <div className={styles.containerImagenes}>
         {/* código para una img grande donde se vea la que se selecciona desde las img más chicas */}
@@ -205,19 +200,20 @@ const Detail = () => {
             <img src={selectedImage} />
           </div> */}
 
-        
         <div className={styles.leftContainer}>
           {/* <img
             src="https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_011-482f8f219a675f850916903373802103-640-0.webp"
             alt=""
           /> */}
-          {imagenesOrdenadas.length ? 
-            <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} />
-            
-            :
-            <Skeleton variant="rectangular" width={210} height={60} />}
+          {imagenesOrdenadas.length ? (
+            <img
+              src={imagenesOrdenadas[0].urlImagen}
+              alt={imagenesOrdenadas[0].urlImagen}
+            />
+          ) : (
+            <Skeleton variant="rectangular" width={210} height={60} />
+          )}
           {/* <img src={imagenesOrdenadas[0].urlImagen} alt={imagenesOrdenadas[0].urlImagen} /> */}
-          
         </div>
 
         <div className={styles.rightContainer}>
@@ -235,27 +231,30 @@ const Detail = () => {
                 //   }}
               />
             ))} */}
-            {imagenesOrdenadas.slice(1, imagenesOrdenadas.length).map((image, index) => (
-              <img
-                key={index}
-                src={image.urlImagen}
-                // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
-                // onClick={() => handleImageClick(index)}
+            {imagenesOrdenadas
+              .slice(1, imagenesOrdenadas.length)
+              .map((image, index) => (
+                <img
+                  key={index}
+                  src={image.urlImagen}
+                  // className={`${selectedImage === image ? 'selected' : ''}`} solo en el caso de que en la grande se vea la chiquita
+                  // onClick={() => handleImageClick(index)}
 
-                // style={{maxWidth: "auto",
-                //   height: "auto",
+                  // style={{maxWidth: "auto",
+                  //   height: "auto",
 
-                //   }}
-              />
-            ))}
+                  //   }}
+                />
+              ))}
           </div>
 
-          <Button variant="light" 
-                  className={styles.verMas} 
-                  onClick={() => setShow(true)}>
+          <Button
+            variant="light"
+            className={styles.verMas}
+            onClick={() => setShow(true)}
+          >
             Ver más
           </Button>
-
 
           {/* MODAL CON FOTOS BOTON VER MAS */}
 
@@ -301,7 +300,6 @@ const Detail = () => {
                 </ImageList>
               </Box> */}
 
-
               <Box sx={{ width: "auto", height: "auto", overflowY: "scroll" }}>
                 <ImageList variant="masonry" cols={5} gap={8}>
                   {imagenesOrdenadas.map((image, index) => (
@@ -327,7 +325,6 @@ const Detail = () => {
             </Modal.Body>
           </Modal>
 
-
           {/* DETALLE DEL PRODUCTO */}
           {/* <p>{detalle.detalle} </p>
 
@@ -350,11 +347,8 @@ const Detail = () => {
         </div>
       </div>
 
-
       <div className={styles.containerDetalles}>
-
         <div className={styles.detalleCaracteristicas}>
-
           <p>{dataState.producto.detalle} </p>
 
           <div className={styles.caracteristicasBox}>
@@ -370,34 +364,28 @@ const Detail = () => {
               ))}
             </div>
           </div>
-              
         </div>
-              
+
         <div className={styles.detalleReserva}>
-
-        
-
           <h5>${dataState.producto.precio}</h5>
-              
-              
+
           <div className={styles.talles}>
             {talles.map((talle, index) => (
-              <button className={styles.talleButton} key={index}>{talle}</button>
+              <button className={styles.talleButton} key={index}>
+                {talle}
+              </button>
             ))}
           </div>
-            
-            
+
           <div className={styles.reserva}>
             <form className={styles.calendar} action="">
-                  <input type="date" />
+              <input type="date" />
             </form>
-            
+
             <button className={styles.reservaButton}>reservar</button>
           </div>
         </div>
       </div>
-
-      
 
       {/* <span className={styles.tallesPrecioM}>
         <div className={styles.tallesCalendario}>
@@ -417,8 +405,6 @@ const Detail = () => {
           <button>RESERVAR</button>
         </div>
       </span> */}
-
-      
     </div>
   );
 };

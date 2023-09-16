@@ -11,18 +11,16 @@ export function EditarCategorias() {
   });
   const [statusMessage, setStatusMessage] = useState("");
 
-  const params = useParams()
-  
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
+  const params = useParams();
 
-  const urlCategoriaId = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/${params.id}` :
-    `${publicUrl}:80/categorias/${params.id}`;
-  
-  
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  const urlCategoriaId =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/${params.id}`
+      : `${publicUrl}:80/categorias/${params.id}`;
+
   useEffect(() => {
     fetchCategoriaPorId(idCategoria);
   }, [idCategoria]);
@@ -41,7 +39,10 @@ export function EditarCategorias() {
       const response = await axios.get(urlCategoriaId);
       setEditedCategoria(response.data);
     } catch (error) {
-      console.error(`Error al obtener la categoría con ID ${params.id}:`, error);
+      console.error(
+        `Error al obtener la categoría con ID ${params.id}:`,
+        error
+      );
     }
   };
 
@@ -61,17 +62,14 @@ export function EditarCategorias() {
   //   }
   // };
 
-  const urlActualizarCategoria =   
-  privateUrl != "" ? 
-  `${privateUrl}:80/categorias/${params.id}/actualizar` :
-  `${publicUrl}:80/categorias/${params.id}/actualizar`;
+  const urlActualizarCategoria =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/${params.id}/actualizar`
+      : `${publicUrl}:80/categorias/${params.id}/actualizar`;
 
   const handleEdit = async () => {
     try {
-      const response = await axios.put(
-        urlActualizarCategoria,
-        editedCategoria
-      );
+      const response = await axios.put(urlActualizarCategoria, editedCategoria);
 
       if (response.status === 200 || response.status === 202) {
         setStatusMessage("Cambios guardados exitosamente");

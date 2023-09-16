@@ -29,21 +29,16 @@ export function Caracteristicas() {
       </div>
 
       <div className={styles.showPanelSection}>
-      {panelSection == "" && (
-              <h4 style={{margin: "2%"}}>
-                Elija una acción del panel superior
-              </h4>
-      )}
-      {panelSection === "registrarCaracteristicas" && (
-        <RegistrarCaracteristicas />
-      )}
-      {panelSection === "listadoCaracteristicas" && <ListaCaracteristicas />}
+        {panelSection == "" && (
+          <h4 style={{ margin: "2%" }}>Elija una acción del panel superior</h4>
+        )}
+        {panelSection === "registrarCaracteristicas" && (
+          <RegistrarCaracteristicas />
+        )}
+        {panelSection === "listadoCaracteristicas" && <ListaCaracteristicas />}
       </div>
-      
 
       {/* {showTitle && <h4>Elija una acción del panel superior</h4>} */}
-
-      
     </section>
   );
 }
