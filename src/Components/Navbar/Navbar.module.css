@@ -136,7 +136,13 @@ nav .rutas a{
     border: none;
     width: 100%;
     padding: 0;
-    
+    margin:0;
+    background-color: #EFEEEE;
+    border-radius: 0;
+}
+
+.logOut:hover{
+    background-color: #E3CE8D;
 }
 
 @media (min-width: 780px){

@@ -174,13 +174,13 @@ const Navbar = () => {
         <button className={styles.logOut} onClick={logout}>
           Cerrar sesión
         </button> */}
-        <Dropdown>
+        <Dropdown >
           <Dropdown.Toggle style={{backgroundColor:"#E3CE8D", color:"#2B2B28", border: "none", fontSize: "0.8rem", fontWeight: "bold"}}>
             Opciones
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item>
+          <Dropdown.Menu >
+            <Dropdown.Item >
             <button className={styles.logOut} onClick={favoritos}>
               Favoritos
             </button>
@@ -190,6 +190,7 @@ const Navbar = () => {
               Cerrar sesión
             </button>
             </Dropdown.Item>
+            
           </Dropdown.Menu>
         </Dropdown>
       </div>
