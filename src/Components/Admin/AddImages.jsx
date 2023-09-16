@@ -16,8 +16,8 @@ export function AddImages() {
 
   const urlListaProductos = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/listaproductos-all"` :
-    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+    `${privateUrl}:80/productos/listaproductos-all` :
+    `${publicUrl}:80/productos/listaproductos-all`;
 
   // useEffect(() => {
   //   axios
@@ -51,6 +51,11 @@ export function AddImages() {
     setPreviewImages(newPreviewImages);
   };
 
+  const urlSelectedProduct = 
+  privateUrl != "" ? 
+  `${privateUrl}:80/productos/${selectedProduct}/producto-image` :
+  `${publicUrl}:80/productos/${selectedProduct}/producto-image`;
+
   const handleUpload = async () => {
     if (selectedFiles.length === 0 || !selectedProduct) {
       setUploadMessage(
@@ -64,8 +69,18 @@ export function AddImages() {
         const formData = new FormData();
         formData.append("file", file);
 
+        // const imageResponse = await axios.post(
+        //   `http://localhost:80/productos/${selectedProduct}/producto-image`,
+        //   formData,
+        //   {
+        //     headers: {
+        //       "Content-Type": "multipart/form-data",
+        //     },
+        //   }
+        // );
+
         const imageResponse = await axios.post(
-          `http://localhost:80/productos/${selectedProduct}/producto-image`,
+          urlSelectedProduct,
           formData,
           {
             headers: {

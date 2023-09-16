@@ -31,8 +31,8 @@ export function AñadirProducto() {
 
   const urlListarCategorias = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/listarcategorias-all"` :
-    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+    `${privateUrl}:80/categorias/listarcategorias-all` :
+    `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // const fetchCategories = async () => {
   //   try {
@@ -92,8 +92,8 @@ export function AñadirProducto() {
 
 
       const urlRegistrarProductos = privateUrl != "" ? 
-        `"http://${privateUrl}:80/productos/registrar"` :
-        `"http://${publicUrl}:80/productos/registrar"`;
+        `${privateUrl}:80/productos/registrar` :
+        `${publicUrl}:80/productos/registrar`;
 
       const response = await axios.post(
         urlRegistrarProductos,

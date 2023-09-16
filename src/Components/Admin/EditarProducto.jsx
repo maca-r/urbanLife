@@ -21,10 +21,32 @@ export function EditarProducto() {
     fetchCategories();
   }, [idProducto]);
 
+
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListarCategorias = 
+    privateUrl != "" ? 
+    `${privateUrl}:80/categorias/listarcategorias-all` :
+    `${publicUrl}:80/categorias/listarcategorias-all`;
+
+
+  // const fetchCategories = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:80/categorias/listarcategorias-all"
+  //     );
+  //     setCategorias(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching categorias:", error);
+  //   }
+  // };
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:80/categorias/listarcategorias-all"
+        urlListarCategorias
       );
       setCategorias(response.data);
     } catch (error) {
@@ -32,10 +54,29 @@ export function EditarProducto() {
     }
   };
 
-  const fetchProductoPorId = async (id) => {
+  const params = useParams()
+
+  const urlProductoId = 
+    privateUrl != "" ? 
+      `${privateUrl}:80/productos/obtener/${params.id}` :
+      `${publicUrl}:80/productos/obtener/${params.id}`;
+
+  // const fetchProductoPorId = async (id) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:80/productos/obtener/${id}`
+  //     );
+  //     setEditedProduct(response.data);
+  //     setSelectedCategoria(response.data.categorias.idCategoria);
+  //   } catch (error) {
+  //     console.error(`Error al obtener el producto con ID ${id}:`, error);
+  //   }
+  // };
+
+  const fetchProductoPorId = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:80/productos/obtener/${id}`
+        urlProductoId
       );
       setEditedProduct(response.data);
       setSelectedCategoria(response.data.categorias.idCategoria);
@@ -56,8 +97,24 @@ export function EditarProducto() {
         return;
       }
 
+    const urlEditarProducto = 
+      privateUrl != "" ? 
+      `${privateUrl}:80/productos/editar/${idProducto}` :
+      `${publicUrl}:80/productos/editar/${idProducto}`;
+
+      // const response = await axios.put(
+      //   `http://localhost:80/productos/editar/${idProducto}`,
+      //   {
+      //     ...editedProduct,
+      //     categorias: {
+      //       idCategoria: selectedCategory.idCategoria,
+      //       titulo: selectedCategory.titulo,
+      //     },
+      //   }
+      // );
+
       const response = await axios.put(
-        `http://localhost:80/productos/editar/${idProducto}`,
+        urlEditarProducto,
         {
           ...editedProduct,
           categorias: {

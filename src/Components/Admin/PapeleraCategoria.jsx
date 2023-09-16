@@ -12,8 +12,8 @@ export function PapeleraCategoria() {
 
   const urlListarCategorias = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/listarcategorias-all"` :
-    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+    `${privateUrl}:80/categorias/listarcategorias-all` :
+    `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // useEffect(() => {
   //   axios

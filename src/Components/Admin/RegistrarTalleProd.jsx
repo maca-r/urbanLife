@@ -16,12 +16,12 @@ export function RegistrarTalleProd() {
 
   const urlListaProductos = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/listaproductos-all"` :
-    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+    `${privateUrl}:80/productos/listaproductos-all` :
+    `${publicUrl}:80/productos/listaproductos-all`;
 
   const urlListaTalles = privateUrl != "" ? 
-  `"http://${privateUrl}:80/talles/listartalles-all"` :
-  `"http://${publicUrl}:80/talles/listartalles-all"`;
+  `${privateUrl}:80/talles/listartalles-all` :
+  `${publicUrl}:80/talles/listartalles-all`;
 
   // useEffect(() => {
   //   axios
@@ -74,8 +74,8 @@ export function RegistrarTalleProd() {
     }
 
     const urlRegistrarTalles = privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/${selectedProducto}/registrartalles"` :
-    `"http://${publicUrl}:80/productos/${selectedProducto}/registrartalles"`;
+    `${privateUrl}:80/productos/${selectedProducto}/registrartalles` :
+    `${publicUrl}:80/productos/${selectedProducto}/registrartalles`;
 
     //const url = `http://localhost:80/productos/${selectedProducto}/registrartalles`;
 

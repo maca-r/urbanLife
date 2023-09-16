@@ -22,8 +22,8 @@ export function ListaProductos() {
 
   const urlListarProductos = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/listaproductos-all"` :
-    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+    `${privateUrl}:80/productos/listaproductos-all` :
+    `${publicUrl}:80/productos/listaproductos-all`;
 
   useEffect(() => {
     fetchProductos();
@@ -67,8 +67,8 @@ export function ListaProductos() {
 
   const urlListarProductosId = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/obtener/${params.id}"` :
-    `"http://${publicUrl}:80/productos/obtener/${params.id}"`;
+    `${privateUrl}:80/productos/obtener/${params.id}` :
+    `${publicUrl}:80/productos/obtener/${params.id}`;
 
   // async function fetchProductoPorId(id) {
   //   try {
@@ -98,8 +98,8 @@ export function ListaProductos() {
 
   const urlImagenesId = 
   privateUrl != "" ? 
-  `"http://${privateUrl}:80/imagenes/obtener/${params.id}"` :
-  `"http://${publicUrl}:80/imagenes/obtener/${params.id}"`;
+  `${privateUrl}:80/imagenes/obtener/${params.id}` :
+  `${publicUrl}:80/imagenes/obtener/${params.id}`;
 
 
   // async function fetchImagenesProducto(id) {
@@ -132,8 +132,8 @@ export function ListaProductos() {
 
   const urlTallesId = 
   privateUrl != "" ? 
-  `"http://${privateUrl}:80/talles/listatalles-producto/${params.id}"` :
-  `"http://${publicUrl}:80/talles/listatalles-producto/${params.id}"`;
+  `${privateUrl}:80/talles/listatalles-producto/${params.id}` :
+  `${publicUrl}:80/talles/listatalles-producto/${params.id}`;
 
   // async function fetchTallesProducto(id) {
   //   try {
@@ -170,8 +170,8 @@ export function ListaProductos() {
 
   const urlEliminarProducto = 
   privateUrl != "" ? 
-  `"http://${privateUrl}:80/productos/eliminar/${params.id}"` :
-  `"http://${publicUrl}:80/productos/eliminar/${params.id}"`;
+  `${privateUrl}:80/productos/eliminar/${params.id}` :
+  `${publicUrl}:80/productos/eliminar/${params.id}`;
 
   // async function eliminarProducto(productoId) {
   //   try {

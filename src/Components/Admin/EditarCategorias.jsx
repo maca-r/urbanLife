@@ -19,8 +19,8 @@ export function EditarCategorias() {
 
   const urlCategoriaId = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/${params.id}"` :
-    `"http://${publicUrl}:80/categorias/${params.id}"`;
+    `${privateUrl}:80/categorias/${params.id}` :
+    `${publicUrl}:80/categorias/${params.id}`;
   
   
   useEffect(() => {
@@ -63,8 +63,8 @@ export function EditarCategorias() {
 
   const urlActualizarCategoria =   
   privateUrl != "" ? 
-  `"http://${privateUrl}:80/categorias/${params.id}/actualizar"` :
-  `"http://${publicUrl}:80/categorias/${params.id}/actualizar"`;
+  `${privateUrl}:80/categorias/${params.id}/actualizar` :
+  `${publicUrl}:80/categorias/${params.id}/actualizar`;
 
   const handleEdit = async () => {
     try {

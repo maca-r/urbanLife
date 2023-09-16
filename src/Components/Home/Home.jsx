@@ -86,9 +86,20 @@ const Home = () => {
     window.addEventListener("load", handleResize);
   }, []);
 
-  const [categorias, setCategorias] = useState([]);
-  const urlCategorias = "http://localhost:80/categorias/listarcategorias-all";
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+  const [categorias, setCategorias] = useState([]);
+  //const urlCategorias = "http://localhost:80/categorias/listarcategorias-all";
+
+  const urlCategorias = 
+  privateUrl != "" ? 
+  `${privateUrl}/categorias/listarcategorias-all` :
+  `${publicUrl}/categorias/listarcategorias-all`;
+
+  console.log(urlCategorias);
+  //console.log(urlCategorias2);
   useEffect(() => {
     try {
       axios.get(urlCategorias).then((response) => {
@@ -147,20 +158,17 @@ const Home = () => {
   //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
   //     },
   // ]
-
-   
   
     const [productosAleatorios, setProductosAleatorios] = useState([]);
   //console.log(urlProductosAleatorios);
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
   
 
   const urlProductosAleatorios = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/listaproductos-aleatorio"` :
-    `"http://${publicUrl}:80/productos/listaproductos-aleatorio"`;
+    `${privateUrl}:80/productos/listaproductos-aleatorio` :
+    `${publicUrl}:80/productos/listaproductos-aleatorio`;
 
   useEffect(() => {
     try {

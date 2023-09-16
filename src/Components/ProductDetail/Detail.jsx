@@ -60,8 +60,8 @@ const Detail = () => {
 
   const urlDetalleProducto = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/obtener/${params.id}"` :
-    `"http://${publicUrl}:80/productos/obtener/${params.id}"`;
+    `${privateUrl}:80/productos/obtener/${params.id}` :
+    `${publicUrl}:80/productos/obtener/${params.id}`;
 
 
   //const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;

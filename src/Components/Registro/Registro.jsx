@@ -121,8 +121,8 @@ const Registro = () => {
 
   const urlRegistro = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/Auth/register"` :
-    `"http://${publicUrl}:80/Auth/register"`;
+    `${privateUrl}:80/Auth/register"` :
+    `${publicUrl}:80/Auth/register"`;
 
 
   async function registrarUsuario() {

@@ -17,8 +17,8 @@ export function ListarCategorias() {
 
   const urlListarCategorias = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/listarcategorias-all"` :
-    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+    `${privateUrl}:80/categorias/listarcategorias-all` :
+    `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // useEffect(() => {
   //   axios
@@ -71,8 +71,8 @@ export function ListarCategorias() {
   const params = useParams()
 
   const urlEliminarCategoria = privateUrl != "" ? 
-  `"http://${privateUrl}:80/categorias/${params.id}/eliminar"` :
-  `"http://${publicUrl}:80/categorias/${params.id}/eliminar"`;
+  `${privateUrl}:80/categorias/${params.id}/eliminar` :
+  `${publicUrl}:80/categorias/${params.id}/eliminar`;
 
   // const eliminarCategoria = (id) => {
   //   axios
@@ -125,8 +125,8 @@ export function ListarCategorias() {
   };
 
   const imagenCategoria =  privateUrl != "" ? 
-  `"http://${privateUrl}:80/categorias/${params.id}/categoria-image"` :
-  `"http://${publicUrl}:80/categorias/${params.id}/categoria-image"`
+  `${privateUrl}:80/categorias/${params.id}/categoria-image` :
+  `${publicUrl}:80/categorias/${params.id}/categoria-image`
 
 
 

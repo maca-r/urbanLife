@@ -40,8 +40,8 @@ export const ContextProvider = ({children}) => {
 
   const urlProductos = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/productos/listaproductos-all"` :
-    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+    `${privateUrl}:80/productos/listaproductos-all` :
+    `${publicUrl}:80/productos/listaproductos-all`;
 
   //const urlProductos = "http://localhost:80/productos/listaproductos-all"
 

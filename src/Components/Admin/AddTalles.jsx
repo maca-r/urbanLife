@@ -23,12 +23,12 @@ export function AddTalles() {
 
       const urlRegistrarTalle = 
         privateUrl != "" ? 
-        `"http://${privateUrl}:80/talles/registrarTalle"` :
-        `"http://${publicUrl}:80/talles/registrarTalle"`;
+        `${privateUrl}:80/talles/registrarTalle` :
+        `${publicUrl}:80/talles/registrarTalle`;
 
 
       const response = await axios.post(
-        `urlRegistrarTalle`,
+      urlRegistrarTalle,
         talleData
       );
 

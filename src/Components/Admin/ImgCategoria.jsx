@@ -14,8 +14,8 @@ export function ImgCategoria() {
 
   const urlListarCategorias = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/listarcategorias-allo"` :
-    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+    `${privateUrl}:80/categorias/listarcategorias-all` :
+    `${publicUrl}:80/categorias/listarcategorias-all`;
 
   
   // useEffect(() => {
@@ -52,8 +52,8 @@ export function ImgCategoria() {
 
   const urlCategoriaImagen = 
     privateUrl != "" ? 
-    `"http://${privateUrl}:80/categorias/${selectedCategoria}/categoria-image"` :
-    `"http://${publicUrl}:80/categorias/${selectedCategoria}/categoria-image"`;
+    `${privateUrl}:80/categorias/${selectedCategoria}/categoria-image` :
+    `${publicUrl}:80/categorias/${selectedCategoria}/categoria-image`;
 
   // const handleUpload = async () => {
   //   if (!selectedFile || !selectedCategoria) {
