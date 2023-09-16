@@ -30,7 +30,7 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
                                   @Param("id_producto") Integer id_producto);
 
     @Modifying
-    @Query(value = "INSERT INTO imagenes (url_imagen, id_producto)\n" +
+    @Query(value = "INSERT INTO imagenes_producto (url_imagen, id_producto)\n" +
                     "VALUES (:URL_IMAGEN,:id_producto)", nativeQuery = true)
     void resgistrarImagenesConProducto(@Param("URL_IMAGEN") String URL_IMAGEN,
                                        @Param("id_producto") Integer id_producto);

@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.controllers;
 
+
 import com.urbanlife.urbanlife.models.Dto.ImagenDto;
 import com.urbanlife.urbanlife.models.ImagenesProducto;
 import com.urbanlife.urbanlife.services.impl.IImagenService;
@@ -20,8 +21,8 @@ public class ImagenesController {
     IImagenService imagenService;
 
     @PostMapping("/registrar")
-    public ResponseEntity<?>guardarImagen(@RequestBody ImagenesProducto imagenesProducto) {
-        imagenService.createImagen(imagenesProducto);
+    public ResponseEntity<?>guardarImagen(@RequestBody ImagenesProducto imagenes) {
+        imagenService.createImagen(imagenes);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

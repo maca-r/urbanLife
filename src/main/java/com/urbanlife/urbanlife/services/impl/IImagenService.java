@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IImagenService {
 
-    void createImagen(ImagenesProducto imagenesProducto);
+    void createImagen(ImagenesProducto imagenes);
     List<ImagenesProducto> getAllImagenes();
     byte[] getProductoImagen(Integer id);
     Collection<ImagenDto> listarImagenesPorProducto(Integer id);

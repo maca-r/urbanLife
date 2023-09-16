@@ -28,14 +28,14 @@ public class ImagenService implements IImagenService {
     S3Buckets s3Buckets;
     private static final Logger logger = Logger.getLogger(ImagenService.class);
     @Override
-    public void createImagen(ImagenesProducto imagenesProducto) {
-        if (imagenesProducto != null) {
-            guardarImagen(imagenesProducto);
+    public void createImagen(ImagenesProducto imagenes) {
+        if (imagenes != null) {
+            guardarImagen(imagenes);
             logger.info("Se guardo la imagen");
         }else {logger.error("Surgio un problema, no se guardo la imagen");}
     }
-    private ImagenesProducto guardarImagen(ImagenesProducto imagenesProducto) {
-        return imagenRepository.save(imagenesProducto);
+    private ImagenesProducto guardarImagen(ImagenesProducto imagenes) {
+        return imagenRepository.save(imagenes);
     }
     @Override
     public List<ImagenesProducto> getAllImagenes() {
