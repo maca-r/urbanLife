@@ -5,9 +5,35 @@ export function PapeleraCategoria() {
   const [categoriasEliminadas, setCategoriasEliminadas] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListarCategorias = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/categorias/listarcategorias-all"` :
+    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:80/categorias/listarcategorias-all")
+  //     .then((response) => {
+  //       const categoriasEliminadas = response.data.filter(
+  //         (categoria) => categoria.eliminarCategoria === true
+  //       );
+  //       setCategoriasEliminadas(categoriasEliminadas);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener las categorías eliminadas:", error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .get("http://localhost:80/categorias/listarcategorias-all")
+      .get(urlListarCategorias)
       .then((response) => {
         const categoriasEliminadas = response.data.filter(
           (categoria) => categoria.eliminarCategoria === true

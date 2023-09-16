@@ -25,10 +25,33 @@ export function AñadirProducto() {
   const generos = ["MASCULINO", "FEMENINO", "GENDERLESS"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
-  const fetchCategories = async () => {
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListarCategorias = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/categorias/listarcategorias-all"` :
+    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+
+  // const fetchCategories = async () => {
+  //   try {
+  //     axios
+  //       .get("http://localhost:80/categorias/listarcategorias-all")
+  //       .then((response) => {
+  //         const categoriasNoEliminadas = response.data.filter(
+  //           (categoria) => categoria.eliminarCategoria === false
+  //         );
+  //         setCategorias(categoriasNoEliminadas);
+  //       });
+  //   } catch (error) {
+  //     console.error("Error fetching categorias:", error);
+  //   }
+  // };
+    const fetchCategories = async () => {
     try {
       axios
-        .get("http://localhost:80/categorias/listarcategorias-all")
+        .get(urlListarCategorias)
         .then((response) => {
           const categoriasNoEliminadas = response.data.filter(
             (categoria) => categoria.eliminarCategoria === false
@@ -67,8 +90,13 @@ export function AñadirProducto() {
         },
       };
 
+
+      const urlRegistrarProductos = privateUrl != "" ? 
+        `"http://${privateUrl}:80/productos/registrar"` :
+        `"http://${publicUrl}:80/productos/registrar"`;
+
       const response = await axios.post(
-        "http://localhost:80/productos/registrar",
+        urlRegistrarProductos,
         productoData
       );
 

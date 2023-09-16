@@ -148,9 +148,17 @@ const Home = () => {
   //     },
   // ]
 
-  const [productosAleatorios, setProductosAleatorios] = useState([]);
-  const urlProductosAleatorios =
-    "http://localhost:80/productos/listaproductos-aleatorio";
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlProductosAleatorios = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/listaproductos-aleatorio"` :
+    `"http://${publicUrl}:80/productos/listaproductos-aleatorio"`;
+  
+    const [productosAleatorios, setProductosAleatorios] = useState([]);
+  //console.log(urlProductosAleatorios);
 
   useEffect(() => {
     try {
@@ -163,6 +171,8 @@ const Home = () => {
     }
   }, [urlProductosAleatorios]);
 
+
+  {console.log(productosAleatorios);}
   /*PAGINACION */
 
   // const [paginaActual, setPaginaActual] = useState(1)
@@ -293,7 +303,7 @@ const Home = () => {
               //         <h5>{producto.detalle}</h5>
               //     </div>
               // </Link>
-
+              
               <div key={index} className={styles.productoItem}>
                 <Card data={producto}>
                   {/* <Card.Img src="/images/logo.png" />

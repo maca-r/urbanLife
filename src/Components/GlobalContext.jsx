@@ -34,8 +34,16 @@ export const ContextProvider = ({children}) => {
     localStorage.setItem('favs', JSON.stringify(dataState.favs))
   },[dataState.favs])
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
 
-  const urlProductos = "http://localhost:80/productos/listaproductos-all"
+  const urlProductos = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/listaproductos-all"` :
+    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+
+  //const urlProductos = "http://localhost:80/productos/listaproductos-all"
 
   
   useEffect(() => {

@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
 
 import styles from "./Registro.module.css";
 
 const Registro = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [gmail, setGmail] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [nombreError, setNombreError] = useState("");
   const [apellidoError, setApellidoError] = useState("");
-  const [gmailError, setGmailError] = useState("");
+  const [mailError, setMailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [telefono, setTelefono] = useState()
+  const [telefonoError, setTelefonoError] = useState("");
 
   const handleNombreChange = (event) => {
     const inputValue = event.target.value;
@@ -49,8 +52,8 @@ const Registro = () => {
     // }
   };
 
-  const handleGmailChange = (event) => {
-    setGmail(event.target.value);
+  const handleMailChange = (event) => {
+    setMail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -63,6 +66,16 @@ const Registro = () => {
     }
   };
 
+  const handleTelefonoChange = (event) => {
+    const newTelefono = event.target.value;
+    setTelefono(newTelefono);
+    if (newTelefono.length < 10) {
+      setTelefonoError("El telefono debe constar de 10 números}.");
+    } else {
+      setTelefonoError("");
+    }
+  };
+
   const handleSubmit = () => {
     // event.preventDefault();
 
@@ -70,25 +83,27 @@ const Registro = () => {
       /^[A-Za-z0-9_!#$%&'*+=?`{|}~^.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
     );
 
-    if (emailRegex.test(gmail)) {
-      setGmail(gmail);
+    if (emailRegex.test(mail)) {
+      setMail(mail);
       console.log("Nombre:", nombre);
       console.log("Apellido:", apellido);
-      console.log("Correo electrónico:", gmail);
+      console.log("Correo electrónico:", mail);
       console.log("Contraseña:", password);
+      console.log("Telefono:", telefono);
 
-      const userData = { nombre, apellido, gmail, password };
+      const userData = { nombre, apellido, mail, password, telefono };
       localStorage.setItem("userData", JSON.stringify(userData));
 
       setNombre("");
       setApellido("");
-      setGmail("");
+      setMail("");
       setPassword("");
+      setTelefono("")
 
       handleSubmitInicioSesion();
     } else {
-      setGmail("");
-      setGmailError("El mail no es válido");
+      setMail("");
+      setMailError("El mail no es válido");
     }
 
     //REDIRIJO
@@ -101,6 +116,37 @@ const Registro = () => {
 
   const [items, setItems] = useState([]);
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+
+  const urlRegistro = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/Auth/register"` :
+    `"http://${publicUrl}:80/Auth/register"`;
+
+
+  async function registrarUsuario() {
+    try {
+      const response = await fetch(urlRegistro, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mail, nombre, apellido, password }),
+    })
+      if (response.status === 200){
+        console.log("USUARIO REGISTRADO");
+      }
+    } catch (error) {
+      console.error("Error al registrar usuario")
+      
+    }
+  }
+
+  useEffect(() => {
+    registrarUsuario()
+  })
+
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("userData"));
     if (items) {
@@ -110,7 +156,8 @@ const Registro = () => {
 
   const handleSubmitInicioSesion = () => {
     console.log(items);
-    if (items !== []) {
+    // if (items !== []) {
+    if (!items == []) {
       return navigate("/");
     } else {
       console.log(false);
@@ -142,14 +189,26 @@ const Registro = () => {
         )}
       </div>
       <div className={styles.div}>
+        <label>Telefono:</label>
+        <input
+          type="number"
+          value={telefono}
+          onChange={handleTelefonoChange}
+          required
+        />
+        {telefonoError && (
+          <p className={styles.errorMessage}>{telefonoError}</p>
+        )}
+      </div>
+      <div className={styles.div}>
         <label>Correo electrónico:</label>
         <input
           type="email"
-          value={gmail}
-          onChange={handleGmailChange}
+          value={mail}
+          onChange={handleMailChange}
           required
         />
-        {gmailError && <p className={styles.errorMessage}>{gmailError}</p>}
+        {mailError && <p className={styles.errorMessage}>{mailError}</p>}
       </div>
       <div className={styles.div}>
         <label>Contraseña:</label>
@@ -163,6 +222,7 @@ const Registro = () => {
           <p className={styles.errorMessage}>{passwordError}</p>
         )}
       </div>
+      
       <button
         className={styles.boton}
         type="submit"

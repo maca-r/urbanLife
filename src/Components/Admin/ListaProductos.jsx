@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -15,14 +15,41 @@ export function ListaProductos() {
   const [productoToDelete, setProductoToDelete] = useState(null);
   const [noProductosMessage, setNoProductosMessage] = useState("");
 
+
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListarProductos = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/listaproductos-all"` :
+    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+
   useEffect(() => {
     fetchProductos();
   }, []);
 
+  // async function fetchProductos() {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:80/productos/listaproductos-all"
+  //     );
+  //     setProducto(response.data);
+
+  //     if (response.data.length === 0) {
+  //       setNoProductosMessage("No hay productos disponibles.");
+  //     } else {
+  //       setNoProductosMessage("");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al obtener los productos:", error);
+  //   }
+  // }
+
   async function fetchProductos() {
     try {
       const response = await axios.get(
-        "http://localhost:80/productos/listaproductos-all"
+        urlListarProductos
       );
       setProducto(response.data);
 
@@ -36,42 +63,101 @@ export function ListaProductos() {
     }
   }
 
-  async function fetchProductoPorId(id) {
+  const params = useParams()
+
+  const urlListarProductosId = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/obtener/${params.id}"` :
+    `"http://${publicUrl}:80/productos/obtener/${params.id}"`;
+
+  // async function fetchProductoPorId(id) {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:80/productos/obtener/${id}`
+  //     );
+  //     setProductoId(response.data);
+  //     fetchImagenesProducto(id);
+  //     fetchTallesProducto(id);
+  //   } catch (error) {
+  //     console.error(`Error al obtener el producto con ID ${id}:`, error);
+  //   }
+  // }
+
+  async function fetchProductoPorId() {
     try {
       const response = await axios.get(
-        `http://localhost:80/productos/obtener/${id}`
+        urlListarProductosId
       );
       setProductoId(response.data);
-      fetchImagenesProducto(id);
-      fetchTallesProducto(id);
+      fetchImagenesProducto(params.id);
+      fetchTallesProducto(params.id);
     } catch (error) {
-      console.error(`Error al obtener el producto con ID ${id}:`, error);
+      console.error(`Error al obtener el producto con ID ${params.id}:`, error);
     }
   }
 
-  async function fetchImagenesProducto(id) {
+  const urlImagenesId = 
+  privateUrl != "" ? 
+  `"http://${privateUrl}:80/imagenes/obtener/${params.id}"` :
+  `"http://${publicUrl}:80/imagenes/obtener/${params.id}"`;
+
+
+  // async function fetchImagenesProducto(id) {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:80/imagenes/obtener/${id}`
+  //     );
+  //     setProductoImagenes(response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       `Error al obtener las imágenes del producto con ID ${id}:`,
+  //       error
+  //     );
+  //   }
+  // }
+
+  async function fetchImagenesProducto() {
     try {
       const response = await axios.get(
-        `http://localhost:80/imagenes/obtener/${id}`
+        urlImagenesId
       );
       setProductoImagenes(response.data);
     } catch (error) {
       console.error(
-        `Error al obtener las imágenes del producto con ID ${id}:`,
+        `Error al obtener las imágenes del producto con ID ${params.id}:`,
         error
       );
     }
   }
 
-  async function fetchTallesProducto(id) {
+  const urlTallesId = 
+  privateUrl != "" ? 
+  `"http://${privateUrl}:80/talles/listatalles-producto/${params.id}"` :
+  `"http://${publicUrl}:80/talles/listatalles-producto/${params.id}"`;
+
+  // async function fetchTallesProducto(id) {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:80/talles/listatalles-producto/${id}`
+  //     );
+  //     setProductoTalles(response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       `Error al obtener los talles del producto con ID ${id}:`,
+  //       error
+  //     );
+  //   }
+  // }
+
+  async function fetchTallesProducto() {
     try {
       const response = await axios.get(
-        `http://localhost:80/talles/listatalles-producto/${id}`
+        urlTallesId
       );
       setProductoTalles(response.data);
     } catch (error) {
       console.error(
-        `Error al obtener los talles del producto con ID ${id}:`,
+        `Error al obtener los talles del producto con ID ${params.id}:`,
         error
       );
     }
@@ -82,10 +168,30 @@ export function ListaProductos() {
     setShowDeleteModal(true);
   }
 
-  async function eliminarProducto(productoId) {
+  const urlEliminarProducto = 
+  privateUrl != "" ? 
+  `"http://${privateUrl}:80/productos/eliminar/${params.id}"` :
+  `"http://${publicUrl}:80/productos/eliminar/${params.id}"`;
+
+  // async function eliminarProducto(productoId) {
+  //   try {
+  //     await axios.delete(
+  //       `http://localhost:80/productos/eliminar/${productoId}`
+  //     );
+  //     const actProducto = producto.filter(
+  //       (producto) => producto.idProducto !== productoId
+  //     );
+  //     setProducto(actProducto);
+  //     setShowDeleteModal(false);
+  //   } catch (error) {
+  //     console.error("Error al eliminar producto:", error);
+  //   }
+  // }
+
+  async function eliminarProducto() {
     try {
       await axios.delete(
-        `http://localhost:80/productos/eliminar/${productoId}`
+        urlEliminarProducto
       );
       const actProducto = producto.filter(
         (producto) => producto.idProducto !== productoId

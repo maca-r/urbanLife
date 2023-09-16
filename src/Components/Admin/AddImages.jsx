@@ -10,16 +10,35 @@ export function AddImages() {
   const [products, setProducts] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:80/productos/listaproductos-all")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los productos:", error);
-      });
-  }, []);
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListaProductos = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/listaproductos-all"` :
+    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:80/productos/listaproductos-all")
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener los productos:", error);
+  //     });
+  // }, []);
+      useEffect(() => {
+      axios
+        .get(urlListaProductos)
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los productos:", error);
+        });
+    }, []);
 
   const handleFileChange = (e) => {
     const files = e.target.files;

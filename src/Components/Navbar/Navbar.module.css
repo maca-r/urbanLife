@@ -1,3 +1,5 @@
+
+
 nav {
     display: flex;
     justify-content:space-between;
@@ -119,7 +121,7 @@ nav .rutas a{
     
 }
 
-.logOut{
+/* .logOut{
     border-right: 0.1rem solid #2B2B28;
     border-radius: 0.45rem;
     border-top: 0.1rem solid #2B2B28;
@@ -128,6 +130,13 @@ nav .rutas a{
     font-weight: bold;
     min-width: fit-content;
 
+} */
+
+.logOut{
+    border: none;
+    width: 100%;
+    padding: 0;
+    
 }
 
 @media (min-width: 780px){

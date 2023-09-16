@@ -17,8 +17,18 @@ export function AddTalles() {
         talle: talle,
       };
 
+      const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+      const urlRegistrarTalle = 
+        privateUrl != "" ? 
+        `"http://${privateUrl}:80/talles/registrarTalle"` :
+        `"http://${publicUrl}:80/talles/registrarTalle"`;
+
+
       const response = await axios.post(
-        `http://localhost:80/talles/registrarTalle`,
+        `urlRegistrarTalle`,
         talleData
       );
 

@@ -8,10 +8,33 @@ export function ImgCategoria() {
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [categoriasNoEliminadas, setCategoriasNoEliminadas] = useState([]);
   
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListarCategorias = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/categorias/listarcategorias-allo"` :
+    `"http://${publicUrl}:80/categorias/listarcategorias-all"`;
+
+  
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:80/categorias/listarcategorias-all")
+  //     .then((response) => {
+  //       const categoriasFiltradas = response.data.filter(
+  //         (categoria) => !categoria.eliminarCategoria
+  //       );
+  //       setCategoriasNoEliminadas(categoriasFiltradas);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener las categorías:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:80/categorias/listarcategorias-all")
+      .get(urlListarCategorias)
       .then((response) => {
         const categoriasFiltradas = response.data.filter(
           (categoria) => !categoria.eliminarCategoria
@@ -27,6 +50,45 @@ export function ImgCategoria() {
     setSelectedFile(e.target.files[0]);
   };
 
+  const urlCategoriaImagen = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/categorias/${selectedCategoria}/categoria-image"` :
+    `"http://${publicUrl}:80/categorias/${selectedCategoria}/categoria-image"`;
+
+  // const handleUpload = async () => {
+  //   if (!selectedFile || !selectedCategoria) {
+  //     setUploadMessage(
+  //       "Seleccione una imagen y una categoría antes de subirla."
+  //     );
+  //     return;
+  //   }
+
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", selectedFile);
+
+  //     const response = await axios.post(
+  //       `http://localhost:80/categorias/${selectedCategoria}/categoria-image`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+
+  //     if (response.status === 200 || response.status === 202) {
+  //       setUploadMessage("Imagen cargada exitosamente.");
+  //       setSelectedFile(null);
+  //       setSelectedCategoria("");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error en la solicitud:", error);
+  //     setUploadMessage("Hubo un error al cargar la imagen.");
+  //   }
+  // };
+
+
   const handleUpload = async () => {
     if (!selectedFile || !selectedCategoria) {
       setUploadMessage(
@@ -40,7 +102,7 @@ export function ImgCategoria() {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        `http://localhost:80/categorias/${selectedCategoria}/categoria-image`,
+        urlCategoriaImagen,
         formData,
         {
           headers: {

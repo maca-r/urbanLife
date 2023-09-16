@@ -53,7 +53,18 @@ const Detail = () => {
   // console.log(desktopMediaQuery);
   const {dataState,dataDispatch} = useContextoGlobal()
   const params = useParams();
-  const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
+
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlDetalleProducto = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/obtener/${params.id}"` :
+    `"http://${publicUrl}:80/productos/obtener/${params.id}"`;
+
+
+  //const urlDetalleProducto = `http://localhost:80/productos/obtener/${params.id}`;
   
   
 

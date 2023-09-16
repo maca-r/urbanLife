@@ -9,9 +9,43 @@ export function RegistrarTalleProd() {
   const [selectedTalles, setSelectedTalles] = useState({});
   const [mensaje, setMensaje] = useState("");
 
+
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+  const urlListaProductos = 
+    privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/listaproductos-all"` :
+    `"http://${publicUrl}:80/productos/listaproductos-all"`;
+
+  const urlListaTalles = privateUrl != "" ? 
+  `"http://${privateUrl}:80/talles/listartalles-all"` :
+  `"http://${publicUrl}:80/talles/listartalles-all"`;
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:80/productos/listaproductos-all")
+  //     .then((response) => {
+  //       setProductos(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener la lista de productos:", error);
+  //     });
+
+  //   axios
+  //     .get("http://localhost:80/talles/listartalles-all")
+  //     .then((response) => {
+  //       setTalles(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener la lista de talles:", error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .get("http://localhost:80/productos/listaproductos-all")
+      .get(urlListaProductos)
       .then((response) => {
         setProductos(response.data);
       })
@@ -20,7 +54,7 @@ export function RegistrarTalleProd() {
       });
 
     axios
-      .get("http://localhost:80/talles/listartalles-all")
+      .get(urlListaTalles)
       .then((response) => {
         setTalles(response.data);
       })
@@ -39,15 +73,31 @@ export function RegistrarTalleProd() {
       return;
     }
 
-    const url = `http://localhost:80/productos/${selectedProducto}/registrartalles`;
+    const urlRegistrarTalles = privateUrl != "" ? 
+    `"http://${privateUrl}:80/productos/${selectedProducto}/registrartalles"` :
+    `"http://${publicUrl}:80/productos/${selectedProducto}/registrartalles"`;
+
+    //const url = `http://localhost:80/productos/${selectedProducto}/registrartalles`;
 
     const data = selectedTallesIds.map((talleId) => ({
       idMedida: talleId,
       idProducto: selectedProducto,
     }));
 
-    axios
-      .post(url, data)
+    // axios
+    //   .post(url, data)
+    //   .then((response) => {
+    //     setMensaje("Relación guardada exitosamente");
+    //     setSelectedProducto("");
+    //     setSelectedTalles({});
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error al guardar la relación:", error);
+    //     setMensaje("Hubo un error al guardar la relación");
+    //   });
+
+      axios
+      .post(urlRegistrarTalles, data)
       .then((response) => {
         setMensaje("Relación guardada exitosamente");
         setSelectedProducto("");

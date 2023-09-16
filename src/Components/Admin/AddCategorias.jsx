@@ -110,7 +110,15 @@ export function AddCategorias() {
         descripcion: descripcion,
       };
 
-      const apiUrl = "http://10.0.1.104:80/categorias/registrar";
+      const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+      const apiUrl = 
+        privateUrl != "" ? 
+        `"http://${privateUrl}:80/categorias/registrar"` :
+        `"http://${publicUrl}:80/categorias/registrar"`;
+
+      //const apiUrl = "http://10.0.1.104:80/categorias/registrar";
 
       const response = await fetch(apiUrl, {
         method: "POST",
