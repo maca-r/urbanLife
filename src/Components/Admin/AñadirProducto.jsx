@@ -21,10 +21,8 @@ export function AñadirProducto() {
   const [selectedTalles, setSelectedTalles] = useState([]);
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
-  // const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const cortes = ["SLIM-FIT", "RECTO", "TUBO", "NORMAL"];
   const talles = ["S", "XL", "XXL", "M", "L"];
-
   const generos = ["MASCULINO", "FEMENINO", "GENDERLESS"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
@@ -36,20 +34,6 @@ export function AñadirProducto() {
       ? `${privateUrl}:80/categorias/listarcategorias-all`
       : `${publicUrl}:80/categorias/listarcategorias-all`;
 
-  // const fetchCategories = async () => {
-  //   try {
-  //     axios
-  //       .get("http://localhost:80/categorias/listarcategorias-all")
-  //       .then((response) => {
-  //         const categoriasNoEliminadas = response.data.filter(
-  //           (categoria) => categoria.eliminarCategoria === false
-  //         );
-  //         setCategorias(categoriasNoEliminadas);
-  //       });
-  //   } catch (error) {
-  //     console.error("Error fetching categorias:", error);
-  //   }
-  // };
   const fetchCategories = async () => {
     try {
       axios.get(urlListarCategorias).then((response) => {
@@ -60,6 +44,18 @@ export function AñadirProducto() {
       });
     } catch (error) {
       console.error("Error fetching categorias:", error);
+    }
+  };
+
+  const handleTalleChange = (talle) => {
+    const talleIndex = selectedTalles.indexOf(talle);
+
+    if (talleIndex !== -1) {
+      const updatedTalles = [...selectedTalles];
+      updatedTalles.splice(talleIndex, 1);
+      setSelectedTalles(updatedTalles);
+    } else {
+      setSelectedTalles([...selectedTalles, talle]);
     }
   };
 
@@ -77,16 +73,15 @@ export function AñadirProducto() {
 
       const productoData = {
         nombre: nombre,
-        precio: precio,
+        precio: parseFloat(precio),
         detalle: detalle,
         color: color,
-        tela: tela,
-        genero: genero,
-        corte: corte,
-        temporada: temporada,
         categorias: {
           idCategoria: selectedCategory.idCategoria,
-          titulo: selectedCategoria,
+          titulo: selectedCategory.titulo,
+          descripcion: selectedCategory.descripcion,
+          eliminarCategoria: selectedCategory.eliminarCategoria,
+          urlimagen: selectedCategory.urlimagen,
         },
         talles: selectedTalles,
       };
@@ -263,6 +258,7 @@ export function AñadirProducto() {
               label={option}
               value={option}
               checked={selectedTalles.includes(option)}
+              onChange={() => handleTalleChange(option)}
             />
           ))}
         </Form.Group>
