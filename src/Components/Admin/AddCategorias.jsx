@@ -19,9 +19,22 @@ export function AddCategorias() {
         descripcion: descripcion,
       };
 
+      const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
+      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  
+
+      const urlRegistroCategorias = 
+        privateUrl != "" ? 
+        `"http://${privateUrl}:80/categorias/registrar"` :
+        `"http://${publicUrl}:80/categorias/registrar"`;
       // IP  a cambiar
+      // const response = await axios.post(
+      //   "http://34.229.181.144/categorias/registrar",
+      //   categoriaData
+      // );
+
       const response = await axios.post(
-        "http://34.229.181.144/categorias/registrar",
+        urlRegistroCategorias,
         categoriaData
       );
 

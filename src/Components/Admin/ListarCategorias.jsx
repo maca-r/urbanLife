@@ -36,9 +36,25 @@ export function ListarCategorias() {
   //     });
   // }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://34.229.181.144/categorias/listarcategorias-all")
+  //     .then((response) => {
+  //       const categoriasNoEliminadas = response.data.filter(
+  //         (categoria) => categoria.eliminarCategoria === false
+  //       );
+  //       setCategorias(categoriasNoEliminadas);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener las categorías:", error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .get("http://34.229.181.144/categorias/listarcategorias-all")
+      .get(urlListarCategorias)
       .then((response) => {
         const categoriasNoEliminadas = response.data.filter(
           (categoria) => categoria.eliminarCategoria === false
@@ -73,9 +89,24 @@ export function ListarCategorias() {
   //     });
   // };
 
+  // const eliminarCategoria = () => {
+  //   axios
+  //     .delete(`http://34.229.181.144/categorias/${id}/eliminar`)
+  //     .then(() => {
+  //       const updatedCategorias = categorias.filter(
+  //         (categoria) => categoria.idCategoria !== params.id
+  //       );
+  //       setCategorias(updatedCategorias);
+  //       setShowConfirmModal(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error(`Error al eliminar la categoría con ID ${params.id}:`, error);
+  //     });
+  // };
+
   const eliminarCategoria = () => {
     axios
-      .delete(`http://34.229.181.144/categorias/${id}/eliminar`)
+      .delete(urlEliminarCategoria)
       .then(() => {
         const updatedCategorias = categorias.filter(
           (categoria) => categoria.idCategoria !== params.id
@@ -94,8 +125,8 @@ export function ListarCategorias() {
   };
 
   const imagenCategoria =  privateUrl != "" ? 
-  `"http://${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image"` :
-  `"http://${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image"`
+  `"http://${privateUrl}:80/categorias/${params.id}/categoria-image"` :
+  `"http://${publicUrl}:80/categorias/${params.id}/categoria-image"`
 
 
 
@@ -124,7 +155,7 @@ export function ListarCategorias() {
                 <td>{categoria.titulo}</td>
                 <td>{categoria.descripcion}</td>
                 <td>
-                  <img
+                  {/* <img
                     src={`http://34.229.181.144/categorias/${categoria.idCategoria}/categoria-image`}
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
