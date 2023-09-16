@@ -7,17 +7,15 @@ export function ImgCategoria() {
   const [uploadMessage, setUploadMessage] = useState("");
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [categoriasNoEliminadas, setCategoriasNoEliminadas] = useState([]);
-  
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
 
-  const urlListarCategorias = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/listarcategorias-all` :
-    `${publicUrl}:80/categorias/listarcategorias-all`;
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  
+  const urlListarCategorias =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/listarcategorias-all`
+      : `${publicUrl}:80/categorias/listarcategorias-all`;
+
   // useEffect(() => {
   //   axios
   //     .get("http://localhost:80/categorias/listarcategorias-all")
@@ -50,10 +48,10 @@ export function ImgCategoria() {
     setSelectedFile(e.target.files[0]);
   };
 
-  const urlCategoriaImagen = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/${selectedCategoria}/categoria-image` :
-    `${publicUrl}:80/categorias/${selectedCategoria}/categoria-image`;
+  const urlCategoriaImagen =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/${selectedCategoria}/categoria-image`
+      : `${publicUrl}:80/categorias/${selectedCategoria}/categoria-image`;
 
   // const handleUpload = async () => {
   //   if (!selectedFile || !selectedCategoria) {
@@ -88,7 +86,6 @@ export function ImgCategoria() {
   //   }
   // };
 
-
   const handleUpload = async () => {
     if (!selectedFile || !selectedCategoria) {
       setUploadMessage(
@@ -101,15 +98,11 @@ export function ImgCategoria() {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const response = await axios.post(
-        urlCategoriaImagen,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(urlCategoriaImagen, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200 || response.status === 202) {
         setUploadMessage("Imagen cargada exitosamente.");
@@ -123,7 +116,14 @@ export function ImgCategoria() {
   };
 
   return (
-    <div style={{ margin: "2%", display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+    <div
+      style={{
+        margin: "2%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+      }}
+    >
       <h3>Añadir / cambiar imagen</h3>
       {uploadMessage && (
         <Alert
@@ -135,12 +135,23 @@ export function ImgCategoria() {
         </Alert>
       )}
 
-      <input type="file" accept="image/*" onChange={handleFileChange} style={{backgroundColor:"#EFEEEE"}} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        style={{ backgroundColor: "#EFEEEE" }}
+      />
 
       <select
         value={selectedCategoria}
         onChange={(e) => setSelectedCategoria(e.target.value)}
-        style={{width: "30%", margin: "10px", border: "none",borderRadius: "5px", padding: "7px"}}
+        style={{
+          width: "30%",
+          margin: "10px",
+          border: "none",
+          borderRadius: "5px",
+          padding: "7px",
+        }}
       >
         <option value="">Seleccione una categoría</option>
         {categoriasNoEliminadas.map((categoria) => (
@@ -150,10 +161,16 @@ export function ImgCategoria() {
         ))}
       </select>
 
-      <Button 
-      
-      onClick={handleUpload}
-      style={{width: "20%", margin: "10px", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}}>
+      <Button
+        onClick={handleUpload}
+        style={{
+          width: "20%",
+          margin: "10px",
+          backgroundColor: "#E3B04B",
+          border: "none",
+          color: "#2B2B28",
+        }}
+      >
         Subir Imagen
       </Button>
     </div>

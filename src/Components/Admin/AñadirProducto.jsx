@@ -18,21 +18,23 @@ export function AñadirProducto() {
 
   const [mensaje, setMensaje] = useState("");
 
+  const [selectedTalles, setSelectedTalles] = useState([]);
+
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
   // const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
-  const cortes = ["SLIM-FIT", "RECTO", "TUBO", "NORMAL"]
+  const cortes = ["SLIM-FIT", "RECTO", "TUBO", "NORMAL"];
+  const talles = ["S", "XL", "XXL", "M", "L"];
 
   const generos = ["MASCULINO", "FEMENINO", "GENDERLESS"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const urlListarCategorias = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/listarcategorias-all` :
-    `${publicUrl}:80/categorias/listarcategorias-all`;
+  const urlListarCategorias =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/listarcategorias-all`
+      : `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // const fetchCategories = async () => {
   //   try {
@@ -48,16 +50,14 @@ export function AñadirProducto() {
   //     console.error("Error fetching categorias:", error);
   //   }
   // };
-    const fetchCategories = async () => {
+  const fetchCategories = async () => {
     try {
-      axios
-        .get(urlListarCategorias)
-        .then((response) => {
-          const categoriasNoEliminadas = response.data.filter(
-            (categoria) => categoria.eliminarCategoria === false
-          );
-          setCategorias(categoriasNoEliminadas);
-        });
+      axios.get(urlListarCategorias).then((response) => {
+        const categoriasNoEliminadas = response.data.filter(
+          (categoria) => categoria.eliminarCategoria === false
+        );
+        setCategorias(categoriasNoEliminadas);
+      });
     } catch (error) {
       console.error("Error fetching categorias:", error);
     }
@@ -88,17 +88,15 @@ export function AñadirProducto() {
           idCategoria: selectedCategory.idCategoria,
           titulo: selectedCategoria,
         },
+        talles: selectedTalles,
       };
 
+      const urlRegistrarProductos =
+        privateUrl != ""
+          ? `${privateUrl}:80/productos/registrar`
+          : `${publicUrl}:80/productos/registrar`;
 
-      const urlRegistrarProductos = privateUrl != "" ? 
-        `${privateUrl}:80/productos/registrar` :
-        `${publicUrl}:80/productos/registrar`;
-
-      const response = await axios.post(
-        urlRegistrarProductos,
-        productoData
-      );
+      const response = await axios.post(urlRegistrarProductos, productoData);
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Producto agregado exitosamente");
@@ -111,6 +109,7 @@ export function AñadirProducto() {
         setCorte("");
         setGenero("");
         setSelectedCategoria("");
+        setSelectedTalles("");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
@@ -120,7 +119,14 @@ export function AñadirProducto() {
   return (
     <div className={styles.formContainer}>
       <h3>Agregar Producto</h3>
-      <Form onSubmit={handleSubmit} style={{display:"flex",flexDirection: "column", alignItems: "stretch"}}>
+      <Form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
         <Form.Group style={{ marginBottom: "2%" }}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -128,7 +134,7 @@ export function AñadirProducto() {
             type="text"
             value={nombre}
             placeholder="Ingrese nombre del producto"
-            onChange={(e) => setNombre((e.target.value).toLowerCase())}
+            onChange={(e) => setNombre(e.target.value.toLowerCase())}
           />
         </Form.Group>
 
@@ -139,7 +145,7 @@ export function AñadirProducto() {
             type="number"
             value={precio}
             placeholder="Ingrese el precio del producto"
-            onChange={(e) => setPrecio((e.target.value).toLowerCase())}
+            onChange={(e) => setPrecio(e.target.value.toLowerCase())}
           />
         </Form.Group>
 
@@ -150,7 +156,7 @@ export function AñadirProducto() {
             as="textarea"
             value={detalle}
             placeholder="Ingrese el detalle del producto"
-            onChange={(e) => setDetalle((e.target.value).toLowerCase())}
+            onChange={(e) => setDetalle(e.target.value.toLowerCase())}
           />
         </Form.Group>
 
@@ -161,7 +167,7 @@ export function AñadirProducto() {
             type="text"
             value={color}
             placeholder="Ingrese el color del producto"
-            onChange={(e) => setColor((e.target.value).toLowerCase())}
+            onChange={(e) => setColor(e.target.value.toLowerCase())}
           />
         </Form.Group>
 
@@ -248,10 +254,30 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <Button 
-          
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Talles:</Form.Label>
+          {talles.map((option, index) => (
+            <Form.Check
+              key={index}
+              type="checkbox"
+              label={option}
+              value={option}
+              checked={selectedTalles.includes(option)}
+            />
+          ))}
+        </Form.Group>
+
+        {/* ---------------------------------------------------------------------- */}
+
+        <Button
           type="submit"
-          style={{ width: "25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28" }}>
+          style={{
+            width: "25%",
+            backgroundColor: "#E3B04B",
+            border: "none",
+            color: "#2B2B28",
+          }}
+        >
           Agregar Producto
         </Button>
       </Form>
