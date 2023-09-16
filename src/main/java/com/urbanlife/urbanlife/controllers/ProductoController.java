@@ -1,9 +1,8 @@
 package com.urbanlife.urbanlife.controllers;
 
-import com.urbanlife.urbanlife.models.Dto.ProductoDto;
+import com.urbanlife.urbanlife.models.response.ProductoResponse;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.ProductosDto;
-import com.urbanlife.urbanlife.models.request.ProductoMedidasRequest;
 import com.urbanlife.urbanlife.models.request.ProductoRequest;
 import com.urbanlife.urbanlife.services.impl.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class ProductoController {
     }
 
     @GetMapping("/listaproductos-all")
-    public ResponseEntity<Collection<ProductoDto>> listarProductos() {
+    public ResponseEntity<Collection<ProductoResponse>> listarProductos() {
         return ResponseEntity.ok(productoService.listaProductosAll());
     }
     @GetMapping("/listaproductos-aleatorio")
@@ -50,12 +49,12 @@ public class ProductoController {
     @PutMapping("/editar/{id}")
     public ResponseEntity<String> editarProducto(
             @PathVariable Integer id,
-            @RequestBody ProductosDto productosDto) {
-        productoService.editarProducto(id, productosDto);
+            @RequestBody ProductoRequest request) {
+        productoService.editarProducto(id, request);
         return ResponseEntity.ok("Producto actualizado exitosamente");
     }
     @GetMapping("/obtener/{id}")
-    public ProductoDto obtenerProductoCompletos(@PathVariable Integer id) {
+    public ProductoResponse obtenerProductoCompletos(@PathVariable Integer id) {
         return productoService.obtenerProducto(id);
     }
     @DeleteMapping("/eliminar/{id}")

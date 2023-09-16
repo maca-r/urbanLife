@@ -15,7 +15,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class ProductoRequest {
     private String nombre;
-    private double precio;
+    private Double precio;
     private String detalle;
     private String color;
 

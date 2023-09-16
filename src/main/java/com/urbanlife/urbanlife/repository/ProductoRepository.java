@@ -34,6 +34,37 @@ public interface ProductoRepository extends CrudRepository<Productos, Integer> {
                     "VALUES (:URL_IMAGEN,:id_producto)", nativeQuery = true)
     void resgistrarImagenesConProducto(@Param("URL_IMAGEN") String URL_IMAGEN,
                                        @Param("id_producto") Integer id_producto);
+    @Modifying
+    @Query(value = """
+            UPDATE productos
+            SET nombre = :nombre
+            WHERE id_producto = :id\s""")
+    void setNombre(@Param("id") Integer id, @Param("color") String nombre);
+    @Modifying
+    @Query(value = """
+            UPDATE productos
+            SET precio = :precio
+            WHERE id_producto = :id\s""")
+    void setPrecio(@Param("id") Integer id, @Param("precio") Double precio);
+    @Modifying
+    @Query(value = """
+            UPDATE productos
+            SET color = :color
+            WHERE id_producto = :id\s""")
+    void setColor(@Param("id") Integer id, @Param("color") String color);
+    @Modifying
+    @Query(value = """
+            UPDATE productos
+            SET detalle = :detalle
+            WHERE id_producto = :id\s""")
+    void setDetalle(@Param("id") Integer id, @Param("detalle") String detalle);
+    @Modifying
+    @Query(value = """
+            UPDATE productos
+            SET id_categoria = :idCategoria
+            WHERE id_producto = :id\s""")
+    void setCategoria(@Param("id") Integer id, @Param("categoria") Integer idCategoria);
+
     //Investigar ERROR
     @Modifying
     @Query(value = """

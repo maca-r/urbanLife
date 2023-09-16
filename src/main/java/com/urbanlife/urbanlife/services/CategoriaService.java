@@ -5,7 +5,7 @@ import com.urbanlife.urbanlife.exception.RequestValidationException;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
 import com.urbanlife.urbanlife.models.Categorias;
 import com.urbanlife.urbanlife.models.Dto.CategoriaDto;
-import com.urbanlife.urbanlife.models.Dto.ProductoDto;
+import com.urbanlife.urbanlife.models.response.ProductoResponse;
 import com.urbanlife.urbanlife.models.update.CategoriaUpdateRequest;
 import com.urbanlife.urbanlife.repository.CategoriaRepository;
 import com.urbanlife.urbanlife.s3.S3Buckets;
@@ -97,7 +97,7 @@ public class CategoriaService implements ICategoriaService {
     public void eliminarCategoria(Integer idCategoria) {
         checkIfCategoriaExistsOrThrow(idCategoria);
         categoriaRepository.setEstadoEliminar(idCategoria, true);
-        Collection<ProductoDto> productos = productoService.listaProductosAll();
+        Collection<ProductoResponse> productos = productoService.listaProductosAll();
         productos.stream()
                 .peek(productosDto -> productoService.eliminarProducto(productosDto.getIdProducto()))
                 .collect(Collectors.toList());

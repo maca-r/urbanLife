@@ -20,8 +20,14 @@ public class Productos {
 
     private Integer idProducto;
     private String nombre;
-    private double precio;
+    private Double precio;
+    @Column(
+            nullable = false
+    )
     private String detalle;
+    @Column(
+            nullable = false
+    )
     private String color;
     private LocalDate fechaActual;
     private Boolean eliminarProducto;
