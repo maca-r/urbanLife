@@ -10,15 +10,13 @@ export function ListarCategorias() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [categoriaToDelete, setCategoriaToDelete] = useState(null);
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
-
-  const urlListarCategorias = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/listarcategorias-all` :
-    `${publicUrl}:80/categorias/listarcategorias-all`;
+  const urlListarCategorias =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/listarcategorias-all`
+      : `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // useEffect(() => {
   //   axios
@@ -68,11 +66,12 @@ export function ListarCategorias() {
       });
   }, []);
 
-  const params = useParams()
+  const params = useParams();
 
-  const urlEliminarCategoria = privateUrl != "" ? 
-  `${privateUrl}:80/categorias/${params.id}/eliminar` :
-  `${publicUrl}:80/categorias/${params.id}/eliminar`;
+  const urlEliminarCategoria =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/${params.id}/eliminar`
+      : `${publicUrl}:80/categorias/${params.id}/eliminar`;
 
   // const eliminarCategoria = (id) => {
   //   axios
@@ -115,7 +114,10 @@ export function ListarCategorias() {
         setShowConfirmModal(false);
       })
       .catch((error) => {
-        console.error(`Error al eliminar la categoría con ID ${params.id}:`, error);
+        console.error(
+          `Error al eliminar la categoría con ID ${params.id}:`,
+          error
+        );
       });
   };
 
@@ -124,12 +126,9 @@ export function ListarCategorias() {
     setShowConfirmModal(true);
   };
 
-  // const imagenCategoria =  privateUrl != "" ? 
+  // const imagenCategoria =  privateUrl != "" ?
   // `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image` :
   // `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
-
-  
-
 
   return (
     <div style={{ margin: "2%" }}>
@@ -161,12 +160,12 @@ export function ListarCategorias() {
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
                   /> */}
-                  
+
                   <img
                     src={
-                      privateUrl != "" ?
-                      `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image` :
-                      `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
+                      privateUrl != ""
+                        ? `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
+                        : `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
                     }
                     //src={imagenCategoria}
                     alt={categoria.titulo}

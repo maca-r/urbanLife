@@ -5,15 +5,13 @@ export function PapeleraCategoria() {
   const [categoriasEliminadas, setCategoriasEliminadas] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
-
-  const urlListarCategorias = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/categorias/listarcategorias-all` :
-    `${publicUrl}:80/categorias/listarcategorias-all`;
+  const urlListarCategorias =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/listarcategorias-all`
+      : `${publicUrl}:80/categorias/listarcategorias-all`;
 
   // useEffect(() => {
   //   axios
@@ -48,7 +46,7 @@ export function PapeleraCategoria() {
   }, []);
 
   return (
-    <section style={{margin: "2%"}}>
+    <section style={{ margin: "2%" }}>
       <h3>Categorías Eliminadas</h3>
       {loading ? (
         <p>Cargando categorías eliminadas...</p>

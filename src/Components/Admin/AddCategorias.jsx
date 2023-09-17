@@ -6,15 +6,14 @@ export function AddCategorias() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [mensaje, setMensaje] = useState("");
-  
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
 
-      const urlRegistroCategorias = 
-        privateUrl != "" ? 
-        `${privateUrl}/categorias/registrar` :
-        `${publicUrl}/categorias/registrar`;
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  const urlRegistroCategorias =
+    privateUrl != ""
+      ? `${privateUrl}/categorias/registrar`
+      : `${publicUrl}/categorias/registrar`;
 
   const handleAgregarCategoria = async () => {
     try {
@@ -28,17 +27,13 @@ export function AddCategorias() {
         descripcion: descripcion,
       };
 
-      
       // IP  a cambiar
       // const response = await axios.post(
       //   "http://34.229.181.144/categorias/registrar",
       //   categoriaData
       // );
 
-      const response = await axios.post(
-        urlRegistroCategorias,
-        categoriaData
-      );
+      const response = await axios.post(urlRegistroCategorias, categoriaData);
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Categoría agregada exitosamente");

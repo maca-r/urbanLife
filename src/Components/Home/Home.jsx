@@ -113,17 +113,16 @@ const Home = () => {
     window.addEventListener("load", handleResize);
   }, []);
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
   const [categorias, setCategorias] = useState([]);
   //const urlCategorias = "http://localhost:80/categorias/listarcategorias-all";
 
-  const urlCategorias = 
-  privateUrl != "" ? 
-  `${privateUrl}/categorias/listarcategorias-all` :
-  `${publicUrl}/categorias/listarcategorias-all`;
+  const urlCategorias =
+    privateUrl != ""
+      ? `${privateUrl}/categorias/listarcategorias-all`
+      : `${publicUrl}/categorias/listarcategorias-all`;
 
   console.log(urlCategorias);
   //console.log(urlCategorias2);
@@ -185,17 +184,14 @@ const Home = () => {
   //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
   //     },
   // ]
-  
-    const [productosAleatorios, setProductosAleatorios] = useState([]);
+
+  const [productosAleatorios, setProductosAleatorios] = useState([]);
   //console.log(urlProductosAleatorios);
 
-  
-  
-
-  const urlProductosAleatorios = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/productos/listaproductos-aleatorio` :
-    `${publicUrl}:80/productos/listaproductos-aleatorio`;
+  const urlProductosAleatorios =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/listaproductos-aleatorio`
+      : `${publicUrl}:80/productos/listaproductos-aleatorio`;
 
   useEffect(() => {
     try {
@@ -208,8 +204,9 @@ const Home = () => {
     }
   }, [urlProductosAleatorios]);
 
-
-  {console.log(productosAleatorios);}
+  {
+    console.log(productosAleatorios);
+  }
   /*PAGINACION */
 
   // const [paginaActual, setPaginaActual] = useState(1)
@@ -391,7 +388,7 @@ const Home = () => {
               //         <h5>{producto.detalle}</h5>
               //     </div>
               // </Link>
-              
+
               <div key={index} className={styles.productoItem}>
                 <Card data={producto}>
                   {/* <Card.Img src="/images/logo.png" />

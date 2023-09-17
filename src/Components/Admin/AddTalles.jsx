@@ -17,20 +17,15 @@ export function AddTalles() {
         talle: talle,
       };
 
-      const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
+      const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+      const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-      const urlRegistrarTalle = 
-        privateUrl != "" ? 
-        `${privateUrl}:80/talles/registrarTalle` :
-        `${publicUrl}:80/talles/registrarTalle`;
+      const urlRegistrarTalle =
+        privateUrl != ""
+          ? `${privateUrl}:80/talles/registrarTalle`
+          : `${publicUrl}:80/talles/registrarTalle`;
 
-
-      const response = await axios.post(
-      urlRegistrarTalle,
-        talleData
-      );
+      const response = await axios.post(urlRegistrarTalle, talleData);
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Talle agregado exitosamente");
@@ -44,7 +39,14 @@ export function AddTalles() {
 
   return (
     <div>
-      <Form style={{ marginBottom: "2%", display:"flex",flexDirection: "column", alignItems: "stretch" }}>
+      <Form
+        style={{
+          marginBottom: "2%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
         <h3>Registre un nuevo Talle</h3>
         {mensaje && <Alert variant="info">{mensaje}</Alert>}
 
@@ -57,7 +59,17 @@ export function AddTalles() {
             onChange={(e) => setTalle(e.target.value)}
           />
         </Form.Group>
-        <Button style={{width:"25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} onClick={handleAgregarTalle}>Registrar</Button>
+        <Button
+          style={{
+            width: "25%",
+            backgroundColor: "#E3B04B",
+            border: "none",
+            color: "#2B2B28",
+          }}
+          onClick={handleAgregarTalle}
+        >
+          Registrar
+        </Button>
       </Form>
     </div>
   );

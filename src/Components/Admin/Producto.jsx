@@ -36,14 +36,12 @@ export function Producto() {
       </div>
       <div className={styles.showPanelSection}>
         {panelSection == "" && (
-              <h4 style={{margin: "2%"}}>
-                Elija una acción del panel superior
-              </h4>
-            )}
-            {panelSection === "agregarProducto" && <AñadirProducto />}
-            {panelSection === "addImages" && <AddImages />}
-            {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
-            {panelSection === "listarProducto" && <ListaProductos />}
+          <h4 style={{ margin: "2%" }}>Elija una acción del panel superior</h4>
+        )}
+        {panelSection === "agregarProducto" && <AñadirProducto />}
+        {panelSection === "addImages" && <AddImages />}
+        {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
+        {panelSection === "listarProducto" && <ListaProductos />}
       </div>
       {/* {showTitle && <h4>Elija una acción del panel superior</h4>}
 

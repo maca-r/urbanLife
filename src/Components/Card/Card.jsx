@@ -62,7 +62,7 @@ import { toast } from "sonner";
 
 //SOLUCION TEMPORAL LUCA =>
 
-const Card = ({data}) => {
+const Card = ({ data }) => {
   const [favorite, setFavorite] = useState("");
   const { dataState, dataDispatch } = useContextoGlobal();
 
@@ -77,6 +77,9 @@ const Card = ({data}) => {
       setFavorite("dislike");
     }
   };
+  const imagenesOrdenadas = data.imagenes
+    ? [...data.imagenes].sort((a, b) => a.idImagen - b.idImagen)
+    : [];
   const imagenesOrdenadas = 
   data.imagenes ? [...data.imagenes]?.sort((a,b) => a.idImagen - b.idImagen) : []
   // const imageUrl = data?.imagenes?.[0]?.urlImagen || "";
@@ -92,20 +95,19 @@ const Card = ({data}) => {
         <h6 style={{ textTransform: "uppercase", width: "fit-content" }}>
           {data.nombre}
         </h6>
-        <p style={{margin: "0"}}>${data.precio}</p>
+        <p style={{ margin: "0" }}>${data.precio}</p>
         <div className={styles.detalleFav}>
-        <Link to={`/product/` + data.idProducto}>
-          <button className={styles.detalleBoton}>detalle</button>
-        </Link>
-        <button onClick={addFav} className={styles.favBoton}>
-          {favorite === "like" ? (
-            <StarIcon style={{ color: "#E3CE8D" }} />
-          ) : (
-            <StarIcon style={{ color: "gray" }} />
-          )}
-        </button>
+          <Link to={`/product/` + data.idProducto}>
+            <button className={styles.detalleBoton}>detalle</button>
+          </Link>
+          <button onClick={addFav} className={styles.favBoton}>
+            {favorite === "like" ? (
+              <StarIcon style={{ color: "#E3CE8D" }} />
+            ) : (
+              <StarIcon style={{ color: "gray" }} />
+            )}
+          </button>
         </div>
-        
       </div>
     </div>
   );

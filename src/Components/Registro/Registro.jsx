@@ -14,7 +14,7 @@ const Registro = () => {
   const [apellidoError, setApellidoError] = useState("");
   const [mailError, setMailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [telefono, setTelefono] = useState()
+  const [telefono, setTelefono] = useState();
   const [telefonoError, setTelefonoError] = useState("");
 
   const handleNombreChange = (event) => {
@@ -98,7 +98,7 @@ const Registro = () => {
       setApellido("");
       setMail("");
       setPassword("");
-      setTelefono("")
+      setTelefono("");
 
       handleSubmitInicioSesion();
     } else {
@@ -116,36 +116,34 @@ const Registro = () => {
 
   const [items, setItems] = useState([]);
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const urlRegistro = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/Auth/register"` :
-    `${publicUrl}:80/Auth/register"`;
-
+  const urlRegistro =
+    privateUrl != ""
+      ? `${privateUrl}:80/Auth/register"`
+      : `${publicUrl}:80/Auth/register"`;
 
   async function registrarUsuario() {
     try {
       const response = await fetch(urlRegistro, {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ mail, nombre, apellido, password }),
-    })
-      if (response.status === 200){
+      });
+      if (response.status === 200) {
         console.log("USUARIO REGISTRADO");
       }
     } catch (error) {
-      console.error("Error al registrar usuario")
-      
+      console.error("Error al registrar usuario");
     }
   }
 
   useEffect(() => {
-    registrarUsuario()
-  })
+    registrarUsuario();
+  });
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("userData"));
@@ -202,12 +200,7 @@ const Registro = () => {
       </div>
       <div className={styles.div}>
         <label>Correo electrónico:</label>
-        <input
-          type="email"
-          value={mail}
-          onChange={handleMailChange}
-          required
-        />
+        <input type="email" value={mail} onChange={handleMailChange} required />
         {mailError && <p className={styles.errorMessage}>{mailError}</p>}
       </div>
       <div className={styles.div}>
@@ -222,7 +215,7 @@ const Registro = () => {
           <p className={styles.errorMessage}>{passwordError}</p>
         )}
       </div>
-      
+
       <button
         className={styles.boton}
         type="submit"

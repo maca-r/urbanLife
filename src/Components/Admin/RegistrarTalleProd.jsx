@@ -9,19 +9,18 @@ export function RegistrarTalleProd() {
   const [selectedTalles, setSelectedTalles] = useState({});
   const [mensaje, setMensaje] = useState("");
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC
-  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE
-  
+  const urlListaProductos =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/listaproductos-all`
+      : `${publicUrl}:80/productos/listaproductos-all`;
 
-  const urlListaProductos = 
-    privateUrl != "" ? 
-    `${privateUrl}:80/productos/listaproductos-all` :
-    `${publicUrl}:80/productos/listaproductos-all`;
-
-  const urlListaTalles = privateUrl != "" ? 
-  `${privateUrl}:80/talles/listartalles-all` :
-  `${publicUrl}:80/talles/listartalles-all`;
+  const urlListaTalles =
+    privateUrl != ""
+      ? `${privateUrl}:80/talles/listartalles-all`
+      : `${publicUrl}:80/talles/listartalles-all`;
 
   // useEffect(() => {
   //   axios
@@ -73,9 +72,10 @@ export function RegistrarTalleProd() {
       return;
     }
 
-    const urlRegistrarTalles = privateUrl != "" ? 
-    `${privateUrl}:80/productos/${selectedProducto}/registrartalles` :
-    `${publicUrl}:80/productos/${selectedProducto}/registrartalles`;
+    const urlRegistrarTalles =
+      privateUrl != ""
+        ? `${privateUrl}:80/productos/${selectedProducto}/registrartalles`
+        : `${publicUrl}:80/productos/${selectedProducto}/registrartalles`;
 
     //const url = `http://localhost:80/productos/${selectedProducto}/registrartalles`;
 
@@ -96,7 +96,7 @@ export function RegistrarTalleProd() {
     //     setMensaje("Hubo un error al guardar la relación");
     //   });
 
-      axios
+    axios
       .post(urlRegistrarTalles, data)
       .then((response) => {
         setMensaje("Relación guardada exitosamente");
@@ -110,11 +110,17 @@ export function RegistrarTalleProd() {
   };
 
   return (
-    <section style={{margin:"2%"}}>
+    <section style={{ margin: "2%" }}>
       <h3>Registrar Talle/s a Producto/s</h3>
 
-      <Form style={{display:"flex",flexDirection: "column", alignItems: "stretch"}}>
-        <Form.Group controlId="selectProducto" style={{width:"30%"}}>
+      <Form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
+        <Form.Group controlId="selectProducto" style={{ width: "30%" }}>
           <Form.Label>Seleccione un producto:</Form.Label>
           <Form.Control
             as="select"
@@ -130,7 +136,7 @@ export function RegistrarTalleProd() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="selectTalles" style={{width:"30%"}}>
+        <Form.Group controlId="selectTalles" style={{ width: "30%" }}>
           <Form.Label>Seleccione un talle:</Form.Label>
           {talles.map((talle) => (
             <Form.Check
@@ -149,7 +155,15 @@ export function RegistrarTalleProd() {
           ))}
         </Form.Group>
 
-        <Button style={{width:"25%", backgroundColor: "#E3B04B",border: "none", color: "#2B2B28"}} onClick={handleGuardarRelacion}>
+        <Button
+          style={{
+            width: "25%",
+            backgroundColor: "#E3B04B",
+            border: "none",
+            color: "#2B2B28",
+          }}
+          onClick={handleGuardarRelacion}
+        >
           Guardar Relación
         </Button>
       </Form>
