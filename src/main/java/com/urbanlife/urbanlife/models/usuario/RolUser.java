@@ -2,6 +2,7 @@ package com.urbanlife.urbanlife.models.usuario;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,7 @@ import static com.urbanlife.urbanlife.models.usuario.Permission.*;
 
 @RequiredArgsConstructor
 public enum RolUser {
-    /*USER(Collections.emptySet()),
+    USER(Collections.emptySet()),
     ADMIN(
             Set.of(
                     ADMIN_READ,
@@ -43,5 +44,5 @@ public enum RolUser {
                 .collect(Collectors.toList());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return authorities;
-    }*/
+    }
 }

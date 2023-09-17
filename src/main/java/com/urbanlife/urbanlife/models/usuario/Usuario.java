@@ -1,10 +1,13 @@
 package com.urbanlife.urbanlife.models.usuario;
 
+import com.urbanlife.urbanlife.models.usuario.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "customer_username_unique",
-                        columnNames = "username"
+                        columnNames = "email"
                 ),
                 @UniqueConstraint(
                         name = "profile_image_id_unique",
@@ -28,7 +31,7 @@ import java.util.List;
         }
 )
 //public class Usuario implements UserDetails
-public class Usuario  {
+public class Usuario implements UserDetails {
     @Id
     @SequenceGenerator(
             name = "usuario_id_seq",
@@ -43,7 +46,7 @@ public class Usuario  {
     @Column(
             nullable = false
     )
-    private String username;
+    private String email;
     @Column(
             nullable = false
     )
@@ -65,17 +68,24 @@ public class Usuario  {
     )
     private String profileImageId;
     @Enumerated(EnumType.STRING)
-    private Rol role;
-   /* @Override
+    private RolUser role;
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+        return role.getAuthorities();
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -95,5 +105,5 @@ public class Usuario  {
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
 }
