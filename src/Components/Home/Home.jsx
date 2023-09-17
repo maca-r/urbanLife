@@ -11,6 +11,7 @@ import { useContextoGlobal } from "../GlobalContext.jsx";
 import Card from "../Card/Card";
 import DataPicker from "../DataPicker/DataPicker";
 import SearchIcon from "@mui/icons-material/Search";
+import { Autocomplete, InputAdornment, TextField } from "@mui/material";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
@@ -27,35 +28,61 @@ const Home = () => {
   const productosOrdenados = [...dataState.productos].sort(
     (a, b) => a.idProducto - b.idProducto
   );
+  console.log(productosOrdenados);
+
+  const [selectedStartDate, setSelectedStartDate] = useState("")
+
+  const [selectedEndDate, setSelectedEndDate] = useState("")
 
   const handleChange = (e) => {
     // console.log(dataState.productos);
     // console.log(productosOrdenados);
     productosOrdenados.forEach((producto) => {
-      if (producto.nombre == e.target.value) {
+//      if (producto.nombre == e.target.value) {
+      if (producto.nombre.toLowerCase().includes(e.target.value)) {
+
         //console.log(producto.idProducto);
-        console.log(productosOrdenados.indexOf(producto));
         //setId(producto.idProducto - 1);
         setId(productosOrdenados.indexOf(producto));
         //setProductoBuscado(dataState.productos[id]);
-        //console.log(productoBuscado);
+        console.log(productoBuscado);
       }
     });
     setSearchText(e.target.value);
+    
+    
   };
+
+  
+  const [busqueda, setBusqueda] = useState({
+    producto: {},
+    desde: "",
+    hasta: "",
+  }
+  
+  )
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // realizariamos las solicitudes a la API.
     // console.log(dataState.producto);
-    // setProductoBuscado(dataState.productos[id])
-    console.log(e.target);
+    
+    //setProductoBuscado(dataState.productos[id])
+    
     setProductoBuscado(productosOrdenados[id]);
     setSearchText("");
     console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
+    const fields = Object.fromEntries(new window.FormData(e.target))
+    console.log(fields);
+    setBusqueda({producto: productoBuscado, desde: fields.desde, hasta: fields.hasta})
+    console.log(busqueda);
+    //console.log(fields.desde);
+    //console.log(fields.hasta);
+    setSelectedStartDate("")
+    setSelectedEndDate("")
   };
-
+  
   // const urlProductos = `http://localhost:80/productos`
 
   // useEffect(() => {
@@ -192,33 +219,84 @@ const Home = () => {
 
   // }
 
+
+  
+
   return (
     <div className={styles.body}>
       {/* BUSCADOR */}
 
-      {/* <div className={styles.search}> */}
+      <div className={styles.search}>
 
-      <form onSubmit={handleSubmit} className={styles.formBusqueda}>
-        {/* <figure>
-              <Search />
-            </figure> */}
-        <div className={styles.inputSearch}>
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Buscar"
-            value={searchText}
-            onChange={handleChange}
-          ></input>
-        </div>
+        <form onSubmit={handleSubmit} className={styles.formBusqueda}>
+          {/* <figure>
+                <Search />
+              </figure> */}
+              
+          <div className={styles.inputSearch}>
+            <SearchIcon />
+            
+            <input
+              type="text"
+              placeholder="Buscar"
+              value={searchText}
+              onChange={handleChange}
+              name="producto"
+            ></input>
 
-        {/* <input type="date" onChange={(e) => console.log(e.target.value)} /> */}
+            {searchText != "" && 
+            <ul>
+              {dataState.productos
+              .filter((producto)=>producto.nombre.toLowerCase().includes(searchText))
+              .map((producto) => (
+                <li className={styles.listaBusqueda} key={producto.idProducto} onClick={(e) => setSearchText(e.target.innerHTML)}>
+                  {producto.nombre}
+                </li>
+              ))}
+            </ul>}
+            
+            {/* <Autocomplete
+              options={titulos}
+              sx={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Producto"
+              size="small"
+              value={searchText}
+              onChange={handleChange}
+              />}
+              
 
-        <DataPicker className={styles.calendar} />
+            /> */}
+            
 
-        <button className={styles.buscarButton}>Realizar búsqueda</button>
-      </form>
-      {/* </div> */}
+          </div>
+
+
+          {/* <DataPicker className={styles.calendar} /> */}
+          <div className={styles.inputCalendario}>
+            <label style={{fontSize: "0.8rem"}}>Desde</label>
+            <input
+                type="date"
+                name="desde"
+                value={selectedStartDate}
+                onChange={(e) => {setSelectedStartDate(e.target.value)}}
+                className={styles.calendar}
+              ></input>
+          </div>
+            
+          <div className={styles.inputCalendario}>
+            <label style={{fontSize: "0.8rem"}}>Hasta</label>
+              <input
+                type="date"
+                name="hasta"
+                value={selectedEndDate}
+                onChange={(e) => {setSelectedEndDate(e.target.value)}}
+                className={styles.calendar}
+              ></input>
+          </div>
+            
+          <button className={styles.buscarButton}>Realizar búsqueda</button>
+        </form>
+      </div>
 
       <div className={styles.bannerProducto}>
         {productoBuscado && Object.keys(productoBuscado).length > 0 ? (

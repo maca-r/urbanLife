@@ -5,14 +5,16 @@ div .body{
     align-items: center;
 }
 
-/* .search {
+.search {
     width: 90%;
-    background-color: #EFEEEE;
-    padding-left: 12px;
-    border-radius: 30px;
-    margin-top: 3%;
-    border: 0.5px solid #2B2B28;
-} */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+    margin: 3%;
+    
+}
 
 .formBusqueda{
     width: 90%;
@@ -27,11 +29,12 @@ div .body{
 
 .inputSearch{
     padding: 1%;
-    width: 30%;
+    width: 35%;
     border-radius: 30px;
     border: 0.5px solid #2B2B28;
     background-color: #EFEEEE;
     border: none;
+    margin-top: 1%;
 }
 /* figure {
     width: 15px;
@@ -51,10 +54,30 @@ form .inputSearch input{
     outline: none;
 }
 
+.listaBusqueda{
+    padding: 3%;
+    font-size: 0.8rem;
+}
+
+.listaBusqueda:hover{
+    background-color: #E3CE8D;
+    cursor: pointer;
+    border-radius: 10px;
+    
+}
+
 
 .calendar{
-    width: 30%;
-    
+    width: 100%;
+    padding: 5%;
+    background-color: #E3CE8D;
+    border: none;
+    margin-bottom: 2%;
+}
+
+.inputCalendario{
+    display: flex;
+    flex-direction: column;
 }
 
 .buscarButton{

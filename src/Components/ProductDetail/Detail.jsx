@@ -143,13 +143,13 @@ const Detail = () => {
 
   // const caracteristicas = ["color", "tela", "género", "temporada", "evento"];
 
-  const caracteristicas = [
-    (dataState.producto.color).toUpperCase(),
-    (dataState.producto.tela).toUpperCase(),
-    (dataState.producto.genero).toUpperCase(),
-    (dataState.producto.temporada).toUpperCase(),
-    (dataState.producto.corte).toUpperCase(),
-  ];
+  // const caracteristicas = [
+  //   (dataState.producto.color).toUpperCase(),
+  //   (dataState.producto.tela).toUpperCase(),
+  //   (dataState.producto.genero).toUpperCase(),
+  //   (dataState.producto.temporada).toUpperCase(),
+  //   (dataState.producto.corte).toUpperCase(),
+  // ];
 
   const iconoCaracteristicas = [
     <ColorLensIcon sx={{ color: "#E3B04B" }} />,
@@ -360,14 +360,14 @@ const Detail = () => {
           <div className={styles.caracteristicasBox}>
             <h4>Caracteristicas</h4>
             <div className={styles.caracteristicas}>
-              {caracteristicas.map((caracteristica, index) => (
+              {/* {caracteristicas.map((caracteristica, index) => (
                 <ul key={index}>
                   <li>
                     <i>{iconoCaracteristicas[index]}</i>
                     {caracteristica}
                   </li>
                 </ul>
-              ))}
+              ))} */}
             </div>
           </div>
               
