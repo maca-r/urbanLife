@@ -10,6 +10,7 @@ import com.urbanlife.urbanlife.s3.S3Service;
 import com.urbanlife.urbanlife.services.impl.IImagenService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -26,6 +27,8 @@ public class ImagenService implements IImagenService {
     S3Service s3Service;
     @Autowired
     S3Buckets s3Buckets;
+    @Value("${url.imagen}")
+    private String ipUrlImagen;
     private static final Logger logger = Logger.getLogger(ImagenService.class);
     @Override
     public void createImagen(ImagenesProducto imagenes) {
@@ -54,8 +57,8 @@ public class ImagenService implements IImagenService {
         }
         logger.info("Proceso Finalizado con Exito!");
         return imagenesPorProducto.stream()
-                .peek(imagen -> {imagen.setUrlImagen("http://localhost/imagenes/%s/producto-image"
-                        .formatted(imagen.getIdImagen()));})
+                .peek(imagen -> {imagen.setUrlImagen("http://%s/imagenes/%s/producto-image"
+                        .formatted(ipUrlImagen,imagen.getIdImagen()));})
                 .collect(Collectors.toList());
     }
     public byte[] getProductoImagen(Integer idImagen) {

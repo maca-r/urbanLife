@@ -13,6 +13,7 @@ import com.urbanlife.urbanlife.s3.S3Service;
 import com.urbanlife.urbanlife.services.impl.ICategoriaService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +37,8 @@ public class CategoriaService implements ICategoriaService {
     S3Service s3Service;
     @Autowired
     S3Buckets s3Buckets;
+    @Value("${url.imagen}")
+    private String ipUrlImagen;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
     public boolean existsCustomerById(Integer id) {
@@ -105,8 +108,8 @@ public class CategoriaService implements ICategoriaService {
     @Override
     public List<Categorias> obtenerListaCategoria() {
         return categoriaRepository.findAll().stream()
-                .peek(categorias -> categorias.setURLIMAGEN("http://localhost/categorias/%s/categoria-image"
-                        .formatted(categorias.getIdCategoria())))
+                .peek(categorias -> categorias.setURLIMAGEN("http://%s/categorias/%s/categoria-image"
+                        .formatted(ipUrlImagen,categorias.getIdCategoria())))
                 .collect(Collectors.toList());
     }
     @Override
@@ -151,7 +154,7 @@ public class CategoriaService implements ICategoriaService {
         checkIfCategoriaExistsOrThrow(id);
         Optional<Categorias> found = categoriaRepository.findById(id);
         Categorias categorias = mapper.convertValue(found.get(), Categorias.class);
-        categorias.setURLIMAGEN("http://localhost/categorias/%s/categoria-image".formatted(id));
+        categorias.setURLIMAGEN("http://%s/categorias/%s/categoria-image".formatted(ipUrlImagen,id));
         return categorias;
     }
 
