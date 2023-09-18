@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import static com.urbanlife.urbanlife.models.usuario.Permission.*;
 import static com.urbanlife.urbanlife.models.usuario.Permission.ADMIN_DELETE;
 import static com.urbanlife.urbanlife.models.usuario.RolUser.ADMIN;
+import static com.urbanlife.urbanlife.models.usuario.RolUser.CLIENTE;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpMethod.DELETE;
 
@@ -57,6 +58,9 @@ public class SecurityConfiguration {
                 .requestMatchers(POST, "{id}/categoria-image").hasAuthority(ADMIN_CREATE.name())
                 .requestMatchers(PUT, "/{id}/actualizar").hasAuthority(ADMIN_UPDATE.name())
                 .requestMatchers(DELETE, "/{id}/eliminar").hasAuthority(ADMIN_DELETE.name())
+
+                .requestMatchers("/auth/usuarios**").hasRole(CLIENTE.name())
+                .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
 
 
                 .anyRequest()
