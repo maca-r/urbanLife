@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     image: mysql:8.0.32
-    container_name: urbanlifedb
+    # container_name: urbanlifedb
     environment:
       MYSQL_DATABASE: urbanlife
       MYSQL_USER: admin
@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: urbanlifeapp
+    # container_name: urbanlifeapp
     ports:
       - 80:80
     environment:
