@@ -45,6 +45,7 @@ deploy:
     - name: docker:dind
       alias: docker
   script:
+    - docker start $DOCKER_DB
     - sleep 5
     - docker start $DOCKER_SPRING
 
