@@ -161,8 +161,8 @@ const Registro = () => {
 
   const urlRegistro =
     privateUrl != ""
-      ? `${privateUrl}:80/api/v1/auth/register"`
-      : `${publicUrl}:80/api/v1/auth/register"`;
+      ? `${privateUrl}:80/api/v1/auth/register`
+      : `${publicUrl}:80/api/v1/auth/register`;
 
   // useEffect(() => {
   //   registrarUsuario();
