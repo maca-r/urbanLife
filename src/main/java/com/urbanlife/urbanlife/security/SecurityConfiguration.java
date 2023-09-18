@@ -52,6 +52,13 @@ public class SecurityConfiguration {
                 .requestMatchers(PUT, "/editar/{id}").hasAuthority(ADMIN_UPDATE.name())
                 .requestMatchers(DELETE, "/eliminar/{id}").hasAuthority(ADMIN_DELETE.name())
 
+                .requestMatchers("/categorias**").hasRole(ADMIN.name())
+                .requestMatchers(POST, "/registrar").hasAuthority(ADMIN_CREATE.name())
+                .requestMatchers(POST, "{id}/categoria-image").hasAuthority(ADMIN_CREATE.name())
+                .requestMatchers(PUT, "/{id}/actualizar").hasAuthority(ADMIN_UPDATE.name())
+                .requestMatchers(DELETE, "/{id}/eliminar").hasAuthority(ADMIN_DELETE.name())
+
+
                 .anyRequest()
                 .authenticated()
                 .and()
