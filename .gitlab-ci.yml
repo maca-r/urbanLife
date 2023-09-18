@@ -10,6 +10,11 @@ stages:
   - deploy
   - test
 
+cache:
+  paths:
+    - /usr/local/bin/docker-compose
+    - /var/lib/docker 
+
 build:
   stage: build
   tags:
