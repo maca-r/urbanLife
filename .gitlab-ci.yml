@@ -1,7 +1,7 @@
 image: docker:stable
 
 variables:
-  DOCKER_NAME: "equipo-05_urbanlife"
+  DOCKER_NAME: "equipo-05-urbanlife"
   DOCKER_SPRING: "urbanlifeapp"
   DOCKER_DB: "urbanlifedb"
 
@@ -9,11 +9,6 @@ stages:
   - build
   - deploy
   - test
-
-cache:
-  paths:
-    - /usr/local/bin/docker-compose
-    - /var/lib/docker 
 
 build:
   stage: build
