@@ -10,12 +10,6 @@ stages:
   - deploy
   - test
 
-cache:
-  paths:
-    - /usr/local/bin/docker-compose
-    - /var/lib/docker
-    - ~/.m2/repository
-
 build:
   stage: build
   tags:
@@ -39,8 +33,7 @@ build:
       curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
   script:
-    #- docker-compose up --no-start
-    - docker-compose up --build
+    - docker-compose up --no-start
 
 deploy:
   stage: deploy
@@ -52,7 +45,6 @@ deploy:
     - name: docker:dind
       alias: docker
   script:
-
     - sleep 5
     - docker start $DOCKER_SPRING
 
