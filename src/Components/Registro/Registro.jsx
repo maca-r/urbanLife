@@ -75,6 +75,29 @@ const Registro = () => {
       setTelefonoError("");
     }
   };
+  
+
+  async function registrarUsuario() {
+    try {
+      const response = await fetch(urlRegistro, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //'Access-Control-Allow-Origin': '*',
+          //'Authorization': 'Bearer ' + eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5NTA2MjMxOSwiZXhwIjoxNjk1MTQ4NzE5fQ.d-rxbTFjDBX8wuKZDVuxg9H55HN8D130jzNWLUJfw8o
+        },
+        body: JSON.stringify({ nombre, apellido, mail, password, telefono}),
+      });
+      console.log(response);
+      if (response.status === 200) {
+        console.log("USUARIO REGISTRADO");
+        
+      }
+    } catch (error) {
+      
+      console.error("Error al registrar usuario");
+    }
+  }
 
   const handleSubmit = () => {
     // event.preventDefault();
@@ -101,6 +124,7 @@ const Registro = () => {
       setTelefono("");
 
       handleSubmitInicioSesion();
+      registrarUsuario()
     } else {
       setMail("");
       setMailError("El mail no es válido");
@@ -121,29 +145,14 @@ const Registro = () => {
 
   const urlRegistro =
     privateUrl != ""
-      ? `${privateUrl}:80/Auth/register"`
-      : `${publicUrl}:80/Auth/register"`;
+      ? `${privateUrl}:80/api/v1/auth/register"`
+      : `${publicUrl}:80/api/v1/auth/register"`;
 
-  async function registrarUsuario() {
-    try {
-      const response = await fetch(urlRegistro, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mail, nombre, apellido, password }),
-      });
-      if (response.status === 200) {
-        console.log("USUARIO REGISTRADO");
-      }
-    } catch (error) {
-      console.error("Error al registrar usuario");
-    }
-  }
+  
 
-  useEffect(() => {
-    registrarUsuario();
-  });
+  // useEffect(() => {
+  //   registrarUsuario();
+  // });
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("userData"));
