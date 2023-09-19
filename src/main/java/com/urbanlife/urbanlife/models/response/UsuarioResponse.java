@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class UsuarioResponse {
     private String nombre;
     private String apellido;
-    private Integer telefono;
     private String email;
+    private Integer telefono;
+    private String urlImagen;
 }
