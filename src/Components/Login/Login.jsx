@@ -108,7 +108,8 @@ const Login = () => {
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-
+        console.log(response);
+        console.log(response.data);
         navigate("/");
         window.location.reload();
       } else {
