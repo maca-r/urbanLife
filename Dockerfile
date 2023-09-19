@@ -1,5 +1,6 @@
 # Etiqueta y versión para la imagen
-FROM maven:3.8.4-openjdk-17 AS build
+FROM eclipse-temurin:17-jre
+
 
 WORKDIR /app
 COPY pom.xml .
