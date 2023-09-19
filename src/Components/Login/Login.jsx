@@ -100,8 +100,8 @@ const Login = () => {
 
   const backendURL = "http://34.229.181.144/api/v1/auth/authenticate";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
 
     try {
       const response = await axios.post(backendURL, user);
