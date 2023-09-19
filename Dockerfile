@@ -1,5 +1,5 @@
 # Etiqueta y versión para la imagen
-FROM eclipse-temurin:17-jre
+FROM maven:3.8.4-openjdk-17 AS build
 
 
 WORKDIR /app
@@ -13,7 +13,8 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Etiqueta y versión para la imagen final
-FROM adoptopenjdk:17-jre-hotspot
+FROM eclipse-temurin:17-jre
+
 
 WORKDIR /app
 
