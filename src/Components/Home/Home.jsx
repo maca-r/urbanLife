@@ -30,17 +30,16 @@ const Home = () => {
   );
   console.log(productosOrdenados);
 
-  const [selectedStartDate, setSelectedStartDate] = useState("")
+  const [selectedStartDate, setSelectedStartDate] = useState("");
 
-  const [selectedEndDate, setSelectedEndDate] = useState("")
+  const [selectedEndDate, setSelectedEndDate] = useState("");
 
   const handleChange = (e) => {
     // console.log(dataState.productos);
     // console.log(productosOrdenados);
     productosOrdenados.forEach((producto) => {
-//      if (producto.nombre == e.target.value) {
+      //      if (producto.nombre == e.target.value) {
       if (producto.nombre.toLowerCase().includes(e.target.value)) {
-
         //console.log(producto.idProducto);
         //setId(producto.idProducto - 1);
         setId(productosOrdenados.indexOf(producto));
@@ -49,40 +48,39 @@ const Home = () => {
       }
     });
     setSearchText(e.target.value);
-    
-    
   };
 
-  
   const [busqueda, setBusqueda] = useState({
     producto: {},
     desde: "",
     hasta: "",
-  }
-  
-  )
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // realizariamos las solicitudes a la API.
     // console.log(dataState.producto);
-    
+
     //setProductoBuscado(dataState.productos[id])
-    
+
     setProductoBuscado(productosOrdenados[id]);
     setSearchText("");
     console.log(productoBuscado);
     console.log("Texto de búsqueda:", searchText);
-    const fields = Object.fromEntries(new window.FormData(e.target))
+    const fields = Object.fromEntries(new window.FormData(e.target));
     console.log(fields);
-    setBusqueda({producto: productoBuscado, desde: fields.desde, hasta: fields.hasta})
+    setBusqueda({
+      producto: productoBuscado,
+      desde: fields.desde,
+      hasta: fields.hasta,
+    });
     console.log(busqueda);
     //console.log(fields.desde);
     //console.log(fields.hasta);
-    setSelectedStartDate("")
-    setSelectedEndDate("")
+    setSelectedStartDate("");
+    setSelectedEndDate("");
   };
-  
+
   // const urlProductos = `http://localhost:80/productos`
 
   // useEffect(() => {
@@ -216,23 +214,19 @@ const Home = () => {
 
   // }
 
-
-  
-
   return (
     <div className={styles.body}>
       {/* BUSCADOR */}
 
       <div className={styles.search}>
-
         <form onSubmit={handleSubmit} className={styles.formBusqueda}>
           {/* <figure>
                 <Search />
               </figure> */}
-              
+
           <div className={styles.inputSearch}>
             <SearchIcon />
-            
+
             <input
               type="text"
               placeholder="Buscar"
@@ -241,17 +235,24 @@ const Home = () => {
               name="producto"
             ></input>
 
-            {searchText != "" && 
-            <ul>
-              {dataState.productos
-              .filter((producto)=>producto.nombre.toLowerCase().includes(searchText))
-              .map((producto) => (
-                <li className={styles.listaBusqueda} key={producto.idProducto} onClick={(e) => setSearchText(e.target.innerHTML)}>
-                  {producto.nombre}
-                </li>
-              ))}
-            </ul>}
-            
+            {searchText != "" && (
+              <ul>
+                {dataState.productos
+                  .filter((producto) =>
+                    producto.nombre.toLowerCase().includes(searchText)
+                  )
+                  .map((producto) => (
+                    <li
+                      className={styles.listaBusqueda}
+                      key={producto.idProducto}
+                      onClick={(e) => setSearchText(e.target.innerHTML)}
+                    >
+                      {producto.nombre}
+                    </li>
+                  ))}
+              </ul>
+            )}
+
             {/* <Autocomplete
               options={titulos}
               sx={{ width: 250 }}
@@ -263,34 +264,35 @@ const Home = () => {
               
 
             /> */}
-            
-
           </div>
-
 
           {/* <DataPicker className={styles.calendar} /> */}
           <div className={styles.inputCalendario}>
-            <label style={{fontSize: "0.8rem"}}>Desde</label>
+            <label style={{ fontSize: "0.8rem" }}>Desde</label>
             <input
-                type="date"
-                name="desde"
-                value={selectedStartDate}
-                onChange={(e) => {setSelectedStartDate(e.target.value)}}
-                className={styles.calendar}
-              ></input>
+              type="date"
+              name="desde"
+              value={selectedStartDate}
+              onChange={(e) => {
+                setSelectedStartDate(e.target.value);
+              }}
+              className={styles.calendar}
+            ></input>
           </div>
-            
+
           <div className={styles.inputCalendario}>
-            <label style={{fontSize: "0.8rem"}}>Hasta</label>
-              <input
-                type="date"
-                name="hasta"
-                value={selectedEndDate}
-                onChange={(e) => {setSelectedEndDate(e.target.value)}}
-                className={styles.calendar}
-              ></input>
+            <label style={{ fontSize: "0.8rem" }}>Hasta</label>
+            <input
+              type="date"
+              name="hasta"
+              value={selectedEndDate}
+              onChange={(e) => {
+                setSelectedEndDate(e.target.value);
+              }}
+              className={styles.calendar}
+            ></input>
           </div>
-            
+
           <button className={styles.buscarButton}>Realizar búsqueda</button>
         </form>
       </div>

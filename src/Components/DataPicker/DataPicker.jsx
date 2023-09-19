@@ -15,8 +15,12 @@ const DataPicker = () => {
     },
   ]);
 
-    {console.log(format(range[0].startDate, 'yyyy-MM-dd'))}
-    {console.log(format(range[0].endDate, 'yyyy-MM-dd'))}
+  {
+    console.log(format(range[0].startDate, "yyyy-MM-dd"));
+  }
+  {
+    console.log(format(range[0].endDate, "yyyy-MM-dd"));
+  }
 
   const [open, setOpen] = useState(false);
 

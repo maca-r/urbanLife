@@ -9,12 +9,15 @@ export function EditarProducto() {
   const [editedProduct, setEditedProduct] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
   const [categorias, setCategorias] = useState([]);
+  const [productTalles, setProductTalles] = useState([]);
+
   const [selectedCategoria, setSelectedCategoria] = useState("");
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
   const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
   const generos = ["MASCULINO", "FEMENINO", "UNISEX"];
   const temporadas = ["OTOÑO", "INVIERNO", "PRIMAVERA", "VERANO"];
+  const talles = ["S", "XL", "XXL", "M", "L"];
 
   useEffect(() => {
     fetchProductoPorId(idProducto);
@@ -73,6 +76,7 @@ export function EditarProducto() {
       const response = await axios.get(urlProductoId);
       setEditedProduct(response.data);
       setSelectedCategoria(response.data.categorias.idCategoria);
+      setProductTalles(response.data.talles);
     } catch (error) {
       console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
@@ -112,6 +116,7 @@ export function EditarProducto() {
           idCategoria: selectedCategory.idCategoria,
           titulo: selectedCategory.titulo,
         },
+        talles: productTalles,
       });
 
       if (response.status === 200 || response.status === 202) {
@@ -126,6 +131,17 @@ export function EditarProducto() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedProduct({ ...editedProduct, [name]: value });
+  };
+
+  const handleTallesChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      // Agregar el talle si está marcado
+      setProductTalles([...productTalles, value]);
+    } else {
+      // Quitar el talle si está desmarcado
+      setProductTalles(productTalles.filter((talle) => talle !== value));
+    }
   };
 
   const navigate = useNavigate();
@@ -272,6 +288,50 @@ export function EditarProducto() {
               </option>
             ))}
           </Form.Select>
+        </Form.Group>
+
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Talles:</Form.Label>
+          <Form.Check
+            type="checkbox"
+            label="S"
+            name="talles"
+            value="S"
+            checked={productTalles.includes("S")}
+            onChange={handleTallesChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="M"
+            name="talles"
+            value="M"
+            checked={productTalles.includes("M")}
+            onChange={handleTallesChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="L"
+            name="talles"
+            value="L"
+            checked={productTalles.includes("L")}
+            onChange={handleTallesChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="XL"
+            name="talles"
+            value="XL"
+            checked={productTalles.includes("XL")}
+            onChange={handleTallesChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="XXL"
+            name="talles"
+            value="XXL"
+            checked={productTalles.includes("XXL")}
+            onChange={handleTallesChange}
+          />
         </Form.Group>
       </Form>
       <Button

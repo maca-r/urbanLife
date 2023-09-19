@@ -76,44 +76,44 @@ const Registro = () => {
     }
   };
 
-  async function registrarUsuario() {
-    try {
-      const response = await fetch(urlRegistro, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          //'Access-Control-Allow-Origin': '*',
-          //'Authorization': 'Bearer ' + eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5NTA2MjMxOSwiZXhwIjoxNjk1MTQ4NzE5fQ.d-rxbTFjDBX8wuKZDVuxg9H55HN8D130jzNWLUJfw8o
-        },
-        body: JSON.stringify({ nombre, apellido, mail, password, telefono }),
-      });
-      console.log(response);
-      if (response.status === 200) {
-        console.log("USUARIO REGISTRADO");
-      }
-    } catch (error) {
-      console.error("Error al registrar usuario");
-    }
-  }
-
   // async function registrarUsuario() {
   //   try {
-  //     const response = await axios.post(urlRegistro, {
-  //       nombre,
-  //       apellido,
-  //       mail,
-  //       password,
-  //       telefono,
+  //     const response = await fetch(urlRegistro, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         //'Access-Control-Allow-Origin': '*',
+  //         //'Authorization': 'Bearer ' + eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5NTA2MjMxOSwiZXhwIjoxNjk1MTQ4NzE5fQ.d-rxbTFjDBX8wuKZDVuxg9H55HN8D130jzNWLUJfw8o
+  //       },
+  //       body: JSON.stringify({ nombre, apellido, mail, password, telefono }),
   //     });
-
   //     console.log(response);
   //     if (response.status === 200) {
   //       console.log("USUARIO REGISTRADO");
   //     }
   //   } catch (error) {
-  //     console.error("Error al registrar usuario", error);
+  //     console.error("Error al registrar usuario");
   //   }
   // }
+
+  async function registrarUsuario() {
+    try {
+      const response = await axios.post(urlRegistro, {
+        nombre,
+        apellido,
+        mail,
+        password,
+        telefono,
+      });
+
+      console.log(response);
+      if (response.status === 200) {
+        console.log("USUARIO REGISTRADO");
+      }
+    } catch (error) {
+      console.error("Error al registrar usuario", error);
+    }
+  }
 
   const handleSubmit = () => {
     // event.preventDefault();

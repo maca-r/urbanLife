@@ -80,13 +80,12 @@ const Card = ({ data }) => {
   const imagenesOrdenadas = data.imagenes
     ? [...data.imagenes].sort((a, b) => a.idImagen - b.idImagen)
     : [];
-  
+
   // const imageUrl = data?.imagenes?.[0]?.urlImagen || "";
 
-  
-  const imageUrl = imagenesOrdenadas[0].urlImagen
+  const imageUrl = imagenesOrdenadas[0].urlImagen;
   //console.log(imagenesOrdenadas);
-  
+
   return (
     <div className={styles.cardItem}>
       {/* <img src={imageUrl} alt={data.nombre} /> */}
