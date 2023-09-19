@@ -228,7 +228,7 @@
 
 // export default Navbar;
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
@@ -238,7 +238,14 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Verificar si el usuario está autenticado al cargar el componente
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   const logout = async () => {
     try {
@@ -248,6 +255,7 @@ const Navbar = () => {
 
       if (response.status === 200) {
         localStorage.removeItem("token");
+        setIsLoggedIn(false); // Cambiar el estado de autenticación a falso
         navigate("/login");
       } else {
         console.error(
@@ -260,8 +268,12 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = () => {
+    setShowLogoutModal(true); // Mostrar el modal de confirmación de cierre de sesión
+  };
+
   const handleCloseLogoutModal = () => {
-    setShowLogoutModal(false);
+    setShowLogoutModal(false); // Cerrar el modal de confirmación de cierre de sesión
   };
 
   return (
@@ -294,14 +306,22 @@ const Navbar = () => {
       )}
 
       <div className={styles.rutas}>
-        {/* Resto del contenido del Navbar */}
-        {/* ... */}
-        <button
-          className={styles.logOut}
-          onClick={() => setShowLogoutModal(true)}
-        >
-          Cerrar sesión
-        </button>
+        {isLoggedIn ? (
+          <>
+            <button className={styles.logOut} onClick={handleLogout}>
+              Cerrar sesión
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to={routes.registro} className={styles.crearCuenta}>
+              Crear cuenta
+            </Link>
+            <Link to={routes.login} className={styles.iniciarSesion}>
+              Iniciar sesión
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
