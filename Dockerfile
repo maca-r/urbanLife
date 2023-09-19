@@ -1,27 +1,18 @@
-# Etiqueta y versión para la imagen
+# Utiliza una imagen base con Java y Maven para construir tu aplicación
 FROM maven:3.8.4-openjdk-17 AS build
-
-
 WORKDIR /app
 COPY pom.xml .
-
-# Descargar dependencias en la etapa de construcción principal
 RUN mvn dependency:go-offline
 
 COPY src ./src
-# Compilar la aplicación y empaquetar en un JAR sin ejecutar pruebas
 RUN mvn package -DskipTests
 
-# Etiqueta y versión para la imagen final
-FROM eclipse-temurin:17-jre
-
-
+# Crea una nueva imagen con la aplicación compilada
+FROM openjdk:17
 WORKDIR /app
-
-# Copiar el archivo JAR compilado desde la etapa de construcción anterior
 COPY --from=build /app/target/urbanlife-0.0.1-SNAPSHOT.jar ./app.jar
 
-# Exponer el puerto en el que la aplicación escucha
+# Expone el puerto en el que tu aplicación escucha
 EXPOSE 8080
 
 # Comando para ejecutar la aplicación Spring Boot
