@@ -15,4 +15,6 @@ public class UsuarioResponse {
     private String email;
     private Integer telefono;
     private String urlImagen;
+
+
 }

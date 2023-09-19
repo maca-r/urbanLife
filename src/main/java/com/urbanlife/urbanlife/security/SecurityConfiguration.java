@@ -59,8 +59,11 @@ public class SecurityConfiguration {
                 .requestMatchers(PUT, "/{id}/actualizar").hasAuthority(ADMIN_UPDATE.name())
                 .requestMatchers(DELETE, "/{id}/eliminar").hasAuthority(ADMIN_DELETE.name())
 
-                .requestMatchers("/auth/usuarios**").hasRole(CLIENTE.name())
+
+
+                .requestMatchers("/auth/usuarios**").hasAnyRole(CLIENTE.name(), ADMIN.name())
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
+                .requestMatchers(GET, "/listausuarios-all").hasAuthority(ADMIN_READ.name())
 
 
                 .anyRequest()
