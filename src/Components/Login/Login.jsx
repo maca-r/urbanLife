@@ -107,6 +107,9 @@ const Login = () => {
       const response = await axios.post(backendURL, user);
 
       if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+
         navigate("/");
         window.location.reload();
       } else {

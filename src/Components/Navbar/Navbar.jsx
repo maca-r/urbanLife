@@ -247,6 +247,7 @@ const Navbar = () => {
       );
 
       if (response.status === 200) {
+        localStorage.removeItem("token");
         navigate("/login");
       } else {
         console.error(
