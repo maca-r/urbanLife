@@ -13,7 +13,7 @@ import { ListaProductos } from "./Components/Admin/ListaProductos";
 import { AñadirProducto } from "./Components/Admin/AñadirProducto";
 import Registro from "./Components/Registro/Registro";
 import { AddCategorias } from "./Components/Admin/AddCategorias";
-import { AddTalles } from "./Components/Admin/AddTalles";
+// import { AddTalles } from "./Components/Admin/AddTalles";
 import Login from "./Components/Login/Login";
 import { EditarProducto } from "./Components/Admin/EditarProducto";
 import { ImgCategoria } from "./Components/Admin/ImgCategoria";
@@ -21,7 +21,7 @@ import { ListarCategorias } from "./Components/Admin/ListarCategorias";
 import { Categorias } from "./Components/Admin/Categorias";
 import { EditarCategorias } from "./Components/Admin/EditarCategorias";
 import { AddImages } from "./Components/Admin/AddImages";
-import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
+// import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
 import { Producto } from "./Components/Admin/Producto";
 import { Caracteristicas } from "./Components/Admin/Caracteristicas";
 import Favs from "./Components/Favs/Favs";
@@ -52,11 +52,11 @@ function App() {
             path={routes.editarCategorias}
             element={<EditarCategorias />}
           />
-          <Route path={routes.añadirTalles} element={<AddTalles />} />
+          {/* <Route path={routes.añadirTalles} element={<AddTalles />} />
           <Route
             path={routes.registrarTalleProd}
             element={<RegistrarTalleProd />}
-          />
+          /> */}
           <Route path={routes.editarProducto} element={<EditarProducto />} />
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />

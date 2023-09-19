@@ -3,7 +3,7 @@ import { AñadirProducto } from "./AñadirProducto";
 import { AddImages } from "./AddImages";
 
 import styles from "./Categorias.module.css";
-import { RegistrarTalleProd } from "./RegistrarTalleProd";
+// import { RegistrarTalleProd } from "./RegistrarTalleProd";
 import { ListaProductos } from "./ListaProductos";
 
 export function Producto() {
@@ -22,9 +22,9 @@ export function Producto() {
           Agregar Producto
         </button>
 
-        <button onClick={() => handlePanelSection("registrarTalleProd")}>
+        {/* <button onClick={() => handlePanelSection("registrarTalleProd")}>
           Agregar Talle
-        </button>
+        </button> */}
 
         <button onClick={() => handlePanelSection("addImages")}>
           Agregar Imagen
@@ -40,7 +40,7 @@ export function Producto() {
         )}
         {panelSection === "agregarProducto" && <AñadirProducto />}
         {panelSection === "addImages" && <AddImages />}
-        {panelSection === "registrarTalleProd" && <RegistrarTalleProd />}
+        {/* {panelSection === "registrarTalleProd" && <RegistrarTalleProd />} */}
         {panelSection === "listarProducto" && <ListaProductos />}
       </div>
       {/* {showTitle && <h4>Elija una acción del panel superior</h4>}
