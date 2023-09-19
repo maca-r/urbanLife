@@ -238,11 +238,10 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificar si el usuario está autenticado al cargar el componente
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -255,7 +254,7 @@ const Navbar = () => {
 
       if (response.status === 200) {
         localStorage.removeItem("token");
-        setIsLoggedIn(false); // Cambiar el estado de autenticación a falso
+        setIsLoggedIn(false);
         navigate("/login");
       } else {
         console.error(
@@ -269,11 +268,11 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    setShowLogoutModal(true); // Mostrar el modal de confirmación de cierre de sesión
+    setShowLogoutModal(true);
   };
 
   const handleCloseLogoutModal = () => {
-    setShowLogoutModal(false); // Cerrar el modal de confirmación de cierre de sesión
+    setShowLogoutModal(false);
   };
 
   return (
