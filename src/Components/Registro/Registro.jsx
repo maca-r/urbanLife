@@ -106,9 +106,13 @@ const Registro = () => {
         telefono,
       });
 
-      console.log(response);
       if (response.status === 200) {
         console.log("USUARIO REGISTRADO");
+      } else {
+        console.error(
+          "Error al registrar usuario - Código de estado:",
+          response.status
+        );
       }
     } catch (error) {
       console.error("Error al registrar usuario", error);
