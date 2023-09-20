@@ -17,7 +17,6 @@ export function AñadirProducto() {
   const [selectedCategoria, setSelectedCategoria] = useState("");
 
   const [mensaje, setMensaje] = useState("");
-
   const [selectedTalles, setSelectedTalles] = useState([]);
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
@@ -48,14 +47,12 @@ export function AñadirProducto() {
   };
 
   const handleTalleChange = (talle) => {
-    const talleIndex = selectedTalles.indexOf(talle);
-
-    if (talleIndex !== -1) {
-      const updatedTalles = [...selectedTalles];
-      updatedTalles.splice(talleIndex, 1);
-      setSelectedTalles(updatedTalles);
+    if (selectedTalles.some((item) => item.talle === talle)) {
+      setSelectedTalles((prevTalles) =>
+        prevTalles.filter((item) => item.talle !== talle)
+      );
     } else {
-      setSelectedTalles([...selectedTalles, talle]);
+      setSelectedTalles((prevTalles) => [...prevTalles, { talle: talle }]);
     }
   };
 
@@ -99,12 +96,12 @@ export function AñadirProducto() {
         setPrecio("");
         setDetalle("");
         setColor("");
-        setTela("");
-        setTemporada("");
         setCorte("");
+        setTela("");
         setGenero("");
+        setTemporada("");
         setSelectedCategoria("");
-        setSelectedTalles("");
+        setSelectedTalles([]);
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);

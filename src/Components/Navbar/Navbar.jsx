@@ -237,42 +237,37 @@ import { routes } from "../../Routes/routes";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
 
-  const logout = async () => {
+  const handleLogout = async () => {
     try {
+      // Realiza una solicitud al endpoint de cierre de sesión
       const response = await axios.post(
-        "http://34.229.181.144/api/v1/auth/logout"
+        "http://localhost/api/v1/auth/logout",
+
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Incluye el token en los encabezados
+          },
+        }
       );
 
       if (response.status === 200) {
+        // Cierre de sesión exitoso, borra el token del localStorage
         localStorage.removeItem("token");
-        setIsLoggedIn(false);
-        navigate("/login");
+        console.log("Cierre de sesión exitoso");
       } else {
-        console.error(
-          "Error al cerrar sesión - Código de estado:",
-          response.status
-        );
+        // Manejar errores de cierre de sesión aquí
+        console.error("Error en el cierre de sesión");
       }
     } catch (error) {
-      console.error("Error al cerrar sesión", error);
+      console.error("Error en el cierre de sesión", error);
     }
-  };
-
-  const handleLogout = () => {
-    setShowLogoutModal(true);
-  };
-
-  const handleCloseLogoutModal = () => {
-    setShowLogoutModal(false);
   };
 
   return (
@@ -288,28 +283,11 @@ const Navbar = () => {
         </div>
       </Link>
 
-      {showLogoutModal && (
-        <Modal show={showLogoutModal} onHide={handleCloseLogoutModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>¿Seguro que quieres cerrar sesión?</Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseLogoutModal}>
-              Cancelar
-            </Button>
-            <Button variant="danger" onClick={logout}>
-              Cerrar sesión
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
-
       <div className={styles.rutas}>
         {isLoggedIn ? (
           <>
-            <button className={styles.logOut} onClick={handleLogout}>
-              Cerrar sesión
-            </button>
+            <h2>Cerrar Sesión</h2>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
           </>
         ) : (
           <>
