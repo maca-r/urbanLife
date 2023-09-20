@@ -17,16 +17,6 @@ export function AddImages() {
       ? `${privateUrl}:80/productos/listaproductos-all`
       : `${publicUrl}:80/productos/listaproductos-all`;
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:80/productos/listaproductos-all")
-  //     .then((response) => {
-  //       setProducts(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al obtener los productos:", error);
-  //     });
-  // }, []);
   useEffect(() => {
     axios
       .get(urlListaProductos)
@@ -63,23 +53,16 @@ export function AddImages() {
     }
 
     try {
+      const storedToken = localStorage.getItem("token");
+
       for (const file of selectedFiles) {
         const formData = new FormData();
         formData.append("file", file);
 
-        // const imageResponse = await axios.post(
-        //   `http://localhost:80/productos/${selectedProduct}/producto-image`,
-        //   formData,
-        //   {
-        //     headers: {
-        //       "Content-Type": "multipart/form-data",
-        //     },
-        //   }
-        // );
-
         const imageResponse = await axios.post(urlSelectedProduct, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${storedToken}`,
           },
         });
 
