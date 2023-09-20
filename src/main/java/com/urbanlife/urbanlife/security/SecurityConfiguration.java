@@ -69,6 +69,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/usuarios**").hasAnyRole(CLIENTE.name(), ADMIN.name())
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
                 .requestMatchers(GET, "/listausuarios-all").hasAuthority(ADMIN_READ.name())
+                .requestMatchers(POST, "/reservarProducto").hasAuthority(CLIENTE_CREATE.name())
 
 
                 .anyRequest()

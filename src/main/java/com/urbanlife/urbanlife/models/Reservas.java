@@ -15,7 +15,7 @@ public class Reservas {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "reservas")
     private Integer idReservas;
     private LocalDate fechaReserva;
-    private LocalDate fechaIniciAlquiler;
+    private LocalDate fechaInicioAlquiler;
     private LocalDate fechaFinAlquiler;
     private String estadoReserva;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

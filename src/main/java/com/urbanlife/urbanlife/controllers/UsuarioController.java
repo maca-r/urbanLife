@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.controllers;
 
+import com.urbanlife.urbanlife.models.request.ReservaRequest;
 import com.urbanlife.urbanlife.models.response.UsuarioResponse;
 import com.urbanlife.urbanlife.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,10 @@ public class UsuarioController {
     @GetMapping("/listausuarios-all")
     public ResponseEntity<Collection<UsuarioResponse>> listausuarios() {
         return ResponseEntity.ok(usuarioService.listaUsuariosRegistrados());
+    }
+    @PostMapping("/reservarProducto")
+    public ResponseEntity<?> reservarProducto(ReservaRequest request) {
+        return ResponseEntity.ok(usuarioService.guardarReserva(request));
     }
 
 }
