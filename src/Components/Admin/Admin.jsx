@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Admin.module.css";
 
-// import { AddTalles } from "./AddTalles";
+import { AddTalles } from "./AddTalles";
 
 import { Categorias } from "./Categorias";
 
@@ -43,9 +43,9 @@ export function Admin() {
       ) : (
         <div className={styles.panel}>
           <div className={styles.buttonPanel}>
-            {/* <button onClick={() => handlePanelSection("agregarTalles")}>
+            <button onClick={() => handlePanelSection("agregarTalles")}>
               Registrar Talles
-            </button> */}
+            </button>
 
             <button onClick={() => handlePanelSection("categorias")}>
               Administrar Categorias
@@ -77,7 +77,7 @@ export function Admin() {
 
             {panelSection == "caracteristicas" && <Caracteristicas />}
 
-            {/* {panelSection == "agregarTalles" && <AddTalles />} */}
+            {panelSection == "agregarTalles" && <AddTalles />}
 
             {panelSection == "listaProductos" && <ListaProductos />}
           </div>

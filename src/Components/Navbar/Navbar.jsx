@@ -244,18 +244,26 @@ const Navbar = () => {
     setIsLoggedIn(!!token);
   }, []);
 
+  console.log("fuera");
+
   const handleLogout = async () => {
     try {
       // Realiza una solicitud al endpoint de cierre de sesión
+
       const response = await axios.post(
         "http://localhost/api/v1/auth/logout",
-
+        null, // El cuerpo de la solicitud es nulo
         {
+          mode: "no-cors",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Incluye el token en los encabezados
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*", // Esto puede ser más restrictivo en producción
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+
+      console.log("mas dentro");
 
       if (response.status === 200) {
         // Cierre de sesión exitoso, borra el token del localStorage
@@ -285,10 +293,7 @@ const Navbar = () => {
 
       <div className={styles.rutas}>
         {isLoggedIn ? (
-          <>
-            <h2>Cerrar Sesión</h2>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
-          </>
+          <button onClick={handleLogout}>Cerrar Sesión</button>
         ) : (
           <>
             <Link to={routes.registro} className={styles.crearCuenta}>

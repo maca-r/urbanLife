@@ -35,6 +35,7 @@ function Registro() {
       if (response.status === 200) {
         // Registro exitoso
         console.log("Usuario registrado con éxito");
+        window.location.href = "http://localhost:5173/";
       } else {
         // Manejar errores de registro aquí
         console.error("Error al registrar usuario");

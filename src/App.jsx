@@ -13,7 +13,7 @@ import { ListaProductos } from "./Components/Admin/ListaProductos";
 import { AñadirProducto } from "./Components/Admin/AñadirProducto";
 import Registro from "./Components/Registro/Registro";
 import { AddCategorias } from "./Components/Admin/AddCategorias";
-// import { AddTalles } from "./Components/Admin/AddTalles";
+import { AddTalles } from "./Components/Admin/AddTalles";
 import Login from "./Components/Login/Login";
 import { EditarProducto } from "./Components/Admin/EditarProducto";
 import { ImgCategoria } from "./Components/Admin/ImgCategoria";
@@ -52,8 +52,8 @@ function App() {
             path={routes.editarCategorias}
             element={<EditarCategorias />}
           />
-          {/* <Route path={routes.añadirTalles} element={<AddTalles />} />
-          <Route
+          <Route path={routes.añadirTalles} element={<AddTalles />} />
+          {/* <Route
             path={routes.registrarTalleProd}
             element={<RegistrarTalleProd />}
           /> */}

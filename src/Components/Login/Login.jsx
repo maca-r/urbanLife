@@ -32,10 +32,16 @@ function Login() {
       console.log(response);
       console.log(response.data);
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 202) {
         // Inicio de sesión exitoso, guarda el token en el localStorage
         localStorage.setItem("token", response.data.access_token);
-        console.log("Inicio de sesión exitoso");
+
+        // Redirige al usuario a la página deseada según el email
+        if (formData.email === "admin@mail.com") {
+          window.location.href = "http://localhost:5173/admin";
+        } else {
+          window.location.href = "http://localhost:5173/";
+        }
       } else {
         // Manejar errores de inicio de sesión aquí
         console.error("Error en el inicio de sesión");
