@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +35,7 @@ public class SecurityConfiguration {
         http
                 .csrf()
                 .disable()
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/api/v1/auth/**",
@@ -43,6 +45,7 @@ public class SecurityConfiguration {
                         "/productos/obtener/{id}",
                         "/categorias/listarcategorias-all",
                         "/categorias/{id}/categoria-image",
+                        "/talles/listartalles-all",
                         "/categorias/{id}"
                 )
                 .permitAll()
@@ -59,8 +62,14 @@ public class SecurityConfiguration {
                 .requestMatchers(PUT, "/{id}/actualizar").hasAuthority(ADMIN_UPDATE.name())
                 .requestMatchers(DELETE, "/{id}/eliminar").hasAuthority(ADMIN_DELETE.name())
 
-                .requestMatchers("/auth/usuarios**").hasRole(CLIENTE.name())
+                .requestMatchers("/talles**").hasRole(ADMIN.name())
+                .requestMatchers(POST, "/registrarTalle").hasAuthority(ADMIN_CREATE.name())
+
+
+                .requestMatchers("/auth/usuarios**").hasAnyRole(CLIENTE.name(), ADMIN.name())
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
+                .requestMatchers(GET, "/listausuarios-all").hasAuthority(ADMIN_READ.name())
+                .requestMatchers(POST, "/reservarProducto").hasAuthority(CLIENTE_CREATE.name())
 
 
                 .anyRequest()

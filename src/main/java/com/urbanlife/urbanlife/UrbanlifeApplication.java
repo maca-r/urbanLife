@@ -42,14 +42,6 @@ public class UrbanlifeApplication {
 						.build();
 				System.out.println("Admin token: " + service.registerAdmin(admin).getAccessToken());
 			}
-			/*var manager = RegisterRequest.builder()
-					.nombre("Admin")
-					.apellido("Admin")
-					.email("manager@mail.com")
-					.password("password")
-					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());*/
-
 		};
 	}
 }
