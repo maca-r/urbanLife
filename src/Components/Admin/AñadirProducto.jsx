@@ -304,13 +304,11 @@ export function AñadirProducto() {
   const [talles, setTalles] = useState([]);
 
   useEffect(() => {
-    // Obtener token de localStorage
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
     }
 
-    // Obtener categorías mediante una solicitud GET
     axios
       .get("http://localhost/categorias/listarcategorias-all", {
         headers: {
@@ -324,7 +322,6 @@ export function AñadirProducto() {
         console.error("Error al obtener categorías:", error);
       });
 
-    // Obtener talles mediante una solicitud GET
     axios
       .get("http://localhost/talles/listartalles-all", {
         headers: {
@@ -342,12 +339,10 @@ export function AñadirProducto() {
   const handleTalleChange = (e) => {
     const talleId = e.target.value;
     if (tallesSeleccionados.includes(talleId)) {
-      // Si el talle ya estaba seleccionado, quitarlo de la lista
       setTallesSeleccionados(
         tallesSeleccionados.filter((id) => id !== talleId)
       );
     } else {
-      // Si el talle no estaba seleccionado, agregarlo a la lista
       setTallesSeleccionados([...tallesSeleccionados, talleId]);
     }
   };
@@ -376,7 +371,7 @@ export function AñadirProducto() {
       },
       talles: tallesSeleccionados.map((idTalle) => ({
         idMedida: idTalle,
-        talle: "", // Agrega el valor del talle si es necesario
+        talle: "",
       })),
     });
   };
@@ -384,7 +379,6 @@ export function AñadirProducto() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Realizar una solicitud POST para agregar el producto
     axios
       .post("http://localhost/productos/registrar", producto, {
         headers: {
@@ -393,7 +387,6 @@ export function AñadirProducto() {
       })
       .then((response) => {
         console.log("Producto agregado exitosamente:", response.data);
-        // Reiniciar el formulario o redirigir a otra página
       })
       .catch((error) => {
         console.error("Error al agregar el producto:", error);
@@ -437,7 +430,6 @@ export function AñadirProducto() {
             required
           />
         </div>
-
         <div>
           <label htmlFor="color">color:</label>
           <input
@@ -449,7 +441,6 @@ export function AñadirProducto() {
             required
           />
         </div>
-        {/* Agregar más campos de entrada para los datos del producto */}
         <div>
           <label htmlFor="categoria">Categoría:</label>
           <select
@@ -466,22 +457,23 @@ export function AñadirProducto() {
             ))}
           </select>
         </div>
+
         <div>
           <label>Talles:</label>
-          {talles.map((talle) => (
-            <div key={talle.idTalle}>
-              <label>
-                <input
-                  type="checkbox"
-                  name="tallesSeleccionados"
-                  value={talle.idTalle}
-                  onChange={handleTalleChange}
-                  checked={tallesSeleccionados.includes(talle.idTalle)}
-                />
+          <select
+            multiple
+            id="talles"
+            name="talles"
+            onChange={handleTalleChange}
+            value={tallesSeleccionados}
+            required
+          >
+            {talles.map((talle) => (
+              <option key={talle.idTalle} value={talle.idTalle}>
                 {talle.talle}
-              </label>
-            </div>
-          ))}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button type="submit">Agregar Producto</button>

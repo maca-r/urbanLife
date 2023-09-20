@@ -12,6 +12,13 @@ export function EditarProducto() {
   const [productTalles, setProductTalles] = useState([]);
 
   const [selectedCategoria, setSelectedCategoria] = useState("");
+  const storedToken = localStorage.getItem("token");
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${storedToken}`,
+    },
+  };
 
   const telas = ["ALGODÓN", "POLIÉSTER", "LINO", "CUERO", "SEDA"];
   const cortes = ["FIESTA", "CUMPLEAÑOS", "CASAMIENTO"];
@@ -32,48 +39,23 @@ export function EditarProducto() {
       ? `${privateUrl}:80/categorias/listarcategorias-all`
       : `${publicUrl}:80/categorias/listarcategorias-all`;
 
-  // const fetchCategories = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:80/categorias/listarcategorias-all"
-  //     );
-  //     setCategorias(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching categorias:", error);
-  //   }
-  // };
-
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(urlListarCategorias);
+      const response = await axios.get(urlListarCategorias, axiosConfig);
       setCategorias(response.data);
     } catch (error) {
       console.error("Error fetching categorias:", error);
     }
   };
 
-  const params = useParams();
-
-  const urlProductoId =
-    privateUrl != ""
-      ? `${privateUrl}:80/productos/obtener/${params.id}`
-      : `${publicUrl}:80/productos/obtener/${params.id}`;
-
-  // const fetchProductoPorId = async (id) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:80/productos/obtener/${id}`
-  //     );
-  //     setEditedProduct(response.data);
-  //     setSelectedCategoria(response.data.categorias.idCategoria);
-  //   } catch (error) {
-  //     console.error(`Error al obtener el producto con ID ${id}:`, error);
-  //   }
-  // };
-
-  const fetchProductoPorId = async () => {
+  const fetchProductoPorId = async (id) => {
     try {
-      const response = await axios.get(urlProductoId);
+      const urlProductoId =
+        privateUrl !== ""
+          ? `${privateUrl}:80/productos/obtener/${id}`
+          : `${publicUrl}:80/productos/obtener/${id}`;
+
+      const response = await axios.get(urlProductoId, axiosConfig);
       setEditedProduct(response.data);
       setSelectedCategoria(response.data.categorias.idCategoria);
       setProductTalles(response.data.talles);
@@ -94,30 +76,28 @@ export function EditarProducto() {
         return;
       }
 
+      if (!idProducto) {
+        setStatusMessage("Error: ID del producto no está definido");
+        return;
+      }
+
       const urlEditarProducto =
-        privateUrl != ""
+        privateUrl !== ""
           ? `${privateUrl}:80/productos/editar/${idProducto}`
           : `${publicUrl}:80/productos/editar/${idProducto}`;
 
-      // const response = await axios.put(
-      //   `http://localhost:80/productos/editar/${idProducto}`,
-      //   {
-      //     ...editedProduct,
-      //     categorias: {
-      //       idCategoria: selectedCategory.idCategoria,
-      //       titulo: selectedCategory.titulo,
-      //     },
-      //   }
-      // );
-
-      const response = await axios.put(urlEditarProducto, {
-        ...editedProduct,
-        categorias: {
-          idCategoria: selectedCategory.idCategoria,
-          titulo: selectedCategory.titulo,
+      const response = await axios.put(
+        urlEditarProducto,
+        {
+          ...editedProduct,
+          categorias: {
+            idCategoria: selectedCategory.idCategoria,
+            titulo: selectedCategory.titulo,
+          },
+          talles: productTalles,
         },
-        talles: productTalles,
-      });
+        axiosConfig
+      );
 
       if (response.status === 200 || response.status === 202) {
         setStatusMessage("Cambios guardados exitosamente");
@@ -136,10 +116,8 @@ export function EditarProducto() {
   const handleTallesChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      // Agregar el talle si está marcado
       setProductTalles([...productTalles, value]);
     } else {
-      // Quitar el talle si está desmarcado
       setProductTalles(productTalles.filter((talle) => talle !== value));
     }
   };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -24,29 +24,23 @@ export function ListaProductos() {
       : `${publicUrl}:80/productos/listaproductos-all`;
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (!storedToken) {
+      setNoProductosMessage("No hay un token en el localStorage.");
+      return;
+    }
+
     fetchProductos();
   }, []);
 
-  // async function fetchProductos() {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:80/productos/listaproductos-all"
-  //     );
-  //     setProducto(response.data);
-
-  //     if (response.data.length === 0) {
-  //       setNoProductosMessage("No hay productos disponibles.");
-  //     } else {
-  //       setNoProductosMessage("");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error al obtener los productos:", error);
-  //   }
-  // }
-
   async function fetchProductos() {
     try {
-      const response = await axios.get(urlListarProductos);
+      const storedToken = localStorage.getItem("token");
+      const response = await axios.get(urlListarProductos, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       setProducto(response.data);
 
       if (response.data.length === 0) {
@@ -59,94 +53,66 @@ export function ListaProductos() {
     }
   }
 
-  const params = useParams();
-
-  const urlListarProductosId =
-    privateUrl != ""
-      ? `${privateUrl}:80/productos/obtener/${params.id}`
-      : `${publicUrl}:80/productos/obtener/${params.id}`;
-
-  // async function fetchProductoPorId(id) {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:80/productos/obtener/${id}`
-  //     );
-  //     setProductoId(response.data);
-  //     fetchImagenesProducto(id);
-  //     fetchTallesProducto(id);
-  //   } catch (error) {
-  //     console.error(`Error al obtener el producto con ID ${id}:`, error);
-  //   }
-  // }
-
-  async function fetchProductoPorId() {
+  async function fetchProductoPorId(id) {
     try {
-      const response = await axios.get(urlListarProductosId);
+      const storedToken = localStorage.getItem("token");
+      const urlListarProductosId =
+        privateUrl !== ""
+          ? `${privateUrl}:80/productos/obtener/${id}`
+          : `${publicUrl}:80/productos/obtener/${id}`;
+
+      const response = await axios.get(urlListarProductosId, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       setProductoId(response.data);
-      fetchImagenesProducto(params.id);
-      fetchTallesProducto(params.id);
+      fetchImagenesProducto(id);
+      fetchTallesProducto(id);
     } catch (error) {
-      console.error(`Error al obtener el producto con ID ${params.id}:`, error);
+      console.error(`Error al obtener el producto con ID ${id}:`, error);
     }
   }
 
-  const urlImagenesId =
-    privateUrl != ""
-      ? `${privateUrl}:80/imagenes/obtener/${params.id}`
-      : `${publicUrl}:80/imagenes/obtener/${params.id}`;
-
-  // async function fetchImagenesProducto(id) {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:80/imagenes/obtener/${id}`
-  //     );
-  //     setProductoImagenes(response.data);
-  //   } catch (error) {
-  //     console.error(
-  //       `Error al obtener las imágenes del producto con ID ${id}:`,
-  //       error
-  //     );
-  //   }
-  // }
-
-  async function fetchImagenesProducto() {
+  async function fetchImagenesProducto(id) {
     try {
-      const response = await axios.get(urlImagenesId);
+      const storedToken = localStorage.getItem("token");
+      const urlImagenesId =
+        privateUrl !== ""
+          ? `${privateUrl}:80/imagenes/obtener/${id}`
+          : `${publicUrl}:80/imagenes/obtener/${id}`;
+
+      const response = await axios.get(urlImagenesId, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       setProductoImagenes(response.data);
     } catch (error) {
       console.error(
-        `Error al obtener las imágenes del producto con ID ${params.id}:`,
+        `Error al obtener las imágenes del producto con ID ${id}:`,
         error
       );
     }
   }
 
-  const urlTallesId =
-    privateUrl != ""
-      ? `${privateUrl}:80/talles/listatalles-producto/${params.id}`
-      : `${publicUrl}:80/talles/listatalles-producto/${params.id}`;
-
-  // async function fetchTallesProducto(id) {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:80/talles/listatalles-producto/${id}`
-  //     );
-  //     setProductoTalles(response.data);
-  //   } catch (error) {
-  //     console.error(
-  //       `Error al obtener los talles del producto con ID ${id}:`,
-  //       error
-  //     );
-  //   }
-  // }
-
-  async function fetchTallesProducto() {
+  async function fetchTallesProducto(id) {
     try {
-      const response = await axios.get(urlTallesId);
+      const storedToken = localStorage.getItem("token");
+      const urlTallesId =
+        privateUrl !== ""
+          ? `${privateUrl}:80/talles/listatalles-producto/${id}`
+          : `${publicUrl}:80/talles/listatalles-producto/${id}`;
+
+      const response = await axios.get(urlTallesId, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       setProductoTalles(response.data);
     } catch (error) {
       console.error(
-        `Error al obtener los talles del producto con ID ${params.id}:`,
+        `Error al obtener los talles del producto con ID ${id}:`,
         error
       );
     }
@@ -157,31 +123,21 @@ export function ListaProductos() {
     setShowDeleteModal(true);
   }
 
-  const urlEliminarProducto =
-    privateUrl != ""
-      ? `${privateUrl}:80/productos/eliminar/${params.id}`
-      : `${publicUrl}:80/productos/eliminar/${params.id}`;
-
-  // async function eliminarProducto(productoId) {
-  //   try {
-  //     await axios.delete(
-  //       `http://localhost:80/productos/eliminar/${productoId}`
-  //     );
-  //     const actProducto = producto.filter(
-  //       (producto) => producto.idProducto !== productoId
-  //     );
-  //     setProducto(actProducto);
-  //     setShowDeleteModal(false);
-  //   } catch (error) {
-  //     console.error("Error al eliminar producto:", error);
-  //   }
-  // }
-
-  async function eliminarProducto() {
+  async function eliminarProducto(id) {
     try {
-      await axios.delete(urlEliminarProducto);
+      const storedToken = localStorage.getItem("token");
+      const urlEliminarProducto =
+        privateUrl !== ""
+          ? `${privateUrl}:80/productos/eliminar/${id}`
+          : `${publicUrl}:80/productos/eliminar/${id}`;
+
+      await axios.delete(urlEliminarProducto, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       const actProducto = producto.filter(
-        (producto) => producto.idProducto !== productoId
+        (producto) => producto.idProducto !== id
       );
       setProducto(actProducto);
       setShowDeleteModal(false);
@@ -195,6 +151,7 @@ export function ListaProductos() {
       <div style={{ margin: "2%" }}>
         <h3>Listado de Productos</h3>
         {noProductosMessage && <p>{noProductosMessage}</p>}
+
         {producto.length > 0 && (
           <Table striped>
             <thead>
@@ -259,6 +216,7 @@ export function ListaProductos() {
           <p>Temporada: {productoId.temporada}</p>
           <p>ID Categoria: {productoId.categorias.idCategoria}</p>
           <p>Nombre categoria: {productoId.categorias.titulo}</p>
+          <p>Descripcion: {productoId.categorias.descripcion}</p>
 
           {productoTalles.length > 0 && (
             <div>
