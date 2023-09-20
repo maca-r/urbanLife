@@ -227,7 +227,6 @@
 // };
 
 // export default Navbar;
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -238,34 +237,55 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInitials, setUserInitials] = useState("");
+  const [userName, setUserName] = useState(""); // Almacena el nombre completo del usuario
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token);
+    console.log(localStorage.getItem("token"));
     setIsLoggedIn(!!token);
-  }, []);
 
-  console.log("fuera");
+    if (token) {
+      // Si el usuario está autenticado, realiza una solicitud para obtener su información
+      axios
+        .get("http://localhost/auth/usuarios/listausuarios-all", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            const userData = response.data;
+            setUserName(`${userData.firstName} ${userData.lastName}`);
+
+            // Calcula las iniciales si se han proporcionado nombre y apellido
+            const initials =
+              userData.firstName.charAt(0).toUpperCase() +
+              userData.lastName.charAt(0).toUpperCase();
+            setUserInitials(initials);
+          } else {
+            console.error("Error al obtener la información del usuario");
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener la información del usuario", error);
+        });
+    }
+  }, []);
 
   const handleLogout = async () => {
     try {
       // Realiza una solicitud al endpoint de cierre de sesión
-
       const response = await axios.post(
         "http://localhost/api/v1/auth/logout",
-        null, // El cuerpo de la solicitud es nulo
+        null,
         {
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*", // Esto puede ser más restrictivo en producción
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       );
 
-      console.log("mas dentro");
-
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 202) {
         // Cierre de sesión exitoso, borra el token del localStorage
         localStorage.removeItem("token");
         console.log("Cierre de sesión exitoso");
@@ -293,7 +313,11 @@ const Navbar = () => {
 
       <div className={styles.rutas}>
         {isLoggedIn ? (
-          <button onClick={handleLogout}>Cerrar Sesión</button>
+          <>
+            <div className={styles.userName}>{userName}</div>
+            <div className={styles.userInitials}>{userInitials}</div>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+          </>
         ) : (
           <>
             <Link to={routes.registro} className={styles.crearCuenta}>

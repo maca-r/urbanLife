@@ -32,7 +32,7 @@ function Registro() {
         }
       );
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         // Registro exitoso
         console.log("Usuario registrado con éxito");
         window.location.href = "http://localhost:5173/";

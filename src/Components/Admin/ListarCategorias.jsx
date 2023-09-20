@@ -2,7 +2,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function ListarCategorias() {
   const [categorias, setCategorias] = useState([]);
@@ -17,38 +17,6 @@ export function ListarCategorias() {
     privateUrl != ""
       ? `${privateUrl}:80/categorias/listarcategorias-all`
       : `${publicUrl}:80/categorias/listarcategorias-all`;
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://10.0.1.104/categorias/listarcategorias-all")
-  //     .then((response) => {
-  //       const categoriasNoEliminadas = response.data.filter(
-  //         (categoria) => categoria.eliminarCategoria === false
-  //       );
-  //       setCategorias(categoriasNoEliminadas);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al obtener las categorías:", error);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://34.229.181.144/categorias/listarcategorias-all")
-  //     .then((response) => {
-  //       const categoriasNoEliminadas = response.data.filter(
-  //         (categoria) => categoria.eliminarCategoria === false
-  //       );
-  //       setCategorias(categoriasNoEliminadas);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al obtener las categorías:", error);
-  //       setLoading(false);
-  //     });
-  // }, []);
 
   useEffect(() => {
     axios
@@ -66,56 +34,29 @@ export function ListarCategorias() {
       });
   }, []);
 
-  const params = useParams();
+  const eliminarCategoria = (idCategoria) => {
+    if (!idCategoria) {
+      console.error("No se ha seleccionado ninguna categoría para eliminar.");
+      return;
+    }
 
-  const urlEliminarCategoria =
-    privateUrl != ""
-      ? `${privateUrl}:80/categorias/${params.id}/eliminar`
-      : `${publicUrl}:80/categorias/${params.id}/eliminar`;
+    const urlEliminarCategoria =
+      privateUrl != ""
+        ? `${privateUrl}:80/categorias/${idCategoria}/eliminar`
+        : `${publicUrl}:80/categorias/${idCategoria}/eliminar`;
 
-  // const eliminarCategoria = (id) => {
-  //   axios
-  //     .delete(`http://localhost:80/categorias/${id}/eliminar`)
-  //     .then(() => {
-  //       const updatedCategorias = categorias.filter(
-  //         (categoria) => categoria.idCategoria !== id
-  //       );
-  //       setCategorias(updatedCategorias);
-  //       setShowConfirmModal(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error(`Error al eliminar la categoría con ID ${id}:`, error);
-  //     });
-  // };
-
-  // const eliminarCategoria = () => {
-  //   axios
-  //     .delete(`http://34.229.181.144/categorias/${id}/eliminar`)
-  //     .then(() => {
-  //       const updatedCategorias = categorias.filter(
-  //         (categoria) => categoria.idCategoria !== params.id
-  //       );
-  //       setCategorias(updatedCategorias);
-  //       setShowConfirmModal(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error(`Error al eliminar la categoría con ID ${params.id}:`, error);
-  //     });
-  // };
-
-  const eliminarCategoria = () => {
     axios
       .delete(urlEliminarCategoria)
       .then(() => {
         const updatedCategorias = categorias.filter(
-          (categoria) => categoria.idCategoria !== params.id
+          (categoria) => categoria.idCategoria !== idCategoria
         );
         setCategorias(updatedCategorias);
         setShowConfirmModal(false);
       })
       .catch((error) => {
         console.error(
-          `Error al eliminar la categoría con ID ${params.id}:`,
+          `Error al eliminar la categoría con ID ${idCategoria}:`,
           error
         );
       });
@@ -125,10 +66,6 @@ export function ListarCategorias() {
     setCategoriaToDelete(categoria);
     setShowConfirmModal(true);
   };
-
-  // const imagenCategoria =  privateUrl != "" ?
-  // `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image` :
-  // `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
 
   return (
     <div style={{ margin: "2%" }}>
@@ -155,19 +92,12 @@ export function ListarCategorias() {
                 <td>{categoria.titulo}</td>
                 <td>{categoria.descripcion}</td>
                 <td>
-                  {/* <img
-                    src={`http://34.229.181.144/categorias/${categoria.idCategoria}/categoria-image`}
-                    alt={categoria.titulo}
-                    style={{ maxWidth: "100px" }}
-                  /> */}
-
                   <img
                     src={
                       privateUrl != ""
                         ? `${privateUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
                         : `${publicUrl}:80/categorias/${categoria.idCategoria}/categoria-image`
                     }
-                    //src={imagenCategoria}
                     alt={categoria.titulo}
                     style={{ maxWidth: "100px" }}
                   />
