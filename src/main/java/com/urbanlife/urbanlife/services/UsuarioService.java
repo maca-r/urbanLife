@@ -50,6 +50,7 @@ public class UsuarioService {
         logger.info("Lista Usuarios: Proceso Finalizado con Exito!");
         return listaUsuario;
     }
+
     private UsuarioResponse convertUser(Usuario user) {
         return UsuarioResponse.builder()
                 .email(user.getEmail())
