@@ -4,6 +4,8 @@ import axios from "axios";
 import { Alert, Button, Form } from "react-bootstrap";
 
 export function EditarCategorias() {
+  const token = localStorage.getItem("token");
+
   const { idCategoria } = useParams();
   const [editedCategoria, setEditedCategoria] = useState({
     titulo: "",
@@ -11,28 +13,17 @@ export function EditarCategorias() {
   });
   const [statusMessage, setStatusMessage] = useState("");
 
-  const params = useParams();
-
   const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
   const urlCategoriaId =
     privateUrl != ""
-      ? `${privateUrl}:80/categorias/${params.id}`
-      : `${publicUrl}:80/categorias/${params.id}`;
+      ? `${privateUrl}:80/categorias/${idCategoria}`
+      : `${publicUrl}:80/categorias/${idCategoria}`;
 
   useEffect(() => {
-    fetchCategoriaPorId(idCategoria);
-  }, [idCategoria]);
-
-  // const fetchCategoriaPorId = async (id) => {
-  //   try {
-  //     const response = await axios.get(`http://localhost:80/categorias/${id}`);
-  //     setEditedCategoria(response.data);
-  //   } catch (error) {
-  //     console.error(`Error al obtener la categoría con ID ${id}:`, error);
-  //   }
-  // };
+    fetchCategoriaPorId();
+  }, []);
 
   const fetchCategoriaPorId = async () => {
     try {
@@ -40,36 +31,28 @@ export function EditarCategorias() {
       setEditedCategoria(response.data);
     } catch (error) {
       console.error(
-        `Error al obtener la categoría con ID ${params.id}:`,
+        `Error al obtener la categoría con ID ${idCategoria}:`,
         error
       );
     }
   };
 
-  // const handleEdit = async () => {
-  //   try {
-  //     const response = await axios.put(
-  //       `http://localhost:80/categorias/${idCategoria}/actualizar`,
-  //       editedCategoria
-  //     );
-
-  //     if (response.status === 200 || response.status === 202) {
-  //       setStatusMessage("Cambios guardados exitosamente");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error al editar la categoría:", error);
-  //     setStatusMessage("Error al guardar los cambios");
-  //   }
-  // };
-
   const urlActualizarCategoria =
     privateUrl != ""
-      ? `${privateUrl}:80/categorias/${params.id}/actualizar`
-      : `${publicUrl}:80/categorias/${params.id}/actualizar`;
+      ? `${privateUrl}:80/categorias/${idCategoria}/actualizar`
+      : `${publicUrl}:80/categorias/${idCategoria}/actualizar`;
 
   const handleEdit = async () => {
     try {
-      const response = await axios.put(urlActualizarCategoria, editedCategoria);
+      const response = await axios.put(
+        urlActualizarCategoria,
+        editedCategoria,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.status === 200 || response.status === 202) {
         setStatusMessage("Cambios guardados exitosamente");

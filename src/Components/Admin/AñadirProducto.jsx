@@ -312,7 +312,11 @@ export function AñadirProducto() {
 
     // Obtener categorías mediante una solicitud GET
     axios
-      .get("http://localhost/categorias/listarcategorias-all")
+      .get("http://localhost/categorias/listarcategorias-all", {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
       .then((response) => {
         setCategorias(response.data);
       })

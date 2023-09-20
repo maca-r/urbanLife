@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 
 export function AddCategorias() {
+  const storedToken = localStorage.getItem("token");
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -33,7 +34,11 @@ export function AddCategorias() {
       //   categoriaData
       // );
 
-      const response = await axios.post(urlRegistroCategorias, categoriaData);
+      const response = await axios.post(urlRegistroCategorias, categoriaData, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Categoría agregada exitosamente");
