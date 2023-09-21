@@ -231,7 +231,7 @@ const Detail = () => {
     // if (selectedStartDate != "" && selectedEndDate != "") {
     //   console.log(selectedStartDate, selectedEndDate);
     //   //dataDispatch({ type: "GET_DATES", payload: [selectedStartDate, selectedEndDate] });
-      
+
     //   //navigate("/{routes.reserva}")
     // }
 
@@ -241,11 +241,14 @@ const Detail = () => {
 
   const handleReserva = (e) => {
     e.preventDefault();
-    
+
     if (selectedStartDate !== "" && selectedEndDate !== "") {
       // Si ambas fechas están seleccionadas, redirige a la página de reserva
       navigate(`/${routes.reserva}`);
-      dataDispatch({ type: "GET_DATES", payload: [selectedStartDate, selectedEndDate] });
+      dataDispatch({
+        type: "GET_DATES",
+        payload: [selectedStartDate, selectedEndDate],
+      });
     } else {
       // Puedes mostrar un mensaje de error o hacer algo más aquí si lo deseas
       console.log("Por favor, selecciona las fechas antes de reservar.");
@@ -487,7 +490,7 @@ const Detail = () => {
 
           {Array.isArray(dataState.producto.talles) &&
           dataState.producto.talles.length > 0 ? (
-            <div className={styles.tallas}>
+            <div className={styles.talles}>
               <h6>Talles disponibles:</h6>
               {dataState.producto.talles.map((talleItem, index) => (
                 <button
@@ -504,8 +507,8 @@ const Detail = () => {
               ))}
             </div>
           ) : (
-            <div className={styles.tallas}>
-              <p>No hay tallas disponibles.</p>
+            <div className={styles.talles}>
+              <p>No hay talles disponibles.</p>
             </div>
           )}
 
@@ -593,17 +596,26 @@ const Detail = () => {
 
       <h6>Compartir en redes</h6>
 
-          <div className={styles.socialButtons}>
-            <button onClick={handleFacebookShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
-              <FaFacebookSquare size={30} style={{color:"#efeeee"}} />
-            </button>
-            <button onClick={handleTwitterShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
-              <FaXTwitter size={30} style={{color:"#efeeee"}} />
-            </button>
-            <button onClick={handleInstagramShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
-              <FaInstagram size={30} style={{color:"#efeeee"}} />
-            </button>
-          </div>
+      <div className={styles.socialButtons}>
+        <button
+          onClick={handleFacebookShare}
+          style={{ backgroundColor: "#2b2b28", border: "none" }}
+        >
+          <FaFacebookSquare size={30} style={{ color: "#efeeee" }} />
+        </button>
+        <button
+          onClick={handleTwitterShare}
+          style={{ backgroundColor: "#2b2b28", border: "none" }}
+        >
+          <FaXTwitter size={30} style={{ color: "#efeeee" }} />
+        </button>
+        <button
+          onClick={handleInstagramShare}
+          style={{ backgroundColor: "#2b2b28", border: "none" }}
+        >
+          <FaInstagram size={30} style={{ color: "#efeeee" }} />
+        </button>
+      </div>
 
       {/* <span className={styles.tallesPrecioM}>
         <div className={styles.tallesCalendario}>
