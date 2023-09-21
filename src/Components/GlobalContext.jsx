@@ -6,6 +6,7 @@ export const initialState = {
   productos: [],
   producto: {},
   favs: JSON.parse(localStorage.getItem("favs")) || [],
+  dates: []
 };
 
 export const GlobalContext = createContext(undefined);
@@ -25,6 +26,8 @@ const dataReducer = (state, action) => {
       return { ...state, productos: action.payload };
     case "GET_A_PRODUCT":
       return { ...state, producto: action.payload };
+    case "GET_DATES":
+      return {...state, dates: action.payload}
     default:
       throw new Error();
   }
