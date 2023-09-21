@@ -530,6 +530,7 @@ const Detail = () => {
                 }}
                 className={styles.input}
                 min={getDate()}
+                style={{width: "90%"}}
               ></input>
             </div>
 
@@ -544,6 +545,7 @@ const Detail = () => {
                 }}
                 className={styles.input}
                 min={selectedStartDate}
+                style={{width: "90%"}}
               ></input>
             </div>
 
