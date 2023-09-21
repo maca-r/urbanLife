@@ -16,7 +16,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/productos")
-@CrossOrigin
 public class ProductoController {
     @Autowired
     IProductoService productoService;

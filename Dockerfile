@@ -1,5 +1,5 @@
 # Utiliza una imagen base con Java y Maven para construir tu aplicación
-FROM maven:3.1.2-openjdk-17 AS build
+FROM maven:3.8.4 AS build
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
