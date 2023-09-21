@@ -84,43 +84,41 @@ nav .rutas a {
   /* Otros estilos personalizados aquí */
 }
 
-.crearCuenta, .iniciarSesion {
-  outline:none;
+.crearCuenta,
+.iniciarSesion,
+.logOut {
+  outline: none;
   height: 40px;
   text-align: center;
   width: 130px;
-  border-radius:40px;
+  border-radius: 40px;
   /* background: #E3CE8D; */
   border: 2px solid black;
   /* color:black; */
-  transition: all 0.20s ease;
+  transition: all 0.2s ease;
   transform-origin: center center;
   &:hover {
-      box-shadow: 0px 0px 5px -2px #EFEEEE;
-      cursor: pointer;
-      opacity: 0.9;
-      border: 2px solid black;
-      font-size: 0.95rem;
+    box-shadow: 0px 0px 5px -2px #efeeee;
+    cursor: pointer;
+    opacity: 0.9;
+    border: 2px solid black;
+    font-size: 0.95rem;
   }
   &:active {
-      box-shadow: none;
-      font-size: 0.9rem;
+    box-shadow: none;
+    font-size: 0.9rem;
   }
 }
 
-
-
-.crearCuenta{
+.crearCuenta {
   margin-right: 10px;
-  background-color: #E3CE8D;
-  color:#2B2B28;
+  background-color: #e3ce8d;
+  color: #2b2b28;
 }
 
-
-
 .iniciarSesion {
-  background-color: #FFFFFF;
-  color:#2B2B28;
+  background-color: #ffffff;
+  color: #2b2b28;
   padding: 16px 54px;
 }
 
@@ -163,13 +161,12 @@ nav .rutas a {
   border-radius: 0;
 }
 
-.userInitials{
+.userInitials {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
-
 
 .logOut:hover {
   background-color: #e3ce8d;
