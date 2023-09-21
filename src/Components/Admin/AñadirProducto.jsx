@@ -64,14 +64,12 @@ export function AñadirProducto() {
   }, []);
 
   const handleTalleChange = (event) => {
-    const talleId = event.target.value;
+    const talleId = Number(event.target.value);
     if (tallesSeleccionados.includes(talleId)) {
-      // Si el talle ya está seleccionado, quitarlo
       setTallesSeleccionados(
         tallesSeleccionados.filter((id) => id !== talleId)
       );
     } else {
-      // Si el talle no está seleccionado, agregarlo
       setTallesSeleccionados([...tallesSeleccionados, talleId]);
     }
   };
@@ -84,9 +82,8 @@ export function AñadirProducto() {
         (cat) => cat.titulo === selectedCategoria
       );
 
-      // Obtener los objetos de talles seleccionados
       const selectedTalles = talles.filter((talle) =>
-        tallesSeleccionados.includes(talle.idMedida.toString())
+        tallesSeleccionados.includes(talle.idMedida)
       );
 
       const productoData = {
@@ -204,8 +201,8 @@ export function AñadirProducto() {
 
         {/* ------------------------------------------------------------------ */}
 
-        <div>
-          <label>Talles:</label>
+        <Form.Group style={{ marginBottom: "2%" }}>
+          <Form.Label>Talles</Form.Label>
           {talles.map((talle) => (
             <div key={talle.idMedida}>
               <label>
@@ -221,7 +218,7 @@ export function AñadirProducto() {
               </label>
             </div>
           ))}
-        </div>
+        </Form.Group>
 
         {/* ---------------------------------------------------------------------- */}
 

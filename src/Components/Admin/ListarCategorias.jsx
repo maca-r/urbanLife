@@ -13,6 +13,8 @@ export function ListarCategorias() {
   const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
+  const storedToken = localStorage.getItem("token");
+
   const urlListarCategorias =
     privateUrl != ""
       ? `${privateUrl}:80/categorias/listarcategorias-all`
@@ -45,8 +47,12 @@ export function ListarCategorias() {
         ? `${privateUrl}:80/categorias/${idCategoria}/eliminar`
         : `${publicUrl}:80/categorias/${idCategoria}/eliminar`;
 
+    const headers = {
+      Authorization: `Bearer ${storedToken}`,
+    };
+
     axios
-      .delete(urlEliminarCategoria)
+      .delete(urlEliminarCategoria, { headers })
       .then(() => {
         const updatedCategorias = categorias.filter(
           (categoria) => categoria.idCategoria !== idCategoria

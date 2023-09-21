@@ -1,11 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,53 +36,66 @@ function Login() {
         },
       });
 
-      console.log(response);
-      console.log(response.data);
-
       if (response.status === 200 || response.status === 202) {
-        // Inicio de sesión exitoso, guarda el token en el localStorage
         localStorage.setItem("token", response.data.access_token);
 
-        // Redirige al usuario a la página deseada según el email
         if (formData.email === "admin@mail.com") {
           window.location.href = "http://52.90.49.166:443/admin";
         } else {
           window.location.href = "http://52.90.49.166:443/";
         }
       } else {
-        // Manejar errores de inicio de sesión aquí
         console.error("Error en el inicio de sesión");
       }
     } catch (error) {
       console.error("Error en el inicio de sesión", error);
+
+      if (error.response && error.response.status === 403) {
+        setErrorMessage("Cuenta inexistente o datos ingresados incorrectos");
+      }
     }
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email:
+          </label>
           <input
             type="email"
+            className="form-control"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Contraseña:
+          </label>
           <input
             type="password"
+            className="form-control"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
         </div>
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit" className="btn btn-primary">
+          Iniciar Sesión
+        </button>
+        {errorMessage && (
+          <Alert variant="danger" className="mt-3">
+            {errorMessage}
+          </Alert>
+        )}
       </form>
     </div>
   );

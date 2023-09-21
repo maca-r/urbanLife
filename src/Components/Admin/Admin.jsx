@@ -6,8 +6,9 @@ import { AddTalles } from "./AddTalles";
 import { Categorias } from "./Categorias";
 
 import { Producto } from "./Producto";
-import { Caracteristicas } from "./Caracteristicas";
+// import { Caracteristicas } from "./Caracteristicas";
 import { ListaProductos } from "./ListaProductos";
+import ListaTalles from "./ListaTalles";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -47,13 +48,17 @@ export function Admin() {
               Registrar Talles
             </button>
 
+            <button onClick={() => handlePanelSection("listaTalles")}>
+              Listar Talles
+            </button>
+
             <button onClick={() => handlePanelSection("categorias")}>
               Administrar Categorias
             </button>
 
-            <button onClick={() => handlePanelSection("caracteristicas")}>
+            {/* <button onClick={() => handlePanelSection("caracteristicas")}>
               Administrar Caracteristicas
-            </button>
+            </button> */}
 
             <button onClick={() => handlePanelSection("producto")}>
               Agregar Productos
@@ -75,9 +80,11 @@ export function Admin() {
 
             {panelSection == "categorias" && <Categorias />}
 
-            {panelSection == "caracteristicas" && <Caracteristicas />}
+            {/* {panelSection == "caracteristicas" && <Caracteristicas />} */}
 
             {panelSection == "agregarTalles" && <AddTalles />}
+
+            {panelSection == "listaTalles" && <ListaTalles />}
 
             {panelSection == "listaProductos" && <ListaProductos />}
           </div>

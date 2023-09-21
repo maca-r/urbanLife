@@ -19,6 +19,7 @@ export const routes = {
   editarProducto: "editar/:idProducto",
   login: "login",
   registro: "registro",
+  listaTalles: "listatalles",
   favs: "favs",
   reserva: "reserva"
 };

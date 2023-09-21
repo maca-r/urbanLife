@@ -1,5 +1,3 @@
-// probando docker
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
@@ -21,11 +19,11 @@ import { ListarCategorias } from "./Components/Admin/ListarCategorias";
 import { Categorias } from "./Components/Admin/Categorias";
 import { EditarCategorias } from "./Components/Admin/EditarCategorias";
 import { AddImages } from "./Components/Admin/AddImages";
-// import { RegistrarTalleProd } from "./Components/Admin/RegistrarTalleProd";
 import { Producto } from "./Components/Admin/Producto";
 import { Caracteristicas } from "./Components/Admin/Caracteristicas";
 import Favs from "./Components/Favs/Favs";
 import CategoriaFiltro from "./Components/CategoriasFiltro/CategoriaFiltro";
+import ListaTalles from "./Components/Admin/ListaTalles";
 import Reserva from "./Components/Reserva/Reserva";
 
 function App() {
@@ -55,15 +53,12 @@ function App() {
             element={<EditarCategorias />}
           />
           <Route path={routes.añadirTalles} element={<AddTalles />} />
-          {/* <Route
-            path={routes.registrarTalleProd}
-            element={<RegistrarTalleProd />}
-          /> */}
+          <Route path={routes.listaTalles} element={<ListaTalles />} />
           <Route path={routes.editarProducto} element={<EditarProducto />} />
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />
           <Route path={routes.favs} element={<Favs />} />
-          <Route path={routes.categoria} element={<CategoriaFiltro/>}/>
+          <Route path={routes.categoria} element={<CategoriaFiltro />} />
           <Route path={routes.reserva} element={<Reserva/>}/>
 
         </Route>

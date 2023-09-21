@@ -64,7 +64,7 @@ export function AddCategorias() {
           </Alert>
         )}
         <Form.Group className="mb-3">
-          <Form.Label>Categoría super nueva</Form.Label>
+          <Form.Label>Categoría nueva</Form.Label>
           <Form.Control
             style={{ width: "30%" }}
             type="text"

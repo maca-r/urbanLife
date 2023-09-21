@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios"; // Importa Axios
 
 function Registro() {
@@ -37,11 +37,9 @@ function Registro() {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // Registro exitoso
         console.log("Usuario registrado con éxito");
         window.location.href = "http://52.90.49.166:443/";
       } else {
-        // Manejar errores de registro aquí
         console.error("Error al registrar usuario");
       }
     } catch (error) {
@@ -50,60 +48,77 @@ function Registro() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Registro de Usuario</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+        <div className="mb-3">
+          <label htmlFor="nombre" className="form-label">
+            Nombre:
+          </label>
           <input
             type="text"
+            className="form-control"
             id="nombre"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="apellido">Apellido:</label>
+        <div className="mb-3">
+          <label htmlFor="apellido" className="form-label">
+            Apellido:
+          </label>
           <input
             type="text"
+            className="form-control"
             id="apellido"
             name="apellido"
             value={formData.apellido}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email:
+          </label>
           <input
             type="email"
+            className="form-control"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Contraseña:
+          </label>
           <input
             type="password"
+            className="form-control"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="telefono">Teléfono:</label>
+        <div className="mb-3">
+          <label htmlFor="telefono" className="form-label">
+            Teléfono:
+          </label>
           <input
             type="tel"
+            className="form-control"
             id="telefono"
             name="telefono"
             value={formData.telefono}
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Registrar</button>
+        <button type="submit" className="btn btn-primary">
+          Registrar
+        </button>
       </form>
     </div>
   );

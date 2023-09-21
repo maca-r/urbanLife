@@ -1,88 +1,3 @@
-// import { Link, useNavigate } from "react-router-dom";
-
-// import { routes } from "../../Routes/routes";
-// import styles from "./Navbar.module.css";
-// import { useEffect, useState } from "react";
-// import { Button, Dropdown, Modal } from "react-bootstrap";
-// import DropdownItem from "react-bootstrap/esm/DropdownItem";
-
-// const Navbar = () => {
-//   const [user, setUser] = useState([]);
-//   const [userData, setUserData] = useState([]);
-//   const [inicialesUserData, setInicialesUserData] = useState("");
-//   const [inicialesUSER, setInicialesUSER] = useState("");
-
-//   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-//   const [mobileMenu, setMobileMenu] = useState(false);
-
-//   function handleResize() {
-//     if (window.innerWidth >= 780) {
-//       setMobileMenu(false);
-//     } else {
-//       setMobileMenu(true);
-//     }
-//   }
-
-//   useEffect(() => {
-//     window.addEventListener("resize", handleResize);
-//     window.addEventListener("load", handleResize);
-//   }, []);
-
-//   useEffect(() => {
-//     const userData = JSON.parse(localStorage.getItem("userData"));
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     if (userData) {
-//       setUserData(userData);
-//       const initials = userData.nombre[0] + userData.apellido[0];
-//       const upperCaseInitials = initials.toUpperCase();
-//       setInicialesUserData(upperCaseInitials);
-//     }
-//     if (user) {
-//       setUser(user);
-//       const initialsUser = user.email[0] + user.email[1];
-//       const upperCaseInitialsUser = initialsUser.toUpperCase();
-//       setInicialesUSER(upperCaseInitialsUser);
-//     }
-//   }, []);
-
-//   const navigate = useNavigate();
-
-//   const favoritos = () => {
-//     navigate("/favs");
-//   };
-
-//   const logout = () => {
-//     setShowLogoutModal(true); // Mostrar el modal al hacer clic en "Cerrar sesión"
-//   };
-
-//   const confirmLogout = () => {
-//     localStorage.removeItem("user");
-//     //setUserData([]);
-//     setUser([]);
-//     setShowLogoutModal(false); // Cierra el modal después de confirmar el cierre de sesión
-//   };
-
-//   // const logout = () => {
-//   //   //localStorage.removeItem('userData');
-//   //   const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
-//   //   if (confirmLogout) {
-//   //     localStorage.removeItem("user");
-//   //     setUserData([]);
-//   //     setUser([]);
-//   //   }
-//   // };
-
-//   const renderProfileImageOrLoading = () => {
-//     if (userData.nombre !== "" && inicialesUserData !== "") {
-//       return <div className={styles.profileImage}>{inicialesUserData} </div>;
-//     } else if (user.email !== "" && inicialesUSER !== "") {
-//       return <div className={styles.profileImage}>{inicialesUSER}</div>;
-//     } else {
-//       return <div>Cargando...</div>;
-//     }
-//   };
-
 //   return (
 //     <nav>
 //       <Link to={routes.home} className={styles.logoLink}>
@@ -209,24 +124,6 @@
 //         </>
 //       )}
 
-//       <Modal show={showLogoutModal} onHide={() => setShowLogoutModal(false)}>
-//         <Modal.Header closeButton>
-//           <Modal.Title>¿Seguro que quieres cerrar sesión?</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Footer>
-//           <Button variant="secondary" onClick={() => setShowLogoutModal(false)}>
-//             Cancelar
-//           </Button>
-//           <Button variant="danger" onClick={confirmLogout}>
-//             Cerrar sesión
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -240,7 +137,7 @@ import styles from "./Navbar.module.css";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInitials, setUserInitials] = useState("");
-  const [userName, setUserName] = useState(""); // Almacena el nombre completo del usuario
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -259,19 +156,19 @@ const Navbar = () => {
           },
         })
         .then((response) => {
-          if (response.status === 200) {
-            const userData = response.data;
-            setUserName(`${userData.firstName} ${userData.lastName}`);
+          console.log("Respuesta del servidor:", response.data);
 
-            // Calcula las iniciales si se han proporcionado nombre y apellido
+          if (response.status === 200 && response.data.length > 0) {
+            const userData = response.data[0];
             const initials =
-              userData.firstName.charAt(0).toUpperCase() +
-              userData.lastName.charAt(0).toUpperCase();
+              userData.nombre.charAt(0).toUpperCase() +
+              userData.apellido.charAt(0).toUpperCase();
             setUserInitials(initials);
           } else {
             console.error("Error al obtener la información del usuario");
           }
         })
+
         .catch((error) => {
           console.error("Error al obtener la información del usuario", error);
         });
@@ -290,12 +187,10 @@ const Navbar = () => {
       });
 
       if (response.status === 200 || response.status === 202) {
-        // Cierre de sesión exitoso, borra el token del localStorage
         localStorage.removeItem("token");
         console.log("Cierre de sesión exitoso");
         window.location.reload();
       } else {
-        // Manejar errores de cierre de sesión aquí
         console.error("Error en el cierre de sesión");
       }
     } catch (error) {
@@ -319,9 +214,10 @@ const Navbar = () => {
       <div className={styles.rutas}>
         {isLoggedIn ? (
           <>
-            <div className={styles.userName}>{userName}</div>
             <div className={styles.userInitials}>{userInitials}</div>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
+            <button onClick={() => setShowConfirmModal(true)}>
+              Cerrar Sesión
+            </button>
           </>
         ) : (
           <>
@@ -334,6 +230,23 @@ const Navbar = () => {
           </>
         )}
       </div>
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Cierre de Sesión</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>¿Estás seguro de que deseas cerrar sesión?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowConfirmModal(false)}
+          >
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleLogout}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </nav>
   );
 };
