@@ -10,6 +10,9 @@ function Registro() {
     telefono: "",
   });
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,21 +24,22 @@ function Registro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const registro =
+      privateUrl != ""
+        ? `${privateUrl}:80/api/v1/auth/register`
+        : `${publicUrl}:80/api/v1/auth/register`;
+
     try {
-      const response = await axios.post(
-        "http://34.229.181.144/api/v1/auth/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(registro, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status === 200 || response.status === 201) {
         // Registro exitoso
         console.log("Usuario registrado con éxito");
-        window.location.href = "http://34.229.181.144/";
+        window.location.href = "http://52.90.49.166:443/";
       } else {
         // Manejar errores de registro aquí
         console.error("Error al registrar usuario");

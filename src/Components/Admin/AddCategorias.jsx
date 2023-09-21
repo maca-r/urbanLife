@@ -13,8 +13,8 @@ export function AddCategorias() {
 
   const urlRegistroCategorias =
     privateUrl != ""
-      ? `${privateUrl}/categorias/registrar`
-      : `${publicUrl}/categorias/registrar`;
+      ? `${privateUrl}:80/categorias/registrar`
+      : `${publicUrl}:80/categorias/registrar`;
 
   const handleAgregarCategoria = async () => {
     try {

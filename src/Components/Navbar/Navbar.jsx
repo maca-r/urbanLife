@@ -231,6 +231,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
+const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
 import { routes } from "../../Routes/routes";
 import styles from "./Navbar.module.css";
@@ -242,14 +244,16 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(localStorage.getItem("token"));
     setIsLoggedIn(!!token);
 
     if (token) {
-      // Si el usuario está autenticado, realiza una solicitud para obtener su información
+      const listarUsuarios =
+        privateUrl != ""
+          ? `${privateUrl}:80/auth/usuarios/listausuarios-all`
+          : `${publicUrl}:80/auth/usuarios/listausuarios-all`;
+
       axios
-        .get("http://localhost/auth/usuarios/listausuarios-all", {
+        .get(listarUsuarios, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -276,14 +280,14 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      // Realiza una solicitud al endpoint de cierre de sesión
-      const response = await axios.post(
-        "http://localhost/api/v1/auth/logout",
-        null,
-        {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
-      );
+      const logout =
+        privateUrl != ""
+          ? `${privateUrl}:80/api/v1/auth/logout`
+          : `${publicUrl}:80/api/v1/auth/logout`;
+
+      const response = await axios.post(logout, null, {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      });
 
       if (response.status === 200 || response.status === 202) {
         // Cierre de sesión exitoso, borra el token del localStorage

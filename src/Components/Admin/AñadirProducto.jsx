@@ -289,30 +289,35 @@ export function AñadirProducto() {
     detalle: "",
     color: "",
     categorias: {
-      idCategoria: 1,
+      idCategoria: "",
       titulo: "",
       descripcion: "",
       eliminarCategoria: false,
-      // urlimagen: "",
     },
-    talles: [], // Cambia talles a un array de objetos
+    talles: [],
   });
 
   const [categorias, setCategorias] = useState([]);
   const [token, setToken] = useState("");
   const [tallesSeleccionados, setTallesSeleccionados] = useState([]);
   const [talles, setTalles] = useState([]);
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  const storedToken = localStorage.getItem("token");
 
   useEffect(() => {
-    // Obtener token de localStorage
-    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
     }
 
-    // Obtener categorías mediante una solicitud GET
+    const getCategorias =
+      privateUrl != ""
+        ? `${privateUrl}:80/categorias/listarcategorias-all`
+        : `${publicUrl}:80/categorias/listarcategorias-all`;
+
     axios
-      .get("http://34.229.181.144/categorias/listarcategorias-all", {
+      .get(getCategorias, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -324,9 +329,13 @@ export function AñadirProducto() {
         console.error("Error al obtener categorías:", error);
       });
 
-    // Obtener talles mediante una solicitud GET
+    const getTalles =
+      privateUrl != ""
+        ? `${privateUrl}:80/talles/listartalles-all`
+        : `${publicUrl}:80/talles/listartalles-all`;
+
     axios
-      .get("http://34.229.181.144/talles/listartalles-all", {
+      .get(getTalles, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -342,21 +351,19 @@ export function AñadirProducto() {
   const handleTalleChange = (e) => {
     const talleId = e.target.value;
     if (tallesSeleccionados.includes(talleId)) {
-      // Si el talle ya estaba seleccionado, quitarlo de la lista
       setTallesSeleccionados((prevTalles) =>
         prevTalles.filter((id) => id !== talleId)
       );
       setProducto((prevProducto) => ({
         ...prevProducto,
         talles: prevProducto.talles.filter(
-          (talle) => talle.idMedida !== parseInt(talleId, 10) // Convierte a número entero
+          (talle) => talle.idMedida !== parseInt(talleId, 10)
         ),
       }));
     } else {
-      // Si el talle no estaba seleccionado, agregarlo a la lista
       setTallesSeleccionados((prevTalles) => [...prevTalles, talleId]);
       const selectedTalle = talles.find(
-        (talle) => talle.idMedida === parseInt(talleId, 10) // Convierte a número entero
+        (talle) => talle.idMedida === parseInt(talleId, 10)
       );
       setProducto((prevProducto) => ({
         ...prevProducto,
@@ -390,20 +397,26 @@ export function AñadirProducto() {
         },
       });
     } else {
-      // Manejar el caso en que no se encontró la categoría seleccionada
       console.error("Categoría no encontrada para el ID seleccionado.");
     }
   };
 
+  const regitroProducto =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/registrar`
+      : `${publicUrl}:80/productos/registrar`;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Realizar una solicitud POST para agregar el producto sin el token de autorización
     axios
-      .post("http://34.229.181.144/productos/registrar", producto)
+      .post(regitroProducto, producto, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
       .then((response) => {
         console.log("Producto agregado exitosamente:", response.data);
-        // Reiniciar el formulario o redirigir a otra página
       })
       .catch((error) => {
         console.error("Error al agregar el producto:", error);
