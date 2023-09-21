@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const ListaTalles = () => {
@@ -34,7 +34,7 @@ const ListaTalles = () => {
         setTalles(response.data); // Asigna los datos de la respuesta al estado 'talles'
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setError("Error al obtener la lista de talles.");
         setIsLoading(false);
       });
