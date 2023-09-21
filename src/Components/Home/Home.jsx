@@ -12,6 +12,14 @@ import Card from "../Card/Card";
 // import DataPicker from "../DataPicker/DataPicker";
 import SearchIcon from "@mui/icons-material/Search";
 // import { Autocomplete, InputAdornment, TextField } from "@mui/material";
+import img2 from '../../Images/img2.jpg';
+import img3 from '../../Images/img3.webp';
+import img4 from '../../Images/img4.webp';
+import img5 from '../../Images/img5.jpg';
+import img6 from '../../Images/img6.webp';
+import img1 from '../../Images/img7.webp';
+
+
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
@@ -233,6 +241,9 @@ const Home = () => {
 
   return (
     <div className={styles.body}>
+      {/* <div className={styles.titulo}>
+        <h1>URBAN   LIFE</h1>
+      </div> */}
       {/* BUSCADOR */}
 
       <div className={styles.search}>
@@ -299,7 +310,7 @@ const Home = () => {
           </div>
 
           <div className={styles.inputCalendario}>
-            <label style={{ fontSize: "0.8rem" }}>Hasta</label>
+            <label style={{ fontSize: "0.8rem"}}>Hasta</label>
             <input
               type="date"
               name="fechaFin"
@@ -323,11 +334,45 @@ const Home = () => {
             <Card data={productoBuscado}></Card>
           </div>
         ) : (
-          <img
-            className={styles.imagenBanner}
-            src="./images/Imagen LandingPage.png"
-            alt=""
-          />
+          <div className={styles.panel}>
+                  <div className={styles.titulo}>
+        <h1>URBAN   LIFE</h1>
+      </div>          
+            <div  className={styles.portada}    >
+              <div className={styles.imagenesContenedor}>
+                <img  src= {img1} alt="" />
+                <div> <h1> </h1> </div>
+              </div>
+          
+                <div className={styles.imagenesContenedor}>
+              <div> <h1> </h1> </div>
+                <img src= {img2} alt="" />
+              </div>
+          
+                <div className={styles.imagenesContenedor}>
+                <img src= {img3} alt="" />
+                <div> <h1> </h1> </div>
+              </div>
+          
+          
+                <div className={styles.imagenesContenedor}>
+                <div> <h1> </h1> </div>
+                <img src=  {img4} alt="" />
+          
+              </div>
+          
+                <div className={styles.imagenesContenedor}>
+                <img src=  {img5} alt="" />
+                <div> <h1> </h1> </div>
+              </div>
+          
+                <div className={styles.imagenesContenedor}>
+                <div> <h1> </h1> </div>
+                <img src=   {img6} alt="" />
+              </div>
+          </div    >
+          
+        </div>
         )}
       </div>
 

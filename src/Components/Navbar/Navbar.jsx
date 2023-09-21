@@ -214,8 +214,8 @@ const Navbar = () => {
       <div className={styles.rutas}>
         {isLoggedIn ? (
           <>
-            <div className={styles.userInitials}>{userInitials}</div>
-            <button onClick={() => setShowConfirmModal(true)}>
+            <div  className={styles.userInitials}>{userInitials}</div>
+            <button className={styles.logOut} onClick={() => setShowConfirmModal(true)}>
               Cerrar Sesión
             </button>
           </>

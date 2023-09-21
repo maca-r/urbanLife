@@ -1,4 +1,4 @@
-.formLogin {
+/* .formLogin {
   display: flex;
   flex-direction: column;
   height: 500px;
@@ -27,4 +27,102 @@ div > input {
 
 .errorMessage {
   color: red;
+} */
+.contenedorRegistro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
+
+.formRegister{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px;
+  height: 500px;
+  width: fit-content;
+  border-radius: 25px;
+  background-color: #EFEEEE;
+  border: solid black 1px;
+  box-shadow: 0px 0px 4px -1px black;
+}
+
+.inputForm{
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.inputForm input {
+  width: 480px;
+  border-radius: 7px;
+  border: solid rgb(203, 203, 203) 1px;
+
+  /* background-color:  #fff3df; */
+  background-color: white;
+  padding: 6px;
+  &:focus{
+      outline: solid #E3B04B 2px;
+  }
+}
+
+
+.inputForm label{
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.botonReg {
+  background-color: #E3B04B;
+  padding: 5px;
+  width: 60%;
+  min-width: fit-content;
+  border: 3px;
+  border-radius: 100px ;
+  border: solid black 1px;
+  transition: 0.25s ease-in-out;
+  font-weight: bold;
+  &:hover{
+      transition:all 0.50s ease;
+      box-shadow: 0 0 0 1px #EFEEEE, 0 0 0 2px #2B2B28, 0 0 0 7px #E3B04B, 0 0 0 6.5px WHITE, 0 0 0 7px #EFEEEE;
+      color: black;
+      background-color: #EFEEEE;
+      border: none;
+  }&:active{
+      transition:all 0.15s ease;
+      box-shadow: none;
+  }
+}
+
+.containerRegister{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fondo{
+  width: 50vw;
+  /* height: 100vh; */
+}
+
+.containerInput{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.errorMessage{ 
+  color:red;
+  font-weight: bold;
+}
+
+.containerBoton{
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
