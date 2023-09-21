@@ -1,5 +1,3 @@
-
-
 .detalleProducto {
   display: flex;
   flex-direction: column;
@@ -12,7 +10,7 @@
   margin-top: 5%;
 }
 
-.tituloBackButton{
+.tituloBackButton {
   width: 90%;
   margin: 5%;
   display: flex;
@@ -25,7 +23,7 @@
   border-radius: 50%;
 }
 
-.tituloBackButton h3{
+.tituloBackButton h3 {
   text-transform: capitalize;
 }
 
@@ -41,29 +39,27 @@
   display: flex;
 } */
 
-.detalleReserva h5{
+.detalleReserva h5 {
   font-weight: bold;
-  color:#2b2b28;
+  color: #2b2b28;
   font-size: 1.5rem;
   margin-top: 50px;
 }
 
-.containerDetalles{
+.containerDetalles {
   margin-top: 3% 0;
 }
 
-.detalleCaracteristicas{
+.detalleCaracteristicas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
-.detalleReserva{
+.detalleReserva {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .talles {
@@ -72,7 +68,7 @@
   justify-content: space-between;
   padding: 0px;
   height: fit-content;
-  border: 3px solid #E3B04B;
+  border: 3px solid #e3b04b;
   margin-top: 60px;
   margin-bottom: 60px;
 }
@@ -83,46 +79,42 @@
   background-color: #f8f8f8;
   color: #2b2b28;
   border: none;
-  
 }
 
 .talles .talleButton:focus {
   background-color: #e3b04b;
-  
 }
 
-.reserva{
+.reserva {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: auto;
-  margin-bottom: 2%
+  margin-bottom: 2%;
 }
-
 
 .reserva input {
   height: 30px;
   text-transform: uppercase;
-  background-color: #E3CE8D;
+  background-color: #e3ce8d;
   font-size: 0.7rem;
   padding: 5%;
   border-radius: 0;
   border: none;
   /* color-scheme: light; */
   margin: 0;
-  
 }
 
-.reservaButton{
-    border: none;
-    background-color: #2b2b28;
-    color: #EFEFEE;
-    text-transform: uppercase;
-    padding: 2% 7%;
-    font-size: 0.8rem;
-    border-radius: 50px;
-    margin: 0;
-    margin-top: 5%;
+.reservaButton {
+  border: none;
+  background-color: #2b2b28;
+  color: #efefee;
+  text-transform: uppercase;
+  padding: 2% 7%;
+  font-size: 0.8rem;
+  border-radius: 50px;
+  margin: 0;
+  margin-top: 5%;
 }
 
 /* .precioReserva {
@@ -167,7 +159,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #EFEFEE;
+  background-color: #efefee;
   margin: 3%;
   width: fit-content;
   padding: 5%;
@@ -187,8 +179,7 @@
 }
 
 .containerImagenes,
-.verMas
-{
+.verMas {
   display: none;
 }
 
@@ -210,20 +201,20 @@ li {
     justify-content: space-evenly;
     width: 100%;
     margin: 2%;
-    
+
     padding: 2%;
   }
 
   .tituloBackButton h3 {
     margin: 0;
     width: 80%;
-    font-size:  2rem;
+    font-size: 2rem;
   }
 
   .backButton {
-    color:#2b2b28;
-    
-    background-color: #E3CE8D;
+    color: #2b2b28;
+
+    background-color: #e3ce8d;
     border: none;
     border-radius: 50%;
   }
@@ -244,13 +235,11 @@ li {
     display: flex;
     justify-content: center;
     margin-right: 10%;
-    
   }
 
   .leftContainer img {
     max-width: 70%;
     height: min-content;
-    
   }
 
   /* .smallImg{
@@ -264,7 +253,6 @@ li {
 
   .rightContainer {
     width: 50%;
-    
   }
 
   .rightContainer .smallImages {
@@ -273,19 +261,16 @@ li {
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 15px;
-    
   }
-
-  
 
   .rightContainer img {
     max-width: 60%;
-    height: auto
+    height: auto;
   }
 
   .verMas {
     font-size: 0.7rem;
-    background-color:#E3B04B;
+    background-color: #e3b04b;
     border-radius: 0;
     text-transform: uppercase;
     border: none;
@@ -311,25 +296,23 @@ li {
     margin-bottom: 7%;
   } */
 
-  .containerDetalles{
+  .containerDetalles {
     display: flex;
     justify-content: space-between;
     width: 90%;
-    
   }
 
-  .detalleCaracteristicas{
+  .detalleCaracteristicas {
     width: 50%;
     margin-right: 10%;
   }
 
-  .caracteristicasBox{
+  .caracteristicasBox {
     font-size: 0.8rem;
   }
 
-  .detalleReserva{
+  .detalleReserva {
     width: 50%;
-    
   }
 
   .talles {
@@ -337,7 +320,6 @@ li {
     margin-bottom: 40px;
     width: 90%;
     height: 40px;
-    
   }
 
   .talles .talleButton {
@@ -349,13 +331,10 @@ li {
     padding: 2%;
     margin: 1%;
   }
-  
+
   .talles .talleButton:focus {
     background-color: #e3b04b;
-    
   }
-
-
 
   .calendar {
     width: 40%;

@@ -20,11 +20,53 @@ import Skeleton from "@mui/material/Skeleton";
 import { routes } from "../../Routes/routes";
 import Reserva from "../Reserva/Reserva";
 
+import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
   //ya que por las clases que trae de base el componente Carousel de bootstrap es la forma de acceder a las clases del mismo
   const [carouselVisible, setCarouselVisible] = useState("none");
+  const params = useParams();
+  const [talleSeleccionado, setTalleSeleccionado] = useState(null);
+
   // const [dimensions, setDimensions] = useState(window.innerWidth)
+
+  const handleFacebookShare = () => {
+    const productURL = window.location.href;
+
+    const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      productURL
+    )}`;
+    window.open(facebookShareURL, "_blank", "width=600,height=400");
+  };
+
+  const handleTwitterShare = () => {
+    const productName = dataState.producto.nombre;
+    const productDescription = dataState.producto.detalle;
+    const productURL = window.location.href;
+
+    const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      productName
+    )} - ${encodeURIComponent(productDescription)}&url=${encodeURIComponent(
+      productURL
+    )}`;
+    window.open(twitterShareURL, "_blank", "width=600,height=400");
+  };
+
+  const handleInstagramShare = () => {
+    const productName = dataState.producto.nombre;
+    const productDescription = dataState.producto.detalle;
+    const productImageURL = `http://localhost:80/producto/${params.id}/producto-image`;
+
+    const description = `${productName} - ${productDescription}`;
+
+    const instagramShareURL = `https://www.instagram.com/create/`;
+    const caption = encodeURIComponent(description);
+    const mediaURL = encodeURIComponent(productImageURL);
+    const shareURL = `${instagramShareURL}?caption=${caption}&media=${mediaURL}`;
+    window.open(shareURL, "_blank", "width=600,height=400");
+  };
 
   function handleResize() {
     if (window.innerWidth >= 780) {
@@ -53,7 +95,6 @@ const Detail = () => {
 
   // console.log(desktopMediaQuery);
   const { dataState, dataDispatch } = useContextoGlobal();
-  const params = useParams();
 
   const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
@@ -68,12 +109,14 @@ const Detail = () => {
   useEffect(() => {
     try {
       axios.get(urlDetalleProducto).then((response) => {
-        console.log(response.data);
         // setDetalle(response.data);
         dataDispatch({ type: "GET_A_PRODUCT", payload: response.data });
       });
     } catch (error) {
-      console.error("error al obtener producto con id " + `${params.id}`);
+      console.error(
+        "Error al obtener producto con id " + `${params.id}`,
+        error
+      );
     }
   }, [urlDetalleProducto]);
 
@@ -123,7 +166,7 @@ const Detail = () => {
   //   }
   // }, [urlProductoTalle]);
 
-  const talles = ["TALLE S", "TALLE M", "TALLE L"];
+  // const talles = ["TALLE S", "TALLE M", "TALLE L"];
 
   const navigate = useNavigate();
   // const [selectedImage, setSelectedImage] = useState(images[0]);
@@ -144,7 +187,7 @@ const Detail = () => {
   // ];
 
   const caracteristicas = [
-    (dataState.producto.color)?.toUpperCase(),
+    dataState.producto.color?.toUpperCase(),
     "ALGODON",
     "GENDERLESS",
     "PRIMAVERDA",
@@ -171,43 +214,52 @@ const Detail = () => {
 
   const [selectedEndDate, setSelectedEndDate] = useState("");
 
-  const [disabledButton, setDisabledButton] = useState(true)
+  // const [disabledButton, setDisabledButton] = useState(true);
 
-  
-  const toggleDisabledButton = () => {
-    if (selectedStartDate != "" && selectedEndDate != "") {
-      setDisabledButton(false)
-    }
-  }
-
+  // const toggleDisabledButton = () => {
+  //   if (selectedStartDate != "" && selectedEndDate != "") {
+  //     setDisabledButton(false);
+  //   }
+  // };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const fields = Object.fromEntries(new window.FormData(e.target));
     console.log(fields.fechaInicio, fields.fechaFin);
     setSelectedStartDate(fields.fechaInicio);
     setSelectedEndDate(fields.fechaFin);
-    if(selectedStartDate != "" && selectedEndDate != ""){
+    if (selectedStartDate != "" && selectedEndDate != "") {
       console.log(selectedStartDate, selectedEndDate);
-      
+
       //navigate("/{routes.reserva}")
     }
 
     setSelectedStartDate("");
     setSelectedEndDate("");
-
-  }
+  };
 
   const handleReserva = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (selectedStartDate !== "" && selectedEndDate !== "") {
       // Si ambas fechas están seleccionadas, redirige a la página de reserva
       navigate(`/${routes.reserva}`);
     } else {
       // Puedes mostrar un mensaje de error o hacer algo más aquí si lo deseas
       console.log("Por favor, selecciona las fechas antes de reservar.");
-    }  
-  }
+    }
+  };
+
+  const handleTalleClick = (talle) => {
+    if (talle === talleSeleccionado) {
+      // Si se hace clic en el mismo talle, deseleccionarlo
+      setTalleSeleccionado(null);
+    } else {
+      // Si se hace clic en un talle diferente, seleccionarlo
+      setTalleSeleccionado(talle);
+    }
+  };
+
+  console.log(dataState);
 
   return (
     <div className={styles.detalleProducto}>
@@ -409,6 +461,7 @@ const Detail = () => {
 
       <div className={styles.containerDetalles}>
         <div className={styles.detalleCaracteristicas}>
+          <h5>Detalle producto:</h5>
           <p>{dataState.producto.detalle} </p>
 
           <div className={styles.caracteristicasBox}>
@@ -429,17 +482,31 @@ const Detail = () => {
         <div className={styles.detalleReserva}>
           <h5>${dataState.producto.precio}</h5>
 
-          <div className={styles.talles}>
-            {talles.map((talle, index) => (
-              <button className={styles.talleButton} key={index}>
-                {talle}
-              </button>
-            ))}
-          </div>
+          {Array.isArray(dataState.producto.talles) &&
+          dataState.producto.talles.length > 0 ? (
+            <div className={styles.tallas}>
+              <h6>Talles disponibles:</h6>
+              {dataState.producto.talles.map((talleItem, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleTalleClick(talleItem.talle)}
+                  className={
+                    talleItem.talle === talleSeleccionado
+                      ? `${styles.talleButton} ${styles.selected}`
+                      : styles.talleButton
+                  }
+                >
+                  {talleItem.talle}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.tallas}>
+              <p>No hay tallas disponibles.</p>
+            </div>
+          )}
 
-          <form 
-            className={styles.reserva}
-            onSubmit={handleSubmit}>
+          <form className={styles.reserva} onSubmit={handleSubmit}>
             {/* <form className={styles.calendar} action="">
               <input type="date" />
             </form>
@@ -447,7 +514,7 @@ const Detail = () => {
             <form className={styles.calendar} action="">
               <input type="date" />
             </form> */}
-            
+
             <div className={styles.inputCalendario}>
               <label style={{ fontSize: "0.8rem" }}>Desde</label>
               <input
@@ -477,7 +544,6 @@ const Detail = () => {
               ></input>
             </div>
 
-
             {/* <Link to={'/reserva'}>
             <button 
             className={styles.reservaButton}>
@@ -485,12 +551,56 @@ const Detail = () => {
               </button>
             </Link> */}
 
-            <button 
-            className={styles.reservaButton}
-            onClick={handleReserva}>
+            <button className={styles.reservaButton} onClick={handleReserva}>
               reservar
-              </button>
+            </button>
           </form>
+
+          <br />
+
+          <h4>Compartir en redes</h4>
+
+          <div className={styles.socialButtons}>
+            <button onClick={handleFacebookShare}>
+              <FaFacebookSquare size={50} className={styles.icon} />
+            </button>
+            <button onClick={handleTwitterShare}>
+              <FaXTwitter size={50} className={styles.icon} />
+            </button>
+            <button onClick={handleInstagramShare}>
+              <FaInstagram size={50} className={styles.icon} />
+            </button>
+          </div>
+
+          {/* <div className={styles.socialButtons}>
+            <h4>Compartir en redes</h4>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                window.location.href
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebookSquare
+                size={50}
+                className={styles.icon}
+                style={{ marginRight: "15px" }}
+              />{" "}
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                window.location.href
+              )}&text=¡Mira este producto!`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter
+                size={50}
+                className={styles.icon}
+                style={{ marginLeft: "15px" }}
+              />{" "}
+            </a>
+          </div> */}
         </div>
       </div>
 
