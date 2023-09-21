@@ -115,15 +115,16 @@ const Home = () => {
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
   const [categorias, setCategorias] = useState([]);
-  //const urlCategorias = "http://localhost:80/categorias/listarcategorias-all";
 
   const urlCategorias =
     privateUrl != ""
-      ? `${privateUrl}/categorias/listarcategorias-all`
-      : `${publicUrl}/categorias/listarcategorias-all`;
+      ? `${privateUrl}:80/categorias/listarcategorias-all`
+      : `${publicUrl}:80/categorias/listarcategorias-all`;
 
-  console.log(urlCategorias);
-  //console.log(urlCategorias2);
+  console.log("privateUrl:", privateUrl);
+  console.log("publicUrl:", publicUrl);
+  console.log("urlCategorias:", urlCategorias);
+
   useEffect(() => {
     try {
       axios.get(urlCategorias).then((response) => {
@@ -137,6 +138,8 @@ const Home = () => {
       console.error("error al obtener categorias");
     }
   }, [urlCategorias]);
+
+  console.log("urlCategorias:", urlCategorias);
 
   // const categoriaCards = [
   //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
@@ -184,7 +187,6 @@ const Home = () => {
   // ]
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
-  //console.log(urlProductosAleatorios);
 
   const urlProductosAleatorios =
     privateUrl != ""
