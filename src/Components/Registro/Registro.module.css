@@ -1,30 +1,30 @@
-.formLogin{
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px;
-    margin: 10px;
+.formLogin {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 10px;
 }
 
-.div{
-    display: flex;
-    flex-direction: column;
+.div {
+  display: flex;
+  flex-direction: column;
 }
 
 div > input {
-    width: 480px;
-    border-radius: 15px;
-    background-color:  #fff3df;
-    padding: 10px;
+  width: 480px;
+  border-radius: 15px;
+  background-color: #fff3df;
+  padding: 10px;
 }
 
-.boton{
-    background-color:  #F1D6AB;
-    padding: 5px;
+.boton {
+  background-color: #f1d6ab;
+  padding: 5px;
 }
 
-.errorMessage{
-    color:red;
+.errorMessage {
+  color: red;
 }

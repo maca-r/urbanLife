@@ -94,7 +94,7 @@ export function EditarProducto() {
     <div style={{ margin: "2%" }}>
       {showWarning && (
         <Alert variant="danger">
-          Esta sección está en proceso de actualización actualmente!
+          ¡Esta sección está en proceso de actualización actualmente!
           <Button
             variant="secondary"
             style={{ marginLeft: "10px" }}
