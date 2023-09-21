@@ -228,7 +228,7 @@
 
 // export default Navbar;
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
 const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
@@ -293,6 +293,7 @@ const Navbar = () => {
         // Cierre de sesión exitoso, borra el token del localStorage
         localStorage.removeItem("token");
         console.log("Cierre de sesión exitoso");
+        window.location.reload();
       } else {
         // Manejar errores de cierre de sesión aquí
         console.error("Error en el cierre de sesión");

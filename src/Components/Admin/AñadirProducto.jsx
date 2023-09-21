@@ -22,24 +22,6 @@ export function AñadirProducto() {
   const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
   const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
-  const urlListarCategorias =
-    privateUrl != ""
-      ? `${privateUrl}:80/categorias/listarcategorias-all`
-      : `${publicUrl}:80/categorias/listarcategorias-all`;
-
-  const fetchCategories = async () => {
-    try {
-      axios.get(urlListarCategorias).then((response) => {
-        const categoriasNoEliminadas = response.data.filter(
-          (categoria) => categoria.eliminarCategoria === false
-        );
-        setCategorias(categoriasNoEliminadas);
-      });
-    } catch (error) {
-      console.error("Error fetching categorias:", error);
-    }
-  };
-
   const getCategorias =
     privateUrl != ""
       ? `${privateUrl}:80/categorias/listarcategorias-all`
@@ -58,7 +40,10 @@ export function AñadirProducto() {
         },
       })
       .then((response) => {
-        setCategorias(response.data);
+        const categoriasNoEliminadas = response.data.filter(
+          (categoria) => categoria.eliminarCategoria === false
+        );
+        setCategorias(categoriasNoEliminadas);
       })
       .catch((error) => {
         console.error("Error al obtener categorías:", error);
@@ -76,7 +61,6 @@ export function AñadirProducto() {
       .catch((error) => {
         console.error("Error al obtener talles:", error);
       });
-    fetchCategories();
   }, []);
 
   const handleTalleChange = (event) => {
@@ -113,8 +97,6 @@ export function AñadirProducto() {
         categorias: {
           idCategoria: selectedCategory.idCategoria,
           titulo: selectedCategory.titulo,
-          descripcion: selectedCategory.descripcion,
-          eliminarCategoria: selectedCategory.eliminarCategoria,
         },
         talles: selectedTalles,
       };
@@ -124,7 +106,11 @@ export function AñadirProducto() {
           ? `${privateUrl}:80/productos/registrar`
           : `${publicUrl}:80/productos/registrar`;
 
-      const response = await axios.post(urlRegistrarProductos, productoData);
+      const response = await axios.post(urlRegistrarProductos, productoData, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
 
       if (response.status === 200 || response.status === 202) {
         setMensaje("Producto agregado exitosamente");
