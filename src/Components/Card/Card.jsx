@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import StarIcon from "@mui/icons-material/Star";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContextoGlobal } from "../GlobalContext";
 import styles from "./Card.module.css";
 
@@ -38,9 +39,9 @@ const Card = ({ data }) => {
           </Link>
           <button onClick={addFav} className={styles.favBoton}>
             {favorite === "like" ? (
-              <StarIcon style={{ color: "#E3CE8D" }} />
+              <FavoriteIcon style={{ color: "#E3CE8D" }} />
             ) : (
-              <StarIcon style={{ color: "gray" }} />
+              <FavoriteBorderIcon style={{ color: "gray" }} />
             )}
           </button>
         </div>

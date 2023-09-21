@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import axios from 'axios';
 import Button from 'react-bootstrap/esm/Button';
 import { Modal } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const Reserva = () => {
@@ -34,10 +34,12 @@ const Reserva = () => {
     const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
     const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
 
+    const {id} = useParams();
+
     const urlGetUsuario =
         privateUrl != ""
-        ? `${privateUrl}:80/auth/usuarios/obtener/1`
-        : `${publicUrl}:80/auth/usuarios/obtener/1`;
+        ? `${privateUrl}:80/auth/usuarios/obtener/${id}`
+        : `${publicUrl}:80/auth/usuarios/obtener/${id}`;
 
     //    const token = localStorage.setItem("token", response.data.access_token )
     //const token = localStorage.setItem("token", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY5NTMyMzA2OCwiZXhwIjoxNjk1NDA5NDY4fQ.HItdqbICeFPebmSr2_t35qFKp7PBVipB_SX6utvt5iQ" )
@@ -46,6 +48,7 @@ const Reserva = () => {
     const headers = {
         Authorization: `Bearer ${storedToken}`,
     };
+    
 
     useEffect(() => {
         axios

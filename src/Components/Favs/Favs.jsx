@@ -30,7 +30,14 @@ const Favs = () => {
       {favs.length === 0 ? (
         <Alert variant="warning">
           No hay productos favoritos.{" "}
-          <Button variant="primary" href="/">
+          <Button 
+          style={{
+            width: "10%",
+            backgroundColor: "#2b2b28",
+            border: "none",
+            color: "#efeeee",
+          }} 
+          href="/">
             Ir al Home
           </Button>
         </Alert>
