@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class UsuarioService {
         return listaUsuario;
     }
     public String  guardarReserva(ReservaRequest request) {
-        Set<Reservas> reservaProducto = new HashSet<Reservas>();
+        /*Set<Reservas> reservaProducto = new HashSet<Reservas>();
         reservaProducto.stream()
                 .peek( reservas -> {
                  reservas.setFechaInicioAlquiler(request.getFechaIniciAlquiler());
@@ -67,10 +68,26 @@ public class UsuarioService {
                  reservas.setProductos(productoRepository.findById(request.getIdProducto()).get());
                 })
                 .collect(Collectors.toList());
-        Reservas result = objectMapper.convertValue(reservaProducto, Reservas.class);
-        System.out.println(result.getEstadoReserva());
-        reservaRepository.save(result);
-        return "Registro exitoso: %s".formatted(result.getIdReservas());
+        System.out.println("ESTADO RESERVA: " + reservaProducto.;
+        Reservas result = objectMapper.convertValue(reservaProducto, Reservas.class);*/
+        System.out.println("ID USER");
+        System.out.println(
+                "REQUEST ID" + request.getIdUsuario() +
+                        "REQUEST PRODUCTO" + request.getIdProducto() +
+                        "REQUEST FECHA" + request.getFechaReserva()
+        );
+        checkIfProductoExistsOrThrow(request.getIdUsuario());
+        System.out.println("RESERVAS");
+        var reserva = Reservas.builder()
+                        .fechaReserva(LocalDate.now())
+                .fechaInicioAlquiler(request.getFechaIniciAlquiler())
+                .fechaFinAlquiler(request.getFechaFinAlquiler())
+                .estadoReserva("Activo")
+                .productos(productoRepository.findById(request.getIdProducto()).get())
+                .usuario(userRepository.findById(request.getIdUsuario()).get())
+                .build();
+        reservaRepository.save(reserva);
+        return "Registro exitoso:";
     }
 
     private UsuarioResponse convertUser(Usuario user) {
@@ -81,6 +98,10 @@ public class UsuarioService {
                 .telefono(user.getTelefono())
                 .urlImagen(user.getProfileImageId())
                 .build();
+    }
+    public Collection<Reservas> listaDeReservas() {
+        System.out.println("LLEGUEEEEE");
+        return reservaRepository.findAll();
     }
 
 }

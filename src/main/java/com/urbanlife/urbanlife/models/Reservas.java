@@ -3,12 +3,17 @@ package com.urbanlife.urbanlife.models;
 import com.urbanlife.urbanlife.models.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import java.time.LocalDate;
 @Table
 @Entity
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
+@Builder
 public class Reservas {
     @Id
     @SequenceGenerator(name = "reservas_sequence", sequenceName = "reservas_sequence", allocationSize = 1)
@@ -26,7 +31,4 @@ public class Reservas {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    public Reservas() {
-        fechaReserva = LocalDate.now();
-    }
 }

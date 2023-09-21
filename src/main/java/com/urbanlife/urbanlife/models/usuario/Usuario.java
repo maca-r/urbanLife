@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.models.usuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.urbanlife.urbanlife.models.usuario.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -70,6 +71,7 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RolUser role;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Token> tokens;
 
     @Override
