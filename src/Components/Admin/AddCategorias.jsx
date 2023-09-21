@@ -28,12 +28,6 @@ export function AddCategorias() {
         descripcion: descripcion,
       };
 
-      // IP  a cambiar
-      // const response = await axios.post(
-      //   "http://34.229.181.144/categorias/registrar",
-      //   categoriaData
-      // );
-
       const response = await axios.post(urlRegistroCategorias, categoriaData, {
         headers: {
           Authorization: `Bearer ${storedToken}`,

@@ -20,7 +20,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://52.90.49.166:443/api/v1/auth/authenticate",
+        "http://34.229.181.144/api/v1/auth/authenticate",
         formData,
         {
           headers: {
@@ -38,9 +38,9 @@ function Login() {
 
         // Redirige al usuario a la página deseada según el email
         if (formData.email === "admin@mail.com") {
-          window.location.href = "http://52.90.49.166:443/admin";
+          window.location.href = "http://34.229.181.144/admin";
         } else {
-          window.location.href = "http://52.90.49.166:443/";
+          window.location.href = "http://34.229.181.144/";
         }
       } else {
         // Manejar errores de inicio de sesión aquí

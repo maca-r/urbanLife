@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useContextoGlobal } from "../GlobalContext.jsx";
 import Card from "../Card/Card";
-import DataPicker from "../DataPicker/DataPicker";
+// import DataPicker from "../DataPicker/DataPicker";
 import SearchIcon from "@mui/icons-material/Search";
-import { Autocomplete, InputAdornment, TextField } from "@mui/material";
+// import { Autocomplete, InputAdornment, TextField } from "@mui/material";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");

@@ -312,7 +312,7 @@ export function AñadirProducto() {
 
     // Obtener categorías mediante una solicitud GET
     axios
-      .get("http://52.90.49.166:443/categorias/listarcategorias-all", {
+      .get("http://34.229.181.144/categorias/listarcategorias-all", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -326,7 +326,7 @@ export function AñadirProducto() {
 
     // Obtener talles mediante una solicitud GET
     axios
-      .get("http://52.90.49.166:443/talles/listartalles-all", {
+      .get("http://34.229.181.144/talles/listartalles-all", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -400,7 +400,7 @@ export function AñadirProducto() {
 
     // Realizar una solicitud POST para agregar el producto sin el token de autorización
     axios
-      .post("http://52.90.49.166:443/productos/registrar", producto)
+      .post("http://34.229.181.144/productos/registrar", producto)
       .then((response) => {
         console.log("Producto agregado exitosamente:", response.data);
         // Reiniciar el formulario o redirigir a otra página

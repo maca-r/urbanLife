@@ -23,7 +23,7 @@ function Registro() {
 
     try {
       const response = await axios.post(
-        "http://52.90.49.166:443/api/v1/auth/register",
+        "http://34.229.181.144/api/v1/auth/register",
         formData,
         {
           headers: {
@@ -35,7 +35,7 @@ function Registro() {
       if (response.status === 200 || response.status === 201) {
         // Registro exitoso
         console.log("Usuario registrado con éxito");
-        window.location.href = "http://52.90.49.166:443/";
+        window.location.href = "http://34.229.181.144/";
       } else {
         // Manejar errores de registro aquí
         console.error("Error al registrar usuario");
