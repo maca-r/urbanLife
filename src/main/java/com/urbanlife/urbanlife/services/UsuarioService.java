@@ -73,8 +73,6 @@ public class UsuarioService {
         return "Registro exitoso: %s".formatted(result.getIdReservas());
     }
 
-
-
     private UsuarioResponse convertUser(Usuario user) {
         return UsuarioResponse.builder()
                 .email(user.getEmail())
