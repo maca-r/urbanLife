@@ -285,17 +285,17 @@ import axios from "axios";
 export function AñadirProducto() {
   const [producto, setProducto] = useState({
     nombre: "",
-    precio: 0.0,
+    precio: 0,
     detalle: "",
     color: "",
     categorias: {
-      idCategoria: "",
+      idCategoria: 1,
       titulo: "",
       descripcion: "",
       eliminarCategoria: false,
-      urlimagen: "",
+      // urlimagen: "",
     },
-    talles: [],
+    talles: [], // Cambia talles a un array de objetos
   });
 
   const [categorias, setCategorias] = useState([]);
@@ -304,13 +304,15 @@ export function AñadirProducto() {
   const [talles, setTalles] = useState([]);
 
   useEffect(() => {
+    // Obtener token de localStorage
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
     }
 
+    // Obtener categorías mediante una solicitud GET
     axios
-      .get("http://localhost/categorias/listarcategorias-all", {
+      .get("http://52.90.49.166:443/categorias/listarcategorias-all", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -322,8 +324,9 @@ export function AñadirProducto() {
         console.error("Error al obtener categorías:", error);
       });
 
+    // Obtener talles mediante una solicitud GET
     axios
-      .get("http://localhost/talles/listartalles-all", {
+      .get("http://52.90.49.166:443/talles/listartalles-all", {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -339,11 +342,26 @@ export function AñadirProducto() {
   const handleTalleChange = (e) => {
     const talleId = e.target.value;
     if (tallesSeleccionados.includes(talleId)) {
-      setTallesSeleccionados(
-        tallesSeleccionados.filter((id) => id !== talleId)
+      // Si el talle ya estaba seleccionado, quitarlo de la lista
+      setTallesSeleccionados((prevTalles) =>
+        prevTalles.filter((id) => id !== talleId)
       );
+      setProducto((prevProducto) => ({
+        ...prevProducto,
+        talles: prevProducto.talles.filter(
+          (talle) => talle.idMedida !== parseInt(talleId, 10) // Convierte a número entero
+        ),
+      }));
     } else {
-      setTallesSeleccionados([...tallesSeleccionados, talleId]);
+      // Si el talle no estaba seleccionado, agregarlo a la lista
+      setTallesSeleccionados((prevTalles) => [...prevTalles, talleId]);
+      const selectedTalle = talles.find(
+        (talle) => talle.idMedida === parseInt(talleId, 10) // Convierte a número entero
+      );
+      setProducto((prevProducto) => ({
+        ...prevProducto,
+        talles: [...prevProducto.talles, selectedTalle],
+      }));
     }
   };
 
@@ -361,32 +379,31 @@ export function AñadirProducto() {
       (categoria) => categoria.idCategoria === selectedCategoriaId
     );
 
-    setProducto({
-      ...producto,
-      categorias: {
-        idCategoria: selectedCategoria.idCategoria,
-        titulo: selectedCategoria.titulo,
-        descripcion: selectedCategoria.descripcion,
-        urlimagen: selectedCategoria.urlimagen,
-      },
-      talles: tallesSeleccionados.map((idTalle) => ({
-        idMedida: idTalle,
-        talle: "",
-      })),
-    });
+    if (selectedCategoria) {
+      setProducto({
+        ...producto,
+        categorias: {
+          idCategoria: selectedCategoria.idCategoria,
+          titulo: selectedCategoria.titulo,
+          descripcion: selectedCategoria.descripcion,
+          urlimagen: selectedCategoria.urlimagen,
+        },
+      });
+    } else {
+      // Manejar el caso en que no se encontró la categoría seleccionada
+      console.error("Categoría no encontrada para el ID seleccionado.");
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Realizar una solicitud POST para agregar el producto sin el token de autorización
     axios
-      .post("http://localhost/productos/registrar", producto, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post("http://52.90.49.166:443/productos/registrar", producto)
       .then((response) => {
         console.log("Producto agregado exitosamente:", response.data);
+        // Reiniciar el formulario o redirigir a otra página
       })
       .catch((error) => {
         console.error("Error al agregar el producto:", error);
@@ -420,7 +437,7 @@ export function AñadirProducto() {
           />
         </div>
         <div>
-          <label htmlFor="detalle">detalle:</label>
+          <label htmlFor="detalle">Detalle:</label>
           <input
             type="text"
             id="detalle"
@@ -431,7 +448,7 @@ export function AñadirProducto() {
           />
         </div>
         <div>
-          <label htmlFor="color">color:</label>
+          <label htmlFor="color">Color:</label>
           <input
             type="text"
             id="color"
@@ -457,23 +474,24 @@ export function AñadirProducto() {
             ))}
           </select>
         </div>
-
         <div>
           <label>Talles:</label>
-          <select
-            multiple
-            id="talles"
-            name="talles"
-            onChange={handleTalleChange}
-            value={tallesSeleccionados}
-            required
-          >
-            {talles.map((talle) => (
-              <option key={talle.idTalle} value={talle.idTalle}>
+          {talles.map((talle) => (
+            <div key={talle.idMedida}>
+              <label>
+                <input
+                  type="checkbox"
+                  name="tallesSeleccionados"
+                  value={talle.idMedida.toString()} // Convierte a cadena de texto
+                  onChange={handleTalleChange}
+                  checked={tallesSeleccionados.includes(
+                    talle.idMedida.toString()
+                  )}
+                />
                 {talle.talle}
-              </option>
-            ))}
-          </select>
+              </label>
+            </div>
+          ))}
         </div>
 
         <button type="submit">Agregar Producto</button>
