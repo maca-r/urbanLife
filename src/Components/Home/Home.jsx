@@ -79,9 +79,7 @@ const Home = () => {
     //console.log(fields.hasta);
     setSelectedStartDate("");
     setSelectedEndDate("");
-    
   };
-  
 
   const [carouselVisible, setCarouselVisible] = useState("none");
   // const [dimensions, setDimensions] = useState(window.innerWidth)
@@ -109,15 +107,6 @@ const Home = () => {
       ? `${privateUrl}:80/categorias/listarcategorias-all`
       : `${publicUrl}:80/categorias/listarcategorias-all`;
 
-  console.log("privateUrl:", privateUrl);
-  console.log("publicUrl:", publicUrl);
-  console.log("urlCategorias:", urlCategorias);
-
-<<<<<<< HEAD
-=======
-  //console.log(urlCategorias);
-  //console.log(urlCategorias2);
->>>>>>> 8bb60001db0feedbbbb1fb9eceae1247f3e7135f
   useEffect(() => {
     try {
       axios.get(urlCategorias).then((response) => {
@@ -131,9 +120,6 @@ const Home = () => {
       console.error("error al obtener categorias");
     }
   }, [urlCategorias]);
-
-<<<<<<< HEAD
-  console.log("urlCategorias:", urlCategorias);
 
   // const categoriaCards = [
   //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
@@ -179,8 +165,6 @@ const Home = () => {
   //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
   //     },
   // ]
-=======
->>>>>>> 8bb60001db0feedbbbb1fb9eceae1247f3e7135f
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
 
@@ -219,33 +203,33 @@ const Home = () => {
     const date = today.getDate();
     return `${year}-0${month}-${date}`;
   }
-  
 
-  const [disabledButton, setDisabledButton] = useState(true)
+  const [disabledButton, setDisabledButton] = useState(true);
 
-  {console.log(searchText,selectedStartDate,selectedEndDate)}
-  const toggleDisabledButton = () => {
-    if (searchText == "" && (selectedStartDate != "" && selectedEndDate != "") ){
-      setDisabledButton(false)
-    }
-    if (searchText != "" && (selectedStartDate == "" && selectedEndDate == "") ){
-      setDisabledButton(false)
-    }
-    if (searchText != "" && (selectedStartDate != "" && selectedEndDate == "") ){
-      setDisabledButton(true)
-    }
-    if (searchText != "" && (selectedStartDate == "" && selectedEndDate != "") ){
-      setDisabledButton(true)
-    }
-    if (searchText != "" && (selectedStartDate != "" && selectedEndDate != "") ){
-      setDisabledButton(false)
-    }
-
+  {
+    console.log(searchText, selectedStartDate, selectedEndDate);
   }
+  const toggleDisabledButton = () => {
+    if (searchText == "" && selectedStartDate != "" && selectedEndDate != "") {
+      setDisabledButton(false);
+    }
+    if (searchText != "" && selectedStartDate == "" && selectedEndDate == "") {
+      setDisabledButton(false);
+    }
+    if (searchText != "" && selectedStartDate != "" && selectedEndDate == "") {
+      setDisabledButton(true);
+    }
+    if (searchText != "" && selectedStartDate == "" && selectedEndDate != "") {
+      setDisabledButton(true);
+    }
+    if (searchText != "" && selectedStartDate != "" && selectedEndDate != "") {
+      setDisabledButton(false);
+    }
+  };
 
   useEffect(() => {
-    toggleDisabledButton()
-  })
+    toggleDisabledButton();
+  });
 
   return (
     <div className={styles.body}>
@@ -327,15 +311,10 @@ const Home = () => {
             ></input>
           </div>
 
-
-          <button 
-          className={styles.buscarButton}
-          disabled={disabledButton}
-          >Realizar búsqueda
+          <button className={styles.buscarButton} disabled={disabledButton}>
+            Realizar búsqueda
           </button>
-          
         </form>
-
       </div>
 
       <div className={styles.bannerProducto}>
