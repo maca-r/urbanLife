@@ -190,7 +190,7 @@ const Detail = () => {
     dataState.producto.color?.toUpperCase(),
     "ALGODON",
     "GENDERLESS",
-    "PRIMAVERDA",
+    "PRIMAVERA",
     "RECTO",
   ];
 
@@ -228,21 +228,24 @@ const Detail = () => {
     console.log(fields.fechaInicio, fields.fechaFin);
     setSelectedStartDate(fields.fechaInicio);
     setSelectedEndDate(fields.fechaFin);
-    if (selectedStartDate != "" && selectedEndDate != "") {
-      console.log(selectedStartDate, selectedEndDate);
+    // if (selectedStartDate != "" && selectedEndDate != "") {
+    //   console.log(selectedStartDate, selectedEndDate);
+    //   //dataDispatch({ type: "GET_DATES", payload: [selectedStartDate, selectedEndDate] });
+      
+    //   //navigate("/{routes.reserva}")
+    // }
 
-      //navigate("/{routes.reserva}")
-    }
-
-    setSelectedStartDate("");
-    setSelectedEndDate("");
+    //setSelectedStartDate("");
+    //setSelectedEndDate("");
   };
 
   const handleReserva = (e) => {
     e.preventDefault();
+    
     if (selectedStartDate !== "" && selectedEndDate !== "") {
       // Si ambas fechas están seleccionadas, redirige a la página de reserva
       navigate(`/${routes.reserva}`);
+      dataDispatch({ type: "GET_DATES", payload: [selectedStartDate, selectedEndDate] });
     } else {
       // Puedes mostrar un mensaje de error o hacer algo más aquí si lo deseas
       console.log("Por favor, selecciona las fechas antes de reservar.");
@@ -556,22 +559,6 @@ const Detail = () => {
             </button>
           </form>
 
-          <br />
-
-          <h4>Compartir en redes</h4>
-
-          <div className={styles.socialButtons}>
-            <button onClick={handleFacebookShare}>
-              <FaFacebookSquare size={50} className={styles.icon} />
-            </button>
-            <button onClick={handleTwitterShare}>
-              <FaXTwitter size={50} className={styles.icon} />
-            </button>
-            <button onClick={handleInstagramShare}>
-              <FaInstagram size={50} className={styles.icon} />
-            </button>
-          </div>
-
           {/* <div className={styles.socialButtons}>
             <h4>Compartir en redes</h4>
             <a
@@ -603,6 +590,20 @@ const Detail = () => {
           </div> */}
         </div>
       </div>
+
+      <h6>Compartir en redes</h6>
+
+          <div className={styles.socialButtons}>
+            <button onClick={handleFacebookShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
+              <FaFacebookSquare size={30} style={{color:"#efeeee"}} />
+            </button>
+            <button onClick={handleTwitterShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
+              <FaXTwitter size={30} style={{color:"#efeeee"}} />
+            </button>
+            <button onClick={handleInstagramShare} style={{backgroundColor: "#2b2b28", border: "none"}}>
+              <FaInstagram size={30} style={{color:"#efeeee"}} />
+            </button>
+          </div>
 
       {/* <span className={styles.tallesPrecioM}>
         <div className={styles.tallesCalendario}>
