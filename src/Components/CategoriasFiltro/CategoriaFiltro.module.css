@@ -13,8 +13,8 @@
 
 .gridProductos{
     
-    width: calc(60% - 10px);
-    max-width: calc(60% - 10px);
+    width: calc(30% - 10px);
+    max-width: calc(30% - 10px);
     display: flex;
     gap: 10px;
     align-items: flex-start;

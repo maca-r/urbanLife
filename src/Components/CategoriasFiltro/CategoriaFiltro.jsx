@@ -19,9 +19,20 @@ const CategoriaFiltro = () => {
     const id = params.id
 
     //console.log(`http://localhost/categorias/${id}`);
+
+    const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+    const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  
+
+  const urlCategoria =
+    privateUrl != ""
+      ? `${privateUrl}:80/categorias/categorias/${id}`
+      : `${publicUrl}:80/categorias/categorias/${id}`;
+
     useEffect(() => {
         try {
-            axios.get(`http://localhost/categorias/${id}`).then((response) => {
+            axios.get(urlCategoria).then((response) => {
                 console.log(response.data);
                 setCategoria(response.data);
                 
@@ -29,7 +40,7 @@ const CategoriaFiltro = () => {
             } catch (error) {
                 console.error("error al obtener categorias");
             }
-    },[`http://localhost/categorias/${id}`])
+    },[urlCategoria])
 
     const filtradoProducto = () => {
         (dataState.productos).forEach(producto => {

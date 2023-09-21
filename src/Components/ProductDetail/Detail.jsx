@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Detail.module.css";
 import Carousel from "react-bootstrap/Carousel";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
@@ -17,6 +17,8 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import ContentCutIcon from "@mui/icons-material/ContentCut";
 import { useContextoGlobal } from "../GlobalContext";
 import Skeleton from "@mui/material/Skeleton";
+import { routes } from "../../Routes/routes";
+import Reserva from "../Reserva/Reserva";
 
 const Detail = () => {
   //useState y useEffect para que aparezca o desaparezca el carrousel en base a responsive,
@@ -141,6 +143,14 @@ const Detail = () => {
   //   (dataState.producto.corte).toUpperCase(),
   // ];
 
+  const caracteristicas = [
+    (dataState.producto.color)?.toUpperCase(),
+    "ALGODON",
+    "GENDERLESS",
+    "PRIMAVERDA",
+    "RECTO",
+  ];
+
   const iconoCaracteristicas = [
     <ColorLensIcon sx={{ color: "#E3B04B" }} />,
     <CheckroomIcon sx={{ color: "#E3B04B" }} />,
@@ -168,6 +178,35 @@ const Detail = () => {
     if (selectedStartDate != "" && selectedEndDate != "") {
       setDisabledButton(false)
     }
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const fields = Object.fromEntries(new window.FormData(e.target));
+    console.log(fields.fechaInicio, fields.fechaFin);
+    setSelectedStartDate(fields.fechaInicio);
+    setSelectedEndDate(fields.fechaFin);
+    if(selectedStartDate != "" && selectedEndDate != ""){
+      console.log(selectedStartDate, selectedEndDate);
+      
+      //navigate("/{routes.reserva}")
+    }
+
+    setSelectedStartDate("");
+    setSelectedEndDate("");
+
+  }
+
+  const handleReserva = (e) => {
+    e.preventDefault()
+    if (selectedStartDate !== "" && selectedEndDate !== "") {
+      // Si ambas fechas están seleccionadas, redirige a la página de reserva
+      navigate(`/${routes.reserva}`);
+    } else {
+      // Puedes mostrar un mensaje de error o hacer algo más aquí si lo deseas
+      console.log("Por favor, selecciona las fechas antes de reservar.");
+    }  
   }
 
   return (
@@ -375,14 +414,14 @@ const Detail = () => {
           <div className={styles.caracteristicasBox}>
             <h4>Caracteristicas</h4>
             <div className={styles.caracteristicas}>
-              {/* {caracteristicas.map((caracteristica, index) => (
+              {caracteristicas.map((caracteristica, index) => (
                 <ul key={index}>
                   <li>
                     <i>{iconoCaracteristicas[index]}</i>
                     {caracteristica}
                   </li>
                 </ul>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
@@ -398,7 +437,9 @@ const Detail = () => {
             ))}
           </div>
 
-          <div className={styles.reserva}>
+          <form 
+            className={styles.reserva}
+            onSubmit={handleSubmit}>
             {/* <form className={styles.calendar} action="">
               <input type="date" />
             </form>
@@ -406,20 +447,50 @@ const Detail = () => {
             <form className={styles.calendar} action="">
               <input type="date" />
             </form> */}
-            <label style={{ fontSize: "0.8rem" }}>Desde</label>
-            <input
-              type="date"
-              name="fechaInicio"
-              value={selectedStartDate}
-              onChange={(e) => {
-                setSelectedStartDate(e.target.value);
-              }}
-              className={styles.calendar}
-              min={getDate()}
-            ></input>
+            
+            <div className={styles.inputCalendario}>
+              <label style={{ fontSize: "0.8rem" }}>Desde</label>
+              <input
+                type="date"
+                name="fechaInicio"
+                value={selectedStartDate}
+                onChange={(e) => {
+                  setSelectedStartDate(e.target.value);
+                  console.log(selectedStartDate);
+                }}
+                className={styles.input}
+                min={getDate()}
+              ></input>
+            </div>
 
-            <button className={styles.reservaButton}>reservar</button>
-          </div>
+            <div className={styles.inputCalendario}>
+              <label style={{ fontSize: "0.8rem" }}>Hasta</label>
+              <input
+                type="date"
+                name="fechaFin"
+                value={selectedEndDate}
+                onChange={(e) => {
+                  setSelectedEndDate(e.target.value);
+                }}
+                className={styles.input}
+                min={selectedStartDate}
+              ></input>
+            </div>
+
+
+            {/* <Link to={'/reserva'}>
+            <button 
+            className={styles.reservaButton}>
+              reservar
+              </button>
+            </Link> */}
+
+            <button 
+            className={styles.reservaButton}
+            onClick={handleReserva}>
+              reservar
+              </button>
+          </form>
         </div>
       </div>
 
