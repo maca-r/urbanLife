@@ -20,4 +20,5 @@ export const routes = {
   login: "login",
   registro: "registro",
   favs: "favs",
+  reserva: "reserva"
 };

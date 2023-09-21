@@ -149,6 +149,27 @@ const Detail = () => {
     <ContentCutIcon sx={{ color: "#E3B04B" }} />,
   ];
 
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${year}-0${month}-${date}`;
+  }
+
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+
+  const [selectedEndDate, setSelectedEndDate] = useState("");
+
+  const [disabledButton, setDisabledButton] = useState(true)
+
+  
+  const toggleDisabledButton = () => {
+    if (selectedStartDate != "" && selectedEndDate != "") {
+      setDisabledButton(false)
+    }
+  }
+
   return (
     <div className={styles.detalleProducto}>
       <div className={styles.tituloBackButton}>
@@ -378,9 +399,24 @@ const Detail = () => {
           </div>
 
           <div className={styles.reserva}>
-            <form className={styles.calendar} action="">
+            {/* <form className={styles.calendar} action="">
               <input type="date" />
             </form>
+
+            <form className={styles.calendar} action="">
+              <input type="date" />
+            </form> */}
+            <label style={{ fontSize: "0.8rem" }}>Desde</label>
+            <input
+              type="date"
+              name="fechaInicio"
+              value={selectedStartDate}
+              onChange={(e) => {
+                setSelectedStartDate(e.target.value);
+              }}
+              className={styles.calendar}
+              min={getDate()}
+            ></input>
 
             <button className={styles.reservaButton}>reservar</button>
           </div>

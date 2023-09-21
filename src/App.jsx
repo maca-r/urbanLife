@@ -26,6 +26,7 @@ import { Producto } from "./Components/Admin/Producto";
 import { Caracteristicas } from "./Components/Admin/Caracteristicas";
 import Favs from "./Components/Favs/Favs";
 import CategoriaFiltro from "./Components/CategoriasFiltro/CategoriaFiltro";
+import Reserva from "./Components/Reserva/Reserva";
 
 function App() {
   return (
@@ -63,6 +64,8 @@ function App() {
           <Route path={routes.login} element={<Login />} />
           <Route path={routes.favs} element={<Favs />} />
           <Route path={routes.categoria} element={<CategoriaFiltro/>}/>
+          <Route path={routes.reserva} element={<Reserva/>}/>
+
         </Route>
       </Routes>
     </>
