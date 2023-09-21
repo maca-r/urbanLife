@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios"; // Importa Axios
+import styles from "./Registro.module.css";
+import fondo from "../../Images/fondo.jpg"
 
 function Registro() {
   const [formData, setFormData] = useState({
@@ -48,78 +50,89 @@ function Registro() {
   };
 
   return (
-    <div className="container">
-      <h2>Registro de Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="nombre" className="form-label">
-            Nombre:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="nombre"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-          />
+    <div  className={styles.containerRegister}>
+        <img className={styles.fondo}
+        src={fondo}
+        alt="" />
+        <div className={styles.contenedorRegistro}>
+          <div  className={styles.formRegister}>
+            <h2>Registro de Usuario</h2>
+            <div>
+              <form onSubmit={handleSubmit}>
+              <div className={styles.inputForm}>
+                <label>
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                />
+              </div>
+              <div  className={styles.inputForm}>
+                <label>
+                  Apellido
+                </label>
+                <input
+                  type="text"
+                  id="apellido"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleChange}
+                />
+              </div>
+              <div  className={styles.inputForm}>
+                <label>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div  className={styles.inputForm}>
+                <label>
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+              <div  className={styles.inputForm}>
+                <label>
+                  Teléfono
+                </label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.containerBoton}>
+                <button className={styles.botonReg}>
+                Registrar
+                </button>
+
+              </div>
+
+            </form>
+          </div>
+          
         </div>
-        <div className="mb-3">
-          <label htmlFor="apellido" className="form-label">
-            Apellido:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="apellido"
-            name="apellido"
-            value={formData.apellido}
-            onChange={handleChange}
-          />
         </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Contraseña:
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="telefono" className="form-label">
-            Teléfono:
-          </label>
-          <input
-            type="tel"
-            className="form-control"
-            id="telefono"
-            name="telefono"
-            value={formData.telefono}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Registrar
-        </button>
-      </form>
+
+
     </div>
   );
 }
