@@ -125,7 +125,7 @@
 //       )}
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
 const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
@@ -198,6 +198,8 @@ const Navbar = () => {
     }
   };
 
+  const navigate = useNavigate()
+
   return (
     <nav>
       <Link to={routes.home} className={styles.logoLink}>
@@ -214,8 +216,11 @@ const Navbar = () => {
       <div className={styles.rutas}>
         {isLoggedIn ? (
           <>
-            <div className={styles.userInitials}>{userInitials}</div>
-            <button onClick={() => setShowConfirmModal(true)}>
+            <div  className={styles.userInitials}>{userInitials}</div>
+            <button onClick={() => navigate("/favs")}>
+              Favoritos
+            </button>
+            <button className={styles.logOut} onClick={() => setShowConfirmModal(true)}>
               Cerrar Sesión
             </button>
           </>

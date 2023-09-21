@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
+import styles from "./Login.module.css";
+import fondo from "../../Images/fondo.jpg"
+
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -57,47 +60,95 @@ function Login() {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+    // <div className="container mt-5">
+    //   <h2>Iniciar Sesión</h2>
+    //   <form onSubmit={handleSubmit}>
+    //     <div className="mb-3">
+    //       <label htmlFor="email" className="form-label">
+    //         Email:
+    //       </label>
+    //       <input
+    //         type="email"
+    //         className="form-control"
+    //         id="email"
+    //         name="email"
+    //         value={formData.email}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label htmlFor="password" className="form-label">
+    //         Contraseña:
+    //       </label>
+    //       <input
+    //         type="password"
+    //         className="form-control"
+    //         id="password"
+    //         name="password"
+    //         value={formData.password}
+    //         onChange={handleChange}
+    //         required
+    //       />
+    //     </div>
+    //     <button type="submit" className="btn btn-primary">
+    //       Iniciar Sesión
+    //     </button>
+    //     {errorMessage && (
+    //       <Alert variant="danger" className="mt-3">
+    //         {errorMessage}
+    //       </Alert>
+    //     )}
+    //   </form>
+
+
+    <div>
+
+      <div className={styles.containerLogin}>
+            <img className={styles.fondo}
+            src={fondo}
+            alt=""
+            />
+            <div className={styles.containerInput}> 
+                <form className={styles.formLogin} onSubmit={handleSubmit}>
+                    <div className={styles.input}>
+                        <label>Correo electrónico</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                        />
+                    </div>
+                    <div className={styles.input}>
+                        <label>Contraseña</label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="password"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleChange}
+                          required
+                        />
+                    </div>
+                    <button type="submit" className={styles.boton}>
+                      Iniciar Sesión
+                    </button>
+                    {errorMessage && (
+                      <Alert variant="danger" className="mt-3">
+                        {errorMessage}
+                      </Alert>
+                    )}
+                </form>
+            </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Contraseña:
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Iniciar Sesión
-        </button>
-        {errorMessage && (
-          <Alert variant="danger" className="mt-3">
-            {errorMessage}
-          </Alert>
-        )}
-      </form>
-    </div>
+
+</div>
+
+
   );
 }
 

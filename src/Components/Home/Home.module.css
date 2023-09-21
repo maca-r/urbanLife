@@ -75,8 +75,14 @@ form .inputSearch input {
   width: 100%;
   padding: 5%;
   background-color: #e3ce8d;
-  border: none;
+  border: solid 1px black;
+  border-radius: 5px;
   margin-bottom: 2%;
+  &:hover{
+    cursor: pointer;
+    /* opacity: 1.1; */
+    box-shadow: 0px 0px 5px -2px black;
+  }
 }
 
 .inputCalendario {
@@ -84,14 +90,96 @@ form .inputSearch input {
   flex-direction: column;
 }
 
-.buscarButton {
-  font-size: small;
-  padding: 1.5%;
+.buscarButton{
+  font-size: 0.9rem;
+  padding: 0.9% 3%;
   border-radius: 50px;
-  background-color: #2b2b28;
-  color: #efeeee;
+  background-color: #2B2B28;
+  color: #EFEEEE;
   border: none;
 }
+
+.buscarButton {
+  outline:none;
+  text-align: center;
+  border: 2px solid black;
+  transition: all 0.20s ease;
+  transform-origin: center center;
+  &:hover {
+      box-shadow: 0px 0px 10px -2px #000000;
+      cursor: pointer;
+      font-size: 0.95rem;
+  }
+  &:active {
+      box-shadow: none;
+      opacity: none;
+      font-size: 0.9rem;
+      box-shadow: 0px 0px 8px -2px #ffffff;
+  }
+}
+
+
+.panel{
+  max-width: fit-content;
+  /* height: 500px; */
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background-color: green; */
+}
+
+.portada{
+  /* background-color: red; */
+  display: flex;
+}
+
+.titulo{
+  /* margin: 50px 0 0 0; */
+  margin-bottom: 50px;
+}
+
+h1{
+  font-family: 'Montserrat', sans-serif;
+  color: #2B2B28;
+  font-size: 48px;
+  font-weight: 700;
+  text-shadow: 5px 0px 7px #9d853e;
+
+}
+
+.imagenesContenedor {
+  margin: 7px;
+  display: flex;
+  flex-direction: column;
+  -webkit-transform: skew(-12deg);
+  -moz-transform: skew(-12deg);
+  -ms-transform: skew(-12deg);
+  -o-transform: skew(-12deg);
+  transform: skew(-12deg);
+  display: block;
+
+}
+
+.imagenesContenedor:hover img {
+  transform: scale(1.1);
+  transition: all 0.20s ease;
+  box-shadow: 0px 0px 10px -2px #000000;
+}
+
+
+.imagenesContenedor div{
+  width: 30px;
+  /* background-color: red; */
+  width: 100%;
+  height: 30px;
+}
+.imagenesContenedor img{
+  width: 175px;
+  /* background-color: #2B2B28; */
+}
+
 
 /* .bannerProducto {
     
