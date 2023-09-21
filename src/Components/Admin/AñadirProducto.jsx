@@ -285,7 +285,7 @@ import axios from "axios";
 export function AñadirProducto() {
   const [producto, setProducto] = useState({
     nombre: "",
-    precio: 0.0,
+    precio: 0,
     detalle: "",
     color: "",
     categorias: {
@@ -293,7 +293,6 @@ export function AñadirProducto() {
       titulo: "",
       descripcion: "",
       eliminarCategoria: false,
-      urlimagen: "",
     },
     talles: [],
   });
@@ -302,15 +301,23 @@ export function AñadirProducto() {
   const [token, setToken] = useState("");
   const [tallesSeleccionados, setTallesSeleccionados] = useState([]);
   const [talles, setTalles] = useState([]);
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  const storedToken = localStorage.getItem("token");
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
     }
 
+    const getCategorias =
+      privateUrl != ""
+        ? `${privateUrl}:80/categorias/listarcategorias-all`
+        : `${publicUrl}:80/categorias/listarcategorias-all`;
+
     axios
-      .get("http://localhost/categorias/listarcategorias-all", {
+      .get(getCategorias, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -322,8 +329,13 @@ export function AñadirProducto() {
         console.error("Error al obtener categorías:", error);
       });
 
+    const getTalles =
+      privateUrl != ""
+        ? `${privateUrl}:80/talles/listartalles-all`
+        : `${publicUrl}:80/talles/listartalles-all`;
+
     axios
-      .get("http://localhost/talles/listartalles-all", {
+      .get(getTalles, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -339,11 +351,24 @@ export function AñadirProducto() {
   const handleTalleChange = (e) => {
     const talleId = e.target.value;
     if (tallesSeleccionados.includes(talleId)) {
-      setTallesSeleccionados(
-        tallesSeleccionados.filter((id) => id !== talleId)
+      setTallesSeleccionados((prevTalles) =>
+        prevTalles.filter((id) => id !== talleId)
       );
+      setProducto((prevProducto) => ({
+        ...prevProducto,
+        talles: prevProducto.talles.filter(
+          (talle) => talle.idMedida !== parseInt(talleId, 10)
+        ),
+      }));
     } else {
-      setTallesSeleccionados([...tallesSeleccionados, talleId]);
+      setTallesSeleccionados((prevTalles) => [...prevTalles, talleId]);
+      const selectedTalle = talles.find(
+        (talle) => talle.idMedida === parseInt(talleId, 10)
+      );
+      setProducto((prevProducto) => ({
+        ...prevProducto,
+        talles: [...prevProducto.talles, selectedTalle],
+      }));
     }
   };
 
@@ -361,28 +386,33 @@ export function AñadirProducto() {
       (categoria) => categoria.idCategoria === selectedCategoriaId
     );
 
-    setProducto({
-      ...producto,
-      categorias: {
-        idCategoria: selectedCategoria.idCategoria,
-        titulo: selectedCategoria.titulo,
-        descripcion: selectedCategoria.descripcion,
-        urlimagen: selectedCategoria.urlimagen,
-      },
-      talles: tallesSeleccionados.map((idTalle) => ({
-        idMedida: idTalle,
-        talle: "",
-      })),
-    });
+    if (selectedCategoria) {
+      setProducto({
+        ...producto,
+        categorias: {
+          idCategoria: selectedCategoria.idCategoria,
+          titulo: selectedCategoria.titulo,
+          descripcion: selectedCategoria.descripcion,
+          urlimagen: selectedCategoria.urlimagen,
+        },
+      });
+    } else {
+      console.error("Categoría no encontrada para el ID seleccionado.");
+    }
   };
+
+  const regitroProducto =
+    privateUrl != ""
+      ? `${privateUrl}:80/productos/registrar`
+      : `${publicUrl}:80/productos/registrar`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost/productos/registrar", producto, {
+      .post(regitroProducto, producto, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       })
       .then((response) => {
@@ -420,7 +450,7 @@ export function AñadirProducto() {
           />
         </div>
         <div>
-          <label htmlFor="detalle">detalle:</label>
+          <label htmlFor="detalle">Detalle:</label>
           <input
             type="text"
             id="detalle"
@@ -431,7 +461,7 @@ export function AñadirProducto() {
           />
         </div>
         <div>
-          <label htmlFor="color">color:</label>
+          <label htmlFor="color">Color:</label>
           <input
             type="text"
             id="color"
@@ -457,23 +487,24 @@ export function AñadirProducto() {
             ))}
           </select>
         </div>
-
         <div>
           <label>Talles:</label>
-          <select
-            multiple
-            id="talles"
-            name="talles"
-            onChange={handleTalleChange}
-            value={tallesSeleccionados}
-            required
-          >
-            {talles.map((talle) => (
-              <option key={talle.idTalle} value={talle.idTalle}>
+          {talles.map((talle) => (
+            <div key={talle.idMedida}>
+              <label>
+                <input
+                  type="checkbox"
+                  name="tallesSeleccionados"
+                  value={talle.idMedida.toString()} // Convierte a cadena de texto
+                  onChange={handleTalleChange}
+                  checked={tallesSeleccionados.includes(
+                    talle.idMedida.toString()
+                  )}
+                />
                 {talle.talle}
-              </option>
-            ))}
-          </select>
+              </label>
+            </div>
+          ))}
         </div>
 
         <button type="submit">Agregar Producto</button>

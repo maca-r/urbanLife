@@ -15,19 +15,23 @@ function Login() {
     });
   };
 
+  const publicUrl = import.meta.env.VITE_API_URL_PUBLIC;
+  const privateUrl = import.meta.env.VITE_API_URL_PRIVATE;
+
+  const logeo =
+    privateUrl != ""
+      ? `${privateUrl}:80/api/v1/auth/authenticate`
+      : `${publicUrl}:80/api/v1/auth/authenticate`;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost/api/v1/auth/authenticate",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(logeo, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log(response);
       console.log(response.data);
@@ -38,9 +42,9 @@ function Login() {
 
         // Redirige al usuario a la página deseada según el email
         if (formData.email === "admin@mail.com") {
-          window.location.href = "http://localhost:5173/admin";
+          window.location.href = "http://52.90.49.166:443/admin";
         } else {
-          window.location.href = "http://localhost:5173/";
+          window.location.href = "http://52.90.49.166:443/";
         }
       } else {
         // Manejar errores de inicio de sesión aquí
