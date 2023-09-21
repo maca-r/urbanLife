@@ -38,6 +38,7 @@ deploy:
       alias: docker
   script:
     - docker run -d -p $CONTAINER_PORT:5040 --name $DOCKER_NAME $DOCKER_NAME
+    - docker system prune -af
 
 test:
   stage: test
