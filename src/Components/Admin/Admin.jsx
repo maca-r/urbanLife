@@ -9,6 +9,7 @@ import { Producto } from "./Producto";
 // import { Caracteristicas } from "./Caracteristicas";
 import { ListaProductos } from "./ListaProductos";
 import ListaTalles from "./ListaTalles";
+import { Button } from "react-bootstrap";
 
 export function Admin() {
   const [alertaResponsive, setAlertaResponsive] = useState(false);
@@ -44,30 +45,30 @@ export function Admin() {
       ) : (
         <div className={styles.panel}>
           <div className={styles.buttonPanel}>
-            <button onClick={() => handlePanelSection("agregarTalles")}>
+            <Button onClick={() => handlePanelSection("agregarTalles")}>
               Registrar Talles
-            </button>
+            </Button>
 
-            <button onClick={() => handlePanelSection("listaTalles")}>
+            <Button onClick={() => handlePanelSection("listaTalles")}>
               Listar Talles
-            </button>
+            </Button>
 
-            <button onClick={() => handlePanelSection("categorias")}>
+            <Button onClick={() => handlePanelSection("categorias")}>
               Administrar Categorias
-            </button>
+            </Button>
 
-            {/* <button onClick={() => handlePanelSection("caracteristicas")}>
+            <Button onClick={() => handlePanelSection("producto")}>
+              Agregar Productos
+            </Button>
+
+            <Button onClick={() => handlePanelSection("listaProductos")}>
+              Listar Productos
+            </Button>
+          </div>
+
+          {/* <button onClick={() => handlePanelSection("caracteristicas")}>
               Administrar Caracteristicas
             </button> */}
-
-            <button onClick={() => handlePanelSection("producto")}>
-              Agregar Productos
-            </button>
-
-            <button onClick={() => handlePanelSection("listaProductos")}>
-              Listar Productos
-            </button>
-          </div>
 
           <div className={styles.showPanelSection}>
             {panelSection == "" && (
