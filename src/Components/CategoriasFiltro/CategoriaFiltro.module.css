@@ -1,0 +1,23 @@
+.categorias{
+    margin: 5%
+}
+
+.tituloFiltroCat{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2rem;
+    background-color: #E3CE8D;
+    padding: 1%;
+    margin: 5%;
+}
+
+.gridProductos{
+    
+    width: calc(60% - 10px);
+    max-width: calc(60% - 10px);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    text-decoration: none;
+    color: #2B2B28}

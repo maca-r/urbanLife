@@ -25,6 +25,7 @@ import { AddImages } from "./Components/Admin/AddImages";
 import { Producto } from "./Components/Admin/Producto";
 import { Caracteristicas } from "./Components/Admin/Caracteristicas";
 import Favs from "./Components/Favs/Favs";
+import CategoriaFiltro from "./Components/CategoriasFiltro/CategoriaFiltro";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
           <Route path={routes.registro} element={<Registro />} />
           <Route path={routes.login} element={<Login />} />
           <Route path={routes.favs} element={<Favs />} />
+          <Route path={routes.categoria} element={<CategoriaFiltro/>}/>
         </Route>
       </Routes>
     </>

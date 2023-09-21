@@ -28,7 +28,7 @@ const Home = () => {
   const productosOrdenados = [...dataState.productos].sort(
     (a, b) => a.idProducto - b.idProducto
   );
-  console.log(productosOrdenados);
+  //console.log(productosOrdenados);
 
   const [selectedStartDate, setSelectedStartDate] = useState("");
 
@@ -51,9 +51,9 @@ const Home = () => {
   };
 
   const [busqueda, setBusqueda] = useState({
-    producto: {},
-    desde: "",
-    hasta: "",
+    nombre: "",
+    fechaInicio: "",
+    fechaFin: "",
   });
 
   const handleSubmit = (e) => {
@@ -70,30 +70,18 @@ const Home = () => {
     const fields = Object.fromEntries(new window.FormData(e.target));
     console.log(fields);
     setBusqueda({
-      producto: productoBuscado,
-      desde: fields.desde,
-      hasta: fields.hasta,
+      nombre: fields.nombre,
+      fechaInicio: fields.fechaInicio,
+      fechaFin: fields.fechaFin,
     });
     console.log(busqueda);
     //console.log(fields.desde);
     //console.log(fields.hasta);
     setSelectedStartDate("");
     setSelectedEndDate("");
+    
   };
-
-  // const urlProductos = `http://localhost:80/productos`
-
-  // useEffect(() => {
-  //   try{
-  //     axios.get(urlProductos)
-  //     .then(response => {
-  //       console.log(response.data)
-  //       setDetalle(response.data)
-  //     })
-  //   } catch (error) {
-  //     console.error("error al obtener productos")
-  //   }
-  // },[urlProductos])
+  
 
   const [carouselVisible, setCarouselVisible] = useState("none");
   // const [dimensions, setDimensions] = useState(window.innerWidth)
@@ -122,7 +110,7 @@ const Home = () => {
       ? `${privateUrl}/categorias/listarcategorias-all`
       : `${publicUrl}/categorias/listarcategorias-all`;
 
-  console.log(urlCategorias);
+  //console.log(urlCategorias);
   //console.log(urlCategorias2);
   useEffect(() => {
     try {
@@ -138,50 +126,6 @@ const Home = () => {
     }
   }, [urlCategorias]);
 
-  // const categoriaCards = [
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     categoria: "categoria 1"},
-  //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     categoria: "categoria 2"},
-  //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     categoria: "categoria 3"},
-  //     { imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     categoria: "categoria 4"}
-  // ]
-
-  // const categoriasImagenes = [
-  //   "https://acdn.mitiendanube.com/stores/008/089/products/_campera-pragmatico-oxido_081-83e6bde4313e1cde2d16904126922417-640-0.webp",
-  //   "https://acdn.mitiendanube.com/stores/008/089/products/_pantalon-gollic-gris_011-3777820bf7b7dab9e316856674617159-640-0.webp",
-  //   "https://acdn.mitiendanube.com/stores/008/089/products/_camisa-nazgul-negro_071-9fdb49f56179eac55a16771641208498-640-0.webp",
-  //   "https://acdn.mitiendanube.com/stores/008/089/products/_cartera-chain-b-negro_011-e4c3d9205f09b625f216878911243673-640-0.webp",
-  // ];
-
-  // const productoAleatorio = [
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  //     {imagen: "https://vcp.com.ar/cdn/shop/products/VCP7marzo_22-191.jpg?v=1646746906",
-  //     titulo: "Product Name",
-  //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
-  //     },
-  // ]
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
   //console.log(urlProductosAleatorios);
@@ -214,6 +158,41 @@ const Home = () => {
 
   // }
 
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${year}-0${month}-${date}`;
+  }
+  
+
+  const [disabledButton, setDisabledButton] = useState(true)
+
+  {console.log(searchText,selectedStartDate,selectedEndDate)}
+  const toggleDisabledButton = () => {
+    if (searchText == "" && (selectedStartDate != "" && selectedEndDate != "") ){
+      setDisabledButton(false)
+    }
+    if (searchText != "" && (selectedStartDate == "" && selectedEndDate == "") ){
+      setDisabledButton(false)
+    }
+    if (searchText != "" && (selectedStartDate != "" && selectedEndDate == "") ){
+      setDisabledButton(true)
+    }
+    if (searchText != "" && (selectedStartDate == "" && selectedEndDate != "") ){
+      setDisabledButton(true)
+    }
+    if (searchText != "" && (selectedStartDate != "" && selectedEndDate != "") ){
+      setDisabledButton(false)
+    }
+
+  }
+
+  useEffect(() => {
+    toggleDisabledButton()
+  })
+
   return (
     <div className={styles.body}>
       {/* BUSCADOR */}
@@ -232,7 +211,7 @@ const Home = () => {
               placeholder="Buscar"
               value={searchText}
               onChange={handleChange}
-              name="producto"
+              name="nombre"
             ></input>
 
             {searchText != "" && (
@@ -271,12 +250,13 @@ const Home = () => {
             <label style={{ fontSize: "0.8rem" }}>Desde</label>
             <input
               type="date"
-              name="desde"
+              name="fechaInicio"
               value={selectedStartDate}
               onChange={(e) => {
                 setSelectedStartDate(e.target.value);
               }}
               className={styles.calendar}
+              min={getDate()}
             ></input>
           </div>
 
@@ -284,7 +264,7 @@ const Home = () => {
             <label style={{ fontSize: "0.8rem" }}>Hasta</label>
             <input
               type="date"
-              name="hasta"
+              name="fechaFin"
               value={selectedEndDate}
               onChange={(e) => {
                 setSelectedEndDate(e.target.value);
@@ -293,8 +273,15 @@ const Home = () => {
             ></input>
           </div>
 
-          <button className={styles.buscarButton}>Realizar búsqueda</button>
+
+          <button 
+          className={styles.buscarButton}
+          disabled={disabledButton}
+          >Realizar búsqueda
+          </button>
+          
         </form>
+
       </div>
 
       <div className={styles.bannerProducto}>
@@ -327,7 +314,8 @@ const Home = () => {
           carouselVisible == "none" ? (
             <div className={styles.categoria}>
               {categorias.map((categoria, index) => (
-                <Link to={`/cd ` + categoria.idCategoria} key={index}>
+                //<Link to={`/cd ` + categoria.idCategoria} key={index}>
+                <Link to={`/categoria/${categoria.idCategoria} `} key={index}>
                   <img
                     // src={categoriasImagenes[index]}
                     src={categoria.urlimagen}
