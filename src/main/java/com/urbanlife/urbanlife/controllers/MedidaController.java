@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/talles")
-@CrossOrigin
 public class MedidaController {
     @Autowired
     IMedidaService medidaService;

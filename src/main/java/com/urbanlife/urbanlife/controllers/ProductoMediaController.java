@@ -14,7 +14,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/productomedida")
-@CrossOrigin
 public class ProductoMediaController {
     @Autowired
     IProductoMediaService productoMediaService;
