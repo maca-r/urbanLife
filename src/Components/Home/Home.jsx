@@ -28,7 +28,7 @@ const Home = () => {
   const productosOrdenados = [...dataState.productos].sort(
     (a, b) => a.idProducto - b.idProducto
   );
-  console.log(productosOrdenados);
+  //console.log(productosOrdenados);
 
   const [selectedStartDate, setSelectedStartDate] = useState("");
 
@@ -51,9 +51,9 @@ const Home = () => {
   };
 
   const [busqueda, setBusqueda] = useState({
-    producto: {},
-    desde: "",
-    hasta: "",
+    nombre: "",
+    fechaInicio: "",
+    fechaFin: "",
   });
 
   const handleSubmit = (e) => {
@@ -70,30 +70,18 @@ const Home = () => {
     const fields = Object.fromEntries(new window.FormData(e.target));
     console.log(fields);
     setBusqueda({
-      producto: productoBuscado,
-      desde: fields.desde,
-      hasta: fields.hasta,
+      nombre: fields.nombre,
+      fechaInicio: fields.fechaInicio,
+      fechaFin: fields.fechaFin,
     });
     console.log(busqueda);
     //console.log(fields.desde);
     //console.log(fields.hasta);
     setSelectedStartDate("");
     setSelectedEndDate("");
+    
   };
-
-  // const urlProductos = `http://localhost:80/productos`
-
-  // useEffect(() => {
-  //   try{
-  //     axios.get(urlProductos)
-  //     .then(response => {
-  //       console.log(response.data)
-  //       setDetalle(response.data)
-  //     })
-  //   } catch (error) {
-  //     console.error("error al obtener productos")
-  //   }
-  // },[urlProductos])
+  
 
   const [carouselVisible, setCarouselVisible] = useState("none");
   // const [dimensions, setDimensions] = useState(window.innerWidth)
@@ -125,6 +113,11 @@ const Home = () => {
   console.log("publicUrl:", publicUrl);
   console.log("urlCategorias:", urlCategorias);
 
+<<<<<<< HEAD
+=======
+  //console.log(urlCategorias);
+  //console.log(urlCategorias2);
+>>>>>>> 8bb60001db0feedbbbb1fb9eceae1247f3e7135f
   useEffect(() => {
     try {
       axios.get(urlCategorias).then((response) => {
@@ -139,6 +132,7 @@ const Home = () => {
     }
   }, [urlCategorias]);
 
+<<<<<<< HEAD
   console.log("urlCategorias:", urlCategorias);
 
   // const categoriaCards = [
@@ -185,6 +179,8 @@ const Home = () => {
   //     desc:"Lorem ipsum dolor sit amet   consectetur adipisicing elit.     Aspernatur delectus quasi recusandae"
   //     },
   // ]
+=======
+>>>>>>> 8bb60001db0feedbbbb1fb9eceae1247f3e7135f
 
   const [productosAleatorios, setProductosAleatorios] = useState([]);
 
@@ -216,6 +212,41 @@ const Home = () => {
 
   // }
 
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${year}-0${month}-${date}`;
+  }
+  
+
+  const [disabledButton, setDisabledButton] = useState(true)
+
+  {console.log(searchText,selectedStartDate,selectedEndDate)}
+  const toggleDisabledButton = () => {
+    if (searchText == "" && (selectedStartDate != "" && selectedEndDate != "") ){
+      setDisabledButton(false)
+    }
+    if (searchText != "" && (selectedStartDate == "" && selectedEndDate == "") ){
+      setDisabledButton(false)
+    }
+    if (searchText != "" && (selectedStartDate != "" && selectedEndDate == "") ){
+      setDisabledButton(true)
+    }
+    if (searchText != "" && (selectedStartDate == "" && selectedEndDate != "") ){
+      setDisabledButton(true)
+    }
+    if (searchText != "" && (selectedStartDate != "" && selectedEndDate != "") ){
+      setDisabledButton(false)
+    }
+
+  }
+
+  useEffect(() => {
+    toggleDisabledButton()
+  })
+
   return (
     <div className={styles.body}>
       {/* BUSCADOR */}
@@ -234,7 +265,7 @@ const Home = () => {
               placeholder="Buscar"
               value={searchText}
               onChange={handleChange}
-              name="producto"
+              name="nombre"
             ></input>
 
             {searchText != "" && (
@@ -273,12 +304,13 @@ const Home = () => {
             <label style={{ fontSize: "0.8rem" }}>Desde</label>
             <input
               type="date"
-              name="desde"
+              name="fechaInicio"
               value={selectedStartDate}
               onChange={(e) => {
                 setSelectedStartDate(e.target.value);
               }}
               className={styles.calendar}
+              min={getDate()}
             ></input>
           </div>
 
@@ -286,7 +318,7 @@ const Home = () => {
             <label style={{ fontSize: "0.8rem" }}>Hasta</label>
             <input
               type="date"
-              name="hasta"
+              name="fechaFin"
               value={selectedEndDate}
               onChange={(e) => {
                 setSelectedEndDate(e.target.value);
@@ -295,8 +327,15 @@ const Home = () => {
             ></input>
           </div>
 
-          <button className={styles.buscarButton}>Realizar búsqueda</button>
+
+          <button 
+          className={styles.buscarButton}
+          disabled={disabledButton}
+          >Realizar búsqueda
+          </button>
+          
         </form>
+
       </div>
 
       <div className={styles.bannerProducto}>
@@ -329,7 +368,8 @@ const Home = () => {
           carouselVisible == "none" ? (
             <div className={styles.categoria}>
               {categorias.map((categoria, index) => (
-                <Link to={`/cd ` + categoria.idCategoria} key={index}>
+                //<Link to={`/cd ` + categoria.idCategoria} key={index}>
+                <Link to={`/categoria/${categoria.idCategoria} `} key={index}>
                   <img
                     // src={categoriasImagenes[index]}
                     src={categoria.urlimagen}
