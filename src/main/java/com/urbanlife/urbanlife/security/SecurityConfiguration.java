@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                         "/productos/listaproductos-all",
                         "/productos/listaproductos-aleatorio",
                         "/productos/obtener/{id}",
+                        "/productos/busqueda",
                         "/categorias/listarcategorias-all",
                         "/categorias/{id}/categoria-image",
                         "/talles/listartalles-all",
