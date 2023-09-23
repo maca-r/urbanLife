@@ -1,36 +1,29 @@
-.calendario{
-    width: 30%;
-    background-color: #e3ce8d;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    padding: 1.4%;
-    position: relative;
+.calendario {
+  width: 30%;
+  background-color: #e3ce8d;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 1.4%;
+  position: relative;
 }
 
 .inputBox {
-    text-align: center;
-    font-size: 0.9rem;
-    padding: 0;
-    width: 90%;
-    border: 0.5px solid #2B2B28;
-    background-color: #e3ce8d;
-    border: none;
-    outline: none;
-    ;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0;
+  width: 90%;
+  border: 0.5px solid #2b2b28;
+  background-color: #e3ce8d;
+  border: none;
+  outline: none;
 }
 
-.elemento{
-    
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 40px;
-    border: 1px solid #2b2b28;
-    z-index: 999;
+.elemento {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+  border: 1px solid #2b2b28;
+  z-index: 999;
 }
-
-
-
-
-

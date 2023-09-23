@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Button, ListGroup, Alert } from "react-bootstrap"; // Asegúrate de importar Alert y Button desde react-bootstrap
+import { Card, Button, ListGroup, Alert } from "react-bootstrap";
 import { toast } from "sonner";
 // import StarIcon from "@mui/icons-material/Star";
 import { useContextoGlobal } from "../GlobalContext";
@@ -14,7 +14,6 @@ const Favs = () => {
   }, []);
 
   const removeFav = (favorito) => {
-    // Filtrar la lista de favoritos para quitar el producto seleccionado
     const updatedFavs = favs.filter(
       (item) => item.idProducto !== favorito.idProducto
     );
@@ -30,14 +29,15 @@ const Favs = () => {
       {favs.length === 0 ? (
         <Alert variant="warning">
           No hay productos favoritos.{" "}
-          <Button 
-          style={{
-            width: "10%",
-            backgroundColor: "#2b2b28",
-            border: "none",
-            color: "#efeeee",
-          }} 
-          href="/">
+          <Button
+            style={{
+              width: "10%",
+              backgroundColor: "#2b2b28",
+              border: "none",
+              color: "#efeeee",
+            }}
+            href="/"
+          >
             Ir al Home
           </Button>
         </Alert>
