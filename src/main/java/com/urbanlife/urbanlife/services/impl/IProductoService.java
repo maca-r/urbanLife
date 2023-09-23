@@ -1,4 +1,5 @@
 package com.urbanlife.urbanlife.services.impl;
+import com.urbanlife.urbanlife.models.request.BusquedaRequest;
 import com.urbanlife.urbanlife.models.response.ProductoResponse;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.ProductosDto;
@@ -15,4 +16,5 @@ public interface IProductoService {
     void eliminarProducto(Integer id);
     void editarProducto(Integer id, ProductoRequest updateRequest);
     ProductoResponse obtenerProducto(Integer id);
+    public Collection<ProductosAletoriosDTO> listaProductosBusqueda(BusquedaRequest request);
 }

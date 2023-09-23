@@ -1,5 +1,6 @@
 package com.urbanlife.urbanlife.controllers;
 
+import com.urbanlife.urbanlife.models.request.BusquedaRequest;
 import com.urbanlife.urbanlife.models.response.ProductoResponse;
 import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
 import com.urbanlife.urbanlife.models.ProductosDto;
@@ -63,5 +64,8 @@ public class ProductoController {
         response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
     }
-
+    @PostMapping("/busqueda")
+    public ResponseEntity<?> busquedaProducto(@RequestBody BusquedaRequest request) {
+        return  ResponseEntity.ok(productoService.listaProductosBusqueda(request));
+    }
 }

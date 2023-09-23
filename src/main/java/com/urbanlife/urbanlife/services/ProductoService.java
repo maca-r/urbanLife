@@ -220,7 +220,7 @@ public class ProductoService implements IProductoService {
     public void eliminarProducto(Integer id) {
         productoRepository.setEstadoEliminar(id, true);
     }
-    public Collection<Productos> busquedaDelProducto(BusquedaRequest request) {
+    private Collection<Productos> busquedaDelProducto(BusquedaRequest request) {
         if (request.getNombre() == null) {
             return productoRepository.listaProductosBaseFechaReserva(
                     request.getFechaInicio(), request.getFechaFin()
@@ -239,5 +239,17 @@ public class ProductoService implements IProductoService {
                 request.getFechaInicio(),
                 request.getFechaFin()
         );
+    }
+    public Collection<ProductosAletoriosDTO> listaProductosBusqueda(BusquedaRequest request) {
+        Iterable<Productos> listaProductos = busquedaDelProducto(request);
+        Set<ProductosAletoriosDTO> listaProductosDTO = new HashSet<ProductosAletoriosDTO>();
+        for (Productos productos : listaProductos) {
+            listaProductosDTO.add(objectMapper.convertValue(productos, ProductosAletoriosDTO.class));
+        }
+        logger.info("Productos Aleatorios: Proceso Finalizado con Exito!");
+        return listaProductosDTO
+                .stream()
+                .peek(productoDTO -> productoDTO.setImagenes(imagenService.listarImagenesPorProducto(productoDTO.getIdProducto())))
+                .collect(Collectors.toList());
     }
 }
