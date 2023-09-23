@@ -45,6 +45,9 @@ public class UsuarioService {
         Optional<Usuario> usuarioBBDD = userRepository.findById(id);
         return convertUser(usuarioBBDD.get());
     }
+    public Usuario getUsuariById(Integer id) {
+        return userRepository.findById(id).get();
+    }
 
     public Collection<UsuarioResponse> listaUsuariosRegistrados() {
         Iterable<Usuario> listaUsuariosBBDD = userRepository.findAll();
@@ -58,18 +61,6 @@ public class UsuarioService {
         return listaUsuario;
     }
     public String  guardarReserva(ReservaRequest request) {
-        /*Set<Reservas> reservaProducto = new HashSet<Reservas>();
-        reservaProducto.stream()
-                .peek( reservas -> {
-                 reservas.setFechaInicioAlquiler(request.getFechaIniciAlquiler());
-                 reservas.setFechaFinAlquiler(request.getFechaFinAlquiler());
-                 reservas.setEstadoReserva("Activo");
-                 reservas.setUsuario(userRepository.findById(request.getIdUsuario()).get());
-                 reservas.setProductos(productoRepository.findById(request.getIdProducto()).get());
-                })
-                .collect(Collectors.toList());
-        System.out.println("ESTADO RESERVA: " + reservaProducto.;
-        Reservas result = objectMapper.convertValue(reservaProducto, Reservas.class);*/
         System.out.println("ID USER");
         System.out.println(
                 "REQUEST ID" + request.getIdUsuario() +
@@ -77,7 +68,6 @@ public class UsuarioService {
                         "REQUEST FECHA" + request.getFechaReserva()
         );
         checkIfProductoExistsOrThrow(request.getIdUsuario());
-        System.out.println("RESERVAS");
         var reserva = Reservas.builder()
                         .fechaReserva(LocalDate.now())
                 .fechaInicioAlquiler(request.getFechaIniciAlquiler())
@@ -100,7 +90,6 @@ public class UsuarioService {
                 .build();
     }
     public Collection<Reservas> listaDeReservas() {
-        System.out.println("LLEGUEEEEE");
         return reservaRepository.findAll();
     }
 

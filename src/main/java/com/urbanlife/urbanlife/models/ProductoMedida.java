@@ -17,9 +17,8 @@ public class ProductoMedida {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idProducto")
     private Productos productos;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-
-
     @JoinColumn(name = "idMedida")
     private Medidas medida;
 }
