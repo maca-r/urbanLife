@@ -68,6 +68,7 @@ public class Usuario implements UserDetails {
             unique = true
     )
     private String profileImageId;
+
     @Enumerated(EnumType.STRING)
     private RolUser role;
     @OneToMany(mappedBy = "user")

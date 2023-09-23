@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
-    @Autowired
-    ObjectMapper objectMapper;
     private final UserRepository userRepository;
     private final ReservaRepository reservaRepository;
     private final ProductoRepository productoRepository;

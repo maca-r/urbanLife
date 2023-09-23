@@ -24,8 +24,8 @@ import static org.springframework.http.HttpMethod.DELETE;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -50,29 +50,27 @@ public class SecurityConfiguration {
                 )
                 .permitAll()
 
-                .requestMatchers("/productos**").hasRole(ADMIN.name())
-                .requestMatchers(POST, "/registrar").hasAuthority(ADMIN_CREATE.name())
-                .requestMatchers(POST, "/{idProducto}/producto-image").hasAuthority(ADMIN_CREATE.name())
-                .requestMatchers(PUT, "/editar/{id}").hasAuthority(ADMIN_UPDATE.name())
-                .requestMatchers(DELETE, "/eliminar/{id}").hasAuthority(ADMIN_DELETE.name())
+                .requestMatchers("/productos/**").hasRole(ADMIN.name())
+                .requestMatchers(POST, "/productos/**").hasAuthority(ADMIN_CREATE.name())
+                .requestMatchers(PUT, "/productos/**").hasAuthority(ADMIN_UPDATE.name())
+                .requestMatchers(DELETE, "/productos/**").hasAuthority(ADMIN_DELETE.name())
 
-                .requestMatchers("/categorias**").hasRole(ADMIN.name())
-                .requestMatchers(POST, "/registrar").hasAuthority(ADMIN_CREATE.name())
-                .requestMatchers(POST, "{id}/categoria-image").hasAuthority(ADMIN_CREATE.name())
-                .requestMatchers(PUT, "/{id}/actualizar").hasAuthority(ADMIN_UPDATE.name())
-                .requestMatchers(DELETE, "/{id}/eliminar").hasAuthority(ADMIN_DELETE.name())
+                .requestMatchers("/categorias/**").hasRole(ADMIN.name())
+                .requestMatchers(POST, "/categorias/**").hasAuthority(ADMIN_CREATE.name())
+                .requestMatchers(PUT, "/categorias/**").hasAuthority(ADMIN_UPDATE.name())
+                .requestMatchers(DELETE, "/categorias/**").hasAuthority(ADMIN_DELETE.name())
 
-                .requestMatchers("/talles**").hasRole(ADMIN.name())
-                .requestMatchers(POST, "/registrarTalle").hasAuthority(ADMIN_CREATE.name())
-
+                .requestMatchers("/talles/**").hasRole(ADMIN.name())
+                .requestMatchers(POST, "/talles/**").hasAuthority(ADMIN_CREATE.name())
 
                 .requestMatchers("/auth/usuarios**").hasAnyRole(CLIENTE.name(), ADMIN.name())
+                //----Mejorar seguridad--------------------------------
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
+                //----Volnurabilidad al ingresar el ID--------------------------------
                 .requestMatchers(GET, "/testing/{id}").hasAuthority(CLIENTE_READ.name())
                 .requestMatchers(GET, "/listausuarios-all").hasAuthority(ADMIN_READ.name())
                 .requestMatchers(POST, "/reservarProducto").hasAnyAuthority(ADMIN_CREATE.name(), CLIENTE_CREATE.name())
                 .requestMatchers(GET, "/listareservas-all").hasAuthority(ADMIN_READ.name())
-
 
                 .anyRequest()
                 .authenticated()
