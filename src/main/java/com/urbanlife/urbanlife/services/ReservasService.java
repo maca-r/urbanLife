@@ -14,4 +14,5 @@ public class ReservasService {
     public Collection<Reservas> listaDeReservas2() {
         return reservaRepository.findAll();
     }
+
 }

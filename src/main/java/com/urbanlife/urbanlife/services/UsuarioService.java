@@ -59,12 +59,6 @@ public class UsuarioService {
         return listaUsuario;
     }
     public String  guardarReserva(ReservaRequest request) {
-        System.out.println("ID USER");
-        System.out.println(
-                "REQUEST ID" + request.getIdUsuario() +
-                        "REQUEST PRODUCTO" + request.getIdProducto() +
-                        "REQUEST FECHA" + request.getFechaReserva()
-        );
         checkIfProductoExistsOrThrow(request.getIdUsuario());
         var reserva = Reservas.builder()
                         .fechaReserva(LocalDate.now())
@@ -90,7 +84,6 @@ public class UsuarioService {
     public Collection<Reservas> listaDeReservas() {
         return reservaRepository.findAll();
     }
-
 }
 
 

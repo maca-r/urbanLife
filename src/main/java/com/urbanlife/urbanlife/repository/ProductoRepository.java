@@ -11,6 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 @Repository
 @Transactional
@@ -75,14 +76,40 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
             WHERE id_producto = :id;
             """,nativeQuery = true)
     void setCategoria(@Param("id") Integer id, @Param("categoria") Integer categoria);
-
-    //Investigar ERROR
+    //---------------------------Search Products--------------------------------
     @Modifying
     @Query(value = """
-            SELECT id_producto, fecha_actual,nombre
-            FROM productos
-            ORDER BY fecha_actual DESC
-            LIMIT 1
+            select p.* from productos as p
+            left join reservas as d on p.id_producto=d.id_producto
+            where( d.fecha_inicio_alquiler not between :fechaInicio and :fechaFin
+            and d.fecha_fin_alquiler not between :fechaInicio and :fechaFin)\s
+            or d.fecha_inicio_alquiler is null and p.eliminar_producto = 0""", nativeQuery = true)
+    Collection<Productos> listaProductosBaseFechaReserva(@Param("fechaInicio")LocalDate fechaInicio,
+                                                         @Param("fechaFin")LocalDate fechaFin);
+    @Modifying
+    @Query(value = """
+            select p.id_producto,nombre from productos as p
+            left join reservas as d on p.id_producto=d.id_producto
+            where nombre like "%:nombre%" and nombre like "%:nombreDos%"\s
+            nombre like "%:nombreTres%"
+            and p.eliminar_producto = 0;
             """, nativeQuery = true)
-    ProductoTestDto productoMasReciente();
+    Collection<Productos> listaProductosBaseNombreReserva(
+            @Param("nombre") String nombre,
+            @Param("nombreDos") String nombreDos,
+            @Param("nombreTres") String nombreTres
+    );
+    @Modifying
+    @Query(value = """
+                select p.id_producto,nombre from productos as p
+                left join reservas as d on p.id_producto=d.id_producto
+                where( d.fecha_inicio_alquiler not between :fechaInicio and :fechaFin
+                and d.fecha_fin_alquiler not between :fechaInicio and :fechaFin)\s
+                or d.fecha_inicio_alquiler is null and nombre like "%:nombre%";
+            """, nativeQuery = true)
+    Collection<Productos> listaProductosBaseReserva(
+        @Param("nombre") String nombre,
+        @Param("fechaInicio")LocalDate fechaInicio,
+        @Param("fechaFin")LocalDate fechaFin
+    );
 }

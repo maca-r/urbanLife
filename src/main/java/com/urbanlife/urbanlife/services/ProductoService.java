@@ -220,8 +220,24 @@ public class ProductoService implements IProductoService {
     public void eliminarProducto(Integer id) {
         productoRepository.setEstadoEliminar(id, true);
     }
-    public Collection<ProductoResponse> busquedaDelProducto(BusquedaRequest productoRequest) {
-
-        return null;
+    public Collection<Productos> busquedaDelProducto(BusquedaRequest request) {
+        if (request.getNombre() == null) {
+            return productoRepository.listaProductosBaseFechaReserva(
+                    request.getFechaInicio(), request.getFechaFin()
+            );
+        }
+        if(request.getFechaInicio() == null && request.getFechaFin() == null) {
+            String[] partes = request.getNombre().split(" ");
+            return productoRepository.listaProductosBaseNombreReserva(
+                    partes[0],
+                    partes[1],
+                    partes[2]
+            );
+        }
+        return productoRepository.listaProductosBaseReserva(
+                request.getNombre(),
+                request.getFechaInicio(),
+                request.getFechaFin()
+        );
     }
 }
