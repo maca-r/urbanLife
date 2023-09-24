@@ -228,12 +228,26 @@ public class ProductoService implements IProductoService {
         }
         if(request.getFechaInicio() == null && request.getFechaFin() == null) {
             String[] partes = request.getNombre().split(" ");
-            return productoRepository.listaProductosBaseNombreReserva(
-                    partes[0],
-                    partes[1],
-                    partes[2]
-            );
+            switch (partes.length) {
+                case 1 -> {
+                    return productoRepository.listaProductosBaseNombreReserva(partes[0], "", "");
+                }
+                case 2 -> {
+                    return productoRepository.listaProductosBaseNombreReserva(partes[0], partes[1], "");
+                }
+                case 3 -> {
+                    return productoRepository.listaProductosBaseNombreReserva(
+                            partes[0],
+                            partes[1],
+                            partes[2]);
+                }
+                default -> {
+                    logger.warn("Search Productos: No se encontro ningun producto!");
+                    return null;
+                }
+            }
         }
+
         return productoRepository.listaProductosBaseReserva(
                 request.getNombre(),
                 request.getFechaInicio(),
@@ -242,11 +256,12 @@ public class ProductoService implements IProductoService {
     }
     public Collection<ProductosAletoriosDTO> listaProductosBusqueda(BusquedaRequest request) {
         Iterable<Productos> listaProductos = busquedaDelProducto(request);
+
         Set<ProductosAletoriosDTO> listaProductosDTO = new HashSet<ProductosAletoriosDTO>();
         for (Productos productos : listaProductos) {
             listaProductosDTO.add(objectMapper.convertValue(productos, ProductosAletoriosDTO.class));
         }
-        logger.info("Productos Aleatorios: Proceso Finalizado con Exito!");
+        logger.info("SearchProductos: Proceso Finalizado con Exito!");
         return listaProductosDTO
                 .stream()
                 .peek(productoDTO -> productoDTO.setImagenes(imagenService.listarImagenesPorProducto(productoDTO.getIdProducto())))

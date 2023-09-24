@@ -64,8 +64,5 @@ public class ProductoController {
         response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
     }
-    @PostMapping("/busqueda")
-    public ResponseEntity<?> busquedaProducto(@RequestBody BusquedaRequest request) {
-        return  ResponseEntity.ok(productoService.listaProductosBusqueda(request));
-    }
+
 }

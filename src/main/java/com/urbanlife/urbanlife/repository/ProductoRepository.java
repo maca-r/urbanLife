@@ -85,10 +85,11 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
                                                          @Param("fechaFin")LocalDate fechaFin);
     @Modifying
     @Query(value = """
-            select p.id_producto,nombre from productos as p
+            select p.* from productos as p
             left join reservas as d on p.id_producto=d.id_producto
-            where nombre like "%:nombre%" and nombre like "%:nombreDos%"\s
-            nombre like "%:nombreTres%"
+            where nombre like %:nombre% and\s
+            nombre like %:nombreDos%\s
+            and nombre like %:nombreTres%
             and p.eliminar_producto = 0;
             """, nativeQuery = true)
     Collection<Productos> listaProductosBaseNombreReserva(
@@ -98,11 +99,12 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
     );
     @Modifying
     @Query(value = """
-                select p.id_producto,nombre from productos as p
+                select p.* from productos as p
                 left join reservas as d on p.id_producto=d.id_producto
                 where( d.fecha_inicio_alquiler not between :fechaInicio and :fechaFin
                 and d.fecha_fin_alquiler not between :fechaInicio and :fechaFin)\s
-                or d.fecha_inicio_alquiler is null and nombre like "%:nombre%";
+                or d.fecha_inicio_alquiler is null and nombre like %:nombre%
+                and p.eliminar_producto = 0;
             """, nativeQuery = true)
     Collection<Productos> listaProductosBaseReserva(
         @Param("nombre") String nombre,
