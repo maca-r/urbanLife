@@ -68,9 +68,9 @@ public class SecurityConfiguration {
                 //----Mejorar seguridad--------------------------------
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
                 //----Volnurabilidad al ingresar el ID--------------------------------
-                .requestMatchers(GET, "/testing/{id}").hasAuthority(CLIENTE_READ.name())
+                .requestMatchers(GET, "/auth/usuarios/**").hasAuthority(CLIENTE_READ.name())
                 .requestMatchers(GET, "/listausuarios-all").hasAuthority(ADMIN_READ.name())
-                .requestMatchers(POST, "/reservarProducto").hasAnyAuthority(ADMIN_CREATE.name(), CLIENTE_CREATE.name())
+                .requestMatchers(POST, "/auth/usuarios/**").hasAnyAuthority(ADMIN_CREATE.name(), CLIENTE_CREATE.name())
                 .requestMatchers(GET, "/listareservas-all").hasAuthority(ADMIN_READ.name())
 
                 .anyRequest()

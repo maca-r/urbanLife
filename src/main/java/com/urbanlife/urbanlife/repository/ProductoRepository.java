@@ -34,6 +34,7 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
                     "VALUES (:URL_IMAGEN,:id_producto)", nativeQuery = true)
     void resgistrarImagenesConProducto(@Param("URL_IMAGEN") String URL_IMAGEN,
                                        @Param("id_producto") Integer id_producto);
+
     @Modifying
     @Query(value = """
             UPDATE productos
@@ -111,4 +112,13 @@ public interface ProductoRepository extends JpaRepository<Productos, Integer> {
         @Param("fechaInicio")LocalDate fechaInicio,
         @Param("fechaFin")LocalDate fechaFin
     );
+
+    @Modifying
+    @Query(value = """
+            select p.* from productos as p\s
+            inner join favoritos as f
+            where p.id_producto = f.id_producto
+            and f.id_usuario = :idUsuario""", nativeQuery = true)
+    Collection<Productos> listaFavoritos(@Param("idUsuario")Integer idUsuario);
+
 }

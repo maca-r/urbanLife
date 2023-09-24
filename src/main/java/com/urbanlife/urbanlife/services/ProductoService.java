@@ -166,7 +166,7 @@ public class ProductoService implements IProductoService {
             changes = true;
         }
 
-        if (updateRequest.getPrecio() != null && updateRequest.getPrecio() != producto.get().getPrecio()) {
+        if (updateRequest.getPrecio() != null && !updateRequest.getPrecio().equals(producto.get().getPrecio())) {
             //producto.get().setPrecio(updateRequest.getPrecio());
             productoRepository.setPrecio(
                     producto.get().getIdProducto(),
@@ -254,6 +254,7 @@ public class ProductoService implements IProductoService {
                 request.getFechaFin()
         );
     }
+    @Override
     public Collection<ProductosAletoriosDTO> listaProductosBusqueda(BusquedaRequest request) {
         Iterable<Productos> listaProductos = busquedaDelProducto(request);
 

@@ -32,14 +32,22 @@ public class UsuarioController {
     public ResponseEntity<?> reservarProducto(@RequestBody ReservaRequest request) {
         return ResponseEntity.ok(usuarioService.guardarReserva(request));
     }
-    @GetMapping("/testing")
-    public String mensajeGetPrueba() {
-        return "Mensaje de prueba";
-    }
-
     @GetMapping("/listareservas-all")
     public ResponseEntity<Collection<Reservas>> listarProductos() {
         return ResponseEntity.ok(reservaService.listaDeReservas2());
     }
-
+    @PostMapping("/registrar-favorito/{idUsuario}/{idProducto}")
+    public ResponseEntity<?> removeOrAddFromFavorito(@PathVariable Integer idUsuario,
+                                                     @PathVariable Integer idProducto) {
+        try {
+            usuarioService.removeOrAddFromFavorito(idProducto, idUsuario);
+            return ResponseEntity.ok("Producto registrado or eliminado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al eliminar el producto de favoritos");
+        }
+    }
+    @GetMapping("/listafavoritos-all/{id}")
+    public ResponseEntity<?> listaFavoritos(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.listaFavoritosFromUser(id));
+    }
 }

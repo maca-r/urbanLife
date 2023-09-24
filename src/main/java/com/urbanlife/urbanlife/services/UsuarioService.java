@@ -2,14 +2,19 @@ package com.urbanlife.urbanlife.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanlife.urbanlife.exception.ResourceNotFoundException;
+import com.urbanlife.urbanlife.models.Dto.ProductosAletoriosDTO;
+import com.urbanlife.urbanlife.models.Favoritos;
+import com.urbanlife.urbanlife.models.Productos;
 import com.urbanlife.urbanlife.models.Reservas;
 import com.urbanlife.urbanlife.models.request.ReservaRequest;
 import com.urbanlife.urbanlife.models.response.UsuarioResponse;
 import com.urbanlife.urbanlife.models.usuario.RolUser;
 import com.urbanlife.urbanlife.models.usuario.Usuario;
+import com.urbanlife.urbanlife.repository.FavoritosRepository;
 import com.urbanlife.urbanlife.repository.ProductoRepository;
 import com.urbanlife.urbanlife.repository.ReservaRepository;
 import com.urbanlife.urbanlife.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,11 @@ public class UsuarioService {
     private final UserRepository userRepository;
     private final ReservaRepository reservaRepository;
     private final ProductoRepository productoRepository;
+    private final FavoritosRepository favoritosRepository;
+    private final ImagenService imagenService;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     private static final Logger logger = Logger.getLogger(ProductoService.class);
     public boolean existsCustomerById(Integer id) {
@@ -58,7 +68,7 @@ public class UsuarioService {
         logger.info("Lista Usuarios: Proceso Finalizado con Exito!");
         return listaUsuario;
     }
-    public String  guardarReserva(ReservaRequest request) {
+    public String guardarReserva(ReservaRequest request) {
         checkIfProductoExistsOrThrow(request.getIdUsuario());
         var reserva = Reservas.builder()
                         .fechaReserva(LocalDate.now())
@@ -84,6 +94,37 @@ public class UsuarioService {
     public Collection<Reservas> listaDeReservas() {
         return reservaRepository.findAll();
     }
+
+    private void guardarFavorito(Integer idProducto, Integer idUsuario) {
+        userRepository.registrarFavoritoUsuario(idUsuario, idProducto);
+    }
+    private void removeFromFavorito(Integer idProducto, Integer idUsuario) {
+        Favoritos favorito = favoritosRepository.busquedaFavorito(idProducto, idUsuario).get();
+        favoritosRepository.deleteById(favorito.getIdFavoritos());
+    }
+    public void removeOrAddFromFavorito(Integer idProducto, Integer idUsuario) {
+        checkIfProductoExistsOrThrow(idUsuario);
+        Productos productos = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
+        if (favoritosRepository.busquedaFavorito(idProducto, idUsuario).isEmpty())
+            removeFromFavorito(idProducto, idUsuario);
+        else
+            guardarFavorito(idProducto, idUsuario);
+    }
+    public Collection<ProductosAletoriosDTO> listaFavoritosFromUser(Integer idUser) {
+        checkIfProductoExistsOrThrow(idUser);
+        Iterable<Productos> listaProductos = productoRepository.listaFavoritos(idUser);
+        Set<ProductosAletoriosDTO> listaProductosDTO = new HashSet<ProductosAletoriosDTO>();
+        for (Productos productos : listaProductos) {
+            listaProductosDTO.add(objectMapper.convertValue(productos, ProductosAletoriosDTO.class));
+        }
+        logger.info("Lista Productos Favoritos: Proceso Finalizado con Exito!");
+        return listaProductosDTO
+                .stream()
+                .peek(productoDTO -> productoDTO.setImagenes(imagenService.listarImagenesPorProducto(productoDTO.getIdProducto())))
+                .collect(Collectors.toList());
+    }
+
 }
 
 
