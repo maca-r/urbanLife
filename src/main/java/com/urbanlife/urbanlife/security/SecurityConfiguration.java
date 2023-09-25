@@ -64,7 +64,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/talles/**").hasRole(ADMIN.name())
                 .requestMatchers(POST, "/talles/**").hasAuthority(ADMIN_CREATE.name())
 
-                .requestMatchers("/auth/usuarios**").hasAnyRole(CLIENTE.name(), ADMIN.name())
+                .requestMatchers("/auth/usuarios/**").hasAnyRole(CLIENTE.name(), ADMIN.name())
                 //----Mejorar seguridad--------------------------------
                 .requestMatchers(GET, "/obtener/{id}").hasAuthority(CLIENTE_READ.name())
                 //----Volnurabilidad al ingresar el ID--------------------------------
