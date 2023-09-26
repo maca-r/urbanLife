@@ -15,7 +15,7 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   function handleResize() {
-    if (window.innerWidth >= 460) {
+    if (window.innerWidth >= 860) {
       setMobileMenu(false);
     } else {
       setMobileMenu(true);
