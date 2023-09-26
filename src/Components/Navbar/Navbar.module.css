@@ -46,14 +46,14 @@ nav .rutas a {
 /* Estilos normales para los enlaces */
 .crearCuenta,
 .iniciarSesion {
-  color: black; /* Color de texto normal */
-  text-decoration: none; /* Elimina la subrayado de los enlaces */
+  color: black;
+  text-decoration: none;
 }
 
 /* Estilos de hover para los enlaces */
 .crearCuenta:hover,
 .iniciarSesion:hover {
-  background-color: #e5ca77c6; /* Cambia el color de texto en estado hover */
+  background-color: #e5ca77c6;
 }
 
 /*
